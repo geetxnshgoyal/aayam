@@ -57,25 +57,40 @@ export default function Home() {
         style={{ y, opacity }}
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
       >
-        {/* Rich background with multiple gradient layers */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0A0B16] via-[#180C16] to-[#350609]">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(86,15,40,0.25),transparent_50%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(32,9,52,0.25),transparent_40%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(86,15,40,0.18),transparent_40%)]" />
+        {/* Rich background with cyberpunk animated gradients */}
+        <div className="absolute inset-0 bg-[#0A0B16]">
+          {/* Cyberpunk city background simulation with animated gradients */}
+          <div className="absolute inset-0">
+            <div 
+              className="absolute inset-0 opacity-30"
+              style={{
+                background: 'linear-gradient(135deg, #0A0B16 0%, #200934 20%, #0A0B16 40%, #560F28 60%, #0A0B16 80%, #350609 100%)',
+                backgroundSize: '400% 400%',
+                animation: 'gradient-shift 20s ease infinite',
+              }}
+            />
+            {/* Dark overlay for text readability */}
+            <div className="absolute inset-0 bg-[#0A0B16]/60" />
+          </div>
+          
+          {/* Neon overlay gradient */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#560F28]/10 via-transparent to-[#200934]/10" />
+          
+          {/* Grain texture for cyberpunk feel */}
+          <div className="absolute inset-0 opacity-[0.015]" style={{ 
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="3.5" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E")',
+          }} />
+          
+          {/* Focused neon glow spots */}
+          <div className="absolute top-20 left-1/4 w-96 h-96 bg-[#560F28] rounded-full blur-[120px] opacity-25" />
+          <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-[#200934] rounded-full blur-[120px] opacity-30" />
         </div>
 
-        {/* Floating orbs - CSS animated */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute rounded-full animate-slow-drift animate-glow-pulse"
-            style={{ left: '10%', top: '20%', width: '350px', height: '350px', background: 'radial-gradient(circle, rgba(86,15,40,0.18) 0%, transparent 70%)', filter: 'blur(60px)' }} />
-          <div className="absolute rounded-full animate-slow-drift"
-            style={{ left: '60%', top: '10%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(32,9,52,0.18) 0%, transparent 70%)', filter: 'blur(70px)', animationDelay: '-8s', animationDuration: '30s' }} />
-          <div className="absolute rounded-full animate-slow-drift animate-glow-pulse"
-            style={{ left: '70%', top: '60%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(86,15,40,0.15) 0%, transparent 70%)', filter: 'blur(50px)', animationDelay: '-15s' }} />
-          <div className="absolute rounded-full animate-slow-drift"
-            style={{ left: '25%', top: '65%', width: '250px', height: '250px', background: 'radial-gradient(circle, rgba(32,9,52,0.12) 0%, transparent 70%)', filter: 'blur(40px)', animationDelay: '-20s', animationDuration: '35s' }} />
-          <div className="absolute rounded-full animate-slow-drift animate-glow-pulse"
-            style={{ left: '45%', top: '35%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(86,15,40,0.1) 0%, transparent 60%)', filter: 'blur(80px)', animationDelay: '-5s', animationDuration: '40s' }} />
+        {/* Floating neon orbs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute w-[500px] h-[500px] bg-[#560F28] rounded-full blur-[100px] opacity-15 animate-slow-drift" style={{ left: '10%', top: '20%' }} />
+          <div className="absolute w-[600px] h-[600px] bg-[#200934] rounded-full blur-[120px] opacity-20 animate-slow-drift" style={{ left: '70%', top: '40%', animationDelay: '-10s' }} />
+          <div className="absolute w-[400px] h-[400px] bg-[#350609] rounded-full blur-[90px] opacity-12 animate-slow-drift" style={{ left: '40%', top: '70%', animationDelay: '-15s' }} />
         </div>
 
         {/* Twinkling stars */}
@@ -111,6 +126,7 @@ export default function Home() {
                 alt="AAYAM"
                 fill
                 className="object-contain"
+                style={{ mixBlendMode: 'multiply' }}
                 priority
               />
             </motion.div>
@@ -169,15 +185,21 @@ export default function Home() {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 1, type: "spring", stiffness: 200 }}
-            className="flex justify-center gap-8 flex-wrap"
+            className="flex justify-center gap-6 flex-wrap max-w-5xl mx-auto"
           >
-            {['March 14-15', '2026', 'Newton School of Technology'].map((text) => (
+            {[
+              { text: 'March 14-15, 2026', icon: '📅' },
+              { text: 'Newton School of Technology', icon: '🎓' },
+              { text: 'Bangalore, India', icon: '📍' },
+            ].map((item) => (
               <motion.div
-                key={text}
-                className="px-6 py-3 bg-white/5 backdrop-blur-md rounded-full border border-[#560F28]/20"
-                whileHover={{ scale: 1.1, borderColor: 'rgba(86,15,40,0.8)' }}
+                key={item.text}
+                className="px-6 py-3 bg-white/5 backdrop-blur-md rounded-full border border-[#560F28]/40"
+                whileHover={{ scale: 1.05, borderColor: 'rgba(86,15,40,0.8)' }}
               >
-                <span className="text-[#560F28] font-semibold">{text}</span>
+                <span className="text-white font-semibold">
+                  {item.icon} {item.text}
+                </span>
               </motion.div>
             ))}
           </motion.div>
@@ -185,8 +207,23 @@ export default function Home() {
       </motion.section>
 
       {/* Stats Section */}
-      <section className="relative py-32 bg-gradient-to-b from-black via-gray-950 to-black overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyMjAsMjAsMzgsMC4xMikiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUlIiBoZWlnaHQ9IjEwMCUlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-20" />
+      <section className="relative py-32 bg-[#0A0B16] overflow-hidden">
+        {/* Cyberpunk background layer */}
+        <div className="absolute inset-0">
+          <div 
+            className="absolute inset-0 opacity-35"
+            style={{
+              background: 'linear-gradient(225deg, #200934 0%, #560F28 15%, #0A0B16 30%, #350609 50%, #0A0B16 70%, #200934 85%, #560F28 100%)',
+              backgroundSize: '400% 400%',
+              animation: 'gradient-shift 30s ease infinite',
+            }}
+          />
+          <div className="absolute inset-0 bg-[#0A0B16]/50" />
+        </div>
+        
+        {/* Neon accent */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#560F28] rounded-full blur-[150px] opacity-15" />
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyMjAsMjAsMzgsMC4xMikiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUlIiBoZWlnaHQ9IjEwMCUlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-10" />
 
         <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
           <motion.div
@@ -219,8 +256,14 @@ export default function Home() {
                 whileHover={{ scale: 1.05 }}
                 className="relative group"
               >
-                <div className="relative bg-gradient-to-br from-[#180C16] to-[#350609] p-8 rounded-3xl border border-[#560F28]/20 backdrop-blur-xl overflow-hidden hover:border-[#560F28]/40 transition-colors duration-300">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#560F28]/10 to-[#200934]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative bg-[#180C16] p-8 rounded-3xl border border-[#560F28]/30 backdrop-blur-xl overflow-hidden hover:border-[#560F28]/60 transition-all duration-300 shadow-lg shadow-[#560F28]/10 neon-border group scanline-effect">
+                  {/* Corner accents */}
+                  <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#560F28]/50 rounded-tl-3xl" />
+                  <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-[#560F28]/50 rounded-tr-3xl" />
+                  <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-[#560F28]/50 rounded-bl-3xl" />
+                  <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#560F28]/50 rounded-br-3xl" />
+                  
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#560F28]/15 to-[#200934]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                   <div className="relative z-10">
                     <motion.div
@@ -244,11 +287,25 @@ export default function Home() {
 
       {/* Highlights Section */}
       <section className="relative py-32 bg-[#0A0B16] overflow-hidden">
+        {/* Animated cyberpunk background */}
         <div className="absolute inset-0">
-          <div className="absolute rounded-full animate-slow-drift"
-            style={{ left: '15%', top: '30%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(220,20,38,0.1) 0%, transparent 60%)', filter: 'blur(80px)' }} />
-          <div className="absolute rounded-full animate-slow-drift"
-            style={{ left: '65%', top: '40%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(59,31,106,0.08) 0%, transparent 60%)', filter: 'blur(70px)', animationDelay: '-10s' }} />
+          <div 
+            className="absolute inset-0 opacity-40"
+            style={{
+              background: 'linear-gradient(45deg, #350609 0%, #560F28 20%, #0A0B16 35%, #200934 50%, #0A0B16 65%, #560F28 80%, #350609 100%)',
+              backgroundSize: '400% 400%',
+              animation: 'gradient-shift 35s ease infinite',
+            }}
+          />
+          <div className="absolute inset-0 bg-[#0A0B16]/50" />
+        </div>
+        
+        {/* Neon glow accents */}
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#560F28] rounded-full blur-[140px] opacity-15" />
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#200934] rounded-full blur-[130px] opacity-18" />
+        <div className="absolute inset-0">
+          <div className="absolute w-[400px] h-[400px] bg-[#560F28] rounded-full blur-[100px] opacity-12 animate-slow-drift" style={{ left: '15%', top: '30%' }} />
+          <div className="absolute w-[350px] h-[350px] bg-[#200934] rounded-full blur-[90px] opacity-10 animate-slow-drift" style={{ left: '65%', top: '40%', animationDelay: '-10s' }} />
         </div>
 
         <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
@@ -284,7 +341,11 @@ export default function Home() {
                 whileHover={{ scale: 1.02, y: -8 }}
                 className="group relative"
               >
-                <div className="relative h-full bg-gradient-to-br from-[#180C16] via-[#200934] to-[#350609] p-8 rounded-3xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300">
+                <div className="relative h-full bg-[#180C16] p-8 rounded-3xl overflow-hidden border border-[#560F28]/20 hover:border-[#560F28]/50 transition-all duration-300 shadow-lg shadow-[#560F28]/10 neon-border group scanline-effect">
+                  {/* Corner accents */}
+                  <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-[#560F28]/40 rounded-tl-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-[#560F28]/40 rounded-br-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  
                   <div className={`absolute inset-0 bg-gradient-to-br ${highlight.gradient} opacity-0 group-hover:opacity-15 transition-opacity duration-500`} />
 
                   <div className="relative z-10">
@@ -312,8 +373,23 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-32 bg-gradient-to-b from-black via-gray-950 to-black overflow-hidden">
-        <div className="absolute inset-0 opacity-30">
+      <section className="relative py-32 bg-[#0A0B16] overflow-hidden">
+        {/* Cyberpunk street vibe background */}
+        <div className="absolute inset-0">
+          <div 
+            className="absolute inset-0 opacity-45"
+            style={{
+              background: 'linear-gradient(180deg, #560F28 0%, #350609 15%, #0A0B16 30%, #200934 50%, #0A0B16 70%, #560F28 85%, #200934 100%)',
+              backgroundSize: '100% 400%',
+              animation: 'gradient-shift 40s ease infinite',
+            }}
+          />
+          <div className="absolute inset-0 bg-[#0A0B16]/40" />
+        </div>
+        
+        {/* Central neon glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#560F28] rounded-full blur-[150px] opacity-20" />
+        <div className="absolute inset-0 opacity-20">
           {[...Array(3)].map((_, i) => (
             <div
               key={i}
@@ -341,7 +417,7 @@ export default function Home() {
           >
             <div className="absolute -inset-4 bg-gradient-to-r from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)] rounded-3xl blur-2xl opacity-10 animate-glow-pulse" />
 
-            <div className="relative bg-gradient-to-br from-[#180C16] via-[#200934] to-[#350609] p-16 rounded-3xl border border-[#560F28]/20 backdrop-blur-xl">
+            <div className="relative bg-[#180C16] p-16 rounded-3xl border border-[#560F28]/30 backdrop-blur-xl shadow-2xl shadow-[#560F28]/20 neon-border scanline-effect">
               <h2
                 className="text-5xl md:text-6xl font-black mb-8 bg-gradient-to-r from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)] bg-clip-text text-transparent animate-gradient-shift"
                 style={{ backgroundSize: '200% auto' }}

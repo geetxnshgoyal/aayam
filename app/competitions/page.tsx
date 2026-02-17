@@ -211,6 +211,18 @@ const categories = ['All', 'Hackathon', 'Coding', 'Open Source', 'Robotics', 'Ge
 export default function CompetitionsPage() {
   return (
     <div className="min-h-screen bg-[#0A0B16] text-white pt-32 pb-20">
+      {/* Intense neon atmosphere */}
+      <div className="fixed inset-0 pointer-events-none">
+        {/* Circuit pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: 'repeating-linear-gradient(0deg, #560F28 0px, transparent 1px, transparent 40px), repeating-linear-gradient(90deg, #560F28 0px, transparent 1px, transparent 40px)',
+        }} />
+        
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_30%,rgba(86,15,40,0.4),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_70%,rgba(32,9,52,0.35),transparent_50%)]" />
+        <div className="absolute rounded-full" style={{ left: '10%', top: '20%', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(86,15,40,0.2) 0%, transparent 70%)', filter: 'blur(80px)' }} />
+        <div className="absolute rounded-full" style={{ left: '70%', top: '60%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(32,9,52,0.15) 0%, transparent 70%)', filter: 'blur(70px)' }} />
+      </div>
       <InfiniteMarquee />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
@@ -274,7 +286,7 @@ export default function CompetitionsPage() {
                     viewport={{ once: true }}
                     className="group relative"
                   >
-                    <div className="relative h-full bg-gradient-to-br from-[#180C16] via-[#200934] to-[#350609] rounded-3xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+                    <div className="relative h-full bg-gradient-to-br from-[#200934] via-[#180C16] to-[#350609] rounded-3xl overflow-hidden border border-[#560F28]/20 hover:border-[#560F28]/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#560F28]/20"
                       style={{ boxShadow: '0 0 0 rgba(0,0,0,0)' }}
                       onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 25px 50px -12px ${comp.glowColor}`; }}
                       onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 0 0 rgba(0,0,0,0)'; }}
@@ -344,7 +356,7 @@ export default function CompetitionsPage() {
           viewport={{ once: true }}
           className="mt-24"
         >
-          <div className="relative bg-gradient-to-br from-[#180C16] via-[#200934] to-[#350609] rounded-3xl p-16 text-center border border-white/10 overflow-hidden">
+          <div className="relative bg-gradient-to-br from-[#200934] via-[#180C16] to-[#350609] rounded-3xl p-16 text-center border border-[#560F28]/30 overflow-hidden shadow-2xl shadow-[#560F28]/20">
             <div className="absolute inset-0 bg-gradient-to-r from-[#560F28]/10 via-[#200934]/10 to-[#350609]/10" />
             <div className="relative z-10">
               <h2 className="text-5xl font-black mb-6">Ready to Compete?</h2>

@@ -31,6 +31,11 @@ export default function GalleryPage() {
 
   return (
     <div className="min-h-screen bg-[#0A0B16] text-white pt-28 pb-20">
+      {/* Dark cyberpunk ambiance */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,rgba(86,15,40,0.3),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_60%,rgba(32,9,52,0.25),transparent_55%)]" />
+      </div>
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Hero */}
         <motion.div

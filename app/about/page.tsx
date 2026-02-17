@@ -46,6 +46,20 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-[#0A0B16] text-white pt-28 pb-20">
+      {/* Cyberpunk background effects */}
+      <div className="fixed inset-0 pointer-events-none">
+        {/* Tech pattern background - ADD YOUR IMAGE */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg width="60" height="60" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 0h60v60H0z" fill="none"/%3E%3Cpath d="M30 0v60M0 30h60" stroke="%23560F28" stroke-width="0.5" opacity="0.3"/%3E%3C/svg%3E")',
+            backgroundSize: '60px 60px'
+          }} />
+        </div>
+        
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(32,9,52,0.4),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(86,15,40,0.35),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(53,6,9,0.25),transparent_60%)]" />
+      </div>
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Hero */}
         <motion.div
@@ -110,13 +124,13 @@ export default function AboutPage() {
           className="mb-24"
         >
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-gradient-to-br from-[#180C16] to-[#350609] rounded-3xl p-10 border border-white/5">
+            <div className="bg-gradient-to-br from-[#200934] via-[#180C16] to-[#350609] rounded-3xl p-10 border border-[#560F28]/20 hover:border-[#560F28]/40 transition-all duration-300 shadow-lg shadow-[#560F28]/10">
               <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] bg-clip-text text-transparent">Our Vision</h3>
               <p className="text-gray-300 leading-relaxed text-lg">
                 To be the most impactful student-run techfest in India — a launchpad where the next generation of builders, creators, and innovators come together to push beyond what&apos;s possible.
               </p>
             </div>
-            <div className="bg-gradient-to-br from-[#180C16] to-[#350609] rounded-3xl p-10 border border-white/5">
+            <div className="bg-gradient-to-br from-[#200934] via-[#180C16] to-[#350609] rounded-3xl p-10 border border-[#560F28]/20 hover:border-[#560F28]/40 transition-all duration-300 shadow-lg shadow-[#560F28]/10">
               <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] bg-clip-text text-transparent">Our Mission</h3>
               <p className="text-gray-300 leading-relaxed text-lg">
                 Create a platform where technical excellence meets real-world impact. We believe in learning by building, competing, and collaborating — not just attending talks.

@@ -16,7 +16,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="relative w-36 h-14 mb-5">
-              <Image src="/images/logo.png" alt="AAYAM Logo" fill className="object-contain" />
+              <Image src="/images/logo.png" alt="AAYAM Logo" fill className="object-contain" style={{ mixBlendMode: 'multiply' }} />
             </div>
             <p className="text-gray-400 mb-2 text-sm leading-relaxed">
               Exploring New Dimensions of Technology

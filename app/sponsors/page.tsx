@@ -56,6 +56,11 @@ export default function SponsorsPage() {
 
   return (
     <div className="min-h-screen bg-[#0A0B16] text-white pt-28 pb-20">
+      {/* Vibrant background layers */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(32,9,52,0.35),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(86,15,40,0.3),transparent_50%)]" />
+      </div>
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Hero */}
         <motion.div
