@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import jwt from 'jsonwebtoken';
+import { sendAmbassadorApprovalEmail } from '@/lib/email';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 
@@ -55,16 +56,26 @@ export async function POST(request: Request) {
       throw error;
     }
 
-    // TODO: Send email notification to ambassador
-    // You can integrate email service here (e.g., Resend, SendGrid)
-    // Example:
-    // if (status === 'approved') {
-    //   await sendEmail({
-    //     to: ambassador.email,
-    //     subject: 'AAYAM Ambassador Application Approved!',
-    //     html: `Your referral code is: ${ambassador.referral_code}`
-    //   });
-    // }
+    // Send approval email
+    if (status === 'approved') {
+      try {
+        const loginUrl = process.env.NODE_ENV === 'production'
+          ? 'https://aayamfest.com/ambassador/login'
+          : 'http://localhost:3003/ambassador/login';
+
+        await sendAmbassadorApprovalEmail({
+          name: ambassador.name,
+          email: ambassador.email,
+          referralCode: ambassador.referral_code,
+          loginUrl,
+        });
+        
+        console.log(`Approval email sent to ${ambassador.email}`);
+      } catch (emailError) {
+        console.error('Failed to send approval email:', emailError);
+        // Don't fail the approval if email fails
+      }
+    }
 
     return NextResponse.json({
       message: `Ambassador ${status} successfully`,

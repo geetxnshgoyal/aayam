@@ -23,15 +23,7 @@ export async function POST(request: Request) {
       .eq('email', email)
       .single();
 
-    console.log('Supabase query error:', error);
-    console.log('Admin found:', admin ? 'YES' : 'NO');
-    if (admin) {
-      console.log('Admin email:', admin.email);
-      console.log('Password hash from DB:', admin.password);
-    }
-
     if (error || !admin) {
-      console.log('Admin not found or error occurred');
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
@@ -39,9 +31,7 @@ export async function POST(request: Request) {
     }
 
     // Verify password
-    console.log('Comparing password:', password);
     const isValidPassword = await bcrypt.compare(password, admin.password);
-    console.log('Password valid:', isValidPassword);
     
     if (!isValidPassword) {
       return NextResponse.json(
