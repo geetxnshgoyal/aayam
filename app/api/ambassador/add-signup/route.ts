@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Add signup
+    // Add signup with pending status
     const { data: signup, error: signupError } = await supabase
       .from('signups')
       .insert([
@@ -52,6 +52,7 @@ export async function POST(request: NextRequest) {
           participant_email,
           participant_phone,
           participant_college,
+          status: 'pending', // Requires admin approval
         },
       ])
       .select()
@@ -65,22 +66,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Update ambassador signup count
-    const { data: ambassador } = await supabase
-      .from('ambassadors')
-      .select('signup_count')
-      .eq('id', decoded.id)
-      .single();
-
-    if (ambassador) {
-      await supabase
-        .from('ambassadors')
-        .update({ signup_count: ambassador.signup_count + 1 })
-        .eq('id', decoded.id);
-    }
+    // NOTE: signup_count will be updated only when admin approves
 
     return NextResponse.json({
-      message: 'Signup added successfully',
+      message: 'Signup submitted for approval. Admin will verify and approve.',
       signup,
     });
   } catch (error) {
