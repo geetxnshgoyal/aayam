@@ -1,0 +1,221 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-manrope), 'Segoe UI', 'Helvetica Neue', sans-serif;
+  --font-display: var(--font-cinzel), 'Times New Roman', serif;
+}
+
+:root {
+  --midich: #0A0B16;
+  --mydiry: #180C16;
+  --black-red: #350609;
+  --energy: #200934;
+  --dc1426: #560F28;
+  --text-primary: #f7f0ea;
+  --text-muted: #b7a6b0;
+  --accent-glow: rgba(86, 15, 40, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background:
+    radial-gradient(1200px circle at 15% 20%, rgba(32, 9, 52, 0.45), transparent 60%),
+    radial-gradient(900px circle at 85% 10%, rgba(86, 15, 40, 0.38), transparent 55%),
+    linear-gradient(160deg, var(--midich) 0%, var(--mydiry) 48%, var(--black-red) 100%);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  font-display: swap;
+  text-rendering: optimizeSpeed;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: rgba(86, 15, 40, 0.35);
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0b12;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--energy) 0%, var(--dc1426) 100%);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #2d0f4a 0%, #7a1534 100%);
+}
+
+/* Performance-friendly CSS animations replacing JS timers */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-30px) scale(1.1);
+  }
+}
+
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes gradient-shift {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes bounce-x {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes logo-pulse {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 20px rgba(86, 15, 40, 0.3));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 42px rgba(86, 15, 40, 0.6));
+  }
+}
+
+@keyframes slow-drift {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(20px, -15px);
+  }
+
+  50% {
+    transform: translate(-10px, 20px);
+  }
+
+  75% {
+    transform: translate(-20px, -10px);
+  }
+}
+
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.animate-float {
+  animation: float var(--duration, 20s) ease-in-out infinite;
+}
+
+.animate-twinkle {
+  animation: twinkle var(--duration, 3s) ease-in-out infinite;
+}
+
+.animate-gradient-shift {
+  animation: gradient-shift 5s ease infinite;
+}
+
+.animate-bounce-x {
+  display: inline-block;
+  animation: bounce-x 1.2s ease-in-out infinite;
+}
+
+.logo-glow {
+  animation: logo-pulse 3s ease-in-out infinite;
+}
+
+.animate-slow-drift {
+  animation: slow-drift 25s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+
+  .custom-cursor,
+  .custom-cursor-dot {
+    display: none !important;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+
+  .animate-float,
+  .animate-twinkle,
+  .animate-gradient-shift,
+  .animate-bounce-x,
+  .logo-glow,
+  .animate-slow-drift,
+  .animate-glow-pulse {
+    animation: none;
+  }
+}

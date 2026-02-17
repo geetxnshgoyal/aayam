@@ -1,0 +1,130 @@
+'use client';
+
+import Link from 'next/link';
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { HiMenu, HiX } from 'react-icons/hi';
+
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: 'Home', href: '/' },
+    { name: 'Competitions', href: '/competitions' },
+    { name: 'Sponsors', href: '/sponsors' },
+    { name: 'About', href: '/about' },
+    { name: 'Gallery', href: '/gallery' },
+  ];
+
+  return (
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
+          ? 'bg-[#0A0B16]/90 backdrop-blur-xl shadow-[0_20px_60px_rgba(86,15,40,0.08)] border-b border-white/5'
+          : 'bg-transparent'
+        }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
+        <div className="flex items-center justify-between h-20">
+          <Link href="/" className="flex items-center group">
+            <div className="relative w-28 h-10 transition-all duration-300 group-hover:scale-105 group-hover:brightness-125">
+              <Image
+                src="/images/logo.png"
+                alt="AAYAM Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+          </Link>
+
+          <div className="hidden lg:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="relative px-5 py-2.5 text-gray-300 font-medium text-[15px] hover:text-white transition-colors duration-200 group"
+              >
+                <span className="relative z-10">{link.name}</span>
+                <span className="absolute inset-0 rounded-lg bg-white/0 group-hover:bg-white/5 transition-all duration-300" />
+                <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] transition-all duration-300 group-hover:w-[60%] rounded-full" />
+              </Link>
+            ))}
+            <div className="ml-4 h-6 w-px bg-white/10" />
+            <Link
+              href="/competitions"
+              className="ml-4 px-7 py-2.5 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] text-white font-semibold rounded-full text-sm hover:shadow-lg hover:shadow-[0_12px_30px_rgba(220,20,38,0.3)] transition-all duration-300 hover:scale-105 active:scale-95"
+            >
+              Register Now
+            </Link>
+          </div>
+
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden text-white p-2.5 hover:text-[#dc1426] transition-colors rounded-lg hover:bg-white/5"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <HiX size={26} /> : <HiMenu size={26} />}
+          </button>
+        </div>
+      </div>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="lg:hidden bg-[#0b1220]/95 backdrop-blur-xl border-t border-white/5"
+          >
+            <div className="px-6 py-6 space-y-1">
+              {navLinks.map((link, index) => (
+                <motion.div
+                  key={link.name}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="block text-white text-lg font-medium py-3 px-4 rounded-xl hover:text-[#dc1426] hover:bg-white/5 transition-all duration-200"
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
+              ))}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navLinks.length * 0.05 }}
+                className="pt-3"
+              >
+                <Link
+                  href="/competitions"
+                  onClick={() => setIsOpen(false)}
+                  className="block w-full px-8 py-4 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] text-white font-bold rounded-2xl text-center hover:shadow-lg hover:shadow-[0_12px_30px_rgba(220,20,38,0.3)] transition-all"
+                >
+                  Register Now
+                </Link>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
+  );
+}
