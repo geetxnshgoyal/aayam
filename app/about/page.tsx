@@ -13,12 +13,12 @@ export default function AboutPage() {
   ];
 
   const team = [
-    { name: 'Faculty Advisor', role: 'Dr. Rajesh Kumar', icon: HiAcademicCap, gradient: 'from-[var(--energy)] to-[var(--dc1426)]' },
-    { name: 'Lead Organizer', role: 'Priya Sharma', icon: HiUsers, gradient: 'from-[var(--dc1426)] to-[var(--black-red)]' },
-    { name: 'Technical Lead', role: 'Arjun Singh', icon: HiLightningBolt, gradient: 'from-[var(--energy)] to-[var(--midich)]' },
-    { name: 'Partnerships Lead', role: 'Neha Gupta', icon: HiGlobe, gradient: 'from-[var(--dc1426)] to-[var(--energy)]' },
-    { name: 'Design Lead', role: 'Rahul Verma', icon: HiStar, gradient: 'from-[var(--black-red)] to-[var(--dc1426)]' },
-    { name: 'Events Lead', role: 'Ananya Reddy', icon: FaTrophy, gradient: 'from-[var(--energy)] to-[var(--dc1426)]' },
+    { name: 'Dr. Rajesh Kumar', role: 'Faculty Advisor', icon: HiAcademicCap, gradient: 'from-[var(--energy)] to-[var(--dc1426)]' },
+    { name: 'Priya Sharma', role: 'Lead Organizer', icon: HiUsers, gradient: 'from-[var(--dc1426)] to-[var(--black-red)]' },
+    { name: 'Arjun Singh', role: 'Technical Lead', icon: HiLightningBolt, gradient: 'from-[var(--energy)] to-[var(--midich)]' },
+    { name: 'Neha Gupta', role: 'Partnerships Lead', icon: HiGlobe, gradient: 'from-[var(--dc1426)] to-[var(--energy)]' },
+    { name: 'Rahul Verma', role: 'Design Lead', icon: HiStar, gradient: 'from-[var(--black-red)] to-[var(--dc1426)]' },
+    { name: 'Ananya Reddy', role: 'Events Lead', icon: FaTrophy, gradient: 'from-[var(--energy)] to-[var(--dc1426)]' },
   ];
 
   const values = [
@@ -218,18 +218,18 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             {team.map((member, index) => (
               <motion.div
-                key={member.role}
+                key={member.name}
                 initial={{ scale: 0.8, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center group bg-gray-900/30 rounded-2xl p-6 border border-white/5"
+                className="text-center group bg-gray-900/30 rounded-2xl p-6 border border-white/5 hover:border-[#560F28]/40 transition-all duration-300"
               >
                 <div className={`inline-flex items-center justify-center w-16 h-16 mb-4 bg-gradient-to-br ${member.gradient} rounded-full group-hover:scale-110 transition-transform duration-300`}>
                   <member.icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-lg font-bold mb-1">{member.role}</h3>
-                <p className="text-gray-400 text-sm">{member.name}</p>
+                <h3 className="text-lg font-bold mb-1 text-white">{member.name}</h3>
+                <p className="text-gray-400 text-sm">{member.role}</p>
               </motion.div>
             ))}
           </div>
