@@ -21,6 +21,7 @@ export default function Navbar() {
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Competitions', href: '/competitions' },
+    { name: 'Ambassador', href: '/ambassador', highlight: true },
     { name: 'Sponsors', href: '/sponsors' },
     { name: 'About', href: '/about' },
     { name: 'Gallery', href: '/gallery' },
@@ -55,11 +56,22 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="relative px-5 py-2.5 text-gray-300 font-medium text-[15px] hover:text-white transition-colors duration-200 group"
+                className={`relative px-5 py-2.5 font-medium text-[15px] transition-colors duration-200 group ${
+                  link.highlight 
+                    ? 'text-transparent bg-clip-text bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)]' 
+                    : 'text-gray-300 hover:text-white'
+                }`}
               >
                 <span className="relative z-10">{link.name}</span>
-                <span className="absolute inset-0 rounded-lg bg-white/0 group-hover:bg-white/5 transition-all duration-300" />
-                <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] transition-all duration-300 group-hover:w-[60%] rounded-full" />
+                {link.highlight && (
+                  <span className="absolute inset-0 rounded-lg border border-[#560F28]/30 group-hover:border-[#560F28]/60 transition-all duration-300" />
+                )}
+                {!link.highlight && (
+                  <>
+                    <span className="absolute inset-0 rounded-lg bg-white/0 group-hover:bg-white/5 transition-all duration-300" />
+                    <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] transition-all duration-300 group-hover:w-[60%] rounded-full" />
+                  </>
+                )}
               </Link>
             ))}
             <div className="ml-4 h-6 w-px bg-white/10" />
@@ -101,7 +113,11 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="block text-white text-lg font-medium py-3 px-4 rounded-xl hover:text-[#dc1426] hover:bg-white/5 transition-all duration-200"
+                    className={`block text-lg font-medium py-3 px-4 rounded-xl transition-all duration-200 ${
+                      link.highlight
+                        ? 'bg-gradient-to-r from-[var(--energy)]/10 to-[var(--dc1426)]/10 border border-[#560F28]/30 text-transparent bg-clip-text bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)]'
+                        : 'text-white hover:text-[#dc1426] hover:bg-white/5'
+                    }`}
                   >
                     {link.name}
                   </Link>
