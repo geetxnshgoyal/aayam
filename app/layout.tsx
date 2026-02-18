@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import LiquidCursor from "@/components/LiquidCursor";
+import DynamicBackground from "@/components/DynamicBackground";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -35,11 +36,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${manrope.className} ${manrope.variable} ${cinzel.variable} antialiased`}>
+      <body className={`${manrope.className} ${manrope.variable} ${cinzel.variable} antialiased bg-[#0A0B16]`}>
+        <DynamicBackground type="combined" opacity={1} />
         <CustomCursor />
         <LiquidCursor />
         <Navbar />
-        <main className="relative">
+        <main className="relative z-10">
           {children}
         </main>
         <Footer />
