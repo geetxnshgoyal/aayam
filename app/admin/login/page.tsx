@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { HiMail, HiLockClosed, HiShieldCheck } from 'react-icons/hi';
 import Link from 'next/link';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -109,7 +110,8 @@ export default function AdminLoginPage() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white"
+                  disabled={loading}
+                  className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="admin@aayam.com"
                 />
               </div>
@@ -127,7 +129,8 @@ export default function AdminLoginPage() {
                   value={formData.password}
                   onChange={handleChange}
                   required
-                  className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white"
+                  disabled={loading}
+                  className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="Enter admin password"
                 />
               </div>
@@ -136,9 +139,16 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 bg-gradient-to-r from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)] rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-[0_12px_30px_rgba(220,20,38,0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-4 bg-gradient-to-r from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)] rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-[0_12px_30px_rgba(220,20,38,0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              {loading ? 'Logging in...' : 'Access Admin Panel'}
+              {loading ? (
+                <>
+                  <LoadingSpinner size="sm" color="white" />
+                  <span>Logging in...</span>
+                </>
+              ) : (
+                'Access Admin Panel'
+              )}
             </button>
           </form>
 

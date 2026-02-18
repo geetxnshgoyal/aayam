@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { HiUsers, HiClipboardCopy, HiPlus, HiLogout, HiTrendingUp, HiStar } from 'react-icons/hi';
 import { FaTrophy, FaMedal } from 'react-icons/fa';
+import LoadingSpinner from '@/components/LoadingSpinner';
+import Tasks from '@/components/Tasks';
 
 interface Ambassador {
   id: string;
@@ -31,6 +33,10 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [showAddSignup, setShowAddSignup] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [activeTab, setActiveTab] = useState<'signups' | 'tasks'>('signups');
+  const [token, setToken] = useState('');
 
   const [newSignup, setNewSignup] = useState({
     participant_name: '',
@@ -40,11 +46,12 @@ export default function DashboardPage() {
   });
 
   useEffect(() => {
-    const token = localStorage.getItem('ambassador_token');
-    if (!token) {
+    const tokenFromStorage = localStorage.getItem('ambassador_token');
+    if (!tokenFromStorage) {
       router.push('/ambassador/login');
       return;
     }
+    setToken(tokenFromStorage);
     fetchDashboardData();
   }, []);
 
@@ -73,6 +80,8 @@ export default function DashboardPage() {
 
   const handleAddSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitting(true);
+    setSubmitError('');
     const token = localStorage.getItem('ambassador_token');
 
     try {
@@ -85,6 +94,8 @@ export default function DashboardPage() {
         body: JSON.stringify(newSignup),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         setNewSignup({
           participant_name: '',
@@ -94,9 +105,14 @@ export default function DashboardPage() {
         });
         setShowAddSignup(false);
         fetchDashboardData(); // Refresh data
+      } else {
+        setSubmitError(data.error || 'Failed to add signup');
       }
     } catch (error) {
       console.error('Error adding signup:', error);
+      setSubmitError('Error adding signup. Please try again.');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -238,16 +254,50 @@ export default function DashboardPage() {
           </div>
         </motion.div>
 
-        {/* Add Signup Button */}
-        <div className="mb-8">
+        {/* Tabs */}
+        <div className="flex gap-3 mb-8">
           <button
-            onClick={() => setShowAddSignup(!showAddSignup)}
-            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] rounded-xl font-semibold hover:shadow-lg transition-all"
+            onClick={() => setActiveTab('signups')}
+            className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+              activeTab === 'signups'
+                ? 'bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] text-white'
+                : 'bg-white/5 text-gray-400 hover:bg-white/10'
+            }`}
           >
-            <HiPlus className="w-5 h-5" />
-            {showAddSignup ? 'Cancel' : 'Add New Signup'}
+            <HiUsers className="inline mr-2 w-5 h-5" />
+            Signups
+          </button>
+          <button
+            onClick={() => setActiveTab('tasks')}
+            className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+              activeTab === 'tasks'
+                ? 'bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] text-white'
+                : 'bg-white/5 text-gray-400 hover:bg-white/10'
+            }`}
+          >
+            <HiStar className="inline mr-2 w-5 h-5" />
+            Tasks & Points
           </button>
         </div>
+
+        {/* Tasks Tab */}
+        {activeTab === 'tasks' && token && (
+          <Tasks ambassadorId={ambassador?.id || ''} token={token} />
+        )}
+
+        {/* Signups Tab */}
+        {activeTab === 'signups' && (
+          <>
+            {/* Add Signup Button */}
+            <div className="mb-8">
+              <button
+                onClick={() => setShowAddSignup(!showAddSignup)}
+                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] rounded-xl font-semibold hover:shadow-lg transition-all"
+              >
+                <HiPlus className="w-5 h-5" />
+                {showAddSignup ? 'Cancel' : 'Add New Signup'}
+              </button>
+            </div>
 
         {/* Add Signup Form */}
         {showAddSignup && (
@@ -257,6 +307,11 @@ export default function DashboardPage() {
             className="bg-gradient-to-br from-[#180C16] to-[#0A0B16] rounded-2xl p-6 border border-[#560F28]/20 mb-8"
           >
             <h3 className="text-xl font-bold mb-4">Add Participant Signup</h3>
+            {submitError && (
+              <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+                {submitError}
+              </div>
+            )}
             <form onSubmit={handleAddSignup} className="grid md:grid-cols-2 gap-4">
               <input
                 type="text"
@@ -264,7 +319,8 @@ export default function DashboardPage() {
                 value={newSignup.participant_name}
                 onChange={(e) => setNewSignup({ ...newSignup, participant_name: e.target.value })}
                 required
-                className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white"
+                disabled={submitting}
+                className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
               />
               <input
                 type="email"
@@ -272,27 +328,38 @@ export default function DashboardPage() {
                 value={newSignup.participant_email}
                 onChange={(e) => setNewSignup({ ...newSignup, participant_email: e.target.value })}
                 required
-                className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white"
+                disabled={submitting}
+                className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
               />
               <input
                 type="tel"
                 placeholder="Participant Phone"
                 value={newSignup.participant_phone}
                 onChange={(e) => setNewSignup({ ...newSignup, participant_phone: e.target.value })}
-                className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white"
+                disabled={submitting}
+                className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
               />
               <input
                 type="text"
                 placeholder="Participant College"
                 value={newSignup.participant_college}
                 onChange={(e) => setNewSignup({ ...newSignup, participant_college: e.target.value })}
-                className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white"
+                disabled={submitting}
+                className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
               />
               <button
                 type="submit"
-                className="md:col-span-2 py-3 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] rounded-xl font-semibold hover:shadow-lg transition-all"
+                disabled={submitting}
+                className="md:col-span-2 py-3 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                Add Signup
+                {submitting ? (
+                  <>
+                    <LoadingSpinner size="sm" color="white" />
+                    <span>Processing...</span>
+                  </>
+                ) : (
+                  'Add Signup'
+                )}
               </button>
             </form>
           </motion.div>
@@ -327,6 +394,8 @@ export default function DashboardPage() {
             </div>
           )}
         </div>
+          </>
+        )}
       </div>
     </div>
   );

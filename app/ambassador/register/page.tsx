@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { HiUserAdd, HiMail, HiPhone, HiAcademicCap, HiLockClosed } from 'react-icons/hi';
 import Link from 'next/link';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 export default function AmbassadorRegisterPage() {
   const [formData, setFormData] = useState({
@@ -145,7 +146,8 @@ export default function AmbassadorRegisterPage() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white"
+                  disabled={loading}
+                  className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="John Doe"
                 />
               </div>
@@ -164,7 +166,8 @@ export default function AmbassadorRegisterPage() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white"
+                  disabled={loading}
+                  className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="john@example.com"
                 />
               </div>
@@ -185,7 +188,8 @@ export default function AmbassadorRegisterPage() {
                     onChange={handleChange}
                     required
                     minLength={8}
-                    className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white"
+                    disabled={loading}
+                    className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="Min. 8 characters"
                   />
                 </div>
@@ -203,7 +207,8 @@ export default function AmbassadorRegisterPage() {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     required
-                    className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white"
+                    disabled={loading}
+                    className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="Re-enter password"
                   />
                 </div>
@@ -223,7 +228,8 @@ export default function AmbassadorRegisterPage() {
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white"
+                  disabled={loading}
+                  className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="+91 XXXXX XXXXX"
                 />
               </div>
@@ -243,7 +249,8 @@ export default function AmbassadorRegisterPage() {
                     value={formData.college}
                     onChange={handleChange}
                     required
-                    className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white"
+                    disabled={loading}
+                    className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="Your College Name"
                   />
                 </div>
@@ -258,7 +265,8 @@ export default function AmbassadorRegisterPage() {
                   value={formData.year}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white"
+                  disabled={loading}
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <option value="">Select Year</option>
                   <option value="1st Year">1st Year</option>
@@ -280,8 +288,9 @@ export default function AmbassadorRegisterPage() {
                 value={formData.whyAmbassador}
                 onChange={handleChange}
                 required
+                disabled={loading}
                 rows={4}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white resize-none"
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white resize-none disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="Tell us why you want to represent AAYAM on your campus..."
               />
             </div>
@@ -290,9 +299,16 @@ export default function AmbassadorRegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 bg-gradient-to-r from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)] rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-[0_12px_30px_rgba(220,20,38,0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-4 bg-gradient-to-r from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)] rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-[0_12px_30px_rgba(220,20,38,0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              {loading ? 'Submitting...' : 'Submit Application'}
+              {loading ? (
+                <>
+                  <LoadingSpinner size="sm" color="white" />
+                  <span>Submitting...</span>
+                </>
+              ) : (
+                'Submit Application'
+              )}
             </button>
           </form>
 

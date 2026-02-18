@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { HiCheckCircle, HiXCircle, HiClock, HiTrendingUp, HiUsers, HiUserGroup, HiLogout } from 'react-icons/hi';
 import { FaTrophy } from 'react-icons/fa';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 interface Ambassador {
   id: string;
@@ -58,6 +59,7 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'all' | 'signups' | 'signupPending' | 'bulkUpload'>('pending');
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [uploadResult, setUploadResult] = useState<any>(null);
+  const [loadingAction, setLoadingAction] = useState<string | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem('admin_token');
@@ -93,6 +95,7 @@ export default function AdminDashboard() {
   };
 
   const handleApprove = async (ambassadorId: string) => {
+    setLoadingAction(`approve-${ambassadorId}`);
     try {
       const token = localStorage.getItem('admin_token');
       const response = await fetch('/api/admin/approve-ambassador', {
@@ -109,10 +112,13 @@ export default function AdminDashboard() {
       }
     } catch (error) {
       console.error('Error approving ambassador:', error);
+    } finally {
+      setLoadingAction(null);
     }
   };
 
   const handleReject = async (ambassadorId: string) => {
+    setLoadingAction(`reject-${ambassadorId}`);
     try {
       const token = localStorage.getItem('admin_token');
       const response = await fetch('/api/admin/approve-ambassador', {
@@ -129,6 +135,8 @@ export default function AdminDashboard() {
       }
     } catch (error) {
       console.error('Error rejecting ambassador:', error);
+    } finally {
+      setLoadingAction(null);
     }
   };
 
@@ -139,6 +147,7 @@ export default function AdminDashboard() {
   };
 
   const handleApproveSignup = async (signupId: string) => {
+    setLoadingAction(`approve-signup-${signupId}`);
     try {
       const token = localStorage.getItem('admin_token');
       const response = await fetch('/api/admin/approve-signup', {
@@ -152,15 +161,16 @@ export default function AdminDashboard() {
 
       if (response.ok) {
         fetchData();
-        alert('Signup approved successfully!');
       }
     } catch (error) {
       console.error('Error approving signup:', error);
-      alert('Failed to approve signup');
+    } finally {
+      setLoadingAction(null);
     }
   };
 
   const handleRejectSignup = async (signupId: string) => {
+    setLoadingAction(`reject-signup-${signupId}`);
     try {
       const token = localStorage.getItem('admin_token');
       const response = await fetch('/api/admin/approve-signup', {
@@ -174,11 +184,11 @@ export default function AdminDashboard() {
 
       if (response.ok) {
         fetchData();
-        alert('Signup rejected');
       }
     } catch (error) {
       console.error('Error rejecting signup:', error);
-      alert('Failed to reject signup');
+    } finally {
+      setLoadingAction(null);
     }
   };
 
@@ -410,17 +420,27 @@ export default function AdminDashboard() {
                           <div className="flex gap-2">
                             <button
                               onClick={() => handleApprove(ambassador.id)}
-                              className="p-2 bg-green-500/20 hover:bg-green-500/30 border border-green-500/30 rounded-lg transition-colors"
+                              disabled={loadingAction === `approve-${ambassador.id}`}
+                              className="p-2 bg-green-500/20 hover:bg-green-500/30 border border-green-500/30 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-10"
                               title="Approve"
                             >
-                              <HiCheckCircle className="w-5 h-5 text-green-400" />
+                              {loadingAction === `approve-${ambassador.id}` ? (
+                                <LoadingSpinner size="sm" color="#4ade80" />
+                              ) : (
+                                <HiCheckCircle className="w-5 h-5 text-green-400" />
+                              )}
                             </button>
                             <button
                               onClick={() => handleReject(ambassador.id)}
-                              className="p-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/30 rounded-lg transition-colors"
+                              disabled={loadingAction === `reject-${ambassador.id}`}
+                              className="p-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/30 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-10"
                               title="Reject"
                             >
-                              <HiXCircle className="w-5 h-5 text-red-400" />
+                              {loadingAction === `reject-${ambassador.id}` ? (
+                                <LoadingSpinner size="sm" color="#f87171" />
+                              ) : (
+                                <HiXCircle className="w-5 h-5 text-red-400" />
+                              )}
                             </button>
                           </div>
                         </td>
@@ -479,17 +499,27 @@ export default function AdminDashboard() {
                           <div className="flex gap-2">
                             <button
                               onClick={() => handleApproveSignup(signup.id)}
-                              className="p-2 bg-green-500/20 hover:bg-green-500/30 border border-green-500/30 rounded-lg transition-colors"
+                              disabled={loadingAction === `approve-signup-${signup.id}`}
+                              className="p-2 bg-green-500/20 hover:bg-green-500/30 border border-green-500/30 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-10"
                               title="Approve"
                             >
-                              <HiCheckCircle className="w-5 h-5 text-green-400" />
+                              {loadingAction === `approve-signup-${signup.id}` ? (
+                                <LoadingSpinner size="sm" color="#4ade80" />
+                              ) : (
+                                <HiCheckCircle className="w-5 h-5 text-green-400" />
+                              )}
                             </button>
                             <button
                               onClick={() => handleRejectSignup(signup.id)}
-                              className="p-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/30 rounded-lg transition-colors"
+                              disabled={loadingAction === `reject-signup-${signup.id}`}
+                              className="p-2 bg-red-500/20 hover:bg-red-500/30 border border-red-500/30 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-10"
                               title="Reject"
                             >
-                              <HiXCircle className="w-5 h-5 text-red-400" />
+                              {loadingAction === `reject-signup-${signup.id}` ? (
+                                <LoadingSpinner size="sm" color="#f87171" />
+                              ) : (
+                                <HiXCircle className="w-5 h-5 text-red-400" />
+                              )}
                             </button>
                           </div>
                         </td>
