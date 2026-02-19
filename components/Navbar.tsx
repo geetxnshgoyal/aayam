@@ -3,10 +3,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiMenu, HiX } from 'react-icons/hi';
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -21,7 +23,7 @@ export default function Navbar() {
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Competitions', href: '/competitions' },
-    { name: 'Ambassador', href: '/ambassador', highlight: true },
+    { name: 'Ambassador', href: '/ambassador' },
     { name: 'Sponsors', href: '/sponsors' },
     { name: 'About', href: '/about' },
     { name: 'Gallery', href: '/gallery' },
@@ -32,10 +34,7 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-          ? 'bg-[#0A0B16]/90 backdrop-blur-xl shadow-[0_20px_60px_rgba(86,15,40,0.08)] border-b border-white/5'
-          : 'bg-transparent'
-        }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-black/40 backdrop-blur-md border-b border-white/5`}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
         <div className="flex items-center justify-between h-20">
@@ -52,32 +51,30 @@ export default function Navbar() {
           </Link>
 
           <div className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`relative px-5 py-2.5 font-medium text-[15px] transition-colors duration-200 group ${
-                  link.highlight 
-                    ? 'text-transparent bg-clip-text bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)]' 
-                    : 'text-gray-300 hover:text-white'
-                }`}
-              >
-                <span className="relative z-10">{link.name}</span>
-                {link.highlight && (
-                  <span className="absolute inset-0 rounded-lg border border-[#560F28]/30 group-hover:border-[#560F28]/60 transition-all duration-300" />
-                )}
-                {!link.highlight && (
-                  <>
-                    <span className="absolute inset-0 rounded-lg bg-white/0 group-hover:bg-white/5 transition-all duration-300" />
-                    <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] transition-all duration-300 group-hover:w-[60%] rounded-full" />
-                  </>
-                )}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`relative px-5 py-2.5 font-medium text-[15px] transition-colors duration-200 group ${isActive ? 'text-white' : 'text-gray-300 hover:text-white'
+                    }`}
+                >
+                  <span className="relative z-10">{link.name}</span>
+                  {isActive && (
+                    <motion.div
+                      layoutId="navbar-indicator"
+                      className="absolute inset-0 rounded-full bg-white/10"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                </Link>
+              );
+            })}
             <div className="ml-4 h-6 w-px bg-white/10" />
             <Link
               href="/competitions"
-              className="ml-4 px-7 py-2.5 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] text-white font-semibold rounded-full text-sm hover:shadow-lg hover:shadow-[0_12px_30px_rgba(220,20,38,0.3)] transition-all duration-300 hover:scale-105 active:scale-95"
+              className="ml-4 px-7 py-2.5 bg-gradient-to-r from-[var(--horror-magenta)] to-[var(--horror-purple)] text-white font-semibold rounded-full text-sm hover:shadow-[0_0_20px_rgba(200,0,100,0.5)] transition-all duration-300 hover:scale-105 active:scale-95 border border-white/10"
             >
               Register Now
             </Link>
@@ -113,11 +110,7 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className={`block text-lg font-medium py-3 px-4 rounded-xl transition-all duration-200 ${
-                      link.highlight
-                        ? 'bg-gradient-to-r from-[var(--energy)]/10 to-[var(--dc1426)]/10 border border-[#560F28]/30 text-transparent bg-clip-text bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)]'
-                        : 'text-white hover:text-[#dc1426] hover:bg-white/5'
-                    }`}
+                    className="block text-lg font-medium py-3 px-4 rounded-xl transition-all duration-200 text-white hover:text-[#dc1426] hover:bg-white/5"
                   >
                     {link.name}
                   </Link>

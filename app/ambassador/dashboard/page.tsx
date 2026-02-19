@@ -246,7 +246,7 @@ export default function DashboardPage() {
             <h3 className="text-lg font-bold">Progress to Next Tier</h3>
             <span className="text-sm text-gray-400">{ambassador.signup_count} signups</span>
           </div>
-          <div className="w-full bg-white/10 rounded-full h-4 overflow-hidden">
+          <div className="w-full bg-transparent/10 rounded-full h-4 overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] transition-all duration-500"
               style={{ width: `${progress}%` }}
@@ -261,7 +261,7 @@ export default function DashboardPage() {
             className={`px-6 py-3 rounded-xl font-semibold transition-all ${
               activeTab === 'signups'
                 ? 'bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] text-white'
-                : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                : 'bg-transparent/5 text-gray-400 hover:bg-transparent/10'
             }`}
           >
             <HiUsers className="inline mr-2 w-5 h-5" />
@@ -272,7 +272,7 @@ export default function DashboardPage() {
             className={`px-6 py-3 rounded-xl font-semibold transition-all ${
               activeTab === 'tasks'
                 ? 'bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] text-white'
-                : 'bg-white/5 text-gray-400 hover:bg-white/10'
+                : 'bg-transparent/5 text-gray-400 hover:bg-transparent/10'
             }`}
           >
             <HiStar className="inline mr-2 w-5 h-5" />
@@ -320,7 +320,7 @@ export default function DashboardPage() {
                 onChange={(e) => setNewSignup({ ...newSignup, participant_name: e.target.value })}
                 required
                 disabled={submitting}
-                className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+                className="px-4 py-3 bg-transparent/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
               />
               <input
                 type="email"
@@ -329,7 +329,7 @@ export default function DashboardPage() {
                 onChange={(e) => setNewSignup({ ...newSignup, participant_email: e.target.value })}
                 required
                 disabled={submitting}
-                className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+                className="px-4 py-3 bg-transparent/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
               />
               <input
                 type="tel"
@@ -337,7 +337,7 @@ export default function DashboardPage() {
                 value={newSignup.participant_phone}
                 onChange={(e) => setNewSignup({ ...newSignup, participant_phone: e.target.value })}
                 disabled={submitting}
-                className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+                className="px-4 py-3 bg-transparent/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
               />
               <input
                 type="text"
@@ -345,7 +345,7 @@ export default function DashboardPage() {
                 value={newSignup.participant_college}
                 onChange={(e) => setNewSignup({ ...newSignup, participant_college: e.target.value })}
                 disabled={submitting}
-                className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+                className="px-4 py-3 bg-transparent/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
               />
               <button
                 type="submit"
@@ -375,7 +375,7 @@ export default function DashboardPage() {
               {signups.map((signup) => (
                 <div
                   key={signup.id}
-                  className="flex justify-between items-center p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors"
+                  className="flex justify-between items-center p-4 bg-transparent/5 rounded-xl hover:bg-transparent/10 transition-colors"
                 >
                   <div>
                     <p className="font-semibold">{signup.participant_name}</p>

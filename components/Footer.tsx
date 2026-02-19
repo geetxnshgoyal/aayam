@@ -10,13 +10,18 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-b from-[#0A0B16] to-[#180C16] text-white pt-20 pb-10">
+    <footer className="relative bg-black/80 backdrop-blur-xl text-white pt-20 pb-10 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div>
             <div className="relative w-36 h-14 mb-5">
-              <Image src="/images/logo.png" alt="AAYAM Logo" fill className="object-contain" style={{ mixBlendMode: 'multiply' }} />
+              <Image
+                src="/images/logo.png"
+                alt="AAYAM Logo"
+                fill
+                className="object-contain"
+              />
             </div>
             <p className="text-gray-400 mb-2 text-sm leading-relaxed">
               Exploring New Dimensions of Technology
@@ -34,7 +39,9 @@ export default function Footer() {
               ].map(({ icon: Icon, label }) => (
                 <a
                   key={label}
-                  href="#"
+                  href={`https://${label.toLowerCase()}.com/aayam`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#560F28] hover:border-[#560F28]/30 transition-all duration-200"
                 >
@@ -114,13 +121,13 @@ export default function Footer() {
               © {currentYear} AAYAM · Newton School of Technology. All rights reserved.
             </p>
             <div className="flex items-center gap-6 text-xs">
-              <Link href="#" className="text-gray-500 hover:text-[#dc1426] transition-colors">
+              <Link href="/privacy" className="text-gray-500 hover:text-[#dc1426] transition-colors">
                 Privacy Policy
               </Link>
-              <Link href="#" className="text-gray-500 hover:text-[#dc1426] transition-colors">
+              <Link href="/terms" className="text-gray-500 hover:text-[#dc1426] transition-colors">
                 Terms
               </Link>
-              <Link href="#" className="text-gray-500 hover:text-[#dc1426] transition-colors">
+              <Link href="/conduct" className="text-gray-500 hover:text-[#dc1426] transition-colors">
                 Code of Conduct
               </Link>
             </div>

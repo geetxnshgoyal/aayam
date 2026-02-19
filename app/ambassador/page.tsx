@@ -1,422 +1,321 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { HiSpeakerphone, HiUserGroup, HiTrendingUp, HiGift, HiAcademicCap, HiStar, HiBadgeCheck, HiLightningBolt } from 'react-icons/hi';
+import { HiSpeakerphone, HiUserGroup, HiTrendingUp, HiGift, HiStar, HiBadgeCheck, HiLightningBolt } from 'react-icons/hi';
 import { FaTrophy, FaUsers, FaShare, FaChartLine } from 'react-icons/fa';
 import Link from 'next/link';
+import { useState } from 'react';
+import Magnetic from '@/components/Magnetic';
+import TextEncrypt from '@/components/TextEncrypt';
 
 export default function AmbassadorPage() {
   const benefits = [
     {
       icon: HiGift,
-      title: 'Exclusive Goodies',
-      description: 'Get official AAYAM merchandise, tech swag, and exclusive gifts',
-      gradient: 'from-[var(--energy)] to-[var(--dc1426)]',
+      title: 'RESTRICTED GOODIES',
+      description: 'Acquire official AAYAM tactical gear, encrypted swag, and exclusive artifacts.',
+      gradient: 'from-[var(--horror-magenta)] to-[var(--horror-purple)]',
     },
     {
       icon: HiBadgeCheck,
-      title: 'Certificate & Recognition',
-      description: 'Receive an official Ambassador certificate and LinkedIn recognition',
-      gradient: 'from-[var(--dc1426)] to-[var(--black-red)]',
+      title: 'NODAL RECOGNITION',
+      description: 'Receive an official Protocol certification and global synchronized recognition.',
+      gradient: 'from-[var(--horror-cyan)] to-blue-600',
     },
     {
       icon: HiStar,
-      title: 'Free Event Access',
-      description: 'Complimentary passes to all AAYAM events and competitions',
-      gradient: 'from-[var(--black-red)] to-[var(--energy)]',
+      title: 'TOTAL ACCESS',
+      description: 'Unrestricted clearance to all AAYAM sectors and decrypted protocols.',
+      gradient: 'from-purple-500 to-[var(--horror-magenta)]',
     },
     {
       icon: HiLightningBolt,
-      title: 'Priority Support',
-      description: 'Direct access to organizing team and exclusive updates',
-      gradient: 'from-[var(--energy)] to-[var(--mydiry)]',
+      title: 'DIRECT OVERLINK',
+      description: 'Instant communication with the Architects and exclusive data streams.',
+      gradient: 'from-gray-400 to-gray-600',
     },
     {
       icon: FaTrophy,
-      title: 'Performance Rewards',
-      description: 'Top performers get bonus prizes, gadgets, and special recognition',
-      gradient: 'from-[var(--dc1426)] to-[var(--energy)]',
+      title: 'BOUNTY MULTIPLIER',
+      description: 'High-performance operatives get bonus credits, hardware, and special status.',
+      gradient: 'from-[var(--horror-magenta)] to-red-600',
     },
     {
       icon: HiUserGroup,
-      title: 'Networking Access',
-      description: 'Connect with sponsors, mentors, and tech leaders at exclusive sessions',
-      gradient: 'from-[var(--black-red)] to-[var(--dc1426)]',
+      title: 'THE SYNDICATE',
+      description: 'Connect with core sponsors, mentors, and industrial leaders at the Nexus.',
+      gradient: 'from-[var(--horror-cyan)] to-teal-500',
     },
   ];
 
   const responsibilities = [
     {
       icon: FaShare,
-      title: 'Social Media Promotion',
-      description: 'Share AAYAM posts, create content, and engage your network',
+      title: 'SIGNAL PROPAGATION',
+      description: 'Broadcast AAYAM logs, create content, and infect your network.',
     },
     {
       icon: FaUsers,
-      title: 'Campus Outreach',
-      description: 'Spread awareness in your college through posters, WhatsApp groups, etc.',
+      title: 'CAMPUS INFILTRATION',
+      description: 'Deploy awareness in your node through posters and closed-circuit groups.',
     },
     {
       icon: FaChartLine,
-      title: 'Drive Registrations',
-      description: 'Use your unique referral link to get students to register',
+      title: 'CONVERSION DRIVE',
+      description: 'Use your unique uplink to recruit students into the simulation.',
     },
     {
       icon: HiTrendingUp,
-      title: 'Report Progress',
-      description: 'Share your promotion activities and track performance weekly',
+      title: 'METRIC REPORTING',
+      description: 'Log your campaign activities and track propagation performance.',
     },
   ];
 
   const tiers = [
     {
-      name: 'Bronze Ambassador',
-      target: '10-25 Sign-ups',
-      rewards: ['Certificate', 'Stickers Pack'],
+      name: 'BRONZE OPERATIVE',
+      target: '10-25 SIGN-UPS',
+      rewards: ['Tactical Certification', 'Insignia Pack'],
       gradient: 'from-orange-600 to-orange-800',
     },
     {
-      name: 'Silver Ambassador',
-      target: '25-50 Sign-ups',
-      rewards: ['AAYAM T-shirt', 'Certificate', 'Tech Swag Pack', 'LinkedIn Badge'],
+      name: 'SILVER OPERATIVE',
+      target: '25-50 SIGN-UPS',
+      rewards: ['Tactical Gear', 'Priority Clearance', 'Encrypted Swag', 'Nodal Badge'],
       gradient: 'from-gray-400 to-gray-600',
     },
     {
-      name: 'Gold Ambassador',
-      target: '50-100 Sign-ups',
-      rewards: ['Premium Goodie', 'Gold Certificate', 'LinkedIn Badge', 'Letter of Recommendation', 'Exclusive Mentor Session'],
+      name: 'GOLD OPERATIVE',
+      target: '50-100 SIGN-UPS',
+      rewards: ['Artifact Grade Swag', 'Gold Clearance', 'Executive Access', 'Recommendation Log', 'Nexus Session'],
       gradient: 'from-yellow-400 to-yellow-600',
     },
     {
-      name: 'Platinum Ambassador',
-      target: '100+ Sign-ups',
-      rewards: ['Full Merch Set', 'Platinum Certificate', 'All-Access Pass', 'Letter of Recommendation', 'Meet Organizers', 'Featured on Website', 'Future Organizing Team Priority'],
+      name: 'PLATINUM OPERATIVE',
+      target: '100+ SIGN-UPS',
+      rewards: ['Full Gear Set', 'Platinum Clearance', 'Total Access Pass', 'Architect Recommendation', 'Council Meet', 'Website Decryption', 'Core Team Priority'],
       gradient: 'from-purple-400 to-purple-600',
     },
   ];
 
   const faqs = [
     {
-      q: 'Who can become an ambassador?',
+      q: 'Who can become an operative?',
       a: 'Any college/university student passionate about technology and events can apply. No prior experience needed!',
     },
     {
-      q: 'How do I track my referrals?',
-      a: "You'll get a unique referral link and access to a dashboard showing your real-time sign-ups and tier progress.",
+      q: 'How do I track my propagation?',
+      a: "You'll get a unique uplink and access to a dashboard showing your real-time recruitment and tier progress.",
     },
     {
-      q: 'When do I receive my rewards?',
-      a: 'Goodies are shipped as you hit each tier. Final rewards are distributed at the event or within 2 weeks after.',
+      q: 'When do I receive my bounty?',
+      a: 'Gear is dispatched as you hit each tier. Final rewards are distributed at the event or within 2 weeks after.',
     },
     {
-      q: 'Can I be an ambassador from any city?',
+      q: 'Can I be an operative from any node?',
       a: 'Absolutely! Our program is open to students from across India. Promote AAYAM anywhere!',
     },
     {
       q: 'What if I don\'t hit a tier?',
-      a: 'All active ambassadors get a certificate of participation and exclusive merch. Every effort counts!',
+      a: 'All active operatives get a certificate of participation and exclusive swag. Every byte of effort counts!',
     },
   ];
 
   return (
-    <div className="min-h-screen bg-[#0A0B16] text-white pt-28 pb-20">
-      {/* Cyberpunk background */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div 
-          className="absolute inset-0 opacity-30"
-          style={{
-            background: 'linear-gradient(135deg, #200934 0%, #0A0B16 25%, #560F28 50%, #0A0B16 75%, #350609 100%)',
-            backgroundSize: '400% 400%',
-            animation: 'gradient-shift 35s ease infinite',
-          }}
-        />
-        <div className="absolute inset-0 bg-[#0A0B16]/60" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(86,15,40,0.3),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(32,9,52,0.25),transparent_50%)]" />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+    <div className="min-h-screen pt-32 pb-32 relative bg-transparent overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Hero */}
         <motion.div
-          initial={{ y: 30, opacity: 0 }}
+          initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20 pt-8"
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center mb-32"
         >
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="inline-flex items-center gap-3 mb-6 px-6 py-3 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] rounded-full"
+            className="inline-flex items-center gap-3 mb-8 px-6 py-3 bg-[var(--horror-magenta)] rounded-full text-white font-mono text-xs tracking-[0.4em] uppercase"
           >
-            <HiSpeakerphone className="w-6 h-6" />
-            <span className="font-bold text-lg">Now Recruiting</span>
+            <HiSpeakerphone className="w-4 h-4" />
+            <span>Recruiting Operatives</span>
           </motion.div>
-          
-          <h1 className="text-5xl md:text-7xl font-black mb-6">
-            Become an{' '}
-            <span className="bg-gradient-to-r from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)] bg-clip-text text-transparent">
-              AAYAM Ambassador
+
+          <h1 className="text-6xl md:text-9xl font-[var(--font-cinzel)] font-black mb-8 text-white tracking-tighter leading-none">
+            JOIN THE <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--horror-magenta)] via-purple-400 to-[var(--horror-cyan)] animate-gradient-shift bg-[length:200%_auto]">
+              <TextEncrypt text="SYNDICATE" />
             </span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed mb-8">
-            Promote India's most exciting techfest on your campus and earn exclusive rewards, goodies, and recognition
+          <p className="text-xl md:text-3xl text-gray-400 max-w-4xl mx-auto font-light leading-relaxed mb-16">
+            AAYAM — Become the face of the technological infiltration. Promote AAYAM 2026 on your campus node.
           </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.a
-              href="#apply"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-10 py-5 bg-gradient-to-r from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)] rounded-full font-bold text-xl shadow-2xl shadow-[0_20px_60px_rgba(220,20,38,0.35)]"
-            >
-              Apply Now
-            </motion.a>
-            <motion.a
-              href="#rewards"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-10 py-5 border border-white/20 rounded-full font-bold text-xl hover:bg-white/10 transition-all backdrop-blur-sm bg-white/5"
-            >
-              View Rewards
-            </motion.a>
+
+          <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
+            <Magnetic>
+              <Link href="/ambassador/register" className="px-12 py-6 bg-white text-black font-black text-xl tracking-[0.2em] rounded-full hover:bg-[var(--horror-magenta)] hover:text-white transition-all duration-500 shadow-2xl uppercase">
+                Apply Now
+              </Link>
+            </Magnetic>
+            <Magnetic>
+              <a href="#rewards" className="px-12 py-6 bg-transparent text-white border border-white/20 font-black text-xl tracking-[0.2em] rounded-full hover:bg-transparent/10 transition-all duration-500 uppercase">
+                View Bounties
+              </a>
+            </Magnetic>
           </div>
         </motion.div>
 
-        {/* What is Ambassador Program */}
+        {/* Narrative Section */}
         <motion.div
-          initial={{ y: 40, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="mb-24"
+          className="mb-40"
         >
-          <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/50 rounded-3xl p-10 md:p-14 relative overflow-hidden border border-[#560F28]/20">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#560F28]/10 to-[#200934]/5" />
-            <div className="relative z-10">
-              <div className="flex items-center gap-4 mb-8">
-                <div className="p-3 rounded-2xl bg-gradient-to-br from-[var(--energy)] to-[var(--dc1426)]">
-                  <HiUserGroup className="w-8 h-8 text-white" />
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold">What is the Ambassador Program?</h2>
+          <div className="relative group p-1 md:p-2 bg-gradient-to-br from-[var(--horror-magenta)]/20 to-transparent rounded-[4rem]">
+            <div className="relative bg-[#050508]/80 backdrop-blur-3xl p-10 md:p-20 rounded-[3.8rem] border border-white/5 overflow-hidden">
+              <div className="absolute top-0 right-0 p-12 font-mono text-white/5 text-[15rem] font-black pointer-events-none select-none">
+                OP
               </div>
 
-              <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
+              <div className="flex items-center gap-6 mb-12">
+                <div className="w-16 h-1 bg-[var(--horror-cyan)] rounded-full shadow-[0_0_15px_var(--horror-cyan)]" />
+                <h2 className="text-4xl md:text-6xl font-[var(--font-cinzel)] font-bold text-white tracking-widest uppercase">The Directive</h2>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-16 text-xl text-gray-400 leading-relaxed font-light">
                 <p>
-                  The <strong className="text-white">AAYAM Ambassador Program</strong> is your chance to be the face of India's most innovative techfest at your campus. As an ambassador, you'll:
+                  The <span className="text-white font-bold">AAYAM Ambassador Protocol</span> is our strategy to expand the simulation across all physical institutional nodes. As an operative, you will act as the primary interface between the Architects and your local campus.
                 </p>
-                <ul className="space-y-3 list-none">
-                  <li className="flex items-start gap-3">
-                    <span className="text-[#560F28] mt-1">▸</span>
-                    <span>Spread awareness about AAYAM 2026 through social media, WhatsApp groups, and campus events</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-[#560F28] mt-1">▸</span>
-                    <span>Use your unique referral link to drive registrations from your college and network</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-[#560F28] mt-1">▸</span>
-                    <span>Earn exclusive merchandise, tech goodies, certificates, and prizes based on your performance</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-[#560F28] mt-1">▸</span>
-                    <span>Build your portfolio with real marketing experience and campus leadership</span>
-                  </li>
-                </ul>
-                <p className="text-white font-semibold text-xl mt-8">
-                  💡 No experience needed. All you need is passion for tech and the drive to promote something amazing!
+                <p>
+                  This is not marketing. <span className="text-[var(--horror-magenta)] font-bold">This is expansion.</span> Deploy the visual identity, drive recruitment, and secure your place in the high-tier hierarchy of the 2026 dimension.
                 </p>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Benefits Grid */}
-        <motion.div
-          initial={{ y: 40, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mb-24"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Why Become an Ambassador?</h2>
-          <p className="text-gray-400 text-center text-lg mb-12 max-w-2xl mx-auto">
-            Perks, recognition, and exclusive benefits you'll receive
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Benefits */}
+        <div className="mb-40">
+          <div className="text-center mb-24">
+            <h2 className="text-4xl md:text-7xl font-[var(--font-cinzel)] font-bold text-white uppercase tracking-tighter">Operative Rewards</h2>
+            <p className="text-gray-500 mt-6 tracking-[0.5em] font-mono text-xs uppercase">Decrypted perks for active clearance levels</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {benefits.map((benefit, index) => (
               <motion.div
                 key={benefit.title}
-                initial={{ scale: 0.9, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="group bg-[#180C16] rounded-2xl p-8 border border-[#560F28]/20 hover:border-[#560F28]/60 transition-all duration-300 hover:scale-105"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="group relative bg-[#050508]/40 backdrop-blur-md rounded-[2.5rem] border border-white/5 p-12 overflow-hidden hover:border-[var(--horror-magenta)]/30 transition-all duration-500"
               >
-                <div className={`inline-flex items-center justify-center w-14 h-14 mb-6 bg-gradient-to-br ${benefit.gradient} rounded-xl group-hover:scale-110 transition-transform duration-300`}>
-                  <benefit.icon className="w-7 h-7 text-white" />
+                <div className={`absolute top-0 left-0 w-2 h-full bg-gradient-to-b ${benefit.gradient} opacity-20 group-hover:opacity-100 transition-opacity`} />
+                <div className={`w-16 h-16 mb-8 rounded-2xl bg-transparent/5 flex items-center justify-center border border-white/10 group-hover:bg-transparent/10 transition-colors`}>
+                  <benefit.icon className="w-8 h-8 text-[var(--horror-cyan)] group-hover:text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-white">{benefit.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{benefit.description}</p>
+                <h3 className="text-2xl font-[var(--font-cinzel)] font-black text-white mb-4 group-hover:text-[var(--horror-magenta)] transition-colors">{benefit.title}</h3>
+                <p className="text-gray-400 leading-relaxed font-light">{benefit.description}</p>
               </motion.div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        {/* Responsibilities */}
-        <motion.div
-          initial={{ y: 40, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mb-24"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Your Role as Ambassador</h2>
-          <p className="text-gray-400 text-center text-lg mb-12 max-w-2xl mx-auto">
-            Simple tasks that make a big impact
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {responsibilities.map((task, index) => (
-              <motion.div
-                key={task.title}
-                initial={{ y: 30, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="text-center bg-gray-900/50 rounded-2xl p-6 border border-white/5 hover:border-[#560F28]/40 transition-all duration-300"
-              >
-                <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-gradient-to-br from-[var(--energy)] to-[var(--dc1426)] rounded-full">
-                  <task.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-lg font-bold mb-2 text-white">{task.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{task.description}</p>
-              </motion.div>
-            ))}
+        {/* Tiers */}
+        <div id="rewards" className="mb-40">
+          <div className="text-center mb-24">
+            <h2 className="text-4xl md:text-7xl font-[var(--font-cinzel)] font-bold text-white uppercase tracking-tighter">Clearance Levels</h2>
+            <div className="w-40 h-1 bg-gradient-to-r from-transparent via-[var(--horror-magenta)] to-transparent mx-auto mt-6" />
           </div>
-        </motion.div>
 
-        {/* Reward Tiers */}
-        <motion.div
-          id="rewards"
-          initial={{ y: 40, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mb-24"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Performance-Based Rewards</h2>
-          <p className="text-gray-400 text-center text-lg mb-12 max-w-2xl mx-auto">
-            The more sign-ups you drive, the better your rewards! Track your progress in real-time.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {tiers.map((tier, index) => (
               <motion.div
                 key={tier.name}
-                initial={{ scale: 0.9, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                viewport={{ once: true }}
-                className="relative bg-gray-900/70 rounded-3xl p-8 border border-white/10 hover:border-[#560F28]/50 transition-all duration-300 overflow-hidden group"
+                initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                className="relative bg-transparent/5 backdrop-blur-xl rounded-[3rem] p-12 border border-white/10 overflow-hidden group hover:border-[var(--horror-magenta)]/40 transition-all duration-500"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${tier.gradient} opacity-5 group-hover:opacity-10 transition-opacity duration-300`} />
-                
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <h3 className={`text-2xl font-black bg-gradient-to-r ${tier.gradient} bg-clip-text text-transparent`}>
-                      {tier.name}
-                    </h3>
-                    <div className={`px-4 py-2 rounded-full bg-gradient-to-r ${tier.gradient} text-white text-sm font-bold`}>
-                      {tier.target}
-                    </div>
+                <div className={`absolute inset-0 bg-gradient-to-br ${tier.gradient} opacity-0 group-hover:opacity-10 transition-opacity`} />
+
+                <div className="flex items-center justify-between mb-10">
+                  <h3 className="text-3xl font-[var(--font-cinzel)] font-black text-white">{tier.name}</h3>
+                  <div className="px-6 py-2 rounded-full border border-[var(--horror-magenta)] text-[var(--horror-magenta)] font-mono text-sm font-bold shadow-[0_0_15px_var(--horror-magenta)]/20">
+                    {tier.target}
                   </div>
-                  
-                  <ul className="space-y-3">
-                    {tier.rewards.map((reward, idx) => (
-                      <li key={idx} className="flex items-center gap-3 text-gray-300">
-                        <span className="text-[#560F28]">✓</span>
-                        <span>{reward}</span>
-                      </li>
-                    ))}
-                  </ul>
+                </div>
+
+                <ul className="grid grid-cols-1 gap-4">
+                  {tier.rewards.map((reward, idx) => (
+                    <li key={idx} className="flex items-center gap-4 text-gray-300 font-light text-lg">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--horror-cyan)]" />
+                      {reward}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* FAQ - THE LOGS */}
+        <div className="mb-40">
+          <div className="text-center mb-24">
+            <h2 className="text-4xl md:text-6xl font-[var(--font-cinzel)] font-bold text-white uppercase tracking-widest">The Logs (FAQ)</h2>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-6">
+            {faqs.map((faq, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-black/40 backdrop-blur-md rounded-[2rem] p-10 border border-white/10 hover:border-[var(--horror-magenta)]/50 transition-all duration-300 cursor-help group shadow-lg"
+              >
+                <div className="flex items-start gap-4">
+                  <span className="text-[var(--horror-magenta)] font-mono text-xl mt-1 font-bold">Q:</span>
+                  <div>
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[var(--horror-magenta)] transition-colors">
+                      {faq.q}
+                    </h3>
+                    <p className="text-gray-300 leading-relaxed font-light">
+                      {faq.a}
+                    </p>
+                  </div>
                 </div>
               </motion.div>
             ))}
           </div>
+        </div>
 
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            viewport={{ once: true }}
-            className="mt-8 text-center p-6 bg-gradient-to-r from-[#200934] to-[#350609] rounded-2xl border border-[#560F28]/30"
-          >
-            <p className="text-lg text-white font-semibold">
-              🎯 <strong>Pro Tip:</strong> Top 3 ambassadors nationwide get special bonuses: Latest tech gadgets, organizing team invites, and lifetime AAYAM passes!
-            </p>
-          </motion.div>
-        </motion.div>
-
-        {/* FAQ */}
+        {/* Final CTA */}
         <motion.div
-          initial={{ y: 40, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="mb-24"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          className="relative bg-transparent/5 backdrop-blur-3xl p-20 md:p-32 rounded-[4rem] text-center border border-white/10 overflow-hidden"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
-          
-          <div className="max-w-4xl mx-auto space-y-4">
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={index}
-                initial={{ y: 20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-gray-900/50 rounded-2xl p-6 border border-white/5"
-              >
-                <h3 className="text-lg font-bold text-white mb-3">{faq.q}</h3>
-                <p className="text-gray-400 leading-relaxed">{faq.a}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Apply CTA */}
-        <motion.div
-          id="apply"
-          initial={{ y: 30, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/40 rounded-3xl p-12 md:p-16 text-center border border-[#560F28]/30 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#560F28]/10 via-[#200934]/10 to-[#350609]/10" />
-            
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-5xl font-black mb-6">Ready to Make an Impact?</h2>
-              <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
-                Join 100+ ambassadors spreading the word about AAYAM 2026. Applications close soon!
-              </p>
-              
-              <Link href="/ambassador/register">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-12 py-6 bg-gradient-to-r from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)] rounded-full font-bold text-2xl shadow-2xl shadow-[0_20px_60px_rgba(220,20,38,0.4)] hover:shadow-[0_25px_70px_rgba(220,20,38,0.5)] transition-all duration-300"
-                >
-                  Apply for Ambassador Program →
-                </motion.button>
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--horror-magenta)] to-transparent" />
+          <h2 className="text-5xl md:text-8xl font-[var(--font-cinzel)] font-black mb-10 text-white leading-tight uppercase">
+            Initiate <br /> <span className="text-[var(--horror-cyan)]">Infiltration</span>
+          </h2>
+          <p className="text-2xl text-gray-400 mb-16 max-w-3xl mx-auto font-light leading-relaxed">
+            The expansion starts with one node. Will it be yours?
+          </p>
+          <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
+            <Magnetic>
+              <Link href="/ambassador/register" className="px-14 py-7 bg-white text-black font-black text-xl tracking-[0.2em] rounded-full hover:bg-[var(--horror-magenta)] hover:text-white transition-all duration-500 shadow-2xl uppercase">
+                Authorize
               </Link>
-              
-              <p className="text-sm text-gray-500 mt-6">
-                Application takes just 2 minutes • No prior experience required
-              </p>
-            </div>
+            </Magnetic>
+            <Magnetic>
+              <Link href="/ambassador/login" className="px-14 py-7 bg-transparent text-white border border-white/20 font-black text-xl tracking-[0.2em] rounded-full hover:bg-transparent/10 transition-all duration-500 uppercase">
+                Operative Login
+              </Link>
+            </Magnetic>
           </div>
         </motion.div>
       </div>

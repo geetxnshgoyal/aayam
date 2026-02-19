@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 import { HiMail, HiLockClosed } from 'react-icons/hi';
 import Link from 'next/link';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import Magnetic from '@/components/Magnetic';
+import TextEncrypt from '@/components/TextEncrypt';
 
 export default function AmbassadorLoginPage() {
   const router = useRouter();
@@ -13,7 +15,7 @@ export default function AmbassadorLoginPage() {
     email: '',
     password: '',
   });
-  
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -35,14 +37,14 @@ export default function AmbassadorLoginPage() {
         // Store session
         localStorage.setItem('ambassador_token', data.token);
         localStorage.setItem('ambassador_id', data.ambassador.id);
-        
+
         // Redirect to dashboard
         router.push('/ambassador/dashboard');
       } else {
-        setError(data.error || 'Login failed');
+        setError(data.error || 'AUTHORIZATION_DENIED');
       }
     } catch (error) {
-      setError('Something went wrong. Please try again.');
+      setError('CONNECTION_ERROR: Node unreachable.');
     } finally {
       setLoading(false);
     }
@@ -53,59 +55,57 @@ export default function AmbassadorLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0B16] text-white flex items-center justify-center px-6">
-      {/* Animated background */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div 
-          className="absolute inset-0 opacity-30"
-          style={{
-            background: 'linear-gradient(135deg, #200934 0%, #0A0B16 30%, #560F28 60%, #0A0B16 100%)',
-            backgroundSize: '400% 400%',
-            animation: 'gradient-shift 20s ease infinite',
-          }}
-        />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#560F28] rounded-full blur-[120px] opacity-20 animate-glow-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#200934] rounded-full blur-[120px] opacity-25 animate-glow-pulse" style={{ animationDelay: '2s' }} />
-      </div>
-
-      <div className="max-w-md w-full relative z-10">
+    <div className="min-h-screen pt-32 pb-32 relative bg-transparent flex items-center justify-center overflow-hidden px-6">
+      <div className="max-w-xl w-full relative z-10">
         <motion.div
-          initial={{ y: 30, opacity: 0 }}
+          initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8"
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-black mb-4">
-            <span className="bg-gradient-to-r from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)] bg-clip-text text-transparent">
-              Ambassador Login
-            </span>
+          <motion.div
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            className="inline-block px-6 py-2 bg-transparent/5 backdrop-blur-md rounded-full border border-white/10 text-[var(--horror-magenta)] font-mono text-xs tracking-[0.4em] uppercase mb-8"
+          >
+            Encryption Layer
+          </motion.div>
+
+          <h1 className="text-4xl md:text-7xl font-[var(--font-cinzel)] font-black mb-6 text-white tracking-tighter uppercase">
+            <TextEncrypt text="DECRYPT_LOG" />
           </h1>
-          
-          <p className="text-gray-400 text-lg">
-            Access your dashboard and track your progress
+
+          <p className="text-gray-400 text-lg font-light leading-relaxed">
+            Authorized operatives only. Enter your credentials to access the Syndicate data stream.
           </p>
         </motion.div>
 
         <motion.div
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-gradient-to-br from-[#180C16] to-[#0A0B16] rounded-3xl p-8 border border-[#560F28]/20"
+          transition={{ duration: 1, delay: 0.2 }}
+          className="bg-[#050508]/60 backdrop-blur-3xl rounded-[3rem] p-10 md:p-16 border border-white/5 relative overflow-hidden"
         >
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--horror-cyan)] to-transparent opacity-50" />
+
           {error && (
-            <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="mb-8 p-5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-500 text-center font-mono text-xs tracking-widest uppercase"
+            >
               {error}
-            </div>
+            </motion.div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-8">
             {/* Email */}
-            <div>
-              <label className="block text-sm font-semibold mb-2 text-gray-300">
-                Email
+            <div className="group/field">
+              <label className="block text-xs font-mono font-bold mb-4 text-gray-500 uppercase tracking-[0.3em] group-focus-within/field:text-[var(--horror-cyan)] transition-colors">
+                Nodal_ID (Email)
               </label>
               <div className="relative">
-                <HiMail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <HiMail className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 group-focus-within/field:text-[var(--horror-cyan)] transition-colors" />
                 <input
                   type="email"
                   name="email"
@@ -113,19 +113,19 @@ export default function AmbassadorLoginPage() {
                   onChange={handleChange}
                   required
                   disabled={loading}
-                  className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                  placeholder="your@email.com"
+                  className="w-full pl-16 pr-6 py-5 bg-transparent/5 border border-white/10 rounded-2xl focus:border-[var(--horror-cyan)] focus:bg-transparent/10 focus:outline-none transition-all text-white font-light text-lg"
+                  placeholder="name@node.com"
                 />
               </div>
             </div>
 
             {/* Password */}
-            <div>
-              <label className="block text-sm font-semibold mb-2 text-gray-300">
-                Password
+            <div className="group/field">
+              <label className="block text-xs font-mono font-bold mb-4 text-gray-500 uppercase tracking-[0.3em] group-focus-within/field:text-[var(--horror-magenta)] transition-colors">
+                Access_Key
               </label>
               <div className="relative">
-                <HiLockClosed className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <HiLockClosed className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 group-focus-within/field:text-[var(--horror-magenta)] transition-colors" />
                 <input
                   type="password"
                   name="password"
@@ -133,42 +133,49 @@ export default function AmbassadorLoginPage() {
                   onChange={handleChange}
                   required
                   disabled={loading}
-                  className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                  placeholder="Enter your password"
+                  className="w-full pl-16 pr-6 py-5 bg-transparent/5 border border-white/10 rounded-2xl focus:border-[var(--horror-magenta)] focus:bg-transparent/10 focus:outline-none transition-all text-white font-light text-lg"
+                  placeholder="Password"
                 />
               </div>
             </div>
 
             {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-4 bg-gradient-to-r from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)] rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-[0_12px_30px_rgba(220,20,38,0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-            >
-              {loading ? (
-                <>
-                  <LoadingSpinner size="sm" color="white" />
-                  <span>Logging in...</span>
-                </>
-              ) : (
-                'Login'
-              )}
-            </button>
+            <div className="pt-4">
+              <Magnetic>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-6 bg-transparent text-black font-black text-xl tracking-[0.2em] rounded-2xl hover:bg-[var(--horror-cyan)] transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4 uppercase"
+                >
+                  {loading ? (
+                    <>
+                      <LoadingSpinner size="sm" color="black" />
+                      <span>Verifying...</span>
+                    </>
+                  ) : (
+                    'Authorize'
+                  )}
+                </button>
+              </Magnetic>
+            </div>
           </form>
 
-          <div className="mt-6 text-center text-gray-400 text-sm">
-            Not registered yet? <Link href="/ambassador/register" className="text-[#560F28] hover:text-[#dc1426] font-semibold">Apply here</Link>
-          </div>
+          <div className="mt-12 space-y-4 text-center">
+            <div className="text-gray-500 font-mono text-xs uppercase tracking-widest">
+              No clearance? <Link href="/ambassador/register" className="text-[var(--horror-magenta)] hover:text-white transition-colors border-b border-[var(--horror-magenta)]/30">Request Entry</Link>
+            </div>
 
-          <div className="mt-4 text-center">
-            <Link href="/admin/login" className="text-gray-500 hover:text-gray-300 text-xs">
-              Admin Login →
-            </Link>
+            <div className="pt-4 opacity-30 hover:opacity-100 transition-opacity">
+              <Link href="/admin/login" className="text-gray-400 hover:text-white text-[10px] font-mono uppercase tracking-[0.3em]">
+                ADMIN_ACCESS_OVERRIDE →
+              </Link>
+            </div>
           </div>
         </motion.div>
 
-        <div className="mt-6 text-center text-gray-500 text-sm">
-          <p>If you forgot your password, contact the admin team.</p>
+        <div className="mt-8 text-center text-gray-600 font-mono text-[9px] uppercase tracking-[0.5em] opacity-30 leading-loose">
+          UNAUTHORIZED_ACCESS_WILL_BE_LOGGED <br />
+          ENCRYPTION_BY_ARCHITECT_COUNCIL
         </div>
       </div>
     </div>

@@ -45,21 +45,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0A0B16] text-white pt-28 pb-20">
-      {/* Cyberpunk background effects */}
-      <div className="fixed inset-0 pointer-events-none">
-        {/* Tech pattern background - ADD YOUR IMAGE */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'url("data:image/svg+xml,%3Csvg width="60" height="60" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 0h60v60H0z" fill="none"/%3E%3Cpath d="M30 0v60M0 30h60" stroke="%23560F28" stroke-width="0.5" opacity="0.3"/%3E%3C/svg%3E")',
-            backgroundSize: '60px 60px'
-          }} />
-        </div>
-        
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(32,9,52,0.4),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(86,15,40,0.35),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(53,6,9,0.25),transparent_60%)]" />
-      </div>
+    <div className="min-h-screen bg-transparent text-white pt-28 pb-20">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Hero */}
         <motion.div
@@ -96,7 +82,7 @@ export default function AboutPage() {
                 </div>
                 <div>
                   <h2 className="text-3xl md:text-4xl font-bold">What is AAYAM?</h2>
-                  <p className="text-[#560F28] font-medium">Hosted by Newton School of Technology</p>
+                  <p className="text-gray-600 font-medium">Hosted by Newton School of Technology</p>
                 </div>
               </div>
 
@@ -105,7 +91,7 @@ export default function AboutPage() {
                   <strong className="text-white">AAYAM</strong> — meaning &quot;New Dimensions&quot; — is the flagship techfest of <strong className="text-white">Newton School of Technology</strong>. It represents our vision to explore every dimension of technology, innovation, and human potential.
                 </p>
                 <p>
-                  With 12+ competitions spanning hackathons, competitive programming, robotics, and open-source contribution, AAYAM brings together <strong className="text-white">3000+ developers, engineers, robotics enthusiasts, hackers, and students</strong> for two days of intense competition and collaboration.
+                  With 12+ competitions spanning hackathons, competitive programming, robotics, and open-source contribution, AAYAM brings together <strong className="text-[var(--horror-cyan)]">3000+ developers, engineers, robotics enthusiasts, hackers, and students</strong> for two days of intense competition and collaboration.
                 </p>
                 <p>
                   Whether you&apos;re building autonomous bots, shipping code at 3 AM in a hackathon, optimizing algorithms, or contributing to open-source — AAYAM is where you prove what you can build.
@@ -124,13 +110,13 @@ export default function AboutPage() {
           className="mb-24"
         >
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-gradient-to-br from-[#200934] via-[#180C16] to-[#350609] rounded-3xl p-10 border border-[#560F28]/20 hover:border-[#560F28]/40 transition-all duration-300 shadow-lg shadow-[#560F28]/10">
+            <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-10 border border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg">
               <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] bg-clip-text text-transparent">Our Vision</h3>
               <p className="text-gray-300 leading-relaxed text-lg">
                 To be the most impactful student-run techfest in India — a launchpad where the next generation of builders, creators, and innovators come together to push beyond what&apos;s possible.
               </p>
             </div>
-            <div className="bg-gradient-to-br from-[#200934] via-[#180C16] to-[#350609] rounded-3xl p-10 border border-[#560F28]/20 hover:border-[#560F28]/40 transition-all duration-300 shadow-lg shadow-[#560F28]/10">
+            <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-10 border border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg">
               <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] bg-clip-text text-transparent">Our Mission</h3>
               <p className="text-gray-300 leading-relaxed text-lg">
                 Create a platform where technical excellence meets real-world impact. We believe in learning by building, competing, and collaborating — not just attending talks.
@@ -156,7 +142,7 @@ export default function AboutPage() {
                 whileInView={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center bg-gray-900/50 rounded-2xl p-6 border border-white/5"
+                className="text-center bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-colors"
               >
                 <div className="inline-flex items-center justify-center w-14 h-14 mb-4 bg-gradient-to-br from-[var(--energy)] to-[var(--dc1426)] rounded-xl">
                   <stat.icon className="w-7 h-7 text-white" />
@@ -190,13 +176,13 @@ export default function AboutPage() {
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group relative bg-gray-900/50 rounded-2xl p-8 overflow-hidden hover:scale-[1.02] transition-all duration-300 border border-white/5"
+                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-8 overflow-hidden hover:scale-[1.02] transition-all duration-300 border border-white/10 hover:border-white/20"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${value.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
                 <div className="relative z-10">
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${value.gradient} mb-6`} />
                   <h3 className="text-2xl font-bold mb-4">{value.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{value.description}</p>
+                  <p className="text-gray-300 leading-relaxed">{value.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -223,7 +209,7 @@ export default function AboutPage() {
                 whileInView={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center group bg-gray-900/30 rounded-2xl p-6 border border-white/5 hover:border-[#560F28]/40 transition-all duration-300"
+                className="text-center group bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300"
               >
                 <div className={`inline-flex items-center justify-center w-16 h-16 mb-4 bg-gradient-to-br ${member.gradient} rounded-full group-hover:scale-110 transition-transform duration-300`}>
                   <member.icon className="w-8 h-8 text-white" />
@@ -251,7 +237,7 @@ export default function AboutPage() {
               <a href="/competitions" className="px-8 py-4 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] rounded-full font-semibold text-lg hover:shadow-lg hover:shadow-[0_12px_30px_rgba(220,20,38,0.3)] transition-all duration-300 hover:scale-105 active:scale-95">
                 View Competitions
               </a>
-              <a href="/sponsors" className="px-8 py-4 border border-white/20 rounded-full font-semibold text-lg hover:bg-white/10 transition-all duration-300 backdrop-blur-sm bg-white/5">
+              <a href="/sponsors" className="px-8 py-4 border border-white/20 rounded-full font-semibold text-lg hover:bg-transparent/10 transition-all duration-300 backdrop-blur-sm bg-transparent/5">
                 Become a Sponsor
               </a>
             </div>

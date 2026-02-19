@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 import { HiMail, HiLockClosed, HiShieldCheck } from 'react-icons/hi';
 import Link from 'next/link';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import Magnetic from '@/components/Magnetic';
+import TextEncrypt from '@/components/TextEncrypt';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -13,7 +15,7 @@ export default function AdminLoginPage() {
     email: '',
     password: '',
   });
-  
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -36,10 +38,10 @@ export default function AdminLoginPage() {
         localStorage.setItem('admin_id', data.admin.id);
         router.push('/admin/dashboard');
       } else {
-        setError(data.error || 'Login failed');
+        setError(data.error || 'OVERRIDE_REJECTED');
       }
     } catch (error) {
-      setError('Something went wrong. Please try again.');
+      setError('CONNECTION_ERROR: Core node unreachable.');
     } finally {
       setLoading(false);
     }
@@ -50,60 +52,57 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0B16] text-white flex items-center justify-center px-6">
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div 
-          className="absolute inset-0 opacity-30"
-          style={{
-            background: 'linear-gradient(135deg, #200934 0%, #0A0B16 30%, #560F28 60%, #0A0B16 100%)',
-            backgroundSize: '400% 400%',
-            animation: 'gradient-shift 20s ease infinite',
-          }}
-        />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#560F28] rounded-full blur-[120px] opacity-20 animate-glow-pulse" />
-      </div>
-
-      <div className="max-w-md w-full relative z-10">
+    <div className="min-h-screen pt-32 pb-32 relative bg-transparent flex items-center justify-center overflow-hidden px-6">
+      <div className="max-w-xl w-full relative z-10">
         <motion.div
-          initial={{ y: 30, opacity: 0 }}
+          initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8"
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center mb-12"
         >
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[var(--energy)] to-[var(--dc1426)] rounded-full mb-4">
-            <HiShieldCheck className="w-8 h-8" />
-          </div>
-          
-          <h1 className="text-4xl md:text-5xl font-black mb-4">
-            <span className="bg-gradient-to-r from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)] bg-clip-text text-transparent">
-              Admin Portal
-            </span>
+          <motion.div
+            initial={{ scale: 0.8, rotate: -10 }}
+            animate={{ scale: 1, rotate: 0 }}
+            className="inline-flex items-center justify-center w-20 h-20 bg-transparent/5 backdrop-blur-md rounded-3xl border border-white/10 mb-8 shadow-[0_0_30px_rgba(255,255,255,0.05)]"
+          >
+            <HiShieldCheck className="w-10 h-10 text-[var(--horror-magenta)]" />
+          </motion.div>
+
+          <h1 className="text-4xl md:text-7xl font-[var(--font-cinzel)] font-black mb-6 text-white tracking-tighter uppercase">
+            <TextEncrypt text="ARCHITECT_OVERRIDE" />
           </h1>
-          
-          <p className="text-gray-400 text-lg">
-            Manage ambassador applications and analytics
+
+          <p className="text-gray-400 text-lg font-light leading-relaxed">
+            Restricted Core Access. Root credentials required for protocol management.
           </p>
         </motion.div>
 
         <motion.div
-          initial={{ y: 40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-gradient-to-br from-[#180C16] to-[#0A0B16] rounded-3xl p-8 border border-[#560F28]/20"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="bg-[#050508]/60 backdrop-blur-3xl rounded-[3rem] p-10 md:p-16 border border-white/5 relative overflow-hidden shadow-2xl"
         >
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--horror-magenta)] to-transparent" />
+          <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--horror-cyan)] to-transparent" />
+
           {error && (
-            <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="mb-8 p-5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-500 text-center font-mono text-xs tracking-widest uppercase"
+            >
               {error}
-            </div>
+            </motion.div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-sm font-semibold mb-2 text-gray-300">
-                Admin Email
+          <form onSubmit={handleSubmit} className="space-y-8">
+            <div className="group/field">
+              <label className="block text-xs font-mono font-bold mb-4 text-gray-500 uppercase tracking-[0.3em] group-focus-within/field:text-white transition-colors">
+                Root_Email
               </label>
               <div className="relative">
-                <HiMail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <HiMail className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 group-focus-within/field:text-white transition-colors" />
                 <input
                   type="email"
                   name="email"
@@ -111,18 +110,18 @@ export default function AdminLoginPage() {
                   onChange={handleChange}
                   required
                   disabled={loading}
-                  className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full pl-16 pr-6 py-5 bg-transparent/5 border border-white/10 rounded-2xl focus:border-white/40 focus:bg-transparent/10 focus:outline-none transition-all text-white font-light text-lg"
                   placeholder="admin@aayam.com"
                 />
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold mb-2 text-gray-300">
-                Password
+            <div className="group/field">
+              <label className="block text-xs font-mono font-bold mb-4 text-gray-500 uppercase tracking-[0.3em] group-focus-within/field:text-white transition-colors">
+                Master_Passkey
               </label>
               <div className="relative">
-                <HiLockClosed className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <HiLockClosed className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 group-focus-within/field:text-white transition-colors" />
                 <input
                   type="password"
                   name="password"
@@ -130,37 +129,42 @@ export default function AdminLoginPage() {
                   onChange={handleChange}
                   required
                   disabled={loading}
-                  className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none transition-colors text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                  placeholder="Enter admin password"
+                  className="w-full pl-16 pr-6 py-5 bg-transparent/5 border border-white/10 rounded-2xl focus:border-white/40 focus:bg-transparent/10 focus:outline-none transition-all text-white font-light text-lg"
+                  placeholder="Enter passkey"
                 />
               </div>
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-4 bg-gradient-to-r from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)] rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-[0_12px_30px_rgba(220,20,38,0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-            >
-              {loading ? (
-                <>
-                  <LoadingSpinner size="sm" color="white" />
-                  <span>Logging in...</span>
-                </>
-              ) : (
-                'Access Admin Panel'
-              )}
-            </button>
+            <div className="pt-4">
+              <Magnetic>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-6 bg-transparent text-black font-black text-xl tracking-[0.2em] rounded-2xl hover:bg-[var(--horror-magenta)] hover:text-white transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4 uppercase"
+                >
+                  {loading ? (
+                    <>
+                      <LoadingSpinner size="sm" color="black" />
+                      <span>Verifying...</span>
+                    </>
+                  ) : (
+                    'Initialize'
+                  )}
+                </button>
+              </Magnetic>
+            </div>
           </form>
 
-          <div className="mt-6 text-center">
-            <Link href="/ambassador/login" className="text-gray-500 hover:text-gray-300 text-sm">
-              ← Back to Ambassador Login
+          <div className="mt-12 text-center">
+            <Link href="/ambassador/login" className="text-gray-500 hover:text-white font-mono text-xs uppercase tracking-[0.2em] transition-colors border-b border-white/10">
+              ← TERMINATE_ADMIN_SESSION
             </Link>
           </div>
         </motion.div>
 
-        <div className="mt-6 text-center text-gray-500 text-xs">
-          <p>🔒 Secure admin access only</p>
+        <div className="mt-12 text-center text-gray-600 font-mono text-[9px] uppercase tracking-[0.6em] opacity-30 leading-loose">
+          CORE_SYSTEM_V2.0_CLEARANCE_REQUIRED <br />
+          ALL_ACTIVITY_MONITORED_BY_SYNAPSE_NET
         </div>
       </div>
     </div>

@@ -5,9 +5,10 @@ import AnimatedBlobBackground from './AnimatedBlobBackground';
 import OrbitingParticles from './OrbitingParticles';
 import GridWaveBackground from './GridWaveBackground';
 import GradientBackground from './GradientBackground';
+import TechHorrorBackground from './TechHorrorBackground';
 
 interface AnimatedBGProps {
-  type?: 'blob' | 'orbits' | 'grid' | 'particles' | 'combined';
+  type?: 'blob' | 'orbits' | 'grid' | 'particles' | 'combined' | 'horror';
   opacity?: number;
 }
 
@@ -28,21 +29,9 @@ export default function DynamicBackground({ type = 'combined', opacity = 1 }: An
   if (type === 'combined') {
     return (
       <div className="fixed inset-0" style={{ zIndex: 0 }}>
-        <div
-          className="absolute inset-0 bg-[#0A0B16]"
-          style={{ zIndex: 1 }}
-        />
-        {/* Gradient base layer */}
-        <div style={{ opacity: opacity * 0.5, zIndex: 2, position: 'absolute', inset: 0, pointerEvents: 'none' }}>
-          <GradientBackground />
-        </div>
-        {/* Orbiting particles */}
-        <div style={{ opacity: opacity * 0.6, zIndex: 3, position: 'absolute', inset: 0, pointerEvents: 'none' }}>
-          <OrbitingParticles />
-        </div>
-        {/* Subtle blobs */}
-        <div style={{ opacity: opacity * 0.3, zIndex: 4, position: 'absolute', inset: 0, pointerEvents: 'none' }}>
-          <AnimatedBlobBackground />
+        {/* Tech horror main background */}
+        <div style={{ opacity: opacity, zIndex: 1, position: 'absolute', inset: 0, pointerEvents: 'none' }}>
+          <TechHorrorBackground />
         </div>
         <style>{`
           @keyframes gradient-shift {
@@ -65,8 +54,14 @@ export default function DynamicBackground({ type = 'combined', opacity = 1 }: An
 
   return (
     <div className="fixed inset-0" style={{ zIndex: 0, opacity }}>
-      <div className="absolute inset-0 bg-[#0A0B16]" />
-      {backgrounds[type]}
+      {type === 'horror' ? (
+        <TechHorrorBackground />
+      ) : (
+        <>
+          <div className="absolute inset-0 bg-[#0A0B16]" />
+          {backgrounds[type]}
+        </>
+      )}
     </div>
   );
-}
+} 

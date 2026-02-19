@@ -6,14 +6,22 @@
 }
 
 :root {
-  --midich: #0A0B16;
-  --mydiry: #180C16;
-  --black-red: #350609;
-  --energy: #200934;
-  --dc1426: #560F28;
-  --text-primary: #f7f0ea;
-  --text-muted: #b7a6b0;
-  --accent-glow: rgba(86, 15, 40, 0.35);
+  --midich: #0a0a15;
+  --mydiry: #1a0a20;
+  --black-red: #2d0505;
+  --energy: #1a0033;
+  --dc1426: #4a0020;
+  --text-primary: #e8e0ff;
+  --text-muted: #9080b0;
+  --accent-glow: rgba(200, 0, 100, 0.4);
+  
+  /* Tech Horror palette */
+  --horror-dark: #050508;
+  --horror-purple: #1a0033;
+  --horror-magenta: #c80064;
+  --horror-cyan: #00d9ff;
+  --horror-red: #8b0000;
+  --horror-violet: #4b0082;
 }
 
 * {
@@ -29,7 +37,7 @@ html {
 }
 
 body {
-  background: #0A0B16;
+  background: #050508;
   color: var(--text-primary);
   overflow-x: hidden;
   font-display: swap;
@@ -50,8 +58,8 @@ h4 {
 }
 
 ::selection {
-  background-color: rgba(86, 15, 40, 0.35);
-  color: #ffffff;
+  background-color: rgba(200, 0, 100, 0.4);
+  color: #e8e0ff;
 }
 
 ::-webkit-scrollbar {
@@ -59,16 +67,16 @@ h4 {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0b0b12;
+  background: #0a0a15;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--energy) 0%, var(--dc1426) 100%);
+  background: linear-gradient(180deg, #4a0020 0%, #c80064 100%);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #2d0f4a 0%, #7a1534 100%);
+  background: linear-gradient(180deg, #7a0033 0%, #ff1493 100%);
 }
 
 /* Performance-friendly CSS animations replacing JS timers */
@@ -123,15 +131,33 @@ h4 {
 }
 
 @keyframes logo-pulse {
-
-  0%,
-  100% {
-    filter: drop-shadow(0 0 20px rgba(86, 15, 40, 0.3));
+  0%, 100% {
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+    transform: scale(1);
   }
-
   50% {
-    filter: drop-shadow(0 0 42px rgba(86, 15, 40, 0.6));
+    filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.6));
+    transform: scale(1.02);
   }
+}
+
+.logo-glow {
+  animation: logo-pulse 3s infinite;
+}
+
+.logo-glitch {
+  position: relative;
+}
+
+.logo-glitch::before,
+.logo-glitch::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit; 
 }
 
 @keyframes slow-drift {
@@ -168,10 +194,10 @@ h4 {
 
 @keyframes neon-flicker {
   0%, 100% {
-    filter: brightness(1) drop-shadow(0 0 20px rgba(86,15,40,0.6));
+    filter: brightness(1) drop-shadow(0 0 20px rgba(200, 0, 100, 0.6));
   }
   50% {
-    filter: brightness(1.2) drop-shadow(0 0 30px rgba(86,15,40,0.8));
+    filter: brightness(1.2) drop-shadow(0 0 30px rgba(200, 0, 100, 0.8));
   }
 }
 
@@ -205,15 +231,15 @@ h4 {
 .neon-border {
   position: relative;
   box-shadow: 
-    0 0 10px rgba(86, 15, 40, 0.5),
-    inset 0 0 10px rgba(86, 15, 40, 0.2);
+    0 0 10px rgba(200, 0, 100, 0.5),
+    inset 0 0 10px rgba(200, 0, 100, 0.2);
 }
 
 .neon-border::before {
   content: '';
   position: absolute;
   inset: -2px;
-  background: linear-gradient(45deg, #560F28, #200934, #560F28);
+  background: linear-gradient(45deg, #4a0020, #1a0033, #4a0020);
   border-radius: inherit;
   opacity: 0;
   transition: opacity 0.3s;
@@ -237,7 +263,7 @@ h4 {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(transparent, rgba(86, 15, 40, 0.3), transparent);
+  background: linear-gradient(transparent, rgba(200, 0, 100, 0.3), transparent);
   animation: scanline 4s linear infinite;
   pointer-events: none;
 }
