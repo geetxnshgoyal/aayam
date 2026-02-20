@@ -280,7 +280,7 @@ export default function AdminDashboard() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h1 className="text-4xl md:text-7xl font-[var(--font-cinzel)] font-black text-white tracking-tighter uppercase leading-none">
+            <h1 className="text-4xl md:text-7xl font-display font-black text-white tracking-tighter uppercase leading-none">
               <TextEncrypt text="COMMAND_CENTER" />
             </h1>
             <p className="text-gray-500 font-mono text-xs mt-4 tracking-[0.4em] uppercase">Status: Connected_To_Mainframe</p>
@@ -346,7 +346,7 @@ export default function AdminDashboard() {
 
             <div className="flex items-center gap-6 mb-12">
               <div className="w-12 h-1 bg-[var(--horror-magenta)] rounded-full shadow-[0_0_15px_var(--horror-magenta)]" />
-              <h3 className="text-3xl font-[var(--font-cinzel)] font-bold text-white uppercase tracking-widest">Global_Hierarchy</h3>
+              <h3 className="text-3xl font-display font-bold text-white uppercase tracking-widest">Global_Hierarchy</h3>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -380,8 +380,8 @@ export default function AdminDashboard() {
               <button
                 onClick={() => setActiveTab(tab.key as any)}
                 className={`px-8 py-4 rounded-2xl font-mono text-[10px] font-black tracking-[0.2em] transition-all duration-500 border ${activeTab === tab.key
-                    ? 'bg-[var(--horror-magenta)] text-white border-[var(--horror-magenta)] shadow-[0_0_20px_var(--horror-magenta)]/30 scale-105'
-                    : 'bg-transparent/5 text-gray-500 border-white/5 hover:border-white/20 hover:text-white'
+                  ? 'bg-[var(--horror-magenta)] text-white border-[var(--horror-magenta)] shadow-[0_0_20px_var(--horror-magenta)]/30 scale-105'
+                  : 'bg-transparent/5 text-gray-500 border-white/5 hover:border-white/20 hover:text-white'
                   }`}
               >
                 {tab.label}
@@ -483,8 +483,8 @@ export default function AdminDashboard() {
                             <td className="px-8 py-6 text-[var(--horror-magenta)] font-black tracking-widest">{signup.ambassadors?.referral_code || '--'}</td>
                             <td className="px-8 py-6">
                               <span className={`px-4 py-1.5 rounded-full text-[9px] font-black border tracking-[0.2em] ${signup.status === 'approved' ? 'bg-green-500/20 text-green-500 border-green-500/20' :
-                                  signup.status === 'pending' ? 'bg-yellow-500/20 text-yellow-500 border-yellow-500/20' :
-                                    'bg-red-500/20 text-red-500 border-red-500/20'
+                                signup.status === 'pending' ? 'bg-yellow-500/20 text-yellow-500 border-yellow-500/20' :
+                                  'bg-red-500/20 text-red-500 border-red-500/20'
                                 }`}>
                                 {signup.status?.toUpperCase() || 'APPROVED'}
                               </span>
@@ -513,7 +513,7 @@ export default function AdminDashboard() {
               {activeTab === 'bulkUpload' && (
                 <div className="bg-[#050508]/60 backdrop-blur-3xl rounded-[3rem] border border-white/5 p-12 md:p-20 shadow-2xl relative overflow-hidden">
                   <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--horror-cyan)] to-transparent" />
-                  <h2 className="text-4xl font-[var(--font-cinzel)] font-black text-white mb-8 uppercase tracking-widest">Metadata_Dispatch</h2>
+                  <h2 className="text-4xl font-display font-black text-white mb-8 uppercase tracking-widest">Metadata_Dispatch</h2>
 
                   <div className="grid lg:grid-cols-2 gap-16">
                     <div className="space-y-10">

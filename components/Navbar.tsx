@@ -3,12 +3,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiMenu, HiX } from 'react-icons/hi';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,10 +23,11 @@ export default function Navbar() {
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Competitions', href: '/competitions' },
-    { name: 'Ambassador', href: '/ambassador', highlight: true },
+    { name: 'Ambassador', href: '/ambassador' },
     { name: 'Sponsors', href: '/sponsors' },
     { name: 'About', href: '/about' },
     { name: 'Gallery', href: '/gallery' },
+    { name: 'Brochure', href: '/brochure/aayam-sponsorship-booklet-2026.pdf', external: true },
   ];
 
   return (
@@ -53,11 +56,12 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`relative px-5 py-2.5 font-medium text-[15px] transition-colors duration-200 group ${
-                  link.highlight 
-                    ? 'text-[var(--horror-cyan)] font-bold drop-shadow-[0_0_8px_rgba(0,217,255,0.5)]' 
-                    : 'text-gray-300 hover:text-white'
-                }`}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
+                className={`relative px-5 py-2.5 font-medium text-[15px] transition-colors duration-200 group ${pathname === link.href || (link.href !== '/' && pathname?.startsWith(link.href))
+                  ? 'text-[var(--horror-cyan)] font-bold drop-shadow-[0_0_8px_rgba(0,217,255,0.5)]'
+                  : 'text-gray-300 hover:text-white'
+                  }`}
               >
                 <span className="relative z-10">{link.name}</span>
               </Link>
@@ -101,11 +105,12 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className={`block text-lg font-medium py-3 px-4 rounded-xl transition-all duration-200 ${
-                      link.highlight
-                        ? 'bg-gradient-to-r from-[var(--energy)]/10 to-[var(--dc1426)]/10 border border-[#560F28]/30 text-transparent bg-clip-text bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)]'
-                        : 'text-white hover:text-[#dc1426] hover:bg-white/5'
-                    }`}
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noopener noreferrer" : undefined}
+                    className={`block text-lg font-medium py-3 px-4 rounded-xl transition-all duration-200 ${pathname === link.href || (link.href !== '/' && pathname?.startsWith(link.href))
+                      ? 'bg-gradient-to-r from-[var(--energy)]/10 to-[var(--dc1426)]/10 border border-[#560F28]/30 text-transparent bg-clip-text bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)]'
+                      : 'text-white hover:text-[#dc1426] hover:bg-white/5'
+                      }`}
                   >
                     {link.name}
                   </Link>

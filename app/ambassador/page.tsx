@@ -81,19 +81,19 @@ export default function AmbassadorPage() {
     {
       name: 'SILVER OPERATIVE',
       target: '25-50 SIGN-UPS',
-      rewards: ['Tactical Gear', 'Priority Clearance', 'Encrypted Swag', 'Nodal Badge'],
+      rewards: ['Priority Clearance', 'Nodal Badge'],
       gradient: 'from-gray-400 to-gray-600',
     },
     {
       name: 'GOLD OPERATIVE',
       target: '50-100 SIGN-UPS',
-      rewards: ['Artifact Grade Swag', 'Gold Clearance', 'Executive Access', 'Recommendation Log', 'Nexus Session'],
+      rewards: ['Gold Clearance', 'Executive Access', 'Recommendation Log', 'Nexus Session'],
       gradient: 'from-yellow-400 to-yellow-600',
     },
     {
       name: 'PLATINUM OPERATIVE',
       target: '100+ SIGN-UPS',
-      rewards: ['Full Gear Set', 'Platinum Clearance', 'Total Access Pass', 'Architect Recommendation', 'Council Meet', 'Website Decryption', 'Core Team Priority'],
+      rewards: ['Platinum Clearance', 'Total Access Pass', 'Concert Pass', 'LOR', 'Core Team Priority', 'Meet with Organizers', 'and many more exciting things'],
       gradient: 'from-purple-400 to-purple-600',
     },
   ];
@@ -141,7 +141,7 @@ export default function AmbassadorPage() {
             <span>Recruiting Operatives</span>
           </motion.div>
 
-          <h1 className="text-6xl md:text-9xl font-[var(--font-cinzel)] font-black mb-8 text-white tracking-tighter leading-none">
+          <h1 className="text-6xl md:text-9xl font-display font-black mb-8 text-white tracking-tighter leading-none">
             JOIN THE <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--horror-magenta)] via-purple-400 to-[var(--horror-cyan)] animate-gradient-shift bg-[length:200%_auto]">
               <TextEncrypt text="SYNDICATE" />
@@ -181,7 +181,7 @@ export default function AmbassadorPage() {
 
               <div className="flex items-center gap-6 mb-12">
                 <div className="w-16 h-1 bg-[var(--horror-cyan)] rounded-full shadow-[0_0_15px_var(--horror-cyan)]" />
-                <h2 className="text-4xl md:text-6xl font-[var(--font-cinzel)] font-bold text-white tracking-widest uppercase">The Directive</h2>
+                <h2 className="text-4xl md:text-6xl font-display font-bold text-white tracking-widest uppercase">The Directive</h2>
               </div>
 
               <div className="grid md:grid-cols-2 gap-16 text-xl text-gray-400 leading-relaxed font-light">
@@ -199,7 +199,7 @@ export default function AmbassadorPage() {
         {/* Benefits */}
         <div className="mb-40">
           <div className="text-center mb-24">
-            <h2 className="text-4xl md:text-7xl font-[var(--font-cinzel)] font-bold text-white uppercase tracking-tighter">Operative Rewards</h2>
+            <h2 className="text-4xl md:text-7xl font-display font-bold text-white uppercase tracking-tighter">Operative Rewards</h2>
             <p className="text-gray-500 mt-6 tracking-[0.5em] font-mono text-xs uppercase">Decrypted perks for active clearance levels</p>
           </div>
 
@@ -216,7 +216,7 @@ export default function AmbassadorPage() {
                 <div className={`w-16 h-16 mb-8 rounded-2xl bg-transparent/5 flex items-center justify-center border border-white/10 group-hover:bg-transparent/10 transition-colors`}>
                   <benefit.icon className="w-8 h-8 text-[var(--horror-cyan)] group-hover:text-white" />
                 </div>
-                <h3 className="text-2xl font-[var(--font-cinzel)] font-black text-white mb-4 group-hover:text-[var(--horror-magenta)] transition-colors">{benefit.title}</h3>
+                <h3 className="text-2xl font-display font-black text-white mb-4 group-hover:text-[var(--horror-magenta)] transition-colors">{benefit.title}</h3>
                 <p className="text-gray-400 leading-relaxed font-light">{benefit.description}</p>
               </motion.div>
             ))}
@@ -226,7 +226,7 @@ export default function AmbassadorPage() {
         {/* Tiers */}
         <div id="rewards" className="mb-40">
           <div className="text-center mb-24">
-            <h2 className="text-4xl md:text-7xl font-[var(--font-cinzel)] font-bold text-white uppercase tracking-tighter">Clearance Levels</h2>
+            <h2 className="text-4xl md:text-7xl font-display font-bold text-white uppercase tracking-tighter">Clearance Levels</h2>
             <div className="w-40 h-1 bg-gradient-to-r from-transparent via-[var(--horror-magenta)] to-transparent mx-auto mt-6" />
           </div>
 
@@ -242,7 +242,7 @@ export default function AmbassadorPage() {
                 <div className={`absolute inset-0 bg-gradient-to-br ${tier.gradient} opacity-0 group-hover:opacity-10 transition-opacity`} />
 
                 <div className="flex items-center justify-between mb-10">
-                  <h3 className="text-3xl font-[var(--font-cinzel)] font-black text-white">{tier.name}</h3>
+                  <h3 className="text-3xl font-display font-black text-white">{tier.name}</h3>
                   <div className="px-6 py-2 rounded-full border border-[var(--horror-magenta)] text-[var(--horror-magenta)] font-mono text-sm font-bold shadow-[0_0_15px_var(--horror-magenta)]/20">
                     {tier.target}
                   </div>
@@ -264,7 +264,7 @@ export default function AmbassadorPage() {
         {/* FAQ - THE LOGS */}
         <div className="mb-40">
           <div className="text-center mb-24">
-            <h2 className="text-4xl md:text-6xl font-[var(--font-cinzel)] font-bold text-white uppercase tracking-widest">The Logs (FAQ)</h2>
+            <h2 className="text-4xl md:text-6xl font-display font-bold text-white uppercase tracking-widest">The Logs (FAQ)</h2>
           </div>
 
           <div className="max-w-4xl mx-auto space-y-6">
@@ -299,7 +299,7 @@ export default function AmbassadorPage() {
           className="relative bg-transparent/5 backdrop-blur-3xl p-20 md:p-32 rounded-[4rem] text-center border border-white/10 overflow-hidden"
         >
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--horror-magenta)] to-transparent" />
-          <h2 className="text-5xl md:text-8xl font-[var(--font-cinzel)] font-black mb-10 text-white leading-tight uppercase">
+          <h2 className="text-5xl md:text-8xl font-display font-black mb-10 text-white leading-tight uppercase">
             Initiate <br /> <span className="text-[var(--horror-cyan)]">Infiltration</span>
           </h2>
           <p className="text-2xl text-gray-400 mb-16 max-w-3xl mx-auto font-light leading-relaxed">

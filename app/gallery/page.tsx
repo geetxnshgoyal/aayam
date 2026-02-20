@@ -31,7 +31,7 @@ export default function GalleryPage() {
     : galleryImages.filter(img => img.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 pt-28 pb-20 relative">
+    <div className="min-h-screen bg-transparent text-white pt-28 pb-20 relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Hero */}
         <motion.div
@@ -45,7 +45,7 @@ export default function GalleryPage() {
               Gallery
             </span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
             Moments from AAYAM at Newton School of Technology
           </p>
         </motion.div>
@@ -63,7 +63,7 @@ export default function GalleryPage() {
               onClick={() => setSelectedCategory(category)}
               className={`px-6 py-2.5 rounded-full font-medium text-sm transition-all duration-300 ${selectedCategory === category
                 ? 'bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] text-white shadow-lg shadow-[0_12px_30px_rgba(220,20,38,0.3)]'
-                  : 'bg-gray-200/60 text-gray-700 hover:bg-gray-300/60 hover:text-gray-900 border border-gray-300'
+                : 'bg-white/10 text-gray-300 hover:bg-white/20 hover:text-white border border-white/20'
                 }`}
             >
               {category}
@@ -122,16 +122,16 @@ export default function GalleryPage() {
           viewport={{ once: true }}
           className="mt-20"
         >
-          <div className="bg-gray-100 rounded-3xl p-12 text-center border border-gray-200">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Want to See More?</h2>
-            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+          <div className="bg-white/5 rounded-3xl p-12 text-center border border-white/10">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">Want to See More?</h2>
+            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
               Follow AAYAM on social media for live updates, photos, and behind-the-scenes content.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <button className="px-8 py-3.5 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] rounded-full font-semibold hover:shadow-lg hover:shadow-[0_12px_30px_rgba(220,20,38,0.3)] transition-all duration-300 hover:scale-105 active:scale-95">
+              <button className="px-8 py-3.5 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] rounded-full font-semibold hover:shadow-lg hover:shadow-[0_12px_30px_rgba(220,20,38,0.3)] transition-all duration-300 hover:scale-105 active:scale-95 text-white">
                 Follow on Instagram
               </button>
-              <button className="px-8 py-3.5 border border-gray-400 rounded-full font-semibold hover:bg-gray-200 transition-all duration-300 text-gray-900">
+              <button className="px-8 py-3.5 border border-white/20 rounded-full font-semibold hover:bg-white/10 transition-all duration-300 text-white">
                 View Full Album
               </button>
             </div>

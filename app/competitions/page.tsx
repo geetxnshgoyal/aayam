@@ -211,8 +211,8 @@ const categories = ['All', 'Hackathon', 'Coding', 'Open Source', 'Robotics', 'Ge
 
 export default function CompetitionsPage() {
   return (
-    <div className="min-h-screen bg-white text-gray-900 pt-32 pb-20 relative">
-      
+    <div className="min-h-screen bg-transparent text-white pt-32 pb-20 relative">
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
         <motion.div
           initial={{ y: 30, opacity: 0 }}
@@ -224,15 +224,15 @@ export default function CompetitionsPage() {
             COMPETITIONS
           </h1>
           <motion.p
-            className="text-2xl text-gray-600 max-w-3xl mx-auto mb-4"
+            className="text-2xl text-gray-400 max-w-3xl mx-auto mb-4"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            12+ events across Hackathons, Coding, Robotics, and Open Source. Choose your arena.
+            6+ events across Hackathons, Coding, Robotics, and Open Source. Choose your arena.
           </motion.p>
           <motion.p
-            className="text-lg text-gray-600"
+            className="text-lg text-gray-400"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -281,54 +281,64 @@ export default function CompetitionsPage() {
                       >
                         <div className={`absolute inset-0 bg-gradient-to-br ${comp.gradient} opacity-0 group-hover:opacity-[0.07] transition-opacity duration-300`} />
 
-                      <div className="relative z-10 p-8 flex flex-col h-full">
-                        <div className="flex items-center justify-between mb-6">
-                          <div className={`p-3.5 rounded-2xl bg-gradient-to-br ${comp.gradient} shadow-lg`}>
-                            <comp.icon className="w-7 h-7 text-white" />
+                        <div className="relative z-10 p-8 flex flex-col h-full">
+                          <div className="flex items-center justify-between mb-6">
+                            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${comp.gradient} shadow-lg flex items-center justify-center`}>
+                              {comp.category === 'Hackathon' ? (
+                                <svg className="w-7 h-7 text-white drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+                              ) : comp.category === 'Coding' ? (
+                                <svg className="w-7 h-7 text-white drop-shadow-md" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
+                              ) : comp.category === 'Robotics' ? (
+                                <svg className="w-7 h-7 text-white drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                              ) : comp.category === 'Open Source' ? (
+                                <svg className="w-7 h-7 text-white drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                              ) : (
+                                <svg className="w-7 h-7 text-white drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+                              )}
+                            </div>
+                            <div className="flex gap-2">
+                              <span className="text-xs font-bold px-3 py-1.5 bg-white/5 rounded-full border border-white/10 text-gray-400">
+                                {comp.type}
+                              </span>
+                              <span className="text-xs font-bold px-3 py-1.5 bg-white/5 rounded-full border border-white/10 text-gray-400">
+                                {comp.difficulty}
+                              </span>
+                            </div>
                           </div>
-                          <div className="flex gap-2">
-                            <span className="text-xs font-bold px-3 py-1.5 bg-white/5 rounded-full border border-white/10 text-gray-400">
-                              {comp.type}
-                            </span>
-                            <span className="text-xs font-bold px-3 py-1.5 bg-white/5 rounded-full border border-white/10 text-gray-400">
-                              {comp.difficulty}
-                            </span>
+
+                          <h3 className="text-2xl font-black mb-3 text-white">{comp.title}</h3>
+                          <p className="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">{comp.description}</p>
+
+                          <div className="space-y-3 mb-6">
+                            <div className="flex items-center justify-between">
+                              <span className="text-gray-500 text-sm font-medium">Prize Pool</span>
+                              <span className={`font-black text-lg bg-gradient-to-r ${comp.gradient} bg-clip-text text-transparent`}>
+                                {comp.prize}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-gray-500 text-sm font-medium">Duration</span>
+                              <span className="text-gray-300 font-semibold text-sm">{comp.duration}</span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-gray-500 text-sm font-medium">Team Size</span>
+                              <span className="text-gray-300 font-semibold text-sm">{comp.participants}</span>
+                            </div>
+                            <div className="pt-2 border-t border-white/5">
+                              <span className="text-gray-500 text-xs">{comp.details}</span>
+                            </div>
                           </div>
+
+                          <a
+                            href={comp.registrationLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r ${comp.gradient} rounded-2xl font-bold text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] active:scale-95 text-white`}
+                          >
+                            Register on Unstop
+                            <FiExternalLink className="w-4 h-4" />
+                          </a>
                         </div>
-
-                        <h3 className="text-2xl font-black mb-3 text-white">{comp.title}</h3>
-                        <p className="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">{comp.description}</p>
-
-                        <div className="space-y-3 mb-6">
-                          <div className="flex items-center justify-between">
-                            <span className="text-gray-500 text-sm font-medium">Prize Pool</span>
-                            <span className={`font-black text-lg bg-gradient-to-r ${comp.gradient} bg-clip-text text-transparent`}>
-                              {comp.prize}
-                            </span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="text-gray-500 text-sm font-medium">Duration</span>
-                            <span className="text-gray-300 font-semibold text-sm">{comp.duration}</span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="text-gray-500 text-sm font-medium">Team Size</span>
-                            <span className="text-gray-300 font-semibold text-sm">{comp.participants}</span>
-                          </div>
-                          <div className="pt-2 border-t border-white/5">
-                            <span className="text-gray-500 text-xs">{comp.details}</span>
-                          </div>
-                        </div>
-
-                        <a
-                          href={comp.registrationLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r ${comp.gradient} rounded-2xl font-bold text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] active:scale-95 text-white`}
-                        >
-                          Register on Unstop
-                          <FiExternalLink className="w-4 h-4" />
-                        </a>
-                      </div>
                       </div>
                     </GlowingCard>
                   </motion.div>

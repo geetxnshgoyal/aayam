@@ -15,11 +15,11 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="relative w-36 h-14 mb-5">
-              <Image 
-                src="/images/logo.png" 
-                alt="AAYAM Logo" 
-                fill 
-                className="object-contain" 
+              <Image
+                src="/images/logo.png"
+                alt="AAYAM Logo"
+                fill
+                className="object-contain"
               />
             </div>
             <p className="text-gray-400 mb-2 text-sm leading-relaxed">
@@ -56,11 +56,17 @@ export default function Footer() {
                 { name: 'Home', href: '/' },
                 { name: 'Competitions', href: '/competitions' },
                 { name: 'Sponsors', href: '/sponsors' },
+                { name: 'Sponsor Brochure', href: '/brochure/aayam-sponsorship-booklet-2026.pdf', external: true },
                 { name: 'About', href: '/about' },
                 { name: 'Gallery', href: '/gallery' },
               ].map((item) => (
                 <li key={item.name}>
-                  <Link href={item.href} className="text-gray-400 hover:text-[#dc1426] transition-colors text-sm">
+                  <Link
+                    href={item.href}
+                    target={item.external ? "_blank" : undefined}
+                    rel={item.external ? "noopener noreferrer" : undefined}
+                    className="text-gray-400 hover:text-[#dc1426] transition-colors text-sm"
+                  >
                     {item.name}
                   </Link>
                 </li>
@@ -110,11 +116,10 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <HiLocationMarker className="text-[#dc1426] mt-0.5 flex-shrink-0" size={18} />
-                <span className="text-gray-400 text-sm">
+                <p className="text-gray-400 leading-relaxed text-sm mb-6">
                   Newton School of Technology<br />
-                  Rishihood University Campus<br />
-                  Sonipat, Haryana
-                </span>
+                  NST S-VYASA University, P3 Block, Sattva Global City, Global Village, Bengaluru, Karnataka, 560059
+                </p>
               </li>
             </ul>
           </div>

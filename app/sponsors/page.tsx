@@ -55,7 +55,7 @@ export default function SponsorsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 pt-28 pb-20">
+    <div className="min-h-screen bg-transparent text-white pt-28 pb-20">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Hero */}
         <motion.div
@@ -70,7 +70,7 @@ export default function SponsorsPage() {
               Sponsors
             </span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
             AAYAM is made possible by our incredible sponsors. Together, we&apos;re building new dimensions of technology.
           </p>
         </motion.div>
@@ -84,7 +84,7 @@ export default function SponsorsPage() {
           className="mb-24"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Why Sponsor AAYAM?</h2>
-          <p className="text-gray-600 text-center text-lg mb-12 max-w-2xl mx-auto">
+          <p className="text-gray-400 text-center text-lg mb-12 max-w-2xl mx-auto">
             Reach 3000+ developers, engineers, and students at Newton School of Technology
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -95,13 +95,13 @@ export default function SponsorsPage() {
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-gray-100 rounded-2xl p-6 border border-gray-200 text-center group hover:border-gray-300 transition-colors duration-300"
+                className="bg-white/5 rounded-2xl p-6 border border-white/10 text-center group hover:border-white/20 hover:bg-white/10 transition-colors duration-300"
               >
                 <div className="inline-flex items-center justify-center w-14 h-14 mb-4 bg-gradient-to-br from-[var(--energy)] to-[var(--dc1426)] rounded-xl group-hover:scale-110 transition-transform duration-300">
                   <item.icon className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-                <p className="text-gray-700 text-sm">{item.description}</p>
+                <h3 className="font-bold text-lg mb-2 text-white">{item.title}</h3>
+                <p className="text-gray-400 text-sm">{item.description}</p>
               </motion.div>
             ))}
           </div>
@@ -125,12 +125,12 @@ export default function SponsorsPage() {
             </div>
 
             <div className={`grid gap-6 ${tier.tier === 'Title Sponsors'
-                ? 'grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto'
-                : tier.tier === 'Platinum Sponsors'
-                  ? 'grid-cols-1 md:grid-cols-3'
-                  : tier.tier === 'Gold Sponsors'
-                    ? 'grid-cols-2 md:grid-cols-4'
-                    : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-6'
+              ? 'grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto'
+              : tier.tier === 'Platinum Sponsors'
+                ? 'grid-cols-1 md:grid-cols-3'
+                : tier.tier === 'Gold Sponsors'
+                  ? 'grid-cols-2 md:grid-cols-4'
+                  : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-6'
               }`}>
               {tier.sponsors.map((sponsor, index) => (
                 <motion.div
@@ -139,21 +139,21 @@ export default function SponsorsPage() {
                   whileInView={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
                   viewport={{ once: true }}
-                  className={`group relative bg-gray-100 rounded-2xl overflow-hidden border border-gray-200 hover:border-gray-300 transition-all duration-300 hover:-translate-y-1 ${tier.tier === 'Title Sponsors' ? 'p-10' : 'p-6'
+                  className={`group relative bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-1 ${tier.tier === 'Title Sponsors' ? 'p-10' : 'p-6'
                     }`}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${tier.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${tier.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
 
                   <div className="relative flex flex-col items-center">
                     <div className={`relative ${tier.tier === 'Title Sponsors' ? 'w-40 h-20' : 'w-28 h-14'
                       } mb-4 grayscale group-hover:grayscale-0 transition-all duration-300`}>
                       <Image src={sponsor.logo} alt={sponsor.name} fill className="object-contain" />
                     </div>
-                    <h3 className={`font-bold text-center mb-1 ${tier.tier === 'Title Sponsors' ? 'text-xl' : 'text-base'
+                    <h3 className={`font-bold text-center mb-1 text-white ${tier.tier === 'Title Sponsors' ? 'text-xl' : 'text-base'
                       }`}>
                       {sponsor.name}
                     </h3>
-                    <p className={`text-gray-700 text-center ${tier.tier === 'Title Sponsors' ? 'text-sm' : 'text-xs'
+                    <p className={`text-gray-400 text-center ${tier.tier === 'Title Sponsors' ? 'text-sm' : 'text-xs'
                       }`}>
                       {sponsor.description}
                     </p>
@@ -172,19 +172,19 @@ export default function SponsorsPage() {
           viewport={{ once: true }}
           className="mt-24"
         >
-          <div className="bg-gray-100 rounded-3xl p-12 md:p-16 text-center border border-gray-200">
-            <h2 className="text-3xl md:text-5xl font-black mb-6">
+          <div className="bg-white/5 rounded-3xl p-12 md:p-16 text-center border border-white/10">
+            <h2 className="text-3xl md:text-5xl font-black mb-6 text-white">
               Interested in Sponsoring?
             </h2>
-            <p className="text-xl text-gray-700 mb-10 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
               Partner with AAYAM to put your brand in front of 3000+ developers and engineers at Newton School of Technology.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] rounded-full font-semibold text-lg hover:shadow-lg hover:shadow-[0_12px_30px_rgba(220,20,38,0.3)] transition-all duration-300 hover:scale-105 active:scale-95">
+              <button className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] rounded-full font-semibold text-lg hover:shadow-lg hover:shadow-[0_12px_30px_rgba(220,20,38,0.3)] transition-all duration-300 hover:scale-105 active:scale-95 text-white">
                 <HiMail className="w-5 h-5" />
                 Contact Sponsorship Team
               </button>
-              <button className="px-8 py-4 border border-gray-400 rounded-full font-semibold text-lg hover:bg-gray-200 transition-all duration-300 text-gray-900">
+              <button className="px-8 py-4 border border-white/20 rounded-full font-semibold text-lg hover:bg-white/10 transition-all duration-300 text-white">
                 Download Brochure
               </button>
             </div>

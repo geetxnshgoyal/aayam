@@ -98,7 +98,7 @@ export default function AmbassadorRegisterPage() {
             <span>Operative Recruitment</span>
           </motion.div>
 
-          <h1 className="text-4xl md:text-7xl font-[var(--font-cinzel)] font-black mb-6 text-white tracking-tighter uppercase">
+          <h1 className="text-4xl md:text-7xl font-display font-black mb-6 text-white tracking-tighter uppercase">
             <TextEncrypt text="PROTOCOL_ENTRY" />
           </h1>
 
@@ -120,8 +120,8 @@ export default function AmbassadorRegisterPage() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               className={`mb-10 p-6 rounded-2xl font-mono text-sm tracking-widest ${message.type === 'success'
-                  ? 'bg-green-500/10 border border-green-500/30 text-green-400 shadow-[0_0_20px_rgba(34,197,94,0.1)]'
-                  : 'bg-red-500/10 border border-red-500/30 text-red-500 shadow-[0_0_20px_rgba(239,68,68,0.1)]'
+                ? 'bg-green-500/10 border border-green-500/30 text-green-400 shadow-[0_0_20px_rgba(34,197,94,0.1)]'
+                : 'bg-red-500/10 border border-red-500/30 text-red-500 shadow-[0_0_20px_rgba(239,68,68,0.1)]'
                 }`}>
               {message.text}
             </motion.div>

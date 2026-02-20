@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import LiquidCursor from "@/components/LiquidCursor";
-import TechHorrorImageBG from "@/components/TechHorrorImageBG";
+import VideoBackground from "@/components/VideoBackground";
 import { ALL_SITE_URLS, PRIMARY_SITE_URL } from "@/lib/site";
 
 const siteUrl = PRIMARY_SITE_URL;
@@ -23,7 +23,7 @@ const cinzel = Cinzel({
 
 export const metadata: Metadata = {
   title: "AAYAM 2026 — Exploring New Dimensions of Technology | Newton School of Technology",
-  description: "AAYAM is the flagship techfest of Newton School of Technology. 12+ competitions including hackathons, robotics, competitive programming, and open source. March 14-15, 2026. ₹5L+ prize pool.",
+  description: "AAYAM is the flagship techfest of Newton School of Technology. 6+ competitions including hackathons, robotics, competitive programming, and open source. March 14-15, 2026. ₹2L+ prize pool.",
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "AAYAM 2026 — Exploring New Dimensions of Technology",
-    description: "12+ competitions. ₹5L+ prizes. 3000+ innovators. March 14-15 at Newton School of Technology.",
+    description: "6+ competitions. ₹2L+ prizes. 3000+ innovators. March 14-15 at Newton School of Technology.",
     type: "website",
     url: siteUrl,
     siteName: "AAYAM 2026",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "AAYAM 2026 — Exploring New Dimensions of Technology",
-    description: "12+ competitions. ₹5L+ prizes. 3000+ innovators.",
+    description: "6+ competitions. ₹2L+ prizes. 3000+ innovators.",
     images: ["/images/logo_clean.png"],
   },
 };
@@ -129,7 +129,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
         />
-        <TechHorrorImageBG />
+        <VideoBackground />
         <CustomCursor />
         <LiquidCursor />
         <Navbar />

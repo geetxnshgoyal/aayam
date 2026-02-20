@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 
 const marqueeItems = [
   '🚀 REGISTER NOW',
-  '💰 ₹5L+ PRIZE POOL',
-  '🏆 12+ COMPETITIONS',
-  '🎯 3000+ PARTICIPANTS',
+  '💰 ₹2L+ PRIZE POOL',
+  '🏆 6+ COMPETITIONS',
+  '👥 3000+ PARTICIPANTS',
   '🌟 MARCH 14-15, 2026',
   '📍 NEWTON SCHOOL OF TECHNOLOGY',
   '🤖 ROBOTICS ARENA',

@@ -71,7 +71,7 @@ export default function AmbassadorLoginPage() {
             Encryption Layer
           </motion.div>
 
-          <h1 className="text-4xl md:text-7xl font-[var(--font-cinzel)] font-black mb-6 text-white tracking-tighter uppercase">
+          <h1 className="text-4xl md:text-7xl font-display font-black mb-6 text-white tracking-tighter uppercase">
             <TextEncrypt text="DECRYPT_LOG" />
           </h1>
 
