@@ -22,8 +22,8 @@ const competitions = [
     prize: '₹50,000',
     participants: '2-4',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)]',
-    glowColor: 'rgba(220, 20, 38, 0.18)',
+    gradient: 'from-purple-600 via-pink-600 to-red-600',
+    glowColor: 'rgba(236, 72, 153, 0.3)',
   },
   {
     id: '12h-hackathon',
@@ -38,8 +38,8 @@ const competitions = [
     prize: '₹30,000',
     participants: '2-3',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-[var(--dc1426)] via-[var(--energy)] to-[var(--mydiry)]',
-    glowColor: 'rgba(220, 20, 38, 0.16)',
+    gradient: 'from-orange-500 via-red-500 to-pink-600',
+    glowColor: 'rgba(249, 115, 22, 0.3)',
   },
   // Coding
   {
@@ -55,8 +55,8 @@ const competitions = [
     prize: '₹25,000',
     participants: '1',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-[var(--energy)] via-[var(--midich)] to-[var(--dc1426)]',
-    glowColor: 'rgba(59, 31, 106, 0.18)',
+    gradient: 'from-cyan-500 via-blue-500 to-purple-600',
+    glowColor: 'rgba(59, 130, 246, 0.3)',
   },
   {
     id: 'cp-team',
@@ -71,8 +71,8 @@ const competitions = [
     prize: '₹40,000',
     participants: '3',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-[var(--dc1426)] via-[var(--black-red)] to-[var(--energy)]',
-    glowColor: 'rgba(220, 20, 38, 0.16)',
+    gradient: 'from-amber-500 via-orange-500 to-red-500',
+    glowColor: 'rgba(245, 158, 11, 0.3)',
   },
   {
     id: 'code-optimizer',
@@ -87,8 +87,8 @@ const competitions = [
     prize: '₹15,000',
     participants: '1',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-[var(--energy)] via-[var(--dc1426)] to-[var(--midich)]',
-    glowColor: 'rgba(220, 20, 38, 0.16)',
+    gradient: 'from-emerald-400 via-teal-500 to-cyan-500',
+    glowColor: 'rgba(16, 185, 129, 0.3)',
   },
   // Open Source
   {
@@ -104,8 +104,8 @@ const competitions = [
     prize: '₹20,000',
     participants: '1-3',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-[var(--mydiry)] via-[var(--midich)] to-[var(--black-red)]',
-    glowColor: 'rgba(32, 16, 21, 0.2)',
+    gradient: 'from-blue-600 via-indigo-600 to-purple-600',
+    glowColor: 'rgba(79, 70, 229, 0.3)',
   },
   // Robotics
   {
@@ -121,8 +121,8 @@ const competitions = [
     prize: '₹30,000',
     participants: '2-4',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-[var(--black-red)] via-[var(--dc1426)] to-[var(--energy)]',
-    glowColor: 'rgba(220, 20, 38, 0.2)',
+    gradient: 'from-red-500 via-pink-600 to-purple-600',
+    glowColor: 'rgba(239, 68, 68, 0.3)',
   },
   {
     id: 'robo-soccer',
@@ -153,8 +153,8 @@ const competitions = [
     prize: '₹40,000',
     participants: '2-5',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-[var(--dc1426)] via-[var(--black-red)] to-[var(--energy)]',
-    glowColor: 'rgba(220, 20, 38, 0.2)',
+    gradient: 'from-fuchsia-600 via-purple-600 to-indigo-600',
+    glowColor: 'rgba(192, 38, 211, 0.3)',
   },
   {
     id: 'maze-solver',
@@ -169,8 +169,8 @@ const competitions = [
     prize: '₹20,000',
     participants: '1-3',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-[var(--energy)] via-[var(--dc1426)] to-[var(--mydiry)]',
-    glowColor: 'rgba(59, 31, 106, 0.18)',
+    gradient: 'from-indigo-500 via-purple-500 to-pink-500',
+    glowColor: 'rgba(139, 92, 246, 0.3)',
   },
   {
     id: 'drone-hurdle',
@@ -185,8 +185,8 @@ const competitions = [
     prize: '₹35,000',
     participants: '1-3',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-[var(--midich)] via-[var(--energy)] to-[var(--dc1426)]',
-    glowColor: 'rgba(59, 31, 106, 0.16)',
+    gradient: 'from-cyan-400 via-blue-500 to-indigo-600',
+    glowColor: 'rgba(56, 189, 248, 0.3)',
   },
   // Wildcard
   {
@@ -202,8 +202,8 @@ const competitions = [
     prize: '₹10,000',
     participants: '2',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-[var(--dc1426)] via-[var(--energy)] to-[var(--black-red)]',
-    glowColor: 'rgba(220, 20, 38, 0.16)',
+    gradient: 'from-green-400 via-emerald-500 to-teal-600',
+    glowColor: 'rgba(16, 185, 129, 0.3)',
   },
 ];
 
@@ -220,7 +220,7 @@ export default function CompetitionsPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <h1 className="text-6xl md:text-8xl font-black mb-6 bg-gradient-to-r from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)] bg-clip-text text-transparent animate-gradient-shift" style={{ backgroundSize: '200% auto' }}>
+          <h1 className="text-6xl md:text-8xl font-black mb-6 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent animate-gradient-shift drop-shadow-lg" style={{ backgroundSize: '200% auto' }}>
             COMPETITIONS
           </h1>
           <motion.p
@@ -232,7 +232,7 @@ export default function CompetitionsPage() {
             6+ events across Hackathons, Coding, Robotics, and Open Source. Choose your arena.
           </motion.p>
           <motion.p
-            className="text-lg text-gray-400"
+            className="text-lg text-gray-200 mt-2 font-medium"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -256,7 +256,7 @@ export default function CompetitionsPage() {
               className="mb-16"
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-8 flex items-center gap-4">
-                <span className="bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] bg-clip-text text-transparent">
+                <span className="text-white drop-shadow-md">
                   {category}
                 </span>
                 <span className="text-sm font-normal text-gray-500 bg-white/5 px-3 py-1 rounded-full">
@@ -275,11 +275,12 @@ export default function CompetitionsPage() {
                     className="group relative"
                   >
                     <GlowingCard glowColor={`${comp.glowColor}`} className="h-full">
-                      <div className="relative h-full bg-gradient-to-br from-[#200934] via-[#180C16] to-[#350609] rounded-3xl overflow-hidden group p-8 flex flex-col"
-                        onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 25px 50px -12px ${comp.glowColor}`; }}
-                        onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 0 0 rgba(0,0,0,0)'; }}
+                      <div className="relative h-full bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden group p-8 flex flex-col transition-all duration-500 shadow-2xl"
+                        onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 20px 40px -10px ${comp.glowColor}`; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0,0,0,0.1)'; }}
                       >
-                        <div className={`absolute inset-0 bg-gradient-to-br ${comp.gradient} opacity-0 group-hover:opacity-[0.07] transition-opacity duration-300`} />
+                        <div className={`absolute inset-0 bg-gradient-to-br ${comp.gradient} opacity-20 group-hover:opacity-40 transition-opacity duration-500`} />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
 
                         <div className="relative z-10 p-8 flex flex-col h-full">
                           <div className="flex items-center justify-between mb-6">
@@ -311,8 +312,8 @@ export default function CompetitionsPage() {
 
                           <div className="space-y-3 mb-6">
                             <div className="flex items-center justify-between">
-                              <span className="text-gray-500 text-sm font-medium">Prize Pool</span>
-                              <span className={`font-black text-lg bg-gradient-to-r ${comp.gradient} bg-clip-text text-transparent`}>
+                              <span className="text-gray-400 text-sm font-medium">Prize Pool</span>
+                              <span className={`font-black text-lg text-white drop-shadow-md`}>
                                 {comp.prize}
                               </span>
                             </div>
@@ -321,8 +322,8 @@ export default function CompetitionsPage() {
                               <span className="text-gray-300 font-semibold text-sm">{comp.duration}</span>
                             </div>
                             <div className="flex items-center justify-between">
-                              <span className="text-gray-500 text-sm font-medium">Team Size</span>
-                              <span className="text-gray-300 font-semibold text-sm">{comp.participants}</span>
+                              <span className="text-gray-400 text-sm font-medium">Team Size</span>
+                              <span className="text-gray-200 font-semibold text-sm">{comp.participants}</span>
                             </div>
                             <div className="pt-2 border-t border-white/5">
                               <span className="text-gray-500 text-xs">{comp.details}</span>
@@ -333,10 +334,10 @@ export default function CompetitionsPage() {
                             href={comp.registrationLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r ${comp.gradient} rounded-2xl font-bold text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] active:scale-95 text-white`}
+                            className={`w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r ${comp.gradient} rounded-2xl font-black text-lg shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.25)] transition-all duration-300 hover:scale-[1.03] active:scale-95 text-white`}
                           >
                             Register on Unstop
-                            <FiExternalLink className="w-4 h-4" />
+                            <FiExternalLink className="w-5 h-5" />
                           </a>
                         </div>
                       </div>

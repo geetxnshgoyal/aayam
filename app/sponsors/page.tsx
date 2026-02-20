@@ -64,9 +64,8 @@ export default function SponsorsPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-20 pt-8"
         >
-          <h1 className="text-5xl md:text-7xl font-black mb-6">
-            Our{' '}
-            <span className="bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] bg-clip-text text-transparent">
+          <h1 className="text-6xl md:text-8xl font-black mb-6 flex flex-col items-center">
+            <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent drop-shadow-lg pb-2">
               Sponsors
             </span>
           </h1>
@@ -95,13 +94,19 @@ export default function SponsorsPage() {
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white/5 rounded-2xl p-6 border border-white/10 text-center group hover:border-white/20 hover:bg-white/10 transition-colors duration-300"
+                className="relative bg-black/40 backdrop-blur-xl rounded-2xl p-6 border border-white/10 text-center group hover:border-white/30 transition-all duration-500 shadow-2xl overflow-hidden"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E")`
+                }}
               >
-                <div className="inline-flex items-center justify-center w-14 h-14 mb-4 bg-gradient-to-br from-[var(--energy)] to-[var(--dc1426)] rounded-xl group-hover:scale-110 transition-transform duration-300">
-                  <item.icon className="w-7 h-7 text-white" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative z-10">
+                  <div className="inline-flex items-center justify-center w-14 h-14 mb-4 bg-gradient-to-br from-pink-500 to-orange-400 rounded-xl group-hover:scale-110 shadow-lg shadow-pink-500/20 transition-transform duration-500">
+                    <item.icon className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="font-bold text-lg mb-2 text-white drop-shadow-md">{item.title}</h3>
+                  <p className="text-gray-300 text-sm font-medium">{item.description}</p>
                 </div>
-                <h3 className="font-bold text-lg mb-2 text-white">{item.title}</h3>
-                <p className="text-gray-400 text-sm">{item.description}</p>
               </motion.div>
             ))}
           </div>
@@ -118,10 +123,10 @@ export default function SponsorsPage() {
             className="mb-20"
           >
             <div className="text-center mb-10">
-              <h2 className={`text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r ${tier.gradient} bg-clip-text text-transparent`}>
+              <h2 className={`text-3xl md:text-4xl font-bold mb-3 text-white drop-shadow-md`}>
                 {tier.tier}
               </h2>
-              <div className={`h-1 w-24 mx-auto rounded-full bg-gradient-to-r ${tier.gradient}`} />
+              <div className={`h-1 w-24 mx-auto rounded-full bg-gradient-to-r from-pink-500 to-yellow-500`} />
             </div>
 
             <div className={`grid gap-6 ${tier.tier === 'Title Sponsors'
@@ -139,21 +144,24 @@ export default function SponsorsPage() {
                   whileInView={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
                   viewport={{ once: true }}
-                  className={`group relative bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-1 ${tier.tier === 'Title Sponsors' ? 'p-10' : 'p-6'
+                  className={`group relative bg-black/40 backdrop-blur-xl rounded-2xl overflow-hidden border border-white/10 hover:border-white/30 transition-all duration-500 shadow-2xl hover:-translate-y-1 ${tier.tier === 'Title Sponsors' ? 'p-10' : 'p-6'
                     }`}
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E")`
+                  }}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${tier.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+                  <div className={`absolute inset-0 bg-gradient-to-br from-pink-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
 
                   <div className="relative flex flex-col items-center">
                     <div className={`relative ${tier.tier === 'Title Sponsors' ? 'w-40 h-20' : 'w-28 h-14'
-                      } mb-4 grayscale group-hover:grayscale-0 transition-all duration-300`}>
+                      } mb-4 grayscale group-hover:grayscale-0 transition-all duration-300 drop-shadow-lg`}>
                       <Image src={sponsor.logo} alt={sponsor.name} fill className="object-contain" />
                     </div>
-                    <h3 className={`font-bold text-center mb-1 text-white ${tier.tier === 'Title Sponsors' ? 'text-xl' : 'text-base'
+                    <h3 className={`font-bold text-center mb-1 text-white drop-shadow-md ${tier.tier === 'Title Sponsors' ? 'text-xl' : 'text-base'
                       }`}>
                       {sponsor.name}
                     </h3>
-                    <p className={`text-gray-400 text-center ${tier.tier === 'Title Sponsors' ? 'text-sm' : 'text-xs'
+                    <p className={`text-gray-300 font-medium text-center ${tier.tier === 'Title Sponsors' ? 'text-sm' : 'text-xs'
                       }`}>
                       {sponsor.description}
                     </p>
@@ -172,11 +180,11 @@ export default function SponsorsPage() {
           viewport={{ once: true }}
           className="mt-24"
         >
-          <div className="bg-white/5 rounded-3xl p-12 md:p-16 text-center border border-white/10">
-            <h2 className="text-3xl md:text-5xl font-black mb-6 text-white">
+          <div className="bg-gray-900/70 backdrop-blur-md rounded-3xl p-12 md:p-16 text-center border border-white/20 shadow-2xl">
+            <h2 className="text-3xl md:text-5xl font-black mb-6 text-white drop-shadow-md">
               Interested in Sponsoring?
             </h2>
-            <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-200 font-medium mb-10 max-w-2xl mx-auto">
               Partner with AAYAM to put your brand in front of 3000+ developers and engineers at Newton School of Technology.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -184,7 +192,7 @@ export default function SponsorsPage() {
                 <HiMail className="w-5 h-5" />
                 Contact Sponsorship Team
               </button>
-              <button className="px-8 py-4 border border-white/20 rounded-full font-semibold text-lg hover:bg-white/10 transition-all duration-300 text-white">
+              <button className="px-8 py-4 border border-white/40 rounded-full font-semibold text-lg hover:bg-white/20 transition-all duration-300 text-white backdrop-blur-sm">
                 Download Brochure
               </button>
             </div>

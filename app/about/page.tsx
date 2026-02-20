@@ -13,34 +13,34 @@ export default function AboutPage() {
   ];
 
   const team = [
-    { name: 'Dr. Rajesh Kumar', role: 'Faculty Advisor', icon: HiAcademicCap, gradient: 'from-[var(--energy)] to-[var(--dc1426)]' },
-    { name: 'Priya Sharma', role: 'Lead Organizer', icon: HiUsers, gradient: 'from-[var(--dc1426)] to-[var(--black-red)]' },
-    { name: 'Arjun Singh', role: 'Technical Lead', icon: HiLightningBolt, gradient: 'from-[var(--energy)] to-[var(--midich)]' },
-    { name: 'Neha Gupta', role: 'Partnerships Lead', icon: HiGlobe, gradient: 'from-[var(--dc1426)] to-[var(--energy)]' },
-    { name: 'Rahul Verma', role: 'Design Lead', icon: HiStar, gradient: 'from-[var(--black-red)] to-[var(--dc1426)]' },
-    { name: 'Ananya Reddy', role: 'Events Lead', icon: FaTrophy, gradient: 'from-[var(--energy)] to-[var(--dc1426)]' },
+    { name: 'Dr. Rajesh Kumar', role: 'Faculty Advisor', icon: HiAcademicCap, gradient: 'from-purple-500 to-pink-500' },
+    { name: 'Priya Sharma', role: 'Lead Organizer', icon: HiUsers, gradient: 'from-orange-500 to-red-500' },
+    { name: 'Arjun Singh', role: 'Technical Lead', icon: HiLightningBolt, gradient: 'from-cyan-500 to-blue-500' },
+    { name: 'Neha Gupta', role: 'Partnerships Lead', icon: HiGlobe, gradient: 'from-emerald-400 to-teal-500' },
+    { name: 'Rahul Verma', role: 'Design Lead', icon: HiStar, gradient: 'from-yellow-400 to-orange-500' },
+    { name: 'Ananya Reddy', role: 'Events Lead', icon: FaTrophy, gradient: 'from-indigo-500 to-purple-500' },
   ];
 
   const values = [
     {
       title: 'Innovation First',
       description: 'Pushing boundaries with hackathons, AI challenges, and cutting-edge robotics competitions',
-      gradient: 'from-[var(--energy)] to-[var(--dc1426)]',
+      gradient: 'from-pink-500 to-orange-400',
     },
     {
       title: 'Open Source Spirit',
       description: 'Fostering collaboration through open-source contribution challenges and community-driven projects',
-      gradient: 'from-[var(--dc1426)] to-[var(--black-red)]',
+      gradient: 'from-cyan-400 to-blue-500',
     },
     {
       title: 'Builder Culture',
       description: 'We celebrate those who build — from autonomous bots to full-stack apps to competitive algorithms',
-      gradient: 'from-[var(--energy)] to-[var(--mydiry)]',
+      gradient: 'from-indigo-400 to-purple-500',
     },
     {
       title: 'Inclusive Access',
       description: 'Open to developers, engineers, robotics enthusiasts, hackers, and students from all institutions',
-      gradient: 'from-[var(--black-red)] to-[var(--dc1426)]',
+      gradient: 'from-emerald-400 to-teal-500',
     },
   ];
 
@@ -56,7 +56,7 @@ export default function AboutPage() {
         >
           <h1 className="text-5xl md:text-7xl font-black mb-6">
             About{' '}
-            <span className="bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent drop-shadow-md">
               AAYAM
             </span>
           </h1>
@@ -77,7 +77,7 @@ export default function AboutPage() {
             <div className="absolute inset-0 bg-gradient-to-br from-[#dc1426]/10 to-[var(--energy)]/5" />
             <div className="relative z-10">
               <div className="flex items-center gap-4 mb-8">
-                <div className="p-3 rounded-2xl bg-gradient-to-br from-[var(--energy)] to-[var(--dc1426)] shadow-lg shadow-[#dc1426]/20">
+                <div className="p-3 rounded-2xl bg-gradient-to-br from-pink-500 to-orange-400 shadow-lg shadow-pink-500/20">
                   <FaUniversity className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -110,15 +110,15 @@ export default function AboutPage() {
           className="mb-24"
         >
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white/5 rounded-3xl p-10 border border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg shadow-black/20">
-              <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] bg-clip-text text-transparent">Our Vision</h3>
-              <p className="text-gray-400 leading-relaxed text-lg">
+            <div className="bg-gray-900/70 backdrop-blur-md rounded-3xl p-10 border border-white/20 hover:border-white/40 transition-all duration-300 shadow-2xl">
+              <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] bg-clip-text text-transparent drop-shadow-md">Our Vision</h3>
+              <p className="text-gray-200 leading-relaxed text-lg font-medium">
                 To be the most impactful student-run techfest in India — a launchpad where the next generation of builders, creators, and innovators come together to push beyond what&apos;s possible.
               </p>
             </div>
-            <div className="bg-white/5 rounded-3xl p-10 border border-white/10 hover:border-white/20 transition-all duration-300 shadow-lg shadow-black/20">
-              <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] bg-clip-text text-transparent">Our Mission</h3>
-              <p className="text-gray-400 leading-relaxed text-lg">
+            <div className="bg-gray-900/70 backdrop-blur-md rounded-3xl p-10 border border-white/20 hover:border-white/40 transition-all duration-300 shadow-2xl">
+              <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] bg-clip-text text-transparent drop-shadow-md">Our Mission</h3>
+              <p className="text-gray-200 leading-relaxed text-lg font-medium">
                 Create a platform where technical excellence meets real-world impact. We believe in learning by building, competing, and collaborating — not just attending talks.
               </p>
             </div>
@@ -142,15 +142,21 @@ export default function AboutPage() {
                 whileInView={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center bg-gray-900/60 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg"
+                className="relative bg-black/40 backdrop-blur-xl rounded-2xl p-6 border border-white/10 text-center group hover:border-white/30 transition-all duration-500 shadow-2xl overflow-hidden"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E")`
+                }}
               >
-                <div className="inline-flex items-center justify-center w-14 h-14 mb-4 bg-gradient-to-br from-[var(--energy)] to-[var(--dc1426)] rounded-xl shadow-md shadow-[#dc1426]/20">
-                  <stat.icon className="w-7 h-7 text-white" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative z-10">
+                  <div className="inline-flex items-center justify-center w-14 h-14 mb-4 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl shadow-lg shadow-pink-500/20">
+                    <stat.icon className="w-7 h-7 text-white" />
+                  </div>
+                  <div className="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-md">
+                    {stat.value}
+                  </div>
+                  <div className="text-gray-200 font-medium text-sm">{stat.label}</div>
                 </div>
-                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] bg-clip-text text-transparent mb-2 drop-shadow-sm">
-                  {stat.value}
-                </div>
-                <div className="text-gray-200 font-medium text-sm">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -176,9 +182,10 @@ export default function AboutPage() {
                 whileInView={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group relative bg-gray-900/60 backdrop-blur-sm rounded-2xl p-8 overflow-hidden hover:scale-[1.02] transition-all duration-300 border border-white/20 hover:border-white/40 shadow-xl"
+                className="group relative bg-black/40 backdrop-blur-xl rounded-2xl p-8 overflow-hidden hover:scale-[1.02] transition-all duration-500 border border-white/10 hover:border-white/30 shadow-2xl"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${value.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+                <div className={`absolute inset-0 bg-gradient-to-br ${value.gradient} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-50" />
                 <div className="relative z-10">
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${value.gradient} mb-6`} />
                   <h3 className="text-2xl font-bold mb-4 text-white drop-shadow-md">{value.title}</h3>
@@ -209,13 +216,19 @@ export default function AboutPage() {
                 whileInView={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center group bg-gray-900/60 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300 shadow-xl"
+                className="text-center group bg-black/40 backdrop-blur-xl rounded-2xl p-6 border border-white/10 hover:border-white/30 transition-all duration-500 shadow-2xl overflow-hidden relative"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E")`
+                }}
               >
-                <div className={`inline-flex items-center justify-center w-16 h-16 mb-4 bg-gradient-to-br ${member.gradient} rounded-full group-hover:scale-110 shadow-lg transition-transform duration-300`}>
-                  <member.icon className="w-8 h-8 text-white" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative z-10">
+                  <div className={`inline-flex items-center justify-center w-16 h-16 mb-4 bg-gradient-to-br ${member.gradient} rounded-full group-hover:scale-110 shadow-lg transition-transform duration-500`}>
+                    <member.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-1 text-white drop-shadow-md">{member.name}</h3>
+                  <p className="text-gray-300 text-sm font-medium">{member.role}</p>
                 </div>
-                <h3 className="text-lg font-bold mb-1 text-white drop-shadow-md">{member.name}</h3>
-                <p className="text-gray-300 text-sm font-medium">{member.role}</p>
               </motion.div>
             ))}
           </div>
