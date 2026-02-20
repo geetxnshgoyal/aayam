@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaInstagram, FaLinkedin, FaYoutube, FaGithub } from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
+import { FaInstagram } from 'react-icons/fa';
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi';
 
 export default function Footer() {
@@ -16,11 +15,11 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="relative w-36 h-14 mb-5">
-              <Image
-                src="/images/logo.png"
-                alt="AAYAM Logo"
-                fill
-                className="object-contain"
+              <Image 
+                src="/images/logo.png" 
+                alt="AAYAM Logo" 
+                fill 
+                className="object-contain" 
               />
             </div>
             <p className="text-gray-400 mb-2 text-sm leading-relaxed">
@@ -31,15 +30,11 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-3">
               {[
-                { icon: FaInstagram, label: 'Instagram' },
-                { icon: FaXTwitter, label: 'X' },
-                { icon: FaLinkedin, label: 'LinkedIn' },
-                { icon: FaGithub, label: 'GitHub' },
-                { icon: FaYoutube, label: 'YouTube' },
-              ].map(({ icon: Icon, label }) => (
+                { icon: FaInstagram, label: 'Instagram', href: 'https://instagram.com/aayamfest' },
+              ].map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
-                  href={`https://${label.toLowerCase()}.com/aayam`}
+                  href={href}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
@@ -97,11 +92,21 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <HiMail className="text-[#dc1426] mt-0.5 flex-shrink-0" size={18} />
-                <span className="text-gray-400 text-sm">aayam@nst.edu.in</span>
+                <a href="mailto:goyalgeetansh@gmail.com" className="text-gray-400 text-sm hover:text-white transition-colors">
+                  goyalgeetansh@gmail.com
+                </a>
               </li>
               <li className="flex items-start gap-3">
                 <HiPhone className="text-[#dc1426] mt-0.5 flex-shrink-0" size={18} />
-                <span className="text-gray-400 text-sm">+91 1234567890</span>
+                <a href="tel:+919983241206" className="text-gray-400 text-sm hover:text-white transition-colors">
+                  +91 9983241206
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <HiPhone className="text-[#dc1426] mt-0.5 flex-shrink-0" size={18} />
+                <a href="tel:+917569319430" className="text-gray-400 text-sm hover:text-white transition-colors">
+                  +91 7569319430
+                </a>
               </li>
               <li className="flex items-start gap-3">
                 <HiLocationMarker className="text-[#dc1426] mt-0.5 flex-shrink-0" size={18} />
@@ -121,13 +126,13 @@ export default function Footer() {
               © {currentYear} AAYAM · Newton School of Technology. All rights reserved.
             </p>
             <div className="flex items-center gap-6 text-xs">
-              <Link href="/privacy" className="text-gray-500 hover:text-[#dc1426] transition-colors">
+              <Link href="#" className="text-gray-500 hover:text-[#dc1426] transition-colors">
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="text-gray-500 hover:text-[#dc1426] transition-colors">
+              <Link href="#" className="text-gray-500 hover:text-[#dc1426] transition-colors">
                 Terms
               </Link>
-              <Link href="/conduct" className="text-gray-500 hover:text-[#dc1426] transition-colors">
+              <Link href="#" className="text-gray-500 hover:text-[#dc1426] transition-colors">
                 Code of Conduct
               </Link>
             </div>

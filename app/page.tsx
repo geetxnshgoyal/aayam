@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { HiLightningBolt, HiUsers, HiCode } from 'react-icons/hi';
-import { FaTrophy, FaGithub } from 'react-icons/fa';
+import { FaTrophy } from 'react-icons/fa';
 import { useRef } from 'react';
 import ScrollingStats from '@/components/ScrollingStats';
 import MovingBorder from '@/components/MovingBorder';
@@ -73,7 +73,7 @@ export default function Home() {
               whileHover={{ scale: 1.05, rotate: [0, -2, 2, -2, 0] }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <div className="absolute inset-0 bg-transparent/5 blur-2xl rounded-full scale-75 animate-pulse" />
+              <div className="absolute inset-0 bg-white/5 blur-2xl rounded-full scale-75 animate-pulse" />
               <Image
                 src="/images/logo.png"
                 alt="AAYAM"
@@ -139,6 +139,18 @@ export default function Home() {
                   DECRYPT DATA
                 </Link>
               </motion.div>
+
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <a
+                  href="/brochure/aayam-sponsorship-booklet-2026.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group px-10 py-5 border border-white/30 hover:border-[var(--horror-magenta)] hover:bg-[var(--horror-magenta)]/15 rounded-none font-bold text-xl transition-all duration-300 backdrop-blur-md bg-black/40 block text-white tracking-wider"
+                  style={{ clipPath: 'polygon(0 0, 90% 0, 100% 30%, 100% 100%, 10% 100%, 0 70%)' }}
+                >
+                  SPONSOR BROCHURE
+                </a>
+              </motion.div>
             </motion.div>
           </div>
 
@@ -150,7 +162,7 @@ export default function Home() {
           >
             {[
               { text: 'March 14-15, 2026', icon: '📅', label: 'IGNITION' },
-              { text: 'Bangalore, India', icon: '📍', label: 'COORDINATES' },
+              { text: 'Sonipat & Pune Campuses, India', icon: '📍', label: 'COORDINATES' },
             ].map((item) => (
               <div
                 key={item.text}
@@ -175,7 +187,7 @@ export default function Home() {
           { icon: '🎯', label: 'Competitions', value: '12+' },
           { icon: '👥', label: 'Participants', value: '3000+' },
           { icon: '🤝', label: 'Sponsors', value: '20+' },
-          { icon: '📍', label: 'Location', value: 'Bangalore, India' },
+          { icon: '📍', label: 'Location', value: 'Sonipat & Pune Campuses, India' },
         ]}
         direction="left"
         speed={40}
@@ -192,7 +204,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-6xl font-[var(--font-cinzel)] font-bold mb-6 tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white via-[var(--horror-cyan)] to-white filter drop-shadow-[0_0_10px_rgba(0,217,255,0.3)]">
+            <h2 className="text-4xl md:text-6xl font-[var(--font-cinzel)] font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white via-[var(--horror-cyan)] to-white filter drop-shadow-[0_0_10px_rgba(0,217,255,0.3)]">
               BY THE NUMBERS
             </h2>
           </motion.div>
@@ -214,7 +226,7 @@ export default function Home() {
                 className="relative group"
               >
                 <div className="relative bg-black/50 p-8 rounded-xl border border-white/10 backdrop-blur-md overflow-hidden hover:border-[var(--horror-magenta)]/50 transition-all duration-300 neon-border group h-full flex flex-col items-center justify-center text-center">
-
+                  
                   <div className="absolute inset-0 bg-gradient-to-br from-[var(--horror-magenta)]/10 to-[var(--horror-purple)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                   <div className="relative z-10 flex flex-col items-center">
@@ -269,20 +281,20 @@ export default function Home() {
                 className="group h-full"
               >
                 <div className="relative h-full bg-black/60 backdrop-blur-md p-8 rounded-xl border border-white/10 overflow-hidden hover:border-[var(--horror-cyan)]/50 transition-all duration-300 shadow-lg group-hover:shadow-[0_0_30px_rgba(0,217,255,0.15)]">
-
+                  
                   {/* Hover gradient background */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${highlight.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
 
                   <div className="relative z-10 flex flex-col h-full">
                     <div className="mb-6">
                       <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${highlight.gradient} flex items-center justify-center shadow-lg`}>
-                        <div className="w-6 h-6 bg-transparent/20 rounded-full" />
+                         <div className="w-6 h-6 bg-white/20 rounded-full" />
                       </div>
                     </div>
-
+                    
                     <h3 className="text-2xl font-bold mb-3 text-white font-[var(--font-cinzel)] group-hover:text-[var(--horror-cyan)] transition-colors">{highlight.title}</h3>
                     <p className="text-gray-400 leading-relaxed text-sm">{highlight.description}</p>
-
+                    
                     <div className="mt-auto pt-6 flex items-center text-[var(--horror-magenta)] text-sm font-bold tracking-widest opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0 duration-300">
                       REGISTER <span className="ml-2">→</span>
                     </div>
@@ -296,7 +308,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="relative py-32 overflow-hidden">
-
+        
         <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 text-center relative z-10">
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
@@ -315,7 +327,7 @@ export default function Home() {
                 wHERE INNOVATION Meets POSSIBILITY
               </h2>
               <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
-                12+ competitions. ₹5L+ in prizes. 3000+ innovators.<br />
+                12+ competitions. ₹5L+ in prizes. 3000+ innovators.<br/>
                 <span className="text-[var(--horror-cyan)] font-semibold">Register now</span> and enter the next dimension.
               </p>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

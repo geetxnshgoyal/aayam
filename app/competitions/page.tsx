@@ -25,22 +25,22 @@ const competitions = [
     gradient: 'from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)]',
     glowColor: 'rgba(220, 20, 38, 0.18)',
   },
-  // {
-  //   id: '12h-hackathon',
-  //   title: '12-Hour Hackathon',
-  //   category: 'Hackathon',
-  //   icon: FaRocket,
-  //   description: 'A fast-paced half-day hackathon. Ideate, prototype, and pitch — all in 12 hours. Perfect for first-time hackers and seasoned builders alike.',
-  //   details: 'Team: 2-3 members | Theme reveal at start',
-  //   duration: '12 Hours',
-  //   type: 'Team',
-  //   difficulty: 'Intermediate',
-  //   prize: '₹30,000',
-  //   participants: '2-3',
-  //   registrationLink: 'https://unstop.com/competitions',
-  //   gradient: 'from-[var(--dc1426)] via-[var(--energy)] to-[var(--mydiry)]',
-  //   glowColor: 'rgba(220, 20, 38, 0.16)',
-  // },
+  {
+    id: '12h-hackathon',
+    title: '12-Hour Hackathon',
+    category: 'Hackathon',
+    icon: FaRocket,
+    description: 'A fast-paced half-day hackathon. Ideate, prototype, and pitch — all in 12 hours. Perfect for first-time hackers and seasoned builders alike.',
+    details: 'Team: 2-3 members | Theme reveal at start',
+    duration: '12 Hours',
+    type: 'Team',
+    difficulty: 'Intermediate',
+    prize: '₹30,000',
+    participants: '2-3',
+    registrationLink: 'https://unstop.com/competitions',
+    gradient: 'from-[var(--dc1426)] via-[var(--energy)] to-[var(--mydiry)]',
+    glowColor: 'rgba(220, 20, 38, 0.16)',
+  },
   // Coding
   {
     id: 'cp-individual',
@@ -58,38 +58,38 @@ const competitions = [
     gradient: 'from-[var(--energy)] via-[var(--midich)] to-[var(--dc1426)]',
     glowColor: 'rgba(59, 31, 106, 0.18)',
   },
-  // {
-  //   id: 'cp-team',
-  //   title: 'CP Contest — Team',
-  //   category: 'Coding',
-  //   icon: HiPuzzle,
-  //   description: 'ICPC-style team contest. Three minds, one keyboard. Collaborate, strategize, and solve the hardest problems together.',
-  //   details: 'Team of 3 | 1 system per team | ICPC rules',
-  //   duration: '4 Hours',
-  //   type: 'Team',
-  //   difficulty: 'Advanced',
-  //   prize: '₹40,000',
-  //   participants: '3',
-  //   registrationLink: 'https://unstop.com/competitions',
-  //   gradient: 'from-[var(--dc1426)] via-[var(--black-red)] to-[var(--energy)]',
-  //   glowColor: 'rgba(220, 20, 38, 0.16)',
-  // },
-  // {
-  //   id: 'code-optimizer',
-  //   title: 'Code Optimizer Challenge',
-  //   category: 'Coding',
-  //   icon: HiCog,
-  //   description: 'Given working but inefficient code, optimize it for speed, memory, and elegance. The tightest solution wins.',
-  //   details: 'Individual | Optimize for time & space complexity',
-  //   duration: '2 Hours',
-  //   type: 'Individual',
-  //   difficulty: 'Intermediate',
-  //   prize: '₹15,000',
-  //   participants: '1',
-  //   registrationLink: 'https://unstop.com/competitions',
-  //   gradient: 'from-[var(--energy)] via-[var(--dc1426)] to-[var(--midich)]',
-  //   glowColor: 'rgba(220, 20, 38, 0.16)',
-  // },
+  {
+    id: 'cp-team',
+    title: 'CP Contest — Team',
+    category: 'Coding',
+    icon: HiPuzzle,
+    description: 'ICPC-style team contest. Three minds, one keyboard. Collaborate, strategize, and solve the hardest problems together.',
+    details: 'Team of 3 | 1 system per team | ICPC rules',
+    duration: '4 Hours',
+    type: 'Team',
+    difficulty: 'Advanced',
+    prize: '₹40,000',
+    participants: '3',
+    registrationLink: 'https://unstop.com/competitions',
+    gradient: 'from-[var(--dc1426)] via-[var(--black-red)] to-[var(--energy)]',
+    glowColor: 'rgba(220, 20, 38, 0.16)',
+  },
+  {
+    id: 'code-optimizer',
+    title: 'Code Optimizer Challenge',
+    category: 'Coding',
+    icon: HiCog,
+    description: 'Given working but inefficient code, optimize it for speed, memory, and elegance. The tightest solution wins.',
+    details: 'Individual | Optimize for time & space complexity',
+    duration: '2 Hours',
+    type: 'Individual',
+    difficulty: 'Intermediate',
+    prize: '₹15,000',
+    participants: '1',
+    registrationLink: 'https://unstop.com/competitions',
+    gradient: 'from-[var(--energy)] via-[var(--dc1426)] to-[var(--midich)]',
+    glowColor: 'rgba(220, 20, 38, 0.16)',
+  },
   // Open Source
   {
     id: 'open-source',
@@ -211,8 +211,8 @@ const categories = ['All', 'Hackathon', 'Coding', 'Open Source', 'Robotics', 'Ge
 
 export default function CompetitionsPage() {
   return (
-    <div className="min-h-screen bg-transparent text-white pt-32 pb-20 relative">
-
+    <div className="min-h-screen bg-white text-gray-900 pt-32 pb-20 relative">
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
         <motion.div
           initial={{ y: 30, opacity: 0 }}
@@ -224,7 +224,7 @@ export default function CompetitionsPage() {
             COMPETITIONS
           </h1>
           <motion.p
-            className="text-2xl text-gray-400 max-w-3xl mx-auto mb-4"
+            className="text-2xl text-gray-600 max-w-3xl mx-auto mb-4"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -232,7 +232,7 @@ export default function CompetitionsPage() {
             12+ events across Hackathons, Coding, Robotics, and Open Source. Choose your arena.
           </motion.p>
           <motion.p
-            className="text-lg text-gray-400"
+            className="text-lg text-gray-600"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -259,7 +259,7 @@ export default function CompetitionsPage() {
                 <span className="bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] bg-clip-text text-transparent">
                   {category}
                 </span>
-                <span className="text-sm font-normal text-gray-400 bg-white/5 px-3 py-1 rounded-full border border-white/10">
+                <span className="text-sm font-normal text-gray-500 bg-white/5 px-3 py-1 rounded-full">
                   {categoryComps.length} event{categoryComps.length > 1 ? 's' : ''}
                 </span>
               </h2>
@@ -281,54 +281,54 @@ export default function CompetitionsPage() {
                       >
                         <div className={`absolute inset-0 bg-gradient-to-br ${comp.gradient} opacity-0 group-hover:opacity-[0.07] transition-opacity duration-300`} />
 
-                        <div className="relative z-10 p-8 flex flex-col h-full">
-                          <div className="flex items-center justify-between mb-6">
-                            <div className={`p-3.5 rounded-2xl bg-gradient-to-br ${comp.gradient} shadow-lg`}>
-                              <comp.icon className="w-7 h-7 text-white" />
-                            </div>
-                            <div className="flex gap-2">
-                              <span className="text-xs font-bold px-3 py-1.5 bg-transparent/5 rounded-full border border-white/10 text-gray-400">
-                                {comp.type}
-                              </span>
-                              <span className="text-xs font-bold px-3 py-1.5 bg-transparent/5 rounded-full border border-white/10 text-gray-400">
-                                {comp.difficulty}
-                              </span>
-                            </div>
+                      <div className="relative z-10 p-8 flex flex-col h-full">
+                        <div className="flex items-center justify-between mb-6">
+                          <div className={`p-3.5 rounded-2xl bg-gradient-to-br ${comp.gradient} shadow-lg`}>
+                            <comp.icon className="w-7 h-7 text-white" />
                           </div>
-
-                          <h3 className="text-2xl font-black mb-3 text-white">{comp.title}</h3>
-                          <p className="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">{comp.description}</p>
-
-                          <div className="space-y-3 mb-6">
-                            <div className="flex items-center justify-between">
-                              <span className="text-gray-500 text-sm font-medium">Prize Pool</span>
-                              <span className={`font-black text-lg bg-gradient-to-r ${comp.gradient} bg-clip-text text-transparent`}>
-                                {comp.prize}
-                              </span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <span className="text-gray-500 text-sm font-medium">Duration</span>
-                              <span className="text-gray-300 font-semibold text-sm">{comp.duration}</span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <span className="text-gray-500 text-sm font-medium">Team Size</span>
-                              <span className="text-gray-300 font-semibold text-sm">{comp.participants}</span>
-                            </div>
-                            <div className="pt-2 border-t border-white/5">
-                              <span className="text-gray-500 text-xs">{comp.details}</span>
-                            </div>
+                          <div className="flex gap-2">
+                            <span className="text-xs font-bold px-3 py-1.5 bg-white/5 rounded-full border border-white/10 text-gray-400">
+                              {comp.type}
+                            </span>
+                            <span className="text-xs font-bold px-3 py-1.5 bg-white/5 rounded-full border border-white/10 text-gray-400">
+                              {comp.difficulty}
+                            </span>
                           </div>
-
-                          <a
-                            href={comp.registrationLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r ${comp.gradient} rounded-2xl font-bold text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] active:scale-95 text-white`}
-                          >
-                            Register on Unstop
-                            <FiExternalLink className="w-4 h-4" />
-                          </a>
                         </div>
+
+                        <h3 className="text-2xl font-black mb-3 text-white">{comp.title}</h3>
+                        <p className="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">{comp.description}</p>
+
+                        <div className="space-y-3 mb-6">
+                          <div className="flex items-center justify-between">
+                            <span className="text-gray-500 text-sm font-medium">Prize Pool</span>
+                            <span className={`font-black text-lg bg-gradient-to-r ${comp.gradient} bg-clip-text text-transparent`}>
+                              {comp.prize}
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-gray-500 text-sm font-medium">Duration</span>
+                            <span className="text-gray-300 font-semibold text-sm">{comp.duration}</span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-gray-500 text-sm font-medium">Team Size</span>
+                            <span className="text-gray-300 font-semibold text-sm">{comp.participants}</span>
+                          </div>
+                          <div className="pt-2 border-t border-white/5">
+                            <span className="text-gray-500 text-xs">{comp.details}</span>
+                          </div>
+                        </div>
+
+                        <a
+                          href={comp.registrationLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r ${comp.gradient} rounded-2xl font-bold text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] active:scale-95 text-white`}
+                        >
+                          Register on Unstop
+                          <FiExternalLink className="w-4 h-4" />
+                        </a>
+                      </div>
                       </div>
                     </GlowingCard>
                   </motion.div>
