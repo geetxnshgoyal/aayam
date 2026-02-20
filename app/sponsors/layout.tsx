@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PRIMARY_SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Sponsorship Opportunities | AAYAM 2026",
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     title: "Sponsor AAYAM 2026",
     description:
       "Explore AAYAM 2026 sponsorship tiers and benefits. Download the sponsorship booklet and contact the partnerships team.",
-    url: "https://aayamfest.xyz/sponsors",
+    url: `${PRIMARY_SITE_URL}/sponsors`,
     type: "website",
   },
 };

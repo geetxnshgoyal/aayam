@@ -6,8 +6,9 @@ import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import LiquidCursor from "@/components/LiquidCursor";
 import TechHorrorImageBG from "@/components/TechHorrorImageBG";
+import { ALL_SITE_URLS, PRIMARY_SITE_URL } from "@/lib/site";
 
-const siteUrl = "https://aayamfest.xyz";
+const siteUrl = PRIMARY_SITE_URL;
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -83,7 +84,7 @@ export default function RootLayout({
     name: "AAYAM",
     url: siteUrl,
     logo: `${siteUrl}/images/logo_clean.png`,
-    sameAs: ["https://instagram.com/aayamfest"],
+    sameAs: ["https://instagram.com/aayamfest", ...ALL_SITE_URLS],
     parentOrganization: {
       "@type": "CollegeOrUniversity",
       name: "Newton School of Technology",

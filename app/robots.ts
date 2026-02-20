@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { ALL_SITE_URLS, PRIMARY_SITE_URL } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -9,7 +10,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/admin/", "/api/"],
       },
     ],
-    sitemap: "https://aayamfest.xyz/sitemap.xml",
-    host: "https://aayamfest.xyz",
+    sitemap: ALL_SITE_URLS.map((url) => `${url}/sitemap.xml`),
+    host: PRIMARY_SITE_URL,
   };
 }

@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
+import { PRIMARY_SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://aayamfest.xyz";
+  const baseUrl = PRIMARY_SITE_URL;
   const lastModified = new Date();
 
   const routes = [
