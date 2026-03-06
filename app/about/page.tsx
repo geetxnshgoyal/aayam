@@ -59,11 +59,11 @@ export default function AboutPage() {
   ];
 
   const team = [
-    { name: 'Prerana Pandey', role: 'Faculty Advisor', icon: HiAcademicCap, image: 'https://media.licdn.com/dms/image/v2/D5603AQFsGaVazmywHg/profile-displayphoto-scale_400_400/B56ZmFalpVIsAg-/0/1758879964284?e=1774483200&v=beta&t=hiYfODHP1i_LRzJjR1btcPEXigh7w7tufEa0cWDiB5E', linkedin: 'https://www.linkedin.com/in/prerana-pandey-60710216a/' },
-    { name: 'Still Figuring Out', role: 'Lead Organizer', icon: HiUsers, image: '/images/team/priya.jpg', linkedin: '' },
+    { name: 'Still Figuring Out', role: 'Lead Organizer', icon: HiUsers, image: 'https://lh3.googleusercontent.com/a/ACg8ocIMWimgAALGSetbF5JuUcCNHtKJ9B9Y1pjScEI7uTdINBAxbAc=s576-c-no', linkedin: '' },
     { name: 'Shaaz', role: 'Technical Lead', icon: HiLightningBolt, image: 'https://media.licdn.com/dms/image/v2/D4D03AQH8QsTdg7EtTw/profile-displayphoto-scale_400_400/B4DZrl53W4G4Ag-/0/1764793745034?e=1774483200&v=beta&t=IWXoD70q-U0NYGh4r52UrAhawY7baucte215igMGIXg', linkedin: 'https://www.linkedin.com/in/shaaz-hemani-229150276/' },
     { name: 'Rachana', role: 'Partnerships Lead', icon: HiGlobe, image: 'https://media.licdn.com/dms/image/v2/D4E03AQHt9CfF_YSAeA/profile-displayphoto-scale_400_400/B4EZllLsuEKcAg-/0/1758339192068?e=1774483200&v=beta&t=E8z3yYixOYlrd2j5GfqMUJh2iieSPrh3fHiz-C8r0hQ', linkedin: 'https://www.linkedin.com/in/rachana-adhikary-133a3b36b/' },
     { name: 'Archita Singh', role: 'Design Lead', icon: HiStar, image: 'https://media.licdn.com/dms/image/v2/D4E03AQHtsUSKzu7O0g/profile-displayphoto-scale_400_400/B4EZy07zIfKsAo-/0/1772562102892?e=1774483200&v=beta&t=0_McntIwbEui5K4vq3cwIwUCqWw5mbJGBEpW3KBmbfQ', linkedin: 'https://www.linkedin.com/in/archita-singh-668193380/' },
+    { name: 'Pranav Singh', role: 'E-Sports Lead', icon: HiAcademicCap, image: 'https://media.licdn.com/dms/image/v2/D4D03AQHPnjf4WevyzQ/profile-displayphoto-scale_400_400/B4DZq17Cn5GwAg-/0/1763988748939?e=1774483200&v=beta&t=CylEqvd6QWhLux_ywNqIKq9JtkcPeNNDYYegyaDLIwI', linkedin: 'https://www.linkedin.com/in/pranav-choudhary5112/' },
     { name: 'Sainy Verma', role: 'Events Lead', icon: FaTrophy, image: '/images/team/sainy.jpeg', linkedin: 'https://www.linkedin.com/in/sainy-verma-/' },
   ];
 
