@@ -78,29 +78,30 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <div className="terminal-border bg-[var(--bg-card)]/90 backdrop-blur-md p-6 md:p-10 rounded-sm max-w-3xl mx-auto">
+          <div className="terminal-border bg-[var(--bg-card)]/95 backdrop-blur-sm p-6 md:p-10 rounded-sm max-w-3xl mx-auto border-white/10">
             <motion.h1
               id="hero-heading"
               initial={{ y: 12, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="font-mono text-2xl md:text-4xl font-bold mb-4 text-[var(--text-primary)] tracking-wide"
+              className="font-pixel text-xl md:text-3xl font-bold mb-4 text-[var(--text-primary)] tracking-wide uppercase"
             >
-              &gt; EXPLORING NEW DIMENSIONS
+              EXPLORING NEW DIMENSIONS
             </motion.h1>
+            {/* Poster-style divider line */}
             <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: '100%' }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="h-px bg-[var(--border-accent)] mb-6 max-w-xs mx-auto"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.6, delay: 0.35 }}
+              className="h-[2px] bg-white/80 mb-6 max-w-full origin-center"
             />
             <motion.p
               initial={{ y: 12, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.35 }}
-              className="text-[var(--text-secondary)] text-base md:text-lg mb-6"
+              className="text-[var(--text-secondary)] text-base md:text-lg mb-6 font-medium"
             >
-              Hosted by <span className="text-[var(--accent-cyan)] font-medium">Newton School of Technology</span>
+              Hosted by <span className="text-[var(--accent-cyan)]">Newton School of Technology</span>
             </motion.p>
 
             <motion.div
@@ -130,7 +131,7 @@ export default function Home() {
               </Link>
               <Link
                 href="/about"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 font-mono text-sm font-semibold border border-[var(--border-accent)] text-[var(--text-primary)] hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan)] transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 font-pixel text-[10px] border-2 border-white/60 text-[var(--text-primary)] hover:border-[var(--accent-cyan)] hover:bg-white/5 transition-all duration-200"
               >
                 ABOUT
               </Link>
@@ -138,7 +139,7 @@ export default function Home() {
                 href="/brochure/aayam-sponsorship-booklet-2026.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 font-mono text-sm font-semibold border border-[var(--border-accent)] text-[var(--text-secondary)] hover:border-[var(--accent-amber)] hover:text-[var(--accent-amber)] transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 font-pixel text-[10px] border-2 border-[var(--accent-orange)] text-[var(--accent-orange)] hover:bg-[var(--accent-orange)]/20 transition-all duration-200"
               >
                 BROCHURE
               </a>
@@ -149,20 +150,21 @@ export default function Home() {
             initial={{ scale: 0.98, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.4 }}
-            className="flex justify-center gap-6 md:gap-10 flex-wrap max-w-2xl mx-auto mt-12"
+            className="flex flex-col sm:flex-row justify-center gap-6 md:gap-10 flex-wrap max-w-2xl mx-auto mt-12 text-left sm:text-center"
           >
             {[
               { text: 'April 24-25, 2026', label: 'DATE' },
+              { text: '8AM - 8PM', label: 'TIME' },
               { text: 'NST S-VYASA University, Bengaluru', label: 'VENUE' },
             ].map((item) => (
               <div
                 key={item.label}
-                className="flex items-center gap-3 px-4 py-2 rounded border border-[var(--border-subtle)] bg-[var(--bg-card)]/50"
+                className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 px-4 py-3 rounded border border-white/20 bg-[var(--bg-card)]/70"
               >
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-muted)]">
-                  {item.label}
+                <span className="font-pixel text-[10px] uppercase tracking-wider text-white/90">
+                  {item.label}:
                 </span>
-                <span className="text-sm text-[var(--text-secondary)]">{item.text}</span>
+                <span className="text-sm text-[var(--text-secondary)] font-medium">{item.text}</span>
               </div>
             ))}
           </motion.div>
@@ -191,10 +193,11 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="font-mono text-2xl md:text-4xl font-bold text-center mb-12 text-[var(--text-primary)]"
+            className="font-pixel text-xl md:text-3xl font-bold text-center mb-4 text-[var(--text-primary)] uppercase"
           >
-            &gt; BY THE NUMBERS
+            BY THE NUMBERS
           </motion.h2>
+          <div className="h-[2px] w-32 mx-auto mb-12 bg-white/60" aria-hidden />
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {stats.map((stat, index) => (
@@ -228,9 +231,10 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 id="highlights-heading" className="font-mono text-2xl md:text-4xl font-bold mb-2 text-[var(--text-primary)]">
-              &gt; NEXT DIMENSION
+            <h2 id="highlights-heading" className="font-pixel text-xl md:text-3xl font-bold mb-4 text-[var(--text-primary)] uppercase">
+              NEXT DIMENSION
             </h2>
+            <div className="h-[2px] w-32 mx-auto mb-4 bg-white/60" aria-hidden />
             <p className="text-[var(--text-secondary)]">Build beyond limits. Compete for glory.</p>
           </motion.div>
 
@@ -274,8 +278,8 @@ export default function Home() {
             viewport={{ once: true }}
             className="terminal-border bg-[var(--bg-card)] p-10 md:p-14 rounded-sm"
           >
-            <h2 id="cta-heading" className="font-mono text-2xl md:text-4xl font-bold mb-6 text-[var(--text-primary)]">
-              &gt; WHERE INNOVATION MEETS POSSIBILITY
+            <h2 id="cta-heading" className="font-pixel text-xl md:text-3xl font-bold mb-6 text-[var(--text-primary)] uppercase">
+              WHERE INNOVATION MEETS POSSIBILITY
             </h2>
             <p className="text-[var(--text-secondary)] text-lg mb-10 max-w-xl mx-auto">
               6+ competitions. ₹2L+ in prizes. 3000+ innovators.{' '}

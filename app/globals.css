@@ -10,35 +10,35 @@
 }
 
 :root {
-  /* Poster-style: deep blue, white text, green CTA, orange accent */
-  --bg-deep: #0a1628;
-  --bg-card: #0d2137;
-  --bg-elevated: #132a45;
+  /* CAMPFIRE-style: royal blue, white, green CTA, orange/red fire accent */
+  --bg-deep: #0c1a2e;
+  --bg-card: #0f2239;
+  --bg-elevated: #152d4a;
   --border-subtle: #1e3a5f;
   --border-accent: #2d4a6f;
   --text-primary: #ffffff;
-  --text-secondary: #b8d4e8;
-  --text-muted: #7a9bb8;
-  /* Primary CTA — light green with darker border (poster button) */
-  --accent-primary: #5cb85c;
-  --accent-primary-border: #3d8b3d;
-  --accent-primary-hover: #6fd46f;
-  --glow-primary: rgba(92, 184, 92, 0.25);
-  /* Secondary — cyan/light blue */
-  --accent-cyan: #5bc0de;
-  --accent-cyan-muted: rgba(91, 192, 222, 0.2);
-  /* Warm accent — orange/red (poster fire) */
-  --accent-orange: #f0ad4e;
-  --accent-red: #d9534f;
-  --accent-amber: #f0ad4e;
-  --accent-amber-muted: rgba(240, 173, 78, 0.2);
+  --text-secondary: #c5dcee;
+  --text-muted: #8ba8c4;
+  /* Primary CTA — vibrant green, darker border (poster button) */
+  --accent-primary: #4caf50;
+  --accent-primary-border: #2e7d32;
+  --accent-primary-hover: #66bb6a;
+  --glow-primary: rgba(76, 175, 80, 0.3);
+  /* Secondary — bright blue (dinosaur/water) */
+  --accent-cyan: #42a5f5;
+  --accent-cyan-muted: rgba(66, 165, 245, 0.2);
+  /* Warm accent — orange/red (poster campfire) */
+  --accent-orange: #ff9800;
+  --accent-red: #e53935;
+  --accent-amber: #ffb74d;
+  --accent-amber-muted: rgba(255, 152, 0, 0.2);
   /* Legacy */
   --phosphor-green: var(--accent-primary);
   --phosphor-amber: var(--accent-amber);
   --phosphor-cyan: var(--accent-cyan);
   --horror-magenta: var(--accent-primary);
   --horror-cyan: var(--accent-cyan);
-  --energy: #0a1628;
+  --energy: #0c1a2e;
   --dc1426: var(--accent-primary);
   --black-red: var(--bg-card);
   --midich: var(--bg-card);

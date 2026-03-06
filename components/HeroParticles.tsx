@@ -32,7 +32,7 @@ export default function HeroParticles() {
       ))}
       {dots.slice(0, 6).map((d) => (
         <div
-          key={`cyan-${d.id}`}
+          key={`w-${d.id}`}
           className="absolute rounded-full bg-[var(--text-primary)] motion-reduce:animate-none"
           style={{
             width: d.size,
@@ -42,6 +42,22 @@ export default function HeroParticles() {
             opacity: 0.15,
             animation: `float-dot ${d.duration + 2}s ease-in-out infinite`,
             animationDelay: `${d.delay + 1}s`,
+          }}
+        />
+      ))}
+      {/* Orange accent (poster campfire) */}
+      {[0, 1, 2].map((i) => (
+        <div
+          key={`orange-${i}`}
+          className="absolute rounded-full bg-[var(--accent-orange)] motion-reduce:animate-none"
+          style={{
+            width: 3,
+            height: 3,
+            left: `${15 + i * 25}%`,
+            top: `${70 + i * 8}%`,
+            opacity: 0.25,
+            animation: `float-dot ${10 + i * 2}s ease-in-out infinite`,
+            animationDelay: `${i * 1.5}s`,
           }}
         />
       ))}
