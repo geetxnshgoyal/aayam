@@ -4,7 +4,7 @@ import { PRIMARY_SITE_URL } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Ambassador Portal — AAYAM 2026",
   description:
-    "Become an AAYAM 2026 campus ambassador. Promote the techfest, earn rewards, and get exclusive access. Register or login to the ambassador portal.",
+    "AAYAM 2026 — Step beyond the known. Become a campus ambassador. Promote the techfest, earn rewards, and get exclusive access. Register or login.",
   alternates: { canonical: `${PRIMARY_SITE_URL}/ambassador` },
   openGraph: {
     title: "AAYAM 2026 Ambassador Program",

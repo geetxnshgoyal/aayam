@@ -4,7 +4,7 @@ import { PRIMARY_SITE_URL } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Sponsorship Opportunities | AAYAM 2026",
   description:
-    "Sponsor AAYAM 2026 with tailored packages for Title Sponsor, Concert Sponsor, Associate Partner, and Barter/In-Kind Partner. Reach 15,000+ participants across 250+ colleges.",
+    "AAYAM 2026 — Step beyond the known. Sponsor the flagship techfest with tailored packages: Title, Concert, Associate, Barter. Reach 15,000+ participants across 250+ colleges.",
   alternates: {
     canonical: `${PRIMARY_SITE_URL}/sponsors`,
   },
