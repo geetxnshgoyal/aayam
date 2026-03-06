@@ -26,7 +26,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div>
             <div className="relative w-32 h-10 mb-4">
-              <Image src="/images/logo.png" alt="AAYAM" fill className="object-contain" />
+              <Image src="/images/logo.png" alt="AAYAM 2026" fill className="object-contain" />
             </div>
             <p className="font-mono text-xs text-[var(--accent-cyan)] mb-1">STEP BEYOND THE KNOWN</p>
             <p className="text-sm text-[var(--text-secondary)] mb-4">

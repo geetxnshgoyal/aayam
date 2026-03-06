@@ -47,7 +47,7 @@ export default function Navbar() {
               <div className="relative w-24 h-8 md:w-28 md:h-10 transition-opacity group-hover:opacity-90">
                 <Image
                   src="/images/logo.png"
-                  alt="AAYAM Logo"
+                  alt="AAYAM 2026"
                   fill
                   className="object-contain"
                   priority

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { PRIMARY_SITE_URL, SITE_LOGO_PATH } from "@/lib/site";
+import { PRIMARY_SITE_URL, SITE_LOGO_PATH, SITE_KEYWORDS } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Competitions | AAYAM 2026 — Hackathons, CP, Robotics, Open Source",
+  title: "Competitions | AAYAM 2026 — AAYAM techfest | NST Bengaluru",
   description:
-    "AAYAM 2026 — Step beyond the known. 12+ competitions: 24h & 12h hackathons, CP contests, robotics (Racing, Soccer, Fighting, Maze, Drone), open source. Register on Unstop. April 24-25, 2026.",
+    "AAYAM 2026 (aayamfest) competitions: hackathons, CP, robotics, open source. AAYAM tech fest at NST Bengaluru. Register on Unstop. April 24-25, 2026.",
+  keywords: [...SITE_KEYWORDS, "AAYAM competitions", "aayamfest events", "NST hackathon", "Bengaluru robotics"],
   alternates: { canonical: `${PRIMARY_SITE_URL}/competitions` },
   openGraph: {
     title: "AAYAM 2026 Competitions — Step Beyond the Known",

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { PRIMARY_SITE_URL, SITE_LOGO_PATH } from "@/lib/site";
+import { PRIMARY_SITE_URL, SITE_LOGO_PATH, SITE_KEYWORDS } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About AAYAM 2026 | Newton School of Technology Techfest",
+  title: "About AAYAM 2026 | AAYAM fest | NST Bengaluru Techfest",
   description:
-    "AAYAM 2026 — Step beyond the known. The flagship techfest of Newton School of Technology. Vision, mission, team, and why you should participate. 3000+ participants, 12+ competitions.",
+    "About AAYAM 2026 (aayamfest, aayam tech fest). Step beyond the known. NST Bengaluru techfest by Newton School of Technology. Vision, mission, team. 3000+ participants, 12+ competitions.",
+  keywords: [...SITE_KEYWORDS, "about AAYAM", "AAYAM about", "aayamfest about"],
   alternates: { canonical: `${PRIMARY_SITE_URL}/about` },
   openGraph: {
     title: "About AAYAM 2026",

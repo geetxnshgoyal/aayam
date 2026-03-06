@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
-import { PRIMARY_SITE_URL, SITE_LOGO_PATH } from "@/lib/site";
+import { PRIMARY_SITE_URL, SITE_LOGO_PATH, SITE_KEYWORDS } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Sponsorship Opportunities | AAYAM 2026",
+  title: "Sponsorship | AAYAM 2026 — AAYAM fest | NST Bengaluru Techfest",
   description:
-    "AAYAM 2026 — Step beyond the known. Sponsor the flagship techfest with tailored packages: Title, Concert, Associate, Barter. Reach 15,000+ participants across 250+ colleges.",
+    "Sponsor AAYAM 2026 (aayamfest, aayam tech fest). NST Bengaluru techfest sponsorship — Title, Concert, Associate packages. 15,000+ participants, 250+ colleges.",
   alternates: {
     canonical: `${PRIMARY_SITE_URL}/sponsors`,
   },
   keywords: [
+    ...SITE_KEYWORDS,
     "AAYAM sponsorship",
+    "aayamfest sponsor",
     "tech fest sponsorship",
-    "college sponsorship opportunities",
-    "Newton School of Technology sponsorship",
+    "NST sponsorship",
+    "Bengaluru techfest sponsor",
     "AAYAM sponsor brochure",
   ],
   openGraph: {

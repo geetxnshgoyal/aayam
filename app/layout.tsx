@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import RetroTechBackground from "@/components/RetroTechBackground";
-import { ALL_SITE_URLS, PRIMARY_SITE_URL, SITE_LOGO_PATH } from "@/lib/site";
+import { ALL_SITE_URLS, PRIMARY_SITE_URL, SITE_LOGO_PATH, SITE_KEYWORDS } from "@/lib/site";
 
 const siteUrl = PRIMARY_SITE_URL;
 const logoUrl = `${siteUrl}${SITE_LOGO_PATH}`;
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     default: "AAYAM 2026 — Step Beyond the Known | Newton School of Technology Techfest",
     template: "%s | AAYAM 2026",
   },
-  description: "AAYAM 2026: Step beyond the known. Flagship techfest of Newton School of Technology — hackathons, robotics, competitive programming, open source. April 24-25, 2026. ₹2L+ prize pool. Bengaluru.",
+  description: "AAYAM 2026 (aayamfest, aayam techfest): Step beyond the known. NST Bengaluru techfest by Newton School of Technology — hackathons, robotics, CP, open source. April 24-25, 2026. ₹2L+ prize pool.",
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     icon: SITE_LOGO_PATH,
     apple: SITE_LOGO_PATH,
   },
-  keywords: ["AAYAM 2026", "step beyond the known", "techfest", "Newton School of Technology", "NST", "hackathon", "robotics", "competitive programming", "open source", "drone racing", "tech fest 2026", "Bengaluru tech fest"],
+  keywords: SITE_KEYWORDS,
   robots: {
     index: true,
     follow: true,
@@ -53,8 +53,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "AAYAM 2026 — Step Beyond the Known",
-    description: "Step beyond the known. 6+ competitions, ₹2L+ prizes, 3000+ innovators. April 24-25 at Newton School of Technology, Bengaluru.",
+    title: "AAYAM 2026 — Step Beyond the Known | AAYAM fest | NST Bengaluru Techfest",
+    description: "AAYAM (aayamfest, aayam tech fest). Step beyond the known. NST Bengaluru techfest — 6+ competitions, ₹2L+ prizes. April 24-25, 2026.",
     type: "website",
     url: siteUrl,
     siteName: "AAYAM 2026",
@@ -70,8 +70,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AAYAM 2026 — Step Beyond the Known",
-    description: "Step beyond the known. 6+ competitions, ₹2L+ prizes. April 24-25 at NST, Bengaluru.",
+    title: "AAYAM 2026 — AAYAM fest | NST Bengaluru Techfest",
+    description: "AAYAM techfest (aayamfest). Step beyond the known. 6+ competitions, ₹2L+ prizes. April 24-25 at NST, Bengaluru.",
     images: [SITE_LOGO_PATH],
   },
 };
@@ -92,6 +92,7 @@ export default function RootLayout({
     "@type": "Organization",
     "@id": `${siteUrl}#organization`,
     name: "AAYAM 2026",
+    alternateName: ["AAYAM", "AAYAM fest", "aayamfest", "AAYAM techfest", "AAYAM tech fest", "NST Bengaluru techfest"],
     slogan: "Step Beyond the Known",
     url: siteUrl,
     logo: logoUrl,
@@ -115,7 +116,7 @@ export default function RootLayout({
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     description:
-      "AAYAM 2026 — Step beyond the known. Flagship techfest of Newton School of Technology with hackathons, robotics, coding, and open-source competitions. April 24-25, 2026.",
+      "AAYAM 2026 (aayamfest, AAYAM tech fest) — Step beyond the known. NST Bengaluru techfest by Newton School of Technology. Hackathons, robotics, CP, open source. April 24-25, 2026.",
     startDate: "2026-04-24T09:00:00+05:30",
     endDate: "2026-04-25T20:00:00+05:30",
     organizer: {
@@ -151,7 +152,7 @@ export default function RootLayout({
     "@type": "WebSite",
     name: "AAYAM 2026",
     url: siteUrl,
-    description: "AAYAM 2026 — Step beyond the known. Flagship techfest of Newton School of Technology.",
+    description: "AAYAM 2026 (aayamfest, aayam techfest) — Step beyond the known. NST Bengaluru techfest by Newton School of Technology.",
     publisher: { "@id": `${siteUrl}#organization` },
     inLanguage: "en-IN",
     potentialAction: {
