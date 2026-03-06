@@ -69,7 +69,7 @@ export default function Home() {
             <div className="relative w-[240px] md:w-[320px] h-[100px] md:h-[140px] mx-auto mb-8">
               <Image
                 src="/images/logo.png"
-                alt="AAYAM — Exploring New Dimensions of Technology"
+                alt="AAYAM 2026 — Step Beyond the Known"
                 fill
                 className="object-contain"
                 priority
@@ -86,7 +86,7 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="font-pixel text-xl md:text-3xl font-bold mb-4 text-[var(--text-primary)] tracking-wide uppercase"
             >
-              EXPLORING NEW DIMENSIONS
+              STEP BEYOND THE KNOWN
             </motion.h1>
             {/* Poster-style divider line */}
             <motion.div
@@ -286,7 +286,7 @@ export default function Home() {
               <Link href="/competitions" className="text-[var(--accent-cyan)] hover:underline">
                 Register now
               </Link>{' '}
-              and enter the next dimension.
+              and step beyond the known.
             </p>
             <Link
               href="/competitions"

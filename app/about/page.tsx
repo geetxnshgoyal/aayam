@@ -54,7 +54,7 @@ export default function AboutPage() {
             &gt; ABOUT AAYAM
           </h1>
           <p className="text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto">
-            Exploring New Dimensions of Technology
+            Step Beyond the Known
           </p>
         </motion.header>
 

@@ -22,10 +22,10 @@ const pressStart2P = Press_Start_2P({
 
 export const metadata: Metadata = {
   title: {
-    default: "AAYAM 2026 — Exploring New Dimensions of Technology | Newton School of Technology",
+    default: "AAYAM 2026 — Step Beyond the Known | Newton School of Technology Techfest",
     template: "%s | AAYAM 2026",
   },
-  description: "AAYAM is the flagship techfest of Newton School of Technology. 6+ competitions including hackathons, robotics, competitive programming, and open source. April 24-25, 2026. ₹2L+ prize pool.",
+  description: "AAYAM 2026: Step beyond the known. Flagship techfest of Newton School of Technology — hackathons, robotics, competitive programming, open source. April 24-25, 2026. ₹2L+ prize pool. Bengaluru.",
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     icon: "/images/logo_clean.png",
     apple: "/images/logo_clean.png",
   },
-  keywords: ["AAYAM", "techfest", "Newton School of Technology", "NST", "hackathon", "robotics", "competitive programming", "open source", "drone racing", "tech fest 2026", "Bengaluru tech fest"],
+  keywords: ["AAYAM 2026", "step beyond the known", "techfest", "Newton School of Technology", "NST", "hackathon", "robotics", "competitive programming", "open source", "drone racing", "tech fest 2026", "Bengaluru tech fest"],
   robots: {
     index: true,
     follow: true,
@@ -52,8 +52,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "AAYAM 2026 — Exploring New Dimensions of Technology",
-    description: "6+ competitions. ₹2L+ prizes. 3000+ innovators. April 24-25 at Newton School of Technology.",
+    title: "AAYAM 2026 — Step Beyond the Known",
+    description: "Step beyond the known. 6+ competitions, ₹2L+ prizes, 3000+ innovators. April 24-25 at Newton School of Technology, Bengaluru.",
     type: "website",
     url: siteUrl,
     siteName: "AAYAM 2026",
@@ -63,14 +63,14 @@ export const metadata: Metadata = {
         url: "/images/logo_clean.png",
         width: 1200,
         height: 630,
-        alt: "AAYAM 2026 — Newton School of Technology Techfest",
+        alt: "AAYAM 2026 — Step Beyond the Known | Newton School of Technology Techfest",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AAYAM 2026 — Exploring New Dimensions of Technology",
-    description: "6+ competitions. ₹2L+ prizes. 3000+ innovators. April 24-25 at Newton School of Technology.",
+    title: "AAYAM 2026 — Step Beyond the Known",
+    description: "Step beyond the known. 6+ competitions, ₹2L+ prizes. April 24-25 at NST, Bengaluru.",
     images: ["/images/logo_clean.png"],
   },
 };
@@ -90,7 +90,8 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": `${siteUrl}#organization`,
-    name: "AAYAM",
+    name: "AAYAM 2026",
+    slogan: "Step Beyond the Known",
     url: siteUrl,
     logo: `${siteUrl}/images/logo_clean.png`,
     sameAs: ["https://instagram.com/aayamfest", ...ALL_SITE_URLS],
@@ -113,7 +114,7 @@ export default function RootLayout({
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     description:
-      "AAYAM 2026 is the flagship techfest of Newton School of Technology with hackathons, robotics, coding, and open-source competitions. April 24-25, 2026.",
+      "AAYAM 2026 — Step beyond the known. Flagship techfest of Newton School of Technology with hackathons, robotics, coding, and open-source competitions. April 24-25, 2026.",
     startDate: "2026-04-24T09:00:00+05:30",
     endDate: "2026-04-25T20:00:00+05:30",
     organizer: {
@@ -149,7 +150,7 @@ export default function RootLayout({
     "@type": "WebSite",
     name: "AAYAM 2026",
     url: siteUrl,
-    description: "Exploring New Dimensions of Technology. Flagship techfest of Newton School of Technology.",
+    description: "AAYAM 2026 — Step beyond the known. Flagship techfest of Newton School of Technology.",
     publisher: { "@id": `${siteUrl}#organization` },
     inLanguage: "en-IN",
     potentialAction: {
