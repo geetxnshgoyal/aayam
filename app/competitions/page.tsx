@@ -1,9 +1,12 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { HiCode, HiChip, HiLightningBolt, HiCog, HiPuzzle, HiCube } from 'react-icons/hi';
 import { FiExternalLink } from 'react-icons/fi';
 import { FaRobot, FaRocket, FaDragon, FaGamepad, FaHelicopter, FaGithub } from 'react-icons/fa';
+
+type CompItem = (typeof competitions)[number];
 
 const competitions = [
   {
@@ -188,6 +191,8 @@ const CATEGORY_BG: Record<string, string> = {
 };
 
 export default function CompetitionsPage() {
+  const [selectedComp, setSelectedComp] = useState<CompItem | null>(null);
+
   return (
     <div className="min-h-screen pt-24 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -236,7 +241,11 @@ export default function CompetitionsPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: index * 0.05 }}
                     viewport={{ once: true }}
-                    className="relative overflow-hidden rounded-sm border border-[var(--border-subtle)] bg-[var(--bg-card)] flex flex-col h-full transition-all duration-200 hover:border-[var(--border-accent)] hover:shadow-[0_0_0_1px_var(--accent-cyan-muted)]"
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => setSelectedComp(comp)}
+                    onKeyDown={(e) => e.key === 'Enter' && setSelectedComp(comp)}
+                    className="relative overflow-hidden rounded-sm border border-[var(--border-subtle)] bg-[var(--bg-card)] flex flex-col h-full transition-all duration-200 hover:border-[var(--border-accent)] hover:shadow-[0_0_0_1px_var(--accent-cyan-muted)] cursor-pointer"
                   >
                     {/* Category-based background image */}
                     <div
@@ -292,6 +301,7 @@ export default function CompetitionsPage() {
                       href={comp.registrationLink}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center justify-center gap-2 w-full py-3 font-mono text-sm font-semibold bg-[var(--accent-primary)] text-white border border-[var(--accent-primary)] hover:shadow-[0_0_15px_var(--glow-primary)] transition-all"
                     >
                       Register on Unstop
@@ -330,6 +340,77 @@ export default function CompetitionsPage() {
             </a>
           </div>
         </motion.section>
+
+        {/* Competition detail modal with category bg image */}
+        <AnimatePresence>
+          {selectedComp && (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-black/70 z-50 backdrop-blur-sm"
+                onClick={() => setSelectedComp(null)}
+                aria-hidden
+              />
+              <motion.div
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="modal-title"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-lg md:w-full z-50 rounded-sm border border-[var(--border-accent)] overflow-hidden bg-[var(--bg-card)] shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+                onKeyDown={(e) => e.key === 'Escape' && setSelectedComp(null)}
+              >
+                <div className="relative min-h-[320px] flex flex-col">
+                  {/* Modal background image — same category as card */}
+                  <div
+                    className="absolute inset-0 bg-cover bg-center opacity-30"
+                    style={{ backgroundImage: `url(${CATEGORY_BG[selectedComp.category] ?? CATEGORY_BG['General']})` }}
+                    aria-hidden
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-card)]/85 via-[var(--bg-card)]/90 to-[var(--bg-card)]" aria-hidden />
+                  <div className="relative z-10 p-6 flex flex-col flex-grow">
+                    <div className="flex items-start justify-between gap-4 mb-4">
+                      <div className="p-2 rounded border border-[var(--border-accent)]">
+                        <selectedComp.icon className="w-6 h-6 text-[var(--accent-cyan)]" aria-hidden />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedComp(null)}
+                        className="p-2 rounded border border-[var(--border-accent)] text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:border-[var(--accent-cyan)] transition-colors"
+                        aria-label="Close"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                      </button>
+                    </div>
+                    <span className="font-mono text-xs text-[var(--accent-cyan)] mb-1">{selectedComp.category}</span>
+                    <h3 id="modal-title" className="font-mono text-xl font-semibold text-[var(--text-primary)] mb-2">{selectedComp.title}</h3>
+                    <p className="text-[var(--text-secondary)] text-sm mb-4 flex-grow">{selectedComp.description}</p>
+                    <dl className="space-y-2 mb-4 text-sm">
+                      <div className="flex justify-between"><dt className="text-[var(--text-muted)]">Prize</dt><dd className="font-mono text-[var(--accent-cyan)]">{selectedComp.prize}</dd></div>
+                      <div className="flex justify-between"><dt className="text-[var(--text-muted)]">Duration</dt><dd className="text-[var(--text-secondary)]">{selectedComp.duration}</dd></div>
+                      <div className="flex justify-between"><dt className="text-[var(--text-muted)]">Team</dt><dd className="text-[var(--text-secondary)]">{selectedComp.participants}</dd></div>
+                      <p className="text-[var(--text-muted)] text-xs pt-2 border-t border-[var(--border-subtle)]">{selectedComp.details}</p>
+                    </dl>
+                    <a
+                      href={selectedComp.registrationLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 w-full py-3 font-mono text-sm font-semibold bg-[var(--accent-primary)] text-white border border-[var(--accent-primary-border)] hover:shadow-[0_0_15px_var(--glow-primary)] transition-all"
+                    >
+                      Register on Unstop
+                      <FiExternalLink className="w-4 h-4" aria-hidden />
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
