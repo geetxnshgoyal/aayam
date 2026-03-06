@@ -50,7 +50,7 @@ export default function Home() {
     <div ref={containerRef} className="relative min-h-screen overflow-x-hidden">
       <section
         aria-labelledby="hero-heading"
-        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-[env(safe-area-inset-bottom)]"
       >
         <HeroParticles />
         <motion.div style={{ y, opacity }} className="absolute inset-0 pointer-events-none">
@@ -78,13 +78,13 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <div className="terminal-border bg-[var(--bg-card)]/95 backdrop-blur-sm p-6 md:p-10 rounded-sm max-w-3xl mx-auto border-white/10">
+          <div className="terminal-border bg-[var(--bg-card)]/95 backdrop-blur-sm p-4 sm:p-6 md:p-10 rounded-sm max-w-3xl mx-auto border-white/10 w-full min-w-0">
             <motion.h1
               id="hero-heading"
               initial={{ y: 12, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="font-pixel text-xl md:text-3xl font-bold mb-4 text-[var(--text-primary)] tracking-wide uppercase"
+              className="font-pixel text-lg sm:text-xl md:text-3xl font-bold mb-4 text-[var(--text-primary)] tracking-wide uppercase break-words"
             >
               STEP BEYOND THE KNOWN
             </motion.h1>
@@ -276,7 +276,7 @@ export default function Home() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="terminal-border bg-[var(--bg-card)] p-10 md:p-14 rounded-sm"
+            className="terminal-border bg-[var(--bg-card)] p-6 sm:p-10 md:p-14 rounded-sm w-full min-w-0"
           >
             <h2 id="cta-heading" className="font-pixel text-xl md:text-3xl font-bold mb-6 text-[var(--text-primary)] uppercase">
               WHERE INNOVATION MEETS POSSIBILITY

@@ -42,15 +42,15 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen pt-24 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-24 pb-20 min-w-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0">
         <motion.header
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
           className="text-center mb-16 pt-8"
         >
-          <h1 className="font-mono text-3xl md:text-5xl font-bold mb-4 text-[var(--text-primary)]">
+          <h1 className="font-mono text-2xl sm:text-3xl md:text-5xl font-bold mb-4 text-[var(--text-primary)]">
             &gt; ABOUT AAYAM
           </h1>
           <p className="text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto">
@@ -65,15 +65,15 @@ export default function AboutPage() {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <article className="card-retro rounded-sm p-8 md:p-12">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="p-3 rounded border border-[var(--border-accent)]">
+          <article className="card-retro rounded-sm p-6 sm:p-8 md:p-12">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
+              <div className="p-3 rounded border border-[var(--border-accent)] w-fit">
                 <FaUniversity className="w-6 h-6 text-[var(--accent-cyan)]" aria-hidden />
               </div>
-              <div>
-<h2 className="font-mono text-xl md:text-2xl font-semibold text-[var(--text-primary)]">
-                What is AAYAM?
-              </h2>
+              <div className="min-w-0">
+                <h2 className="font-mono text-xl md:text-2xl font-semibold text-[var(--text-primary)]">
+                  What is AAYAM?
+                </h2>
                 <p className="text-[var(--text-muted)] text-sm">Hosted by Newton School of Technology</p>
               </div>
             </div>

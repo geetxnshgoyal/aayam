@@ -104,18 +104,18 @@ export default function Footer() {
                   +91 7569319430
                 </a>
               </li>
-              <li className="leading-relaxed">
+              <li className="leading-relaxed break-words max-w-[min(100%,20rem)]">
                 Newton School of Technology, NST S-VYASA University, P3 Block, Sattva Global City, Global Village, Bengaluru, Karnataka 560059
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-[var(--border-subtle)] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="font-mono text-xs text-[var(--text-muted)]">
+        <div className="border-t border-[var(--border-subtle)] pt-8 flex flex-col md:flex-row justify-between items-center gap-4 pb-[env(safe-area-inset-bottom)]">
+          <p className="font-mono text-xs text-[var(--text-muted)] text-center md:text-left">
             © {currentYear} AAYAM · Newton School of Technology
           </p>
-          <div className="flex items-center gap-6 font-mono text-xs">
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 font-mono text-xs">
             <Link href="#" className="text-[var(--text-muted)] hover:text-[var(--accent-cyan)] transition-colors">
               Privacy
             </Link>

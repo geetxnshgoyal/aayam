@@ -194,15 +194,15 @@ export default function CompetitionsPage() {
   const [selectedComp, setSelectedComp] = useState<CompItem | null>(null);
 
   return (
-    <div className="min-h-screen pt-24 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-24 pb-20 min-w-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0">
         <motion.header
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
           className="text-center mb-12 pt-8"
         >
-          <h1 className="font-mono text-3xl md:text-5xl font-bold mb-4 text-[var(--text-primary)]">
+          <h1 className="font-mono text-2xl sm:text-3xl md:text-5xl font-bold mb-4 text-[var(--text-primary)] break-words">
             &gt; COMPETITIONS
           </h1>
           <p className="text-[var(--text-secondary)] text-lg max-w-2xl mx-auto mb-2">
@@ -361,19 +361,19 @@ export default function CompetitionsPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-lg md:w-full z-50 rounded-sm border border-[var(--border-accent)] overflow-hidden bg-[var(--bg-card)] shadow-2xl"
+                className="fixed left-4 right-4 top-[max(1rem,env(safe-area-inset-top))] bottom-[max(1rem,env(safe-area-inset-bottom))] md:inset-auto md:left-1/2 md:top-1/2 md:bottom-auto md:right-auto md:max-h-[90vh] md:max-w-lg md:w-full md:-translate-x-1/2 md:-translate-y-1/2 z-50 rounded-sm border border-[var(--border-accent)] overflow-hidden bg-[var(--bg-card)] shadow-2xl flex flex-col"
                 onClick={(e) => e.stopPropagation()}
                 onKeyDown={(e) => e.key === 'Escape' && setSelectedComp(null)}
               >
-                <div className="relative min-h-[320px] flex flex-col">
+                <div className="relative min-h-0 flex-1 flex flex-col overflow-y-auto overflow-x-hidden">
                   {/* Modal background image — same category as card */}
                   <div
-                    className="absolute inset-0 bg-cover bg-center opacity-30"
+                    className="absolute inset-0 bg-cover bg-center opacity-30 pointer-events-none"
                     style={{ backgroundImage: `url(${CATEGORY_BG[selectedComp.category] ?? CATEGORY_BG['General']})` }}
                     aria-hidden
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-card)]/85 via-[var(--bg-card)]/90 to-[var(--bg-card)]" aria-hidden />
-                  <div className="relative z-10 p-6 flex flex-col flex-grow">
+                  <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-card)]/85 via-[var(--bg-card)]/90 to-[var(--bg-card)] pointer-events-none" aria-hidden />
+                  <div className="relative z-10 p-4 sm:p-6 flex flex-col flex-grow min-h-[320px]">
                     <div className="flex items-start justify-between gap-4 mb-4">
                       <div className="p-2 rounded border border-[var(--border-accent)]">
                         <selectedComp.icon className="w-6 h-6 text-[var(--accent-cyan)]" aria-hidden />

@@ -31,15 +31,15 @@ export default function GalleryPage() {
       : galleryImages.filter((img) => img.category === selectedCategory);
 
   return (
-    <div className="min-h-screen pt-24 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-24 pb-20 min-w-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0">
         <motion.header
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
           className="text-center mb-12 pt-8"
         >
-          <h1 className="font-mono text-3xl md:text-5xl font-bold mb-4 text-[var(--text-primary)]">
+          <h1 className="font-mono text-2xl sm:text-3xl md:text-5xl font-bold mb-4 text-[var(--text-primary)]">
             &gt; GALLERY
           </h1>
           <p className="text-[var(--text-secondary)] max-w-xl mx-auto">
@@ -59,7 +59,7 @@ export default function GalleryPage() {
               type="button"
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`font-mono text-sm px-4 py-2 rounded border transition-all ${
+              className={`font-mono text-sm px-4 py-2.5 min-h-[44px] rounded border transition-all touch-manipulation ${
                 selectedCategory === category
                   ? 'bg-[var(--accent-primary)] text-white border-[var(--accent-primary)]'
                   : 'border-[var(--border-accent)] text-[var(--text-secondary)] hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan)]'
@@ -161,7 +161,7 @@ export default function GalleryPage() {
             <button
               type="button"
               onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 w-10 h-10 rounded border border-[var(--border-accent)] bg-[var(--bg-elevated)] hover:border-[var(--phosphor-green)] flex items-center justify-center transition-colors"
+              className="absolute top-4 right-4 min-w-[44px] min-h-[44px] rounded border border-[var(--border-accent)] bg-[var(--bg-elevated)] hover:border-[var(--phosphor-green)] flex items-center justify-center transition-colors touch-manipulation"
               aria-label="Close preview"
             >
               <svg className="w-5 h-5 text-[var(--text-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
