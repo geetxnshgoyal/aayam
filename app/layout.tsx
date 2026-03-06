@@ -21,7 +21,10 @@ const pressStart2P = Press_Start_2P({
 });
 
 export const metadata: Metadata = {
-  title: "AAYAM 2026 — Exploring New Dimensions of Technology | Newton School of Technology",
+  title: {
+    default: "AAYAM 2026 — Exploring New Dimensions of Technology | Newton School of Technology",
+    template: "%s | AAYAM 2026",
+  },
   description: "AAYAM is the flagship techfest of Newton School of Technology. 6+ competitions including hackathons, robotics, competitive programming, and open source. April 24-25, 2026. ₹2L+ prize pool.",
   metadataBase: new URL(siteUrl),
   alternates: {
@@ -31,12 +34,12 @@ export const metadata: Metadata = {
   category: "Technology",
   creator: "Newton School of Technology",
   publisher: "Newton School of Technology",
-  authors: [{ name: "AAYAM Organizing Team" }],
+  authors: [{ name: "AAYAM Organizing Team", url: siteUrl }],
   icons: {
     icon: "/images/logo_clean.png",
     apple: "/images/logo_clean.png",
   },
-  keywords: ["AAYAM", "techfest", "Newton School of Technology", "NST", "hackathon", "robotics", "competitive programming", "open source", "drone racing", "tech fest 2026"],
+  keywords: ["AAYAM", "techfest", "Newton School of Technology", "NST", "hackathon", "robotics", "competitive programming", "open source", "drone racing", "tech fest 2026", "Bengaluru tech fest"],
   robots: {
     index: true,
     follow: true,
@@ -60,15 +63,18 @@ export const metadata: Metadata = {
         url: "/images/logo_clean.png",
         width: 1200,
         height: 630,
-        alt: "AAYAM 2026 logo",
+        alt: "AAYAM 2026 — Newton School of Technology Techfest",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "AAYAM 2026 — Exploring New Dimensions of Technology",
-    description: "6+ competitions. ₹2L+ prizes. 3000+ innovators.",
+    description: "6+ competitions. ₹2L+ prizes. 3000+ innovators. April 24-25 at Newton School of Technology.",
     images: ["/images/logo_clean.png"],
+  },
+  other: {
+    "theme-color": "#0a1628",
   },
 };
 
@@ -80,10 +86,17 @@ export default function RootLayout({
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${siteUrl}#organization`,
     name: "AAYAM",
     url: siteUrl,
     logo: `${siteUrl}/images/logo_clean.png`,
     sameAs: ["https://instagram.com/aayamfest", ...ALL_SITE_URLS],
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "aayam.fest@newtonschool.co",
+      contactType: "customer service",
+      areaServed: "IN",
+    },
     parentOrganization: {
       "@type": "CollegeOrUniversity",
       name: "Newton School of Technology",
@@ -97,9 +110,9 @@ export default function RootLayout({
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     description:
-      "AAYAM 2026 is the flagship techfest of Newton School of Technology with hackathons, robotics, coding, and open-source competitions.",
-    startDate: "2026-04-24",
-    endDate: "2026-04-25",
+      "AAYAM 2026 is the flagship techfest of Newton School of Technology with hackathons, robotics, coding, and open-source competitions. April 24-25, 2026.",
+    startDate: "2026-04-24T09:00:00+05:30",
+    endDate: "2026-04-25T20:00:00+05:30",
     organizer: {
       "@type": "Organization",
       name: "Newton School of Technology",
@@ -107,14 +120,40 @@ export default function RootLayout({
     },
     location: {
       "@type": "Place",
-      name: "Newton School of Technology",
+      name: "Newton School of Technology, NST S-VYASA University",
       address: {
         "@type": "PostalAddress",
+        streetAddress: "P3 Block, Sattva Global City, Global Village",
+        addressLocality: "Bengaluru",
+        addressRegion: "Karnataka",
+        postalCode: "560059",
         addressCountry: "IN",
       },
     },
     image: [`${siteUrl}/images/logo_clean.png`],
     url: siteUrl,
+    offers: {
+      "@type": "Offer",
+      url: `${siteUrl}/competitions`,
+      price: "0",
+      priceCurrency: "INR",
+      availability: "https://schema.org/InStock",
+    },
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "AAYAM 2026",
+    url: siteUrl,
+    description: "Exploring New Dimensions of Technology. Flagship techfest of Newton School of Technology.",
+    publisher: { "@id": `${siteUrl}#organization` },
+    inLanguage: "en-IN",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: { "@type": "EntryPoint", url: `${siteUrl}/competitions?q={search_term_string}` },
+      "query-input": "required name=search_term_string",
+    },
   };
 
   return (
@@ -127,6 +166,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
         <BreadcrumbSchema />
         <RetroTechBackground />
