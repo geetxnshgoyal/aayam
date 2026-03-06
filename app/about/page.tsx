@@ -1,9 +1,54 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { HiUsers, HiLightningBolt, HiAcademicCap, HiStar, HiGlobe } from 'react-icons/hi';
-import { FaTrophy, FaUniversity } from 'react-icons/fa';
+import { FaTrophy, FaUniversity, FaLinkedin } from 'react-icons/fa';
+import type { IconType } from 'react-icons';
 import Link from 'next/link';
+
+function TeamCard({ member, index }: { member: { name: string; role: string; icon: IconType; image: string; linkedin: string }; index: number }) {
+  const [imgError, setImgError] = useState(false);
+  const Icon = member.icon;
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.4, delay: index * 0.06 }}
+      viewport={{ once: true }}
+      className="card-retro rounded-sm p-6 text-center flex flex-col items-center"
+    >
+      <div className="w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden border-2 border-[var(--border-accent)] bg-[var(--bg-card)] flex items-center justify-center">
+        {!imgError ? (
+          <img
+            src={member.image}
+            alt={member.name}
+            className="w-full h-full object-cover object-top"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <Icon className="w-10 h-10 text-[var(--accent-amber)]" aria-hidden />
+        )}
+      </div>
+      <h3 className="font-mono text-sm font-semibold text-[var(--accent-cyan)] mb-1">
+        {member.name}
+      </h3>
+      <p className="text-[var(--text-muted)] text-xs mb-3">{member.role}</p>
+      {member.linkedin && (
+        <a
+          href={member.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-[var(--text-muted)] hover:text-[var(--accent-cyan)] transition-colors text-xs"
+        >
+          <FaLinkedin className="w-4 h-4" />
+          <span className="font-mono">LinkedIn</span>
+        </a>
+      )}
+    </motion.article>
+  );
+}
 
 export default function AboutPage() {
   const stats = [
@@ -14,12 +59,12 @@ export default function AboutPage() {
   ];
 
   const team = [
-    { name: 'Dr. Rajesh Kumar', role: 'Faculty Advisor', icon: HiAcademicCap },
-    { name: 'Priya Sharma', role: 'Lead Organizer', icon: HiUsers },
-    { name: 'Arjun Singh', role: 'Technical Lead', icon: HiLightningBolt },
-    { name: 'Neha Gupta', role: 'Partnerships Lead', icon: HiGlobe },
-    { name: 'Rahul Verma', role: 'Design Lead', icon: HiStar },
-    { name: 'Ananya Reddy', role: 'Events Lead', icon: FaTrophy },
+    { name: 'Prerana Pandey', role: 'Faculty Advisor', icon: HiAcademicCap, image: 'https://media.licdn.com/dms/image/v2/D5603AQFsGaVazmywHg/profile-displayphoto-scale_400_400/B56ZmFalpVIsAg-/0/1758879964284?e=1774483200&v=beta&t=hiYfODHP1i_LRzJjR1btcPEXigh7w7tufEa0cWDiB5E', linkedin: 'https://www.linkedin.com/in/prerana-pandey-60710216a/' },
+    { name: 'Still Figuring Out', role: 'Lead Organizer', icon: HiUsers, image: '/images/team/priya.jpg', linkedin: '' },
+    { name: 'Shaaz', role: 'Technical Lead', icon: HiLightningBolt, image: 'https://media.licdn.com/dms/image/v2/D4D03AQH8QsTdg7EtTw/profile-displayphoto-scale_400_400/B4DZrl53W4G4Ag-/0/1764793745034?e=1774483200&v=beta&t=IWXoD70q-U0NYGh4r52UrAhawY7baucte215igMGIXg', linkedin: 'https://www.linkedin.com/in/shaaz-hemani-229150276/' },
+    { name: 'Rachana', role: 'Partnerships Lead', icon: HiGlobe, image: 'https://media.licdn.com/dms/image/v2/D4E03AQHt9CfF_YSAeA/profile-displayphoto-scale_400_400/B4EZllLsuEKcAg-/0/1758339192068?e=1774483200&v=beta&t=E8z3yYixOYlrd2j5GfqMUJh2iieSPrh3fHiz-C8r0hQ', linkedin: 'https://www.linkedin.com/in/rachana-adhikary-133a3b36b/' },
+    { name: 'Archita Singh', role: 'Design Lead', icon: HiStar, image: 'https://media.licdn.com/dms/image/v2/D4E03AQHtsUSKzu7O0g/profile-displayphoto-scale_400_400/B4EZy07zIfKsAo-/0/1772562102892?e=1774483200&v=beta&t=0_McntIwbEui5K4vq3cwIwUCqWw5mbJGBEpW3KBmbfQ', linkedin: 'https://www.linkedin.com/in/archita-singh-668193380/' },
+    { name: 'Sainy Verma', role: 'Events Lead', icon: FaTrophy, image: '/images/team/sainy.jpeg', linkedin: 'https://www.linkedin.com/in/sainy-verma-/' },
   ];
 
   const values = [
@@ -200,20 +245,7 @@ export default function AboutPage() {
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {team.map((member, index) => (
-              <motion.article
-                key={member.name}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: index * 0.06 }}
-                viewport={{ once: true }}
-                className="card-retro rounded-sm p-6 text-center"
-              >
-                <member.icon className="w-8 h-8 mx-auto mb-3 text-[var(--accent-amber)]" aria-hidden />
-                <h3 className="font-mono text-sm font-semibold text-[var(--accent-cyan)] mb-1">
-                  {member.name}
-                </h3>
-                <p className="text-[var(--text-muted)] text-xs">{member.role}</p>
-              </motion.article>
+              <TeamCard key={member.name} member={member} index={index} />
             ))}
           </div>
         </motion.section>
