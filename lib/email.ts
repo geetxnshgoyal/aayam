@@ -192,7 +192,7 @@ export async function sendAmbassadorApprovalEmail(data: AmbassadorApprovalEmailD
         </div>
 
         <div class="footer">
-          <p>AAYAM 2026 | March 14-15, 2026</p>
+          <p>AAYAM 2026 | April 24-25, 2026</p>
           <p style="font-size: 12px; color: #666;">
             This is an automated email. Please do not reply to this address.
           </p>

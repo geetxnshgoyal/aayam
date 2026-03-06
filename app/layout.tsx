@@ -1,29 +1,28 @@
 import type { Metadata } from "next";
-import { Cinzel, Manrope } from "next/font/google";
+import { Press_Start_2P, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CustomCursor from "@/components/CustomCursor";
-import LiquidCursor from "@/components/LiquidCursor";
-import VideoBackground from "@/components/VideoBackground";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import RetroTechBackground from "@/components/RetroTechBackground";
 import { ALL_SITE_URLS, PRIMARY_SITE_URL } from "@/lib/site";
 
 const siteUrl = PRIMARY_SITE_URL;
 
-const manrope = Manrope({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-manrope",
+  variable: "--font-sans-app",
 });
 
-const cinzel = Cinzel({
+const pressStart2P = Press_Start_2P({
+  weight: "400",
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800", "900"],
-  variable: "--font-cinzel",
+  variable: "--font-pixel-app",
 });
 
 export const metadata: Metadata = {
   title: "AAYAM 2026 — Exploring New Dimensions of Technology | Newton School of Technology",
-  description: "AAYAM is the flagship techfest of Newton School of Technology. 6+ competitions including hackathons, robotics, competitive programming, and open source. March 14-15, 2026. ₹2L+ prize pool.",
+  description: "AAYAM is the flagship techfest of Newton School of Technology. 6+ competitions including hackathons, robotics, competitive programming, and open source. April 24-25, 2026. ₹2L+ prize pool.",
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
@@ -51,7 +50,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "AAYAM 2026 — Exploring New Dimensions of Technology",
-    description: "6+ competitions. ₹2L+ prizes. 3000+ innovators. March 14-15 at Newton School of Technology.",
+    description: "6+ competitions. ₹2L+ prizes. 3000+ innovators. April 24-25 at Newton School of Technology.",
     type: "website",
     url: siteUrl,
     siteName: "AAYAM 2026",
@@ -99,8 +98,8 @@ export default function RootLayout({
     eventStatus: "https://schema.org/EventScheduled",
     description:
       "AAYAM 2026 is the flagship techfest of Newton School of Technology with hackathons, robotics, coding, and open-source competitions.",
-    startDate: "2026-03-14",
-    endDate: "2026-03-15",
+    startDate: "2026-04-24",
+    endDate: "2026-04-25",
     organizer: {
       "@type": "Organization",
       name: "Newton School of Technology",
@@ -119,8 +118,8 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
-      <body className={`${manrope.className} ${manrope.variable} ${cinzel.variable} antialiased`}>
+    <html lang="en" className="crt-scanlines">
+      <body className={`${spaceGrotesk.className} ${spaceGrotesk.variable} ${pressStart2P.variable} antialiased`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
@@ -129,11 +128,10 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
         />
-        <VideoBackground />
-        <CustomCursor />
-        <LiquidCursor />
+        <BreadcrumbSchema />
+        <RetroTechBackground />
         <Navbar />
-        <main className="relative z-10">
+        <main className="relative z-10" id="main-content">
           {children}
         </main>
         <Footer />

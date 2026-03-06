@@ -4,11 +4,8 @@ import { motion } from 'framer-motion';
 import { HiCode, HiChip, HiLightningBolt, HiCog, HiPuzzle, HiCube } from 'react-icons/hi';
 import { FiExternalLink } from 'react-icons/fi';
 import { FaRobot, FaRocket, FaDragon, FaGamepad, FaHelicopter, FaGithub } from 'react-icons/fa';
-import InfiniteMarquee from '@/components/InfiniteMarquee';
-import GlowingCard from '@/components/GlowingCard';
 
 const competitions = [
-  // Hackathons
   {
     id: '24h-hackathon',
     title: '24-Hour Hackathon',
@@ -22,8 +19,6 @@ const competitions = [
     prize: '₹50,000',
     participants: '2-4',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-purple-600 via-pink-600 to-red-600',
-    glowColor: 'rgba(236, 72, 153, 0.3)',
   },
   {
     id: '12h-hackathon',
@@ -38,10 +33,7 @@ const competitions = [
     prize: '₹30,000',
     participants: '2-3',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-orange-500 via-red-500 to-pink-600',
-    glowColor: 'rgba(249, 115, 22, 0.3)',
   },
-  // Coding
   {
     id: 'cp-individual',
     title: 'CP Contest — Individual',
@@ -55,8 +47,6 @@ const competitions = [
     prize: '₹25,000',
     participants: '1',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-cyan-500 via-blue-500 to-purple-600',
-    glowColor: 'rgba(59, 130, 246, 0.3)',
   },
   {
     id: 'cp-team',
@@ -71,8 +61,6 @@ const competitions = [
     prize: '₹40,000',
     participants: '3',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-amber-500 via-orange-500 to-red-500',
-    glowColor: 'rgba(245, 158, 11, 0.3)',
   },
   {
     id: 'code-optimizer',
@@ -87,10 +75,7 @@ const competitions = [
     prize: '₹15,000',
     participants: '1',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-emerald-400 via-teal-500 to-cyan-500',
-    glowColor: 'rgba(16, 185, 129, 0.3)',
   },
-  // Open Source
   {
     id: 'open-source',
     title: 'Open Source Challenge',
@@ -104,10 +89,7 @@ const competitions = [
     prize: '₹20,000',
     participants: '1-3',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-blue-600 via-indigo-600 to-purple-600',
-    glowColor: 'rgba(79, 70, 229, 0.3)',
   },
-  // Robotics
   {
     id: 'robo-racing',
     title: 'Robo Racing',
@@ -121,8 +103,6 @@ const competitions = [
     prize: '₹30,000',
     participants: '2-4',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-red-500 via-pink-600 to-purple-600',
-    glowColor: 'rgba(239, 68, 68, 0.3)',
   },
   {
     id: 'robo-soccer',
@@ -137,8 +117,6 @@ const competitions = [
     prize: '₹25,000',
     participants: '2-4',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)]',
-    glowColor: 'rgba(220, 20, 38, 0.18)',
   },
   {
     id: 'robo-fighting',
@@ -153,8 +131,6 @@ const competitions = [
     prize: '₹40,000',
     participants: '2-5',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-fuchsia-600 via-purple-600 to-indigo-600',
-    glowColor: 'rgba(192, 38, 211, 0.3)',
   },
   {
     id: 'maze-solver',
@@ -169,8 +145,6 @@ const competitions = [
     prize: '₹20,000',
     participants: '1-3',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-indigo-500 via-purple-500 to-pink-500',
-    glowColor: 'rgba(139, 92, 246, 0.3)',
   },
   {
     id: 'drone-hurdle',
@@ -185,10 +159,7 @@ const competitions = [
     prize: '₹35,000',
     participants: '1-3',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-cyan-400 via-blue-500 to-indigo-600',
-    glowColor: 'rgba(56, 189, 248, 0.3)',
   },
-  // Wildcard
   {
     id: 'tech-quiz',
     title: 'Tech Quiz',
@@ -202,179 +173,142 @@ const competitions = [
     prize: '₹10,000',
     participants: '2',
     registrationLink: 'https://unstop.com/competitions',
-    gradient: 'from-green-400 via-emerald-500 to-teal-600',
-    glowColor: 'rgba(16, 185, 129, 0.3)',
   },
 ];
 
-const categories = ['All', 'Hackathon', 'Coding', 'Open Source', 'Robotics', 'General'];
+const categories = ['Hackathon', 'Coding', 'Open Source', 'Robotics', 'General'];
 
 export default function CompetitionsPage() {
   return (
-    <div className="min-h-screen bg-transparent text-white pt-32 pb-20 relative">
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-        <motion.div
-          initial={{ y: 30, opacity: 0 }}
+    <div className="min-h-screen pt-24 pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.header
+          initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8"
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12 pt-8"
         >
-          <h1 className="text-6xl md:text-8xl font-black mb-6 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent animate-gradient-shift drop-shadow-lg" style={{ backgroundSize: '200% auto' }}>
-            COMPETITIONS
+          <h1 className="font-mono text-3xl md:text-5xl font-bold mb-4 text-[var(--text-primary)]">
+            &gt; COMPETITIONS
           </h1>
-          <motion.p
-            className="text-2xl text-gray-400 max-w-3xl mx-auto mb-4"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            6+ events across Hackathons, Coding, Robotics, and Open Source. Choose your arena.
-          </motion.p>
-          <motion.p
-            className="text-lg text-gray-200 mt-2 font-medium"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            All registrations via Unstop. March 14-15, 2026 at Newton School of Technology.
-          </motion.p>
-        </motion.div>
+          <p className="text-[var(--text-secondary)] text-lg max-w-2xl mx-auto mb-2">
+            12+ events across Hackathons, Coding, Robotics, and Open Source. Choose your arena.
+          </p>
+          <p className="text-[var(--text-muted)] text-sm">
+            All registrations via Unstop. April 24-25, 2026 at Newton School of Technology.
+          </p>
+        </motion.header>
 
-        {/* Category sections */}
-        {categories.filter(c => c !== 'All').map((category) => {
-          const categoryComps = competitions.filter(c => c.category === category);
+        {categories.map((category) => {
+          const categoryComps = competitions.filter((c) => c.category === category);
           if (categoryComps.length === 0) return null;
 
           return (
-            <motion.div
+            <motion.section
               key={category}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.5 }}
               viewport={{ once: true }}
               className="mb-16"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 flex items-center gap-4">
-                <span className="text-white drop-shadow-md">
-                  {category}
-                </span>
-                <span className="text-sm font-normal text-gray-500 bg-white/5 px-3 py-1 rounded-full">
+              <h2 className="font-mono text-xl md:text-2xl font-semibold mb-6 flex items-center gap-3">
+                <span className="text-[var(--accent-cyan)]">{category}</span>
+                <span className="text-[var(--text-muted)] text-sm font-normal border border-[var(--border-accent)] px-2 py-0.5 rounded">
                   {categoryComps.length} event{categoryComps.length > 1 ? 's' : ''}
                 </span>
               </h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {categoryComps.map((comp, index) => (
-                  <motion.div
+                  <motion.article
                     key={comp.id}
-                    initial={{ opacity: 0, y: 60 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.08 }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
                     viewport={{ once: true }}
-                    className="group relative"
+                    className="card-retro rounded-sm p-6 flex flex-col h-full"
                   >
-                    <GlowingCard glowColor={`${comp.glowColor}`} className="h-full">
-                      <div className="relative h-full bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden group p-8 flex flex-col transition-all duration-500 shadow-2xl"
-                        onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 20px 40px -10px ${comp.glowColor}`; }}
-                        onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0,0,0,0.1)'; }}
-                      >
-                        <div className={`absolute inset-0 bg-gradient-to-br ${comp.gradient} opacity-20 group-hover:opacity-40 transition-opacity duration-500`} />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-
-                        <div className="relative z-10 p-8 flex flex-col h-full">
-                          <div className="flex items-center justify-between mb-6">
-                            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${comp.gradient} shadow-lg flex items-center justify-center`}>
-                              {comp.category === 'Hackathon' ? (
-                                <svg className="w-7 h-7 text-white drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
-                              ) : comp.category === 'Coding' ? (
-                                <svg className="w-7 h-7 text-white drop-shadow-md" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
-                              ) : comp.category === 'Robotics' ? (
-                                <svg className="w-7 h-7 text-white drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                              ) : comp.category === 'Open Source' ? (
-                                <svg className="w-7 h-7 text-white drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                              ) : (
-                                <svg className="w-7 h-7 text-white drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
-                              )}
-                            </div>
-                            <div className="flex gap-2">
-                              <span className="text-xs font-bold px-3 py-1.5 bg-white/5 rounded-full border border-white/10 text-gray-400">
-                                {comp.type}
-                              </span>
-                              <span className="text-xs font-bold px-3 py-1.5 bg-white/5 rounded-full border border-white/10 text-gray-400">
-                                {comp.difficulty}
-                              </span>
-                            </div>
-                          </div>
-
-                          <h3 className="text-2xl font-black mb-3 text-white">{comp.title}</h3>
-                          <p className="text-gray-400 text-sm mb-6 flex-grow leading-relaxed">{comp.description}</p>
-
-                          <div className="space-y-3 mb-6">
-                            <div className="flex items-center justify-between">
-                              <span className="text-gray-400 text-sm font-medium">Prize Pool</span>
-                              <span className={`font-black text-lg text-white drop-shadow-md`}>
-                                {comp.prize}
-                              </span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <span className="text-gray-500 text-sm font-medium">Duration</span>
-                              <span className="text-gray-300 font-semibold text-sm">{comp.duration}</span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <span className="text-gray-400 text-sm font-medium">Team Size</span>
-                              <span className="text-gray-200 font-semibold text-sm">{comp.participants}</span>
-                            </div>
-                            <div className="pt-2 border-t border-white/5">
-                              <span className="text-gray-500 text-xs">{comp.details}</span>
-                            </div>
-                          </div>
-
-                          <a
-                            href={comp.registrationLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r ${comp.gradient} rounded-2xl font-black text-lg shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.25)] transition-all duration-300 hover:scale-[1.03] active:scale-95 text-white`}
-                          >
-                            Register on Unstop
-                            <FiExternalLink className="w-5 h-5" />
-                          </a>
-                        </div>
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="p-2 rounded border border-[var(--border-accent)]">
+                        <comp.icon className="w-6 h-6 text-[var(--accent-cyan)]" aria-hidden />
                       </div>
-                    </GlowingCard>
-                  </motion.div>
+                      <div className="flex gap-2">
+                        <span className="font-mono text-[10px] px-2 py-1 border border-[var(--border-accent)] rounded text-[var(--text-muted)]">
+                          {comp.type}
+                        </span>
+                        <span className="font-mono text-[10px] px-2 py-1 border border-[var(--border-accent)] rounded text-[var(--text-muted)]">
+                          {comp.difficulty}
+                        </span>
+                      </div>
+                    </div>
+
+                    <h3 className="font-mono text-lg font-semibold text-[var(--text-primary)] mb-2">
+                      {comp.title}
+                    </h3>
+                    <p className="text-[var(--text-secondary)] text-sm mb-4 flex-grow leading-relaxed">
+                      {comp.description}
+                    </p>
+
+                    <dl className="space-y-2 mb-4 text-sm">
+                      <div className="flex justify-between">
+                        <dt className="text-[var(--text-muted)]">Prize</dt>
+                        <dd className="font-mono text-[var(--accent-cyan)]">{comp.prize}</dd>
+                      </div>
+                      <div className="flex justify-between">
+                        <dt className="text-[var(--text-muted)]">Duration</dt>
+                        <dd className="text-[var(--text-secondary)]">{comp.duration}</dd>
+                      </div>
+                      <div className="flex justify-between">
+                        <dt className="text-[var(--text-muted)]">Team</dt>
+                        <dd className="text-[var(--text-secondary)]">{comp.participants}</dd>
+                      </div>
+                      <div className="pt-2 border-t border-[var(--border-subtle)]">
+                        <dd className="text-[var(--text-muted)] text-xs">{comp.details}</dd>
+                      </div>
+                    </dl>
+
+                    <a
+                      href={comp.registrationLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 w-full py-3 font-mono text-sm font-semibold bg-[var(--accent-primary)] text-white border border-[var(--accent-primary)] hover:shadow-[0_0_15px_var(--glow-primary)] transition-all"
+                    >
+                      Register on Unstop
+                      <FiExternalLink className="w-4 h-4" aria-hidden />
+                    </a>
+                  </motion.article>
                 ))}
               </div>
-            </motion.div>
+            </motion.section>
           );
         })}
 
-        <motion.div
-          initial={{ y: 30, opacity: 0 }}
+        <motion.section
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="mt-24"
+          className="mt-20"
         >
-          <div className="relative bg-gradient-to-br from-[#200934] via-[#180C16] to-[#350609] rounded-3xl p-16 text-center border border-[#560F28]/30 overflow-hidden shadow-2xl shadow-[#560F28]/20">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#560F28]/10 via-[#200934]/10 to-[#350609]/10" />
-            <div className="relative z-10">
-              <h2 className="text-5xl font-black mb-6">Ready to Compete?</h2>
-              <p className="text-2xl text-gray-400 mb-10 max-w-2xl mx-auto">
-                All registrations happen on Unstop. Click any event above to register your team.
-              </p>
-              <a
-                href="https://unstop.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-12 py-5 bg-gradient-to-r from-[var(--energy)] via-[var(--dc1426)] to-[var(--black-red)] rounded-full font-bold text-xl shadow-2xl shadow-[0_18px_50px_rgba(220,20,38,0.28)] hover:shadow-[0_22px_60px_rgba(220,20,38,0.38)] transition-all duration-300 hover:scale-105 active:scale-95"
-              >
-                Browse All on Unstop
-                <FiExternalLink className="w-5 h-5" />
-              </a>
-            </div>
+          <div className="card-retro rounded-sm p-10 md:p-14 text-center">
+            <h2 className="font-mono text-2xl md:text-3xl font-bold mb-4 text-[var(--text-primary)]">
+              &gt; READY TO COMPETE?
+            </h2>
+            <p className="text-[var(--text-secondary)] mb-8 max-w-xl mx-auto">
+              All registrations happen on Unstop. Click any event above to register your team.
+            </p>
+            <a
+              href="https://unstop.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-8 py-4 font-mono text-sm font-semibold bg-[var(--phosphor-green)] text-[var(--bg-deep)] border border-[var(--phosphor-green)] hover:shadow-[0_0_20px_var(--glow-primary)] transition-all"
+            >
+              Browse All on Unstop
+              <FiExternalLink className="w-4 h-4" aria-hidden />
+            </a>
           </div>
-        </motion.div>
+        </motion.section>
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ const marqueeItems = [
   '💰 ₹2L+ PRIZE POOL',
   '🏆 6+ COMPETITIONS',
   '👥 3000+ PARTICIPANTS',
-  '🌟 MARCH 14-15, 2026',
+  '🌟 APRIL 24-25, 2026',
   '📍 NEWTON SCHOOL OF TECHNOLOGY',
   '🤖 ROBOTICS ARENA',
   '💻 24-HOUR HACKATHON',

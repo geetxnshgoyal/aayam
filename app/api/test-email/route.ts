@@ -19,7 +19,7 @@ export async function GET() {
     // Send test email
     const result = await sendAmbassadorApprovalEmail({
       name: 'Geetansh Goyal',
-      email: 'goyalgeetansh@gmail.com',
+      email: 'aayam.fest@newtonschool.co',
       referralCode: 'AAYAMTEST01',
       loginUrl: 'http://localhost:3003/ambassador/login',
     });
@@ -28,7 +28,7 @@ export async function GET() {
       success: true,
       message: 'Test email sent successfully!',
       messageId: result.messageId,
-      recipient: 'goyalgeetansh@gmail.com',
+      recipient: 'aayam.fest@newtonschool.co',
     });
   } catch (error: any) {
     console.error('Test email failed:', error);
