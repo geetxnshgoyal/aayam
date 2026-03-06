@@ -5,9 +5,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import RetroTechBackground from "@/components/RetroTechBackground";
-import { ALL_SITE_URLS, PRIMARY_SITE_URL } from "@/lib/site";
+import { ALL_SITE_URLS, PRIMARY_SITE_URL, SITE_LOGO_PATH } from "@/lib/site";
 
 const siteUrl = PRIMARY_SITE_URL;
+const logoUrl = `${siteUrl}${SITE_LOGO_PATH}`;
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -36,8 +37,8 @@ export const metadata: Metadata = {
   publisher: "Newton School of Technology",
   authors: [{ name: "AAYAM Organizing Team", url: siteUrl }],
   icons: {
-    icon: "/images/logo_clean.png",
-    apple: "/images/logo_clean.png",
+    icon: SITE_LOGO_PATH,
+    apple: SITE_LOGO_PATH,
   },
   keywords: ["AAYAM 2026", "step beyond the known", "techfest", "Newton School of Technology", "NST", "hackathon", "robotics", "competitive programming", "open source", "drone racing", "tech fest 2026", "Bengaluru tech fest"],
   robots: {
@@ -60,7 +61,7 @@ export const metadata: Metadata = {
     locale: "en_IN",
     images: [
       {
-        url: "/images/logo_clean.png",
+        url: SITE_LOGO_PATH,
         width: 1200,
         height: 630,
         alt: "AAYAM 2026 — Step Beyond the Known | Newton School of Technology Techfest",
@@ -71,7 +72,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "AAYAM 2026 — Step Beyond the Known",
     description: "Step beyond the known. 6+ competitions, ₹2L+ prizes. April 24-25 at NST, Bengaluru.",
-    images: ["/images/logo_clean.png"],
+    images: [SITE_LOGO_PATH],
   },
 };
 
@@ -93,7 +94,7 @@ export default function RootLayout({
     name: "AAYAM 2026",
     slogan: "Step Beyond the Known",
     url: siteUrl,
-    logo: `${siteUrl}/images/logo_clean.png`,
+    logo: logoUrl,
     sameAs: ["https://instagram.com/aayamfest", ...ALL_SITE_URLS],
     contactPoint: {
       "@type": "ContactPoint",
@@ -134,7 +135,7 @@ export default function RootLayout({
         addressCountry: "IN",
       },
     },
-    image: [`${siteUrl}/images/logo_clean.png`],
+    image: [logoUrl],
     url: siteUrl,
     offers: {
       "@type": "Offer",

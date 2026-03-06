@@ -1,14 +1,27 @@
 'use client';
 
 /**
- * Poster-style deep blue background with subtle dot texture and motion.
+ * Poster-style deep blue background with optional tech imagery and motion.
  */
+const BG_IMAGE = '/images/backgrounds/tech-circuit.jpg';
+
 export default function RetroTechBackground() {
   return (
     <div
       className="retro-tech-bg fixed inset-0 -z-[1] overflow-hidden bg-[var(--bg-deep)]"
       aria-hidden
     >
+      {/* Tech background image — subtle, blends into theme */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.18] motion-reduce:opacity-10"
+        style={{ backgroundImage: `url(${BG_IMAGE})` }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to bottom, var(--bg-deep) 0%, transparent 35%, transparent 65%, var(--bg-deep) 100%)',
+        }}
+      />
       {/* Poster-style polka-dot texture (darker dots on blue) */}
       <div
         className="absolute inset-0 opacity-40 motion-reduce:opacity-25"

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PRIMARY_SITE_URL } from "@/lib/site";
+import { PRIMARY_SITE_URL, SITE_LOGO_PATH } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Competitions | AAYAM 2026 — Hackathons, CP, Robotics, Open Source",
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: "Step beyond the known. Hackathons, CP, Robotics, Open Source. Register on Unstop.",
     url: `${PRIMARY_SITE_URL}/competitions`,
     type: "website",
-    images: [{ url: `${PRIMARY_SITE_URL}/images/logo_clean.png`, width: 1200, height: 630, alt: "AAYAM 2026 Competitions" }],
+    images: [{ url: `${PRIMARY_SITE_URL}${SITE_LOGO_PATH}`, width: 1200, height: 630, alt: "AAYAM 2026 Competitions" }],
   },
 };
 

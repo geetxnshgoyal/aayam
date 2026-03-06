@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PRIMARY_SITE_URL } from "@/lib/site";
+import { PRIMARY_SITE_URL, SITE_LOGO_PATH } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About AAYAM 2026 | Newton School of Technology Techfest",
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: "AAYAM 2026 — Step beyond the known. Vision, mission, and team.",
     url: `${PRIMARY_SITE_URL}/about`,
     type: "website",
-    images: [{ url: `${PRIMARY_SITE_URL}/images/logo_clean.png`, width: 1200, height: 630, alt: "AAYAM 2026" }],
+    images: [{ url: `${PRIMARY_SITE_URL}${SITE_LOGO_PATH}`, width: 1200, height: 630, alt: "AAYAM 2026" }],
   },
 };
 

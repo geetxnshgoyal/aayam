@@ -178,6 +178,15 @@ const competitions = [
 
 const categories = ['Hackathon', 'Coding', 'Open Source', 'Robotics', 'General'];
 
+/** Background images per category for card styling */
+const CATEGORY_BG: Record<string, string> = {
+  Hackathon: '/images/backgrounds/tech-glows.jpg',
+  Coding: '/images/backgrounds/tech-matrix.jpg',
+  'Open Source': '/images/backgrounds/tech-matrix.jpg',
+  Robotics: '/images/backgrounds/tech-circuit.jpg',
+  General: '/images/backgrounds/tech-glows.jpg',
+};
+
 export default function CompetitionsPage() {
   return (
     <div className="min-h-screen pt-24 pb-20">
@@ -227,8 +236,19 @@ export default function CompetitionsPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: index * 0.05 }}
                     viewport={{ once: true }}
-                    className="card-retro rounded-sm p-6 flex flex-col h-full"
+                    className="relative overflow-hidden rounded-sm border border-[var(--border-subtle)] bg-[var(--bg-card)] flex flex-col h-full transition-all duration-200 hover:border-[var(--border-accent)] hover:shadow-[0_0_0_1px_var(--accent-cyan-muted)]"
                   >
+                    {/* Category-based background image */}
+                    <div
+                      className="absolute inset-0 bg-cover bg-center opacity-[0.22]"
+                      style={{ backgroundImage: `url(${CATEGORY_BG[comp.category] ?? CATEGORY_BG['General']})` }}
+                      aria-hidden
+                    />
+                    <div
+                      className="absolute inset-0 bg-gradient-to-b from-[var(--bg-card)]/92 via-[var(--bg-card)]/88 to-[var(--bg-card)]/95"
+                      aria-hidden
+                    />
+                    <div className="relative z-10 p-6 flex flex-col h-full">
                     <div className="flex items-start justify-between mb-4">
                       <div className="p-2 rounded border border-[var(--border-accent)]">
                         <comp.icon className="w-6 h-6 text-[var(--accent-cyan)]" aria-hidden />
@@ -277,6 +297,7 @@ export default function CompetitionsPage() {
                       Register on Unstop
                       <FiExternalLink className="w-4 h-4" aria-hidden />
                     </a>
+                    </div>
                   </motion.article>
                 ))}
               </div>
