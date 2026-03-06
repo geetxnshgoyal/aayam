@@ -1,8 +1,7 @@
-'use server';
-
 import { supabase } from '@/lib/supabase';
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
+import { getJwtSecret } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,7 +12,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret') as any;
+    const decoded = jwt.verify(token, getJwtSecret()) as any;
     const ambassadorId = decoded.id;
     const { pointsNeeded = 12 } = await request.json(); // Default 12 points for 1 signup
 

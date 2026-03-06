@@ -3,7 +3,7 @@ import { supabase } from '@/lib/supabase';
 import jwt from 'jsonwebtoken';
 import { sendAmbassadorApprovalEmail } from '@/lib/email';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+import { getJwtSecret } from '@/lib/auth';
 
 export async function POST(request: Request) {
   try {
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     const token = authHeader.substring(7);
     
     try {
-      jwt.verify(token, JWT_SECRET);
+      jwt.verify(token, getJwtSecret());
     } catch (error) {
       return NextResponse.json(
         { error: 'Invalid token' },

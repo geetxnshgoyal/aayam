@@ -7,15 +7,36 @@ function generateReferralCode() {
   return 'AAYAM' + Math.random().toString(36).substring(2, 8).toUpperCase();
 }
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, password, phone, college, year, whyAmbassador } = body;
+    const name = typeof body.name === 'string' ? body.name.trim() : '';
+    const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
+    const password = body.password;
+    const phone = typeof body.phone === 'string' ? body.phone.trim() : '';
+    const college = typeof body.college === 'string' ? body.college.trim() : '';
+    const year = body.year;
+    const whyAmbassador = typeof body.whyAmbassador === 'string' ? body.whyAmbassador.trim() : '';
 
-    // Validate required fields
     if (!name || !email || !password || !phone || !college || !year) {
       return NextResponse.json(
-        { error: 'All fields are required' },
+        { error: 'All required fields must be provided' },
+        { status: 400 }
+      );
+    }
+
+    if (!EMAIL_REGEX.test(email)) {
+      return NextResponse.json(
+        { error: 'Please provide a valid email address' },
+        { status: 400 }
+      );
+    }
+
+    if (password.length < 8) {
+      return NextResponse.json(
+        { error: 'Password must be at least 8 characters' },
         { status: 400 }
       );
     }
@@ -60,11 +81,11 @@ export async function POST(request: NextRequest) {
       .from('ambassadors')
       .insert([
         {
-          name,
+          name: name.slice(0, 200),
           email,
           password: hashedPassword,
-          phone,
-          college,
+          phone: phone.slice(0, 30),
+          college: college.slice(0, 200),
           year,
           referral_code: referralCode,
           status: 'pending',

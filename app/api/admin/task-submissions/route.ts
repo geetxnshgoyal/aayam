@@ -1,8 +1,7 @@
-'use server';
-
 import { supabase } from '@/lib/supabase';
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
+import { getJwtSecret } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
@@ -14,7 +13,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Verify admin token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret') as any;
+    const decoded = jwt.verify(token, getJwtSecret()) as any;
     if (!decoded.isAdmin) {
       return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
     }
@@ -52,7 +51,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret') as any;
+    const decoded = jwt.verify(token, getJwtSecret()) as any;
     if (!decoded.isAdmin) {
       return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
     }

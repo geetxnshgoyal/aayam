@@ -1,8 +1,7 @@
-'use server';
-
 import { supabase } from '@/lib/supabase';
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
+import { getJwtSecret } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
@@ -15,7 +14,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret') as any;
+    const decoded = jwt.verify(token, getJwtSecret()) as any;
     const ambassadorId = decoded.id;
 
     // Get total points for this ambassador
