@@ -84,7 +84,7 @@ export default function GalleryPage() {
               <div className="relative w-full aspect-[4/3] bg-[var(--bg-elevated)]">
                 <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:opacity-30 transition-opacity">
                   <div className="relative w-20 h-20">
-                    <Image src="/images/logo.png" alt="" fill className="object-contain" />
+                    <Image src="/images/logo.png" alt="AAYAM gallery placeholder" fill className="object-contain" />
                   </div>
                 </div>
                 <div className="absolute inset-0 border border-[var(--border-subtle)] group-hover:border-[var(--accent-cyan)]/50 transition-colors" />

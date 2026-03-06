@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     description: "Hackathons, CP, Robotics, Open Source. Register on Unstop.",
     url: `${PRIMARY_SITE_URL}/competitions`,
     type: "website",
+    images: [{ url: `${PRIMARY_SITE_URL}/images/logo_clean.png`, width: 1200, height: 630, alt: "AAYAM 2026 Competitions" }],
   },
 };
 

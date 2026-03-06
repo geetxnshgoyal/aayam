@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Sponsor AAYAM 2026 with tailored packages for Title Sponsor, Concert Sponsor, Associate Partner, and Barter/In-Kind Partner. Reach 15,000+ participants across 250+ colleges.",
   alternates: {
-    canonical: "/sponsors",
+    canonical: `${PRIMARY_SITE_URL}/sponsors`,
   },
   keywords: [
     "AAYAM sponsorship",
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
       "Explore AAYAM 2026 sponsorship tiers and benefits. Download the sponsorship booklet and contact the partnerships team.",
     url: `${PRIMARY_SITE_URL}/sponsors`,
     type: "website",
+    images: [{ url: `${PRIMARY_SITE_URL}/images/logo_clean.png`, width: 1200, height: 630, alt: "AAYAM 2026 Sponsors" }],
   },
 };
 

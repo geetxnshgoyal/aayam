@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     description: "Exploring New Dimensions of Technology. Vision, mission, and team.",
     url: `${PRIMARY_SITE_URL}/about`,
     type: "website",
+    images: [{ url: `${PRIMARY_SITE_URL}/images/logo_clean.png`, width: 1200, height: 630, alt: "AAYAM 2026" }],
   },
 };
 

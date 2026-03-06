@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Press_Start_2P, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -73,9 +73,12 @@ export const metadata: Metadata = {
     description: "6+ competitions. ₹2L+ prizes. 3000+ innovators. April 24-25 at Newton School of Technology.",
     images: ["/images/logo_clean.png"],
   },
-  other: {
-    "theme-color": "#0a1628",
-  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a1628",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
