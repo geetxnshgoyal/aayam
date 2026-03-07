@@ -236,6 +236,29 @@ h1, h2, h3, h4,
   66% { transform: translate(-5px, 10px) scale(0.9); }
 }
 
+/* Ken Burns–style image drift for hero floating images */
+@keyframes float-image-layer {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  25% { transform: translate(6%, -3%) scale(1.04) rotate(0.5deg); }
+  50% { transform: translate(-4%, 4%) scale(1.02) rotate(-0.3deg); }
+  75% { transform: translate(3%, 2%) scale(1.03) rotate(0.2deg); }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+
+.float-image-layer {
+  animation: float-image-layer ease-in-out infinite;
+}
+
+/* Horizontal image marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
 @keyframes data-flow-vertical {
   0% { background-position: 0 0; }
   100% { background-position: 0 200%; }
@@ -278,7 +301,9 @@ h1, h2, h3, h4,
 
 @media (prefers-reduced-motion: reduce) {
   .animate-blink,
-  .animate-glow-pulse {
+  .animate-glow-pulse,
+  .float-image-layer,
+  .animate-marquee {
     animation: none;
   }
   .retro-tech-bg * {

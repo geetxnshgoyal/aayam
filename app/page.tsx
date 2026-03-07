@@ -9,6 +9,8 @@ import { useRef } from 'react';
 import ScrollingStats from '@/components/ScrollingStats';
 import Countdown from '@/components/Countdown';
 import HeroParticles from '@/components/HeroParticles';
+import HeroFloatingImages from '@/components/HeroFloatingImages';
+import ImageMarquee from '@/components/ImageMarquee';
 
 const stats = [
   { icon: HiUsers, value: '3000+', label: 'Participants' },
@@ -53,6 +55,7 @@ export default function Home() {
         className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-[env(safe-area-inset-bottom)]"
       >
         <HeroParticles />
+        <HeroFloatingImages />
         <motion.div style={{ y, opacity }} className="absolute inset-0 pointer-events-none">
           <div className="absolute inset-0 bg-[var(--bg-deep)]" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,var(--accent-cyan-muted)_0%,transparent_50%)]" />
@@ -171,6 +174,7 @@ export default function Home() {
         </div>
       </section>
 
+      <ImageMarquee className="border-y border-[var(--border-subtle)] bg-[var(--bg-card)]/30" />
       <ScrollingStats
         stats={[
           { icon: '▸', label: 'Event', value: 'April 24-25, 2026' },
