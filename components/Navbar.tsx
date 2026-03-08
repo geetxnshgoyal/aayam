@@ -88,12 +88,12 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
-              <Link
-                href="/competitions"
-                className="ml-3 font-pixel text-[10px] px-4 py-2 bg-[var(--accent-primary)] text-white font-semibold border-[3px] border-[var(--accent-primary-border)] hover:bg-[var(--accent-primary-hover)] hover:shadow-[0_0_20px_var(--glow-primary)] transition-all duration-200"
-              >
-                Register
-              </Link>
+                <Link
+                  href="/competitions"
+                  className="ml-3 font-pixel text-[10px] px-4 py-2 bg-[var(--accent-primary)] text-[var(--text-primary)] font-semibold border-[3px] border-[var(--accent-primary-border)] hover:bg-[var(--accent-primary-hover)] hover:shadow-[0_4px_12px_var(--glow-primary)] transition-all duration-200"
+                >
+                  Register
+                </Link>
             </div>
 
             <button
@@ -145,7 +145,7 @@ export default function Navbar() {
                 <Link
                   href="/competitions"
                   onClick={() => setIsOpen(false)}
-                  className="block w-full mt-3 py-3 px-4 font-pixel text-[10px] text-center bg-[var(--accent-primary)] text-white font-semibold rounded border-[3px] border-[var(--accent-primary-border)]"
+                  className="block w-full mt-3 py-3 px-4 font-pixel text-[10px] text-center bg-[var(--accent-primary)] text-[var(--text-primary)] font-semibold rounded border-[3px] border-[var(--accent-primary-border)]"
                 >
                   Register
                 </Link>

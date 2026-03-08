@@ -6,40 +6,49 @@
   --font-pixel: var(--font-pixel-app), "Courier New", monospace;
   --color-phosphor: #00ff41;
   --color-amber: #ffb000;
-  --color-cyan: #00d4aa;
+  --color-cyan: #00ffff;
 }
 
+/* 80s retro comic — very soft, humanish palette (CAMPFIRE-style) */
 :root {
-  /* CAMPFIRE-style: royal blue, white, green CTA, orange/red fire accent */
-  --bg-deep: #0c1a2e;
-  --bg-card: #0f2239;
-  --bg-elevated: #152d4a;
-  --border-subtle: #1e3a5f;
-  --border-accent: #2d4a6f;
-  --text-primary: #ffffff;
-  --text-secondary: #c5dcee;
-  --text-muted: #8ba8c4;
-  /* Primary CTA — vibrant green, darker border (poster button) */
-  --accent-primary: #4caf50;
-  --accent-primary-border: #2e7d32;
-  --accent-primary-hover: #66bb6a;
-  --glow-primary: rgba(76, 175, 80, 0.3);
-  /* Secondary — bright blue (dinosaur/water) */
-  --accent-cyan: #42a5f5;
-  --accent-cyan-muted: rgba(66, 165, 245, 0.2);
-  /* Warm accent — orange/red (poster campfire) */
-  --accent-orange: #ff9800;
-  --accent-red: #e53935;
-  --accent-amber: #ffb74d;
-  --accent-amber-muted: rgba(255, 152, 0, 0.2);
-  /* Legacy */
+  /* Soft blues — gentle navy, no harsh black */
+  --bg-deep: #0f1f33;
+  --bg-card: #132639;
+  --bg-elevated: #1a3150;
+  --border-subtle: #243d5c;
+  --border-accent: #2e4a6b;
+  --text-primary: #f0f4f8;
+  --text-secondary: #b8cde0;
+  --text-muted: #7a9bb5;
+  /* Primary CTA — soft pastel green */
+  --accent-primary: #5cb85c;
+  --accent-primary-border: #3d8b3d;
+  --accent-primary-hover: #6fc96f;
+  --glow-primary: rgba(92, 184, 92, 0.15);
+  /* Soft blue — links (desaturated, easy on eyes) */
+  --accent-cyan: #6ba3d4;
+  --accent-cyan-muted: rgba(107, 163, 212, 0.12);
+  /* Muted purple / lavender */
+  --accent-magenta: #a890c0;
+  --accent-magenta-muted: rgba(168, 144, 192, 0.15);
+  /* Soft cream / wheat */
+  --accent-neon: #c9bc7a;
+  --accent-neon-muted: rgba(201, 188, 122, 0.12);
+  /* Warm accent — soft terracotta/orange */
+  --accent-orange: #d4a574;
+  --accent-red: #c98a8a;
+  --accent-amber: #d4b86a;
+  --accent-amber-muted: rgba(212, 184, 106, 0.15);
+  --accent-violet: #7d6d9e;
+  --accent-violet-muted: rgba(125, 109, 158, 0.15);
+  /* Legacy aliases */
   --phosphor-green: var(--accent-primary);
   --phosphor-amber: var(--accent-amber);
   --phosphor-cyan: var(--accent-cyan);
-  --horror-magenta: var(--accent-primary);
+  --horror-magenta: var(--accent-magenta);
   --horror-cyan: var(--accent-cyan);
-  --energy: #0c1a2e;
-  --dc1426: var(--accent-primary);
+  --energy: var(--bg-deep);
+  --dc1426: var(--accent-red);
   --black-red: var(--bg-card);
   --midich: var(--bg-card);
   --mydiry: var(--bg-elevated);
@@ -76,7 +85,7 @@ h1, h2, h3, h4,
 }
 
 ::selection {
-  background-color: var(--accent-cyan-muted);
+  background-color: var(--accent-magenta-muted);
   color: var(--text-primary);
 }
 
@@ -100,6 +109,7 @@ h1, h2, h3, h4,
   color: var(--text-primary);
   font-weight: 600;
   border-radius: 0.25rem;
+  border: 2px solid var(--accent-primary-border);
   transition: top 0.2s ease;
 }
 .skip-link:focus {
@@ -125,7 +135,30 @@ h1, h2, h3, h4,
   background: var(--accent-cyan);
 }
 
-/* CRT scanline overlay — visible retro flicker */
+/* Very soft text/box — no neon, just gentle depth */
+.text-neon-cyan {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+.text-neon-magenta {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+.text-neon-yellow {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+.box-neon-cyan {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.box-neon-magenta {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Comic-style halftone dot overlay */
+.halftone-dots {
+  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* CRT scanline overlay — very subtle */
 .crt-scanlines::after {
   content: "";
   position: fixed;
@@ -134,12 +167,12 @@ h1, h2, h3, h4,
     0deg,
     transparent,
     transparent 1px,
-    rgba(0, 0, 0, 0.07) 1px,
-    rgba(0, 0, 0, 0.07) 2px
+    rgba(0, 0, 0, 0.03) 1px,
+    rgba(0, 0, 0, 0.03) 2px
   );
   pointer-events: none;
   z-index: 9998;
-  opacity: 0.85;
+  opacity: 0.5;
 }
 
 /* Terminal-style border — neutral by default */
@@ -152,17 +185,19 @@ h1, h2, h3, h4,
   box-shadow: 0 0 24px var(--glow-primary);
 }
 
-/* Primary CTA — poster-style light green + darker green border */
+/* Primary CTA — soft pastel green */
 .btn-primary-pixel {
   background: var(--accent-primary);
   border: 3px solid var(--accent-primary-border);
   color: var(--text-primary);
   font-family: var(--font-pixel-app), monospace;
   transition: all 0.2s ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 .btn-primary-pixel:hover {
   background: var(--accent-primary-hover);
-  box-shadow: 0 0 12px var(--glow-primary);
+  box-shadow: 0 4px 12px var(--glow-primary);
+  color: var(--text-primary);
 }
 
 .btn-retro {
@@ -175,9 +210,10 @@ h1, h2, h3, h4,
 .btn-retro:hover {
   border-color: var(--accent-cyan);
   color: var(--accent-cyan);
+  box-shadow: 0 0 15px var(--accent-cyan-muted);
 }
 
-/* Card — neutral border, cyan accent on hover */
+/* Card — soft border, gentle accent on hover */
 .card-retro {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
@@ -283,12 +319,27 @@ h1, h2, h3, h4,
   50% { opacity: 1; }
 }
 
+@keyframes neon-pulse {
+  0%, 100% { filter: brightness(1); opacity: 1; }
+  50% { filter: brightness(1.15); opacity: 0.95; }
+}
+
+@keyframes comic-scan {
+  0% { transform: translateY(-100%); opacity: 0.3; }
+  50% { opacity: 0.6; }
+  100% { transform: translateY(100vh); opacity: 0.3; }
+}
+
 .animate-blink {
   animation: blink-cursor 1s step-end infinite;
 }
 
 .animate-glow-pulse {
   animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.animate-neon-pulse {
+  animation: neon-pulse 2.5s ease-in-out infinite;
 }
 
 .scrollbar-hide::-webkit-scrollbar {

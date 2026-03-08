@@ -24,7 +24,7 @@ export default function HeroParticles() {
             height: d.size,
             left: `${d.left}%`,
             top: `${20 + (d.id % 5) * 18}%`,
-            opacity: 0.2 + (d.id % 3) * 0.15,
+            opacity: 0.25 + (d.id % 3) * 0.12,
             animation: `float-dot ${d.duration}s ease-in-out infinite`,
             animationDelay: `${d.delay}s`,
           }}
@@ -39,23 +39,23 @@ export default function HeroParticles() {
             height: d.size,
             right: `${5 + d.id * 12}%`,
             top: `${25 + (d.id % 4) * 22}%`,
-            opacity: 0.15,
+            opacity: 0.12,
             animation: `float-dot ${d.duration + 2}s ease-in-out infinite`,
             animationDelay: `${d.delay + 1}s`,
           }}
         />
       ))}
-      {/* Orange accent (poster campfire) */}
+      {/* Soft orange / warm accent */}
       {[0, 1, 2].map((i) => (
         <div
-          key={`orange-${i}`}
+          key={`warm-${i}`}
           className="absolute rounded-full bg-[var(--accent-orange)] motion-reduce:animate-none"
           style={{
             width: 3,
             height: 3,
             left: `${15 + i * 25}%`,
             top: `${70 + i * 8}%`,
-            opacity: 0.25,
+            opacity: 0.18,
             animation: `float-dot ${10 + i * 2}s ease-in-out infinite`,
             animationDelay: `${i * 1.5}s`,
           }}

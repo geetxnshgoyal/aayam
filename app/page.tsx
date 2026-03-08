@@ -58,7 +58,7 @@ export default function Home() {
         <HeroFloatingImages />
         <motion.div style={{ y, opacity }} className="absolute inset-0 pointer-events-none">
           <div className="absolute inset-0 bg-[var(--bg-deep)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,var(--accent-cyan-muted)_0%,transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_30%_0%,var(--accent-cyan-muted)_0%,transparent_50%)]" />
           <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--border-accent)] to-transparent" />
         </motion.div>
 
@@ -81,7 +81,7 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <div className="terminal-border bg-[var(--bg-card)]/95 backdrop-blur-sm p-4 sm:p-6 md:p-10 rounded-sm max-w-3xl mx-auto border-white/10 w-full min-w-0">
+          <div className="terminal-border bg-[var(--bg-card)]/95 backdrop-blur-sm p-4 sm:p-6 md:p-10 rounded-sm max-w-3xl mx-auto border border-[var(--border-subtle)] w-full min-w-0">
             <motion.h1
               id="hero-heading"
               initial={{ y: 12, opacity: 0 }}
@@ -91,12 +91,12 @@ export default function Home() {
             >
               STEP BEYOND THE KNOWN
             </motion.h1>
-            {/* Poster-style divider line */}
+            {/* Soft divider */}
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.6, delay: 0.35 }}
-              className="h-[2px] bg-white/80 mb-6 max-w-full origin-center"
+              className="h-[2px] mb-6 max-w-full origin-center bg-gradient-to-r from-transparent via-white/70 to-transparent"
             />
             <motion.p
               initial={{ y: 12, opacity: 0 }}
@@ -127,14 +127,14 @@ export default function Home() {
             >
               <Link
                 href="/competitions"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 font-pixel text-xs bg-[var(--accent-primary)] text-white border-[3px] border-[var(--accent-primary-border)] hover:bg-[var(--accent-primary-hover)] hover:shadow-[0_0_20px_var(--glow-primary)] transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 font-pixel text-xs bg-[var(--accent-primary)] text-[var(--text-primary)] border-[3px] border-[var(--accent-primary-border)] hover:bg-[var(--accent-primary-hover)] hover:shadow-[0_4px_12px_var(--glow-primary)] transition-all duration-200"
               >
                 ENTER THE ARENA
                 <span className="animate-blink">_</span>
               </Link>
               <Link
                 href="/about"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 font-pixel text-[10px] border-2 border-white/60 text-[var(--text-primary)] hover:border-[var(--accent-cyan)] hover:bg-white/5 transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 font-pixel text-[10px] border-2 border-white/60 text-[var(--text-primary)] hover:border-[var(--accent-cyan)] hover:bg-[var(--accent-cyan-muted)] transition-all duration-200"
               >
                 ABOUT
               </Link>
@@ -142,7 +142,7 @@ export default function Home() {
                 href="/brochure/aayam-sponsorship-booklet-2026.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 font-pixel text-[10px] border-2 border-[var(--accent-orange)] text-[var(--accent-orange)] hover:bg-[var(--accent-orange)]/20 transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 font-pixel text-[10px] border-2 border-[var(--accent-orange)] text-[var(--accent-orange)] hover:bg-[var(--accent-amber-muted)] transition-all duration-200"
               >
                 BROCHURE
               </a>
@@ -162,9 +162,9 @@ export default function Home() {
             ].map((item) => (
               <div
                 key={item.label}
-                className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 px-4 py-3 rounded border border-white/20 bg-[var(--bg-card)]/70"
+                className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 px-4 py-3 rounded border-2 border-[var(--border-subtle)] bg-[var(--bg-card)]/80 hover:border-[var(--accent-cyan)]/40 transition-colors"
               >
-                <span className="font-pixel text-[10px] uppercase tracking-wider text-white/90">
+                <span className="font-pixel text-[10px] uppercase tracking-wider text-[var(--accent-cyan)]">
                   {item.label}:
                 </span>
                 <span className="text-sm text-[var(--text-secondary)] font-medium">{item.text}</span>
@@ -238,7 +238,7 @@ export default function Home() {
             <h2 id="highlights-heading" className="font-pixel text-xl md:text-3xl font-bold mb-4 text-[var(--text-primary)] uppercase">
               NEXT DIMENSION
             </h2>
-            <div className="h-[2px] w-32 mx-auto mb-4 bg-white/60" aria-hidden />
+            <div className="h-[2px] w-32 mx-auto mb-4 bg-white/50" aria-hidden />
             <p className="text-[var(--text-secondary)]">Build beyond limits. Compete for glory.</p>
           </motion.div>
 
@@ -250,9 +250,9 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.08 }}
                 viewport={{ once: true }}
-                className="card-retro p-6 rounded-sm h-full flex flex-col"
+                className="card-retro group p-6 rounded-sm h-full flex flex-col"
               >
-                <div className="w-10 h-10 rounded border border-[var(--border-accent)] flex items-center justify-center mb-4">
+                <div className="w-10 h-10 rounded border-2 border-[var(--accent-cyan)]/50 flex items-center justify-center mb-4 group-hover:border-[var(--accent-cyan)] group-hover:shadow-[0_0_12px_var(--accent-cyan-muted)] transition-all">
                   <span className="text-[var(--accent-cyan)] font-mono text-lg">▸</span>
                 </div>
                 <h3 className="font-mono text-lg font-semibold text-[var(--text-primary)] mb-2">
@@ -280,7 +280,7 @@ export default function Home() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="terminal-border bg-[var(--bg-card)] p-6 sm:p-10 md:p-14 rounded-sm w-full min-w-0"
+            className="terminal-border bg-[var(--bg-card)] border border-[var(--border-subtle)] p-6 sm:p-10 md:p-14 rounded-sm w-full min-w-0"
           >
             <h2 id="cta-heading" className="font-pixel text-xl md:text-3xl font-bold mb-6 text-[var(--text-primary)] uppercase">
               WHERE INNOVATION MEETS POSSIBILITY
@@ -294,7 +294,7 @@ export default function Home() {
             </p>
             <Link
               href="/competitions"
-              className="inline-flex items-center gap-2 px-8 py-4 font-pixel text-xs bg-[var(--accent-primary)] text-white border-[3px] border-[var(--accent-primary-border)] hover:bg-[var(--accent-primary-hover)] hover:shadow-[0_0_25px_var(--glow-primary)] transition-all duration-200"
+              className="inline-flex items-center gap-2 px-8 py-4 font-pixel text-xs font-semibold bg-[var(--accent-primary)] text-[var(--text-primary)] border-[3px] border-[var(--accent-primary-border)] hover:bg-[var(--accent-primary-hover)] hover:shadow-[0_4px_16px_var(--glow-primary)] transition-all duration-200"
             >
               Register Now
               <span className="animate-blink">_</span>
