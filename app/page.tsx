@@ -11,6 +11,8 @@ import Countdown from '@/components/Countdown';
 import HeroParticles from '@/components/HeroParticles';
 import HeroFloatingImages from '@/components/HeroFloatingImages';
 import ImageMarquee from '@/components/ImageMarquee';
+import { RevealOnScroll, GlitchBorder, NeonButton } from '@/components/ImmersionEffects';
+import ImmersiveScroll from '@/components/ImmersiveScroll';
 
 const stats = [
   { icon: HiUsers, value: '3000+', label: 'Participants' },
@@ -175,6 +177,10 @@ export default function Home() {
       </section>
 
       <ImageMarquee className="border-y border-[var(--border-subtle)] bg-[var(--bg-card)]/30" />
+      
+      {/* Immersive Scroll Section */}
+      <ImmersiveScroll />
+      
       <ScrollingStats
         stats={[
           { icon: '▸', label: 'Event', value: 'April 24-25, 2026' },
@@ -191,36 +197,35 @@ export default function Home() {
 
       <section className="relative py-20 md:py-28 overflow-hidden" aria-labelledby="stats-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.h2
-            id="stats-heading"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="font-pixel text-xl md:text-3xl font-bold text-center mb-4 text-[var(--text-primary)] uppercase"
-          >
-            BY THE NUMBERS
-          </motion.h2>
-          <div className="h-[2px] w-32 mx-auto mb-12 bg-white/60" aria-hidden />
+          <RevealOnScroll direction="up">
+            <h2
+              id="stats-heading"
+              className="font-pixel text-xl md:text-3xl font-bold text-center mb-4 text-[var(--text-primary)] uppercase"
+            >
+              BY THE NUMBERS
+            </h2>
+            <div className="h-[2px] w-32 mx-auto mb-12 bg-white/60" aria-hidden />
+          </RevealOnScroll>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {stats.map((stat, index) => (
-              <motion.article
-                key={stat.label}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-                viewport={{ once: true }}
-                className="card-retro p-6 rounded-sm text-center"
-              >
-                <stat.icon className="w-8 h-8 md:w-10 md:h-10 mx-auto mb-3 text-[var(--accent-cyan)]" aria-hidden />
-                <p className="font-mono text-2xl md:text-3xl font-bold text-[var(--text-primary)] mb-1">
-                  {stat.value}
-                </p>
-                <p className="font-mono text-xs uppercase tracking-wider text-[var(--text-muted)]">
-                  {stat.label}
-                </p>
-              </motion.article>
+              <RevealOnScroll key={stat.label} direction="up" className="h-full">
+                <motion.article
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.08 }}
+                  viewport={{ once: true }}
+                  className="card-retro p-6 rounded-sm text-center h-full"
+                >
+                  <stat.icon className="w-8 h-8 md:w-10 md:h-10 mx-auto mb-3 text-[var(--accent-cyan)]" aria-hidden />
+                  <p className="font-mono text-2xl md:text-3xl font-bold text-[var(--text-primary)] mb-1">
+                    {stat.value}
+                  </p>
+                  <p className="font-mono text-xs uppercase tracking-wider text-[var(--text-muted)]">
+                    {stat.label}
+                  </p>
+                </motion.article>
+              </RevealOnScroll>
             ))}
           </div>
         </div>
@@ -228,46 +233,45 @@ export default function Home() {
 
       <section className="relative py-20 md:py-28 overflow-hidden" aria-labelledby="highlights-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 id="highlights-heading" className="font-pixel text-xl md:text-3xl font-bold mb-4 text-[var(--text-primary)] uppercase">
-              NEXT DIMENSION
-            </h2>
-            <div className="h-[2px] w-32 mx-auto mb-4 bg-white/50" aria-hidden />
-            <p className="text-[var(--text-secondary)]">Build beyond limits. Compete for glory.</p>
-          </motion.div>
+          <RevealOnScroll direction="up">
+            <div className="text-center mb-12">
+              <h2 id="highlights-heading" className="font-pixel text-xl md:text-3xl font-bold mb-4 text-[var(--text-primary)] uppercase">
+                NEXT DIMENSION
+              </h2>
+              <div className="h-[2px] w-32 mx-auto mb-4 bg-white/50" aria-hidden />
+              <p className="text-[var(--text-secondary)]">Build beyond limits. Compete for glory.</p>
+            </div>
+          </RevealOnScroll>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {highlights.map((item, index) => (
-              <motion.article
-                key={item.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.08 }}
-                viewport={{ once: true }}
-                className="card-retro group p-6 rounded-sm h-full flex flex-col"
-              >
-                <div className="w-10 h-10 rounded border-2 border-[var(--accent-cyan)]/50 flex items-center justify-center mb-4 group-hover:border-[var(--accent-cyan)] group-hover:shadow-[0_0_12px_var(--accent-cyan-muted)] transition-all">
-                  <span className="text-[var(--accent-cyan)] font-mono text-lg">▸</span>
-                </div>
-                <h3 className="font-mono text-lg font-semibold text-[var(--text-primary)] mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-[var(--text-secondary)] leading-relaxed flex-grow">
-                  {item.description}
-                </p>
-                <Link
-                  href="/competitions"
-                  className="mt-4 font-mono text-xs text-[var(--accent-cyan)] hover:underline inline-flex items-center gap-1"
-                >
-                  REGISTER <span aria-hidden>→</span>
-                </Link>
-              </motion.article>
+              <RevealOnScroll key={item.title} direction="up" className="h-full">
+                <GlitchBorder className="h-full">
+                  <motion.article
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.08 }}
+                    viewport={{ once: true }}
+                    className="card-retro group p-6 rounded-sm h-full flex flex-col"
+                  >
+                    <div className="w-10 h-10 rounded border-2 border-[var(--accent-cyan)]/50 flex items-center justify-center mb-4 group-hover:border-[var(--accent-cyan)] group-hover:shadow-[0_0_12px_var(--accent-cyan-muted)] transition-all">
+                      <span className="text-[var(--accent-cyan)] font-mono text-lg">▸</span>
+                    </div>
+                    <h3 className="font-mono text-lg font-semibold text-[var(--text-primary)] mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-[var(--text-secondary)] leading-relaxed flex-grow">
+                      {item.description}
+                    </p>
+                    <Link
+                      href="/competitions"
+                      className="mt-4 font-mono text-xs text-[var(--accent-cyan)] hover:underline inline-flex items-center gap-1"
+                    >
+                      REGISTER <span aria-hidden>→</span>
+                    </Link>
+                  </motion.article>
+                </GlitchBorder>
+              </RevealOnScroll>
             ))}
           </div>
         </div>
@@ -275,31 +279,26 @@ export default function Home() {
 
       <section className="relative py-24 md:py-32 overflow-hidden" aria-labelledby="cta-heading">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="terminal-border bg-[var(--bg-card)] border border-[var(--border-subtle)] p-6 sm:p-10 md:p-14 rounded-sm w-full min-w-0"
-          >
-            <h2 id="cta-heading" className="font-pixel text-xl md:text-3xl font-bold mb-6 text-[var(--text-primary)] uppercase">
-              WHERE INNOVATION MEETS POSSIBILITY
-            </h2>
-            <p className="text-[var(--text-secondary)] text-lg mb-10 max-w-xl mx-auto">
-              6+ competitions. ₹2L+ in prizes. 3000+ innovators.{' '}
-              <Link href="/competitions" className="text-[var(--accent-cyan)] hover:underline">
-                Register now
-              </Link>{' '}
-              and step beyond the known.
-            </p>
-            <Link
-              href="/competitions"
-              className="inline-flex items-center gap-2 px-8 py-4 font-pixel text-xs font-semibold bg-[var(--accent-primary)] text-[var(--text-primary)] border-[3px] border-[var(--accent-primary-border)] hover:bg-[var(--accent-primary-hover)] hover:shadow-[0_4px_16px_var(--glow-primary)] transition-all duration-200"
-            >
-              Register Now
-              <span className="animate-blink">_</span>
-            </Link>
-          </motion.div>
+          <RevealOnScroll direction="up">
+            <div className="terminal-border bg-[var(--bg-card)] border border-[var(--border-subtle)] p-6 sm:p-10 md:p-14 rounded-sm w-full min-w-0 relative group">
+              {/* Animated glow effect on hover */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-cyan)]/0 via-[var(--accent-cyan)]/5 to-[var(--accent-magenta)]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              
+              <h2 id="cta-heading" className="font-pixel text-xl md:text-3xl font-bold mb-6 text-[var(--text-primary)] uppercase relative z-10">
+                WHERE INNOVATION MEETS POSSIBILITY
+              </h2>
+              <p className="text-[var(--text-secondary)] text-lg mb-10 max-w-xl mx-auto relative z-10">
+                6+ competitions. ₹2L+ in prizes. 3000+ innovators.{' '}
+                <Link href="/competitions" className="text-[var(--accent-cyan)] hover:underline">
+                  Register now
+                </Link>{' '}
+                and step beyond the known.
+              </p>
+              <NeonButton href="/competitions" color="green">
+                Register Now <span className="animate-blink">_</span>
+              </NeonButton>
+            </div>
+          </RevealOnScroll>
         </div>
       </section>
     </div>

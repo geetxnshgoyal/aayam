@@ -217,11 +217,94 @@ h1, h2, h3, h4,
 .card-retro {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 .card-retro:hover {
   border-color: var(--border-accent);
-  box-shadow: 0 0 0 1px var(--accent-cyan-muted);
+  box-shadow: 0 0 0 1px var(--accent-cyan-muted), 0 8px 32px rgba(107, 163, 212, 0.1);
+  transform: translateY(-4px);
+}
+
+/* Custom Cursor Styles */
+@media (pointer: fine) {
+  html {
+    cursor: none;
+  }
+  body {
+    cursor: none;
+  }
+  a, button, [role="button"] {
+    cursor: none;
+  }
+}
+
+/* Enhanced Link Hover Effect */
+a:not(.btn):not([class*="no-underline"]) {
+  position: relative;
+}
+
+a:not(.btn):not([class*="no-underline"])::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent-cyan);
+  transition: width 0.3s ease;
+}
+
+a:not(.btn):not([class*="no-underline"]):hover::after {
+  width: 100%;
+}
+
+/* Glowing Text Effect */
+.text-glow-cyan {
+  text-shadow: 0 0 10px var(--accent-cyan-muted), 0 0 20px var(--accent-cyan-muted);
+}
+
+.text-glow-magenta {
+  text-shadow: 0 0 10px var(--accent-magenta-muted), 0 0 20px var(--accent-magenta-muted);
+}
+
+.text-glow-primary {
+  text-shadow: 0 0 10px var(--glow-primary), 0 0 20px var(--glow-primary);
+}
+
+/* Animated Border Gradient */
+@keyframes border-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.border-animated {
+  position: relative;
+  background: var(--bg-card);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  border-radius: 4px;
+}
+
+.border-animated::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  padding: 2px;
+  background: linear-gradient(
+    45deg,
+    var(--accent-cyan),
+    var(--accent-magenta),
+    var(--accent-primary),
+    var(--accent-cyan)
+  );
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: border-gradient 3s ease infinite;
+  pointer-events: none;
 }
 
 /* Moving background — tech/retro */
@@ -363,4 +446,186 @@ h1, h2, h3, h4,
   [style*="float-dot"] {
     animation: none !important;
   }
+}
+
+/* Additional Immersive Effects */
+
+/* Holographic Sheen */
+@keyframes holographic-shine {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(500%) rotate(45deg); }
+}
+
+.holographic-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.holographic-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  transform: rotate(45deg);
+  animation: holographic-shine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Pulse Ring Effect */
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+.pulse-ring {
+  position: relative;
+}
+
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--accent-cyan);
+  border-radius: inherit;
+  animation: pulse-ring 2s ease-out infinite;
+  pointer-events: none;
+}
+
+/* Data Stream Effect */
+@keyframes data-stream {
+  0% { transform: translateY(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+.data-stream {
+  position: relative;
+  overflow: hidden;
+}
+
+.data-stream::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--accent-cyan),
+    transparent
+  );
+  animation: data-stream 2s linear infinite;
+  pointer-events: none;
+}
+
+/* Tech Corner Decorations */
+.tech-corner {
+  position: relative;
+}
+
+.tech-corner::before,
+.tech-corner::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accent-cyan);
+  transition: all 0.3s ease;
+}
+
+.tech-corner::before {
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
+}
+
+.tech-corner::after {
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
+}
+
+.tech-corner:hover::before,
+.tech-corner:hover::after {
+  width: 30px;
+  height: 30px;
+  border-color: var(--accent-magenta);
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Glitch Effect on Hover */
+@keyframes glitch-1 {
+  0%, 100% { clip-path: inset(0 0 0 0); }
+  20% { clip-path: inset(20% 0 60% 0); }
+  40% { clip-path: inset(40% 0 40% 0); }
+  60% { clip-path: inset(60% 0 20% 0); }
+  80% { clip-path: inset(80% 0 0 0); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { clip-path: inset(0 0 0 0); }
+  20% { clip-path: inset(60% 0 20% 0); }
+  40% { clip-path: inset(80% 0 0 0); }
+  60% { clip-path: inset(20% 0 60% 0); }
+  80% { clip-path: inset(40% 0 40% 0); }
+}
+
+.glitch-hover:hover {
+  animation: glitch-1 0.3s infinite;
+}
+
+.glitch-hover:hover::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  animation: glitch-2 0.3s infinite;
+  color: var(--accent-cyan);
+  z-index: -1;
+}
+
+/* Matrix Rain Effect Container */
+.matrix-rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.1;
+  overflow: hidden;
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    var(--accent-cyan),
+    var(--accent-magenta),
+    var(--accent-primary),
+    var(--accent-cyan)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: border-gradient 3s ease infinite;
 }
