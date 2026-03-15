@@ -12,7 +12,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -49,14 +49,16 @@ export default function Navbar() {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
+        transition={{ duration: 0.35, ease: 'easeOut' }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-[env(safe-area-inset-top)] ${
-          scrolled ? 'bg-[var(--bg-card)]/95 border-b border-[var(--border-subtle)]' : 'bg-transparent'
+          scrolled
+            ? 'bg-[var(--bg-card)]/98 backdrop-blur-md border-b border-[var(--border-subtle)] shadow-lg shadow-black/20'
+            : 'bg-transparent'
         }`}
         aria-label="Main navigation"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-16 lg:h-18">
             <Link href="/" className="flex items-center gap-2 group" aria-label="AAYAM Home">
               <div className="relative w-24 h-8 md:w-28 md:h-10 transition-opacity group-hover:opacity-90">
                 <Image
@@ -72,34 +74,34 @@ export default function Navbar() {
               </span>
             </Link>
 
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden lg:flex items-center gap-0.5">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   target={link.external ? '_blank' : undefined}
                   rel={link.external ? 'noopener noreferrer' : undefined}
-                  className={`font-mono text-sm px-3 py-2 rounded border border-transparent transition-all duration-200 ${
+                  className={`font-mono text-[13px] px-3.5 py-2.5 rounded-sm border border-transparent transition-all duration-200 ${
                     isActive(link.href)
-                      ? 'text-[var(--accent-cyan)] border-[var(--accent-cyan)]/30 bg-[var(--accent-cyan-muted)]'
-                      : 'text-[var(--text-secondary)] hover:text-[var(--accent-cyan)] hover:border-[var(--border-accent)]'
+                      ? 'text-[var(--accent-yellow)] border-[var(--accent-yellow)]/50 bg-[var(--accent-neon-muted)]'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--accent-yellow)] hover:bg-[var(--bg-elevated)]'
                   }`}
                 >
                   {link.name}
                 </Link>
               ))}
-                <Link
-                  href="/competitions"
-                  className="ml-3 font-pixel text-[10px] px-4 py-2 bg-[var(--accent-primary)] text-[var(--text-primary)] font-semibold border-[3px] border-[var(--accent-primary-border)] hover:bg-[var(--accent-primary-hover)] hover:shadow-[0_4px_12px_var(--glow-primary)] transition-all duration-200"
-                >
-                  Register
-                </Link>
+              <Link
+                href="/competitions"
+                className="ml-2 font-pixel text-[10px] px-4 py-2.5 bg-[var(--accent-primary)] text-[var(--ink)] font-semibold border-[3px] border-[var(--accent-yellow)] rounded-sm shadow-[4px_4px_0_var(--accent-magenta)] hover:bg-[var(--accent-primary-hover)] transition-all duration-200"
+              >
+                Register
+              </Link>
             </div>
 
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--text-primary)] hover:text-[var(--accent-cyan)] border border-[var(--border-accent)] rounded transition-colors touch-manipulation"
+              className="lg:hidden min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--text-primary)] hover:text-[var(--accent-cyan)] border border-[var(--border-accent)] rounded-md transition-colors touch-manipulation"
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isOpen}
             >
@@ -133,9 +135,9 @@ export default function Navbar() {
                     onClick={() => setIsOpen(false)}
                     target={link.external ? '_blank' : undefined}
                     rel={link.external ? 'noopener noreferrer' : undefined}
-                    className={`block font-mono text-sm py-3 px-4 rounded border transition-colors ${
+                    className={`block font-mono text-sm py-3 px-4 rounded-sm border transition-colors ${
                       isActive(link.href)
-                        ? 'text-[var(--accent-cyan)] border-[var(--accent-cyan)]/30 bg-[var(--accent-cyan-muted)]'
+                        ? 'text-[var(--accent-yellow)] border-[var(--accent-yellow)]/40 bg-[var(--accent-neon-muted)]'
                         : 'text-[var(--text-secondary)] border-transparent hover:bg-[var(--bg-elevated)]'
                     }`}
                   >
@@ -145,7 +147,7 @@ export default function Navbar() {
                 <Link
                   href="/competitions"
                   onClick={() => setIsOpen(false)}
-                  className="block w-full mt-3 py-3 px-4 font-pixel text-[10px] text-center bg-[var(--accent-primary)] text-[var(--text-primary)] font-semibold rounded border-[3px] border-[var(--accent-primary-border)]"
+                  className="block w-full mt-3 py-3 px-4 font-pixel text-[10px] text-center bg-[var(--accent-primary)] text-[var(--ink)] font-semibold rounded-sm border-[3px] border-[var(--accent-yellow)] shadow-[4px_4px_0_var(--accent-magenta)]"
                 >
                   Register
                 </Link>

@@ -28,7 +28,9 @@ export default function Footer() {
             <div className="relative w-32 h-10 mb-4">
               <Image src="/images/logo.png" alt="AAYAM 2026" fill className="object-contain" />
             </div>
-            <p className="font-mono text-xs text-[var(--accent-cyan)] mb-1">STEP BEYOND THE KNOWN</p>
+            <p className="font-mono text-xs text-[var(--accent-yellow)] mb-1 tracking-wider">
+              STEP BEYOND THE KNOWN
+            </p>
             <p className="text-sm text-[var(--text-secondary)] mb-4">
               Techfest by Newton School of Technology
             </p>
@@ -36,7 +38,7 @@ export default function Footer() {
               href="https://instagram.com/aayamfest"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--accent-cyan)] transition-colors border border-[var(--border-accent)] px-3 py-2 rounded"
+              className="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--accent-yellow)] transition-colors border-2 border-[var(--accent-yellow)]/40 px-3 py-2 rounded-sm"
               aria-label="Follow AAYAM on Instagram"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
@@ -47,17 +49,17 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-mono text-xs uppercase tracking-wider text-[var(--accent-cyan)] mb-4">
+            <h3 className="font-mono text-xs uppercase tracking-wider text-[var(--accent-yellow)] mb-4 font-semibold">
               Quick Links
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-2.5">
               {quickLinks.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
                     target={item.external ? '_blank' : undefined}
                     rel={item.external ? 'noopener noreferrer' : undefined}
-                    className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent-cyan)] transition-colors"
+                    className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent-yellow)] transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -67,15 +69,15 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-mono text-xs uppercase tracking-wider text-[var(--accent-cyan)] mb-4">
+            <h3 className="font-mono text-xs uppercase tracking-wider text-[var(--accent-yellow)] mb-4 font-semibold">
               Events
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-2.5">
               {events.map((name) => (
                 <li key={name}>
                   <Link
                     href="/competitions"
-                    className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent-cyan)] transition-colors"
+                    className="text-sm text-[var(--text-secondary)] hover:text-[var(--accent-yellow)] transition-colors"
                   >
                     {name}
                   </Link>
@@ -85,22 +87,22 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-mono text-xs uppercase tracking-wider text-[var(--accent-cyan)] mb-4">
+            <h3 className="font-mono text-xs uppercase tracking-wider text-[var(--accent-yellow)] mb-4 font-semibold">
               Contact
             </h3>
             <ul className="space-y-3 text-sm text-[var(--text-secondary)]">
               <li>
-                <a href="mailto:aayam.fest@newtonschool.co" className="hover:text-[var(--accent-cyan)] transition-colors">
+                <a href="mailto:aayam.fest@newtonschool.co" className="hover:text-[var(--accent-yellow)] transition-colors">
                   aayam.fest@newtonschool.co
                 </a>
               </li>
               <li>
-                <a href="tel:+919983241206" className="hover:text-[var(--accent-cyan)] transition-colors">
+                <a href="tel:+919983241206" className="hover:text-[var(--accent-yellow)] transition-colors">
                   +91 9983241206
                 </a>
               </li>
               <li>
-                <a href="tel:+917569319430" className="hover:text-[var(--accent-cyan)] transition-colors">
+                <a href="tel:+917569319430" className="hover:text-[var(--accent-yellow)] transition-colors">
                   +91 7569319430
                 </a>
               </li>
@@ -116,13 +118,13 @@ export default function Footer() {
             © {currentYear} AAYAM · Newton School of Technology
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 font-mono text-xs">
-            <Link href="#" className="text-[var(--text-muted)] hover:text-[var(--accent-cyan)] transition-colors">
+            <Link href="#" className="text-[var(--text-muted)] hover:text-[var(--accent-yellow)] transition-colors">
               Privacy
             </Link>
-            <Link href="#" className="text-[var(--text-muted)] hover:text-[var(--accent-cyan)] transition-colors">
+            <Link href="#" className="text-[var(--text-muted)] hover:text-[var(--accent-yellow)] transition-colors">
               Terms
             </Link>
-            <Link href="#" className="text-[var(--text-muted)] hover:text-[var(--accent-cyan)] transition-colors">
+            <Link href="#" className="text-[var(--text-muted)] hover:text-[var(--accent-yellow)] transition-colors">
               Code of Conduct
             </Link>
           </div>

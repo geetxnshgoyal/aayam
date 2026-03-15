@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 // Custom Cursor Component
@@ -28,7 +29,7 @@ export function CustomCursor() {
     <>
       <motion.div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-4 h-4 rounded-full bg-[var(--accent-cyan)] pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 w-4 h-4 rounded-full bg-[var(--accent-yellow)] pointer-events-none z-[9999] mix-blend-difference"
         style={{
           x: cursorX,
           y: cursorY,
@@ -38,7 +39,7 @@ export function CustomCursor() {
       />
       <motion.div
         ref={trailRef}
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 border-[var(--accent-cyan)]/50 pointer-events-none z-[9998]"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 border-[var(--accent-yellow)]/50 pointer-events-none z-[9998]"
         style={{
           x: trailX,
           y: trailY,
@@ -150,39 +151,34 @@ export function NeonButton({
     cyan: { bg: 'var(--accent-cyan)', glow: 'var(--accent-cyan-muted)' },
     magenta: { bg: 'var(--accent-magenta)', glow: 'var(--accent-magenta-muted)' },
     green: { bg: 'var(--accent-primary)', glow: 'var(--glow-primary)' },
-    amber: { bg: 'var(--accent-amber)', glow: 'var(--accent-amber-muted)' },
+    amber: { bg: 'var(--accent-yellow)', glow: 'var(--accent-neon-muted)' },
   };
 
   const colors = colorMap[color];
 
   const content = (
-    <motion.button
-      className={`relative px-6 py-3 font-pixel text-xs font-semibold overflow-hidden group ${className}`}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+    <motion.span
+      className={`relative inline-flex items-center justify-center px-6 py-3 font-pixel text-xs font-semibold overflow-hidden group rounded-md border-2 ${className}`}
+      style={{ background: colors.bg, borderColor: colors.bg, color: color === 'amber' ? 'var(--ink)' : 'var(--text-primary)' }}
+      whileHover={{ scale: 1.03, boxShadow: `0 0 24px ${colors.glow}` }}
+      whileTap={{ scale: 0.98 }}
     >
-      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-      <span 
-        className="relative z-10"
-        style={{ textShadow: `0 0 20px ${colors.bg}` }}
-      >
+      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+      <span className="relative z-10">
         {children}
       </span>
-      <span 
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{ 
-          boxShadow: `inset 0 0 20px ${colors.glow}`,
-          border: `2px solid ${colors.bg}`
-        }}
-      />
-    </motion.button>
+    </motion.span>
   );
 
   if (href) {
-    return <a href={href}>{content}</a>;
+    return (
+      <Link href={href} className="inline-block">
+        {content}
+      </Link>
+    );
   }
 
-  return content;
+  return <button type="button">{content}</button>;
 }
 
 // Parallax Layer

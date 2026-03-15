@@ -181,13 +181,13 @@ const competitions = [
 
 const categories = ['Hackathon', 'Coding', 'Open Source', 'Robotics', 'General'];
 
-/** Background images per category for card styling */
-const CATEGORY_BG: Record<string, string> = {
-  Hackathon: '/images/backgrounds/tech-glows.jpg',
-  Coding: '/images/backgrounds/tech-matrix.jpg',
-  'Open Source': '/images/backgrounds/tech-matrix.jpg',
-  Robotics: '/images/backgrounds/tech-circuit.jpg',
-  General: '/images/backgrounds/tech-glows.jpg',
+/** COMICO panel border/shadow by category */
+const CATEGORY_STYLE: Record<string, { border: string; shadow: string; badge: string }> = {
+  Hackathon: { border: 'border-[var(--accent-orange)]', shadow: 'shadow-[8px_8px_0_var(--accent-magenta)]', badge: 'bg-[var(--accent-orange)] text-[var(--ink)]' },
+  Coding: { border: 'border-[var(--accent-cyan)]', shadow: 'shadow-[8px_8px_0_var(--accent-yellow)]', badge: 'bg-[var(--accent-cyan)] text-[var(--ink)]' },
+  'Open Source': { border: 'border-[var(--accent-magenta)]', shadow: 'shadow-[8px_8px_0_var(--accent-cyan)]', badge: 'bg-[var(--accent-magenta)] text-[var(--ink)]' },
+  Robotics: { border: 'border-[var(--accent-yellow)]', shadow: 'shadow-[8px_8px_0_var(--accent-orange)]', badge: 'bg-[var(--accent-yellow)] text-[var(--ink)]' },
+  General: { border: 'border-[var(--accent-magenta)]', shadow: 'shadow-[8px_8px_0_var(--accent-yellow)]', badge: 'bg-[var(--accent-magenta)] text-[var(--ink)]' },
 };
 
 export default function CompetitionsPage() {
@@ -200,11 +200,13 @@ export default function CompetitionsPage() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12 pt-8"
+          className="text-center mb-14 pt-8"
         >
-          <h1 className="font-mono text-2xl sm:text-3xl md:text-5xl font-bold mb-4 text-[var(--text-primary)] break-words">
-            &gt; COMPETITIONS
-          </h1>
+          <div className="inline-block border-4 border-[var(--accent-yellow)] bg-[var(--bg-card)] px-6 py-4 mb-6 shadow-[10px_10px_0_var(--accent-magenta)]">
+            <h1 className="font-pixel text-xl sm:text-2xl md:text-4xl font-bold text-[var(--accent-yellow)] break-words">
+              &gt; COMPETITIONS
+            </h1>
+          </div>
           <p className="text-[var(--text-secondary)] text-lg max-w-2xl mx-auto mb-2">
             12+ events across Hackathons, Coding, Robotics, and Open Source. Choose your arena.
           </p>
@@ -216,6 +218,7 @@ export default function CompetitionsPage() {
         {categories.map((category) => {
           const categoryComps = competitions.filter((c) => c.category === category);
           if (categoryComps.length === 0) return null;
+          const style = CATEGORY_STYLE[category] ?? CATEGORY_STYLE.General;
 
           return (
             <motion.section
@@ -226,9 +229,11 @@ export default function CompetitionsPage() {
               viewport={{ once: true }}
               className="mb-16"
             >
-              <h2 className="font-mono text-xl md:text-2xl font-semibold mb-6 flex items-center gap-3">
-                <span className="text-[var(--accent-cyan)]">{category}</span>
-                <span className="text-[var(--text-muted)] text-sm font-normal border border-[var(--border-accent)] px-2 py-0.5 rounded">
+              <h2 className="font-pixel text-lg md:text-xl font-bold mb-6 flex flex-wrap items-center gap-3">
+                <span className={`inline-block px-3 py-1.5 border-2 border-[var(--ink)] ${style.badge} shadow-[4px_4px_0_var(--ink)]`}>
+                  {category}
+                </span>
+                <span className="font-mono text-sm font-normal text-[var(--text-muted)] border-2 border-[var(--accent-yellow)] px-2 py-1 rounded-sm bg-[var(--bg-card)]">
                   {categoryComps.length} event{categoryComps.length > 1 ? 's' : ''}
                 </span>
               </h2>
@@ -245,68 +250,58 @@ export default function CompetitionsPage() {
                     tabIndex={0}
                     onClick={() => setSelectedComp(comp)}
                     onKeyDown={(e) => e.key === 'Enter' && setSelectedComp(comp)}
-                    className="relative overflow-hidden rounded-sm border border-[var(--border-subtle)] bg-[var(--bg-card)] flex flex-col h-full transition-all duration-200 hover:border-[var(--border-accent)] hover:shadow-[0_0_0_1px_var(--accent-cyan-muted)] cursor-pointer"
+                    className={`relative overflow-hidden rounded-sm border-4 ${style.border} bg-[var(--bg-card)] flex flex-col h-full transition-all duration-200 ${style.shadow} hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0_var(--ink)] cursor-pointer`}
                   >
-                    {/* Category-based background image */}
-                    <div
-                      className="absolute inset-0 bg-cover bg-center opacity-[0.22]"
-                      style={{ backgroundImage: `url(${CATEGORY_BG[comp.category] ?? CATEGORY_BG['General']})` }}
-                      aria-hidden
-                    />
-                    <div
-                      className="absolute inset-0 bg-gradient-to-b from-[var(--bg-card)]/92 via-[var(--bg-card)]/88 to-[var(--bg-card)]/95"
-                      aria-hidden
-                    />
                     <div className="relative z-10 p-6 flex flex-col h-full">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="p-2 rounded border border-[var(--border-accent)]">
-                        <comp.icon className="w-6 h-6 text-[var(--accent-cyan)]" aria-hidden />
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="p-2 rounded-sm border-2 border-[var(--ink)] bg-[var(--paper)]/10">
+                          <comp.icon className="w-6 h-6 text-[var(--accent-yellow)]" aria-hidden />
+                        </div>
+                        <div className="flex gap-2">
+                          <span className="font-mono text-[10px] px-2 py-1 border-2 border-[var(--ink)] rounded-sm text-[var(--text-muted)] bg-[var(--bg-elevated)]">
+                            {comp.type}
+                          </span>
+                          <span className="font-mono text-[10px] px-2 py-1 border-2 border-[var(--accent-yellow)] rounded-sm text-[var(--accent-yellow)]">
+                            {comp.difficulty}
+                          </span>
+                        </div>
                       </div>
-                      <div className="flex gap-2">
-                        <span className="font-mono text-[10px] px-2 py-1 border border-[var(--border-accent)] rounded text-[var(--text-muted)]">
-                          {comp.type}
-                        </span>
-                        <span className="font-mono text-[10px] px-2 py-1 border border-[var(--border-accent)] rounded text-[var(--text-muted)]">
-                          {comp.difficulty}
-                        </span>
-                      </div>
-                    </div>
 
-                    <h3 className="font-mono text-lg font-semibold text-[var(--text-primary)] mb-2">
-                      {comp.title}
-                    </h3>
-                    <p className="text-[var(--text-secondary)] text-sm mb-4 flex-grow leading-relaxed">
-                      {comp.description}
-                    </p>
+                      <h3 className="font-pixel text-base font-bold text-[var(--text-primary)] mb-2 uppercase tracking-wide">
+                        {comp.title}
+                      </h3>
+                      <p className="text-[var(--text-secondary)] text-sm mb-4 flex-grow leading-relaxed">
+                        {comp.description}
+                      </p>
 
-                    <dl className="space-y-2 mb-4 text-sm">
-                      <div className="flex justify-between">
-                        <dt className="text-[var(--text-muted)]">Prize</dt>
-                        <dd className="font-mono text-[var(--accent-cyan)]">{comp.prize}</dd>
-                      </div>
-                      <div className="flex justify-between">
-                        <dt className="text-[var(--text-muted)]">Duration</dt>
-                        <dd className="text-[var(--text-secondary)]">{comp.duration}</dd>
-                      </div>
-                      <div className="flex justify-between">
-                        <dt className="text-[var(--text-muted)]">Team</dt>
-                        <dd className="text-[var(--text-secondary)]">{comp.participants}</dd>
-                      </div>
-                      <div className="pt-2 border-t border-[var(--border-subtle)]">
-                        <dd className="text-[var(--text-muted)] text-xs">{comp.details}</dd>
-                      </div>
-                    </dl>
+                      <dl className="space-y-2 mb-4 text-sm">
+                        <div className="flex justify-between">
+                          <dt className="text-[var(--text-muted)]">Prize</dt>
+                          <dd className="font-mono font-bold text-[var(--accent-yellow)]">{comp.prize}</dd>
+                        </div>
+                        <div className="flex justify-between">
+                          <dt className="text-[var(--text-muted)]">Duration</dt>
+                          <dd className="text-[var(--text-secondary)]">{comp.duration}</dd>
+                        </div>
+                        <div className="flex justify-between">
+                          <dt className="text-[var(--text-muted)]">Team</dt>
+                          <dd className="text-[var(--text-secondary)]">{comp.participants}</dd>
+                        </div>
+                        <div className="pt-2 border-t-2 border-[var(--border-subtle)]">
+                          <dd className="text-[var(--text-muted)] text-xs">{comp.details}</dd>
+                        </div>
+                      </dl>
 
-                    <a
-                      href={comp.registrationLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center justify-center gap-2 w-full py-3 font-mono text-sm font-semibold bg-[var(--accent-primary)] text-white border border-[var(--accent-primary)] hover:shadow-[0_0_15px_var(--glow-primary)] transition-all"
-                    >
-                      Register on Unstop
-                      <FiExternalLink className="w-4 h-4" aria-hidden />
-                    </a>
+                      <a
+                        href={comp.registrationLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center justify-center gap-2 w-full py-3 font-pixel text-xs font-bold bg-[var(--accent-primary)] text-[var(--ink)] border-[3px] border-[var(--accent-yellow)] shadow-[4px_4px_0_var(--ink)] hover:bg-[var(--accent-primary-hover)] hover:shadow-[2px_2px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
+                      >
+                        Register on Unstop
+                        <FiExternalLink className="w-4 h-4" aria-hidden />
+                      </a>
                     </div>
                   </motion.article>
                 ))}
@@ -322,8 +317,8 @@ export default function CompetitionsPage() {
           viewport={{ once: true }}
           className="mt-20"
         >
-          <div className="card-retro rounded-sm p-10 md:p-14 text-center">
-            <h2 className="font-mono text-2xl md:text-3xl font-bold mb-4 text-[var(--text-primary)]">
+          <div className="border-4 border-[var(--accent-magenta)] bg-[var(--bg-card)] rounded-sm p-10 md:p-14 text-center shadow-[12px_12px_0_var(--accent-cyan)]">
+            <h2 className="font-pixel text-xl md:text-2xl font-bold mb-4 text-[var(--accent-yellow)] uppercase">
               &gt; READY TO COMPETE?
             </h2>
             <p className="text-[var(--text-secondary)] mb-8 max-w-xl mx-auto">
@@ -333,7 +328,7 @@ export default function CompetitionsPage() {
               href="https://unstop.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 font-mono text-sm font-semibold bg-[var(--phosphor-green)] text-[var(--bg-deep)] border border-[var(--phosphor-green)] hover:shadow-[0_0_20px_var(--glow-primary)] transition-all"
+              className="inline-flex items-center gap-2 px-8 py-4 font-pixel text-xs font-bold bg-[var(--accent-primary)] text-[var(--ink)] border-[3px] border-[var(--accent-yellow)] shadow-[6px_6px_0_var(--ink)] hover:bg-[var(--accent-primary-hover)] hover:shadow-[3px_3px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
             >
               Browse All on Unstop
               <FiExternalLink className="w-4 h-4" aria-hidden />
@@ -341,7 +336,6 @@ export default function CompetitionsPage() {
           </div>
         </motion.section>
 
-        {/* Competition detail modal with category bg image */}
         <AnimatePresence>
           {selectedComp && (
             <>
@@ -349,7 +343,7 @@ export default function CompetitionsPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black/70 z-50 backdrop-blur-sm"
+                className="fixed inset-0 bg-[var(--ink)]/85 z-50 backdrop-blur-sm"
                 onClick={() => setSelectedComp(null)}
                 aria-hidden
               />
@@ -361,46 +355,41 @@ export default function CompetitionsPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="fixed left-4 right-4 top-[max(1rem,env(safe-area-inset-top))] bottom-[max(1rem,env(safe-area-inset-bottom))] md:inset-auto md:left-1/2 md:top-1/2 md:bottom-auto md:right-auto md:max-h-[90vh] md:max-w-lg md:w-full md:-translate-x-1/2 md:-translate-y-1/2 z-50 rounded-sm border border-[var(--border-accent)] overflow-hidden bg-[var(--bg-card)] shadow-2xl flex flex-col"
+                className="fixed left-4 right-4 top-[max(1rem,env(safe-area-inset-top))] bottom-[max(1rem,env(safe-area-inset-bottom))] md:inset-auto md:left-1/2 md:top-1/2 md:bottom-auto md:right-auto md:max-h-[90vh] md:max-w-lg md:w-full md:-translate-x-1/2 md:-translate-y-1/2 z-50 rounded-sm border-4 border-[var(--accent-yellow)] overflow-hidden bg-[var(--bg-card)] shadow-[12px_12px_0_var(--accent-magenta)] flex flex-col"
                 onClick={(e) => e.stopPropagation()}
                 onKeyDown={(e) => e.key === 'Escape' && setSelectedComp(null)}
               >
                 <div className="relative min-h-0 flex-1 flex flex-col overflow-y-auto overflow-x-hidden">
-                  {/* Modal background image — same category as card */}
-                  <div
-                    className="absolute inset-0 bg-cover bg-center opacity-30 pointer-events-none"
-                    style={{ backgroundImage: `url(${CATEGORY_BG[selectedComp.category] ?? CATEGORY_BG['General']})` }}
-                    aria-hidden
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-card)]/85 via-[var(--bg-card)]/90 to-[var(--bg-card)] pointer-events-none" aria-hidden />
                   <div className="relative z-10 p-4 sm:p-6 flex flex-col flex-grow min-h-[320px]">
                     <div className="flex items-start justify-between gap-4 mb-4">
-                      <div className="p-2 rounded border border-[var(--border-accent)]">
-                        <selectedComp.icon className="w-6 h-6 text-[var(--accent-cyan)]" aria-hidden />
+                      <div className="p-2 rounded-sm border-2 border-[var(--ink)] bg-[var(--accent-yellow)]">
+                        <selectedComp.icon className="w-6 h-6 text-[var(--ink)]" aria-hidden />
                       </div>
                       <button
                         type="button"
                         onClick={() => setSelectedComp(null)}
-                        className="p-2 rounded border border-[var(--border-accent)] text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:border-[var(--accent-cyan)] transition-colors"
+                        className="p-2 rounded-sm border-2 border-[var(--accent-magenta)] text-[var(--text-muted)] hover:text-[var(--accent-yellow)] hover:border-[var(--accent-yellow)] transition-colors"
                         aria-label="Close"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                       </button>
                     </div>
-                    <span className="font-mono text-xs text-[var(--accent-cyan)] mb-1">{selectedComp.category}</span>
-                    <h3 id="modal-title" className="font-mono text-xl font-semibold text-[var(--text-primary)] mb-2">{selectedComp.title}</h3>
+                    <span className={`font-pixel text-xs font-bold px-2 py-0.5 inline-block w-fit mb-2 ${(CATEGORY_STYLE[selectedComp.category] ?? CATEGORY_STYLE.General).badge} text-[var(--ink)]`}>
+                      {selectedComp.category}
+                    </span>
+                    <h3 id="modal-title" className="font-pixel text-lg font-bold text-[var(--text-primary)] mb-2 uppercase">{selectedComp.title}</h3>
                     <p className="text-[var(--text-secondary)] text-sm mb-4 flex-grow">{selectedComp.description}</p>
                     <dl className="space-y-2 mb-4 text-sm">
-                      <div className="flex justify-between"><dt className="text-[var(--text-muted)]">Prize</dt><dd className="font-mono text-[var(--accent-cyan)]">{selectedComp.prize}</dd></div>
+                      <div className="flex justify-between"><dt className="text-[var(--text-muted)]">Prize</dt><dd className="font-mono font-bold text-[var(--accent-yellow)]">{selectedComp.prize}</dd></div>
                       <div className="flex justify-between"><dt className="text-[var(--text-muted)]">Duration</dt><dd className="text-[var(--text-secondary)]">{selectedComp.duration}</dd></div>
                       <div className="flex justify-between"><dt className="text-[var(--text-muted)]">Team</dt><dd className="text-[var(--text-secondary)]">{selectedComp.participants}</dd></div>
-                      <p className="text-[var(--text-muted)] text-xs pt-2 border-t border-[var(--border-subtle)]">{selectedComp.details}</p>
+                      <p className="text-[var(--text-muted)] text-xs pt-2 border-t-2 border-[var(--border-subtle)]">{selectedComp.details}</p>
                     </dl>
                     <a
                       href={selectedComp.registrationLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 w-full py-3 font-mono text-sm font-semibold bg-[var(--accent-primary)] text-white border border-[var(--accent-primary-border)] hover:shadow-[0_0_15px_var(--glow-primary)] transition-all"
+                      className="inline-flex items-center justify-center gap-2 w-full py-3 font-pixel text-xs font-bold bg-[var(--accent-primary)] text-[var(--ink)] border-[3px] border-[var(--accent-yellow)] shadow-[4px_4px_0_var(--ink)] hover:bg-[var(--accent-primary-hover)] transition-all"
                     >
                       Register on Unstop
                       <FiExternalLink className="w-4 h-4" aria-hidden />

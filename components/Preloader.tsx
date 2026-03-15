@@ -51,7 +51,7 @@ export default function Preloader() {
             className="text-center mb-8"
           >
             <h1 className="font-pixel text-2xl md:text-4xl font-bold text-[var(--text-primary)] mb-2">
-              AAYAM <span className="text-[var(--accent-cyan)]">2026</span>
+              AAYAM <span className="text-[var(--accent-yellow)]">2026</span>
             </h1>
             <p className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">
               Loading Experience
@@ -67,7 +67,7 @@ export default function Preloader() {
                 backgroundImage: `
                   linear-gradient(90deg, 
                     transparent 0%, 
-                    var(--accent-cyan) 50%, 
+                    var(--accent-yellow) 50%, 
                     transparent 100%)
                 `,
                 backgroundSize: '20px 100%',
@@ -78,7 +78,7 @@ export default function Preloader() {
             
             {/* Progress Fill */}
             <motion.div
-              className="h-full bg-gradient-to-r from-[var(--accent-primary)] via-[var(--accent-cyan)] to-[var(--accent-magenta)]"
+              className="h-full bg-gradient-to-r from-[var(--accent-primary)] via-[var(--accent-yellow)] to-[var(--accent-magenta)]"
               initial={{ width: 0 }}
               animate={{ width: `${Math.min(progress, 100)}%` }}
               transition={{ duration: 0.3 }}
@@ -91,7 +91,7 @@ export default function Preloader() {
           >
             <span className="text-[var(--text-muted)]">INITIALIZING</span>
             <motion.span 
-              className="text-[var(--accent-cyan)]"
+              className="text-[var(--accent-yellow)]"
               animate={{ opacity: [0.5, 1, 0.5] }}
               transition={{ duration: 1, repeat: Infinity }}
             >
@@ -104,7 +104,7 @@ export default function Preloader() {
             {[0, 1, 2].map((i) => (
               <motion.div
                 key={i}
-                className="w-2 h-2 rounded-full bg-[var(--accent-cyan)]"
+                className="w-2 h-2 rounded-full bg-[var(--accent-yellow)]"
                 animate={{
                   scale: [1, 1.5, 1],
                   opacity: [0.5, 1, 0.5],
@@ -118,23 +118,12 @@ export default function Preloader() {
             ))}
           </div>
 
-          {/* Tech Decorations */}
-          <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-[var(--border-accent)] opacity-50" />
-          <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-[var(--border-accent)] opacity-50" />
-          <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-[var(--border-accent)] opacity-50" />
-          <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-[var(--border-accent)] opacity-50" />
+          {/* COMICO-style corner brackets */}
+          <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-[var(--accent-yellow)] opacity-60" />
+          <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-[var(--accent-yellow)] opacity-60" />
+          <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-[var(--accent-yellow)] opacity-60" />
+          <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-[var(--accent-yellow)] opacity-60" />
         </div>
-
-        {/* Scan Line Effect */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: 'linear-gradient(180deg, transparent 0%, rgba(107, 163, 212, 0.1) 50%, transparent 100%)',
-            backgroundSize: '100% 4px',
-          }}
-          animate={{ y: ['-100%', '100%'] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-        />
       </motion.div>
     </AnimatePresence>
   );

@@ -4,11 +4,9 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
-import RetroTechBackground from "@/components/RetroTechBackground";
+import ComicoBackground from "@/components/ComicoBackground";
 import Preloader from "@/components/Preloader";
-import AnimatedBackgroundImages from "@/components/AnimatedBackgroundImages";
-import MovingImageCarousel from "@/components/MovingImageCarousel";
-import { CustomCursor, ScrollProgressBar, FloatingTechOrbs } from "@/components/ImmersionEffects";
+import { CustomCursor, ScrollProgressBar } from "@/components/ImmersionEffects";
 import { ALL_SITE_URLS, PRIMARY_SITE_URL, SITE_LOGO_PATH, SITE_KEYWORDS } from "@/lib/site";
 
 const siteUrl = PRIMARY_SITE_URL;
@@ -81,7 +79,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0f1f33",
+  themeColor: "#050813",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -168,7 +166,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="crt-scanlines">
+    <html lang="en" className="comico-theme">
       <body className={`${spaceGrotesk.className} ${spaceGrotesk.variable} ${pressStart2P.variable} antialiased`}>
         <a href="#main-content" className="skip-link">
           Skip to main content
@@ -188,10 +186,7 @@ export default function RootLayout({
         <Preloader />
         <CustomCursor />
         <ScrollProgressBar />
-        <AnimatedBackgroundImages />
-        <MovingImageCarousel />
-        <FloatingTechOrbs />
-        <RetroTechBackground />
+        <ComicoBackground />
         <Navbar />
         <main className="relative z-10" id="main-content">
           {children}

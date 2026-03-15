@@ -50,7 +50,7 @@ export default function ScrollingStats({
       <div data-scroll-content className="flex gap-12 md:gap-16 whitespace-nowrap" style={{ width: 'fit-content' }}>
         {[...stats, ...stats].map((stat, idx) => (
           <div key={idx} className="flex items-center gap-3 px-4 min-w-max">
-            {stat.icon && <span className="text-[var(--accent-cyan)] font-mono text-sm">{stat.icon}</span>}
+            {stat.icon && <span className="text-[var(--accent-yellow)] font-mono text-sm">{stat.icon}</span>}
             <div>
               <div className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-muted)]">
                 {stat.label}

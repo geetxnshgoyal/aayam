@@ -5,42 +5,57 @@
   --font-mono: var(--font-pixel-app), ui-monospace, monospace;
   --font-pixel: var(--font-pixel-app), "Courier New", monospace;
   --color-phosphor: #00ff41;
-  --color-amber: #ffb000;
-  --color-cyan: #00ffff;
+  --color-amber: #ffd60a;
+  --color-cyan: #00b4d8;
 }
 
-/* 80s retro comic — very soft, humanish palette (CAMPFIRE-style) */
+/* AAYAM 2026 — COMICO Color Grid theme (vintage comic print palette) */
 :root {
-  /* Soft blues — gentle navy, no harsh black */
-  --bg-deep: #0f1f33;
-  --bg-card: #132639;
-  --bg-elevated: #1a3150;
-  --border-subtle: #243d5c;
-  --border-accent: #2e4a6b;
+  /* Paper & ink (from COMICO grid) */
+  --paper: #f5f0e6;
+  --ink: #0a0a0f;
+  /* Surfaces — dark base */
+  --bg-deep: #050813;
+  --bg-card: #0c1220;
+  --bg-elevated: #131b2e;
+  --border-subtle: #1e2d42;
+  --border-accent: #2a3f5c;
+  /* Text */
   --text-primary: #f0f4f8;
   --text-secondary: #b8cde0;
   --text-muted: #7a9bb5;
-  /* Primary CTA — soft pastel green */
-  --accent-primary: #5cb85c;
-  --accent-primary-border: #3d8b3d;
-  --accent-primary-hover: #6fc96f;
-  --glow-primary: rgba(92, 184, 92, 0.15);
-  /* Soft blue — links (desaturated, easy on eyes) */
-  --accent-cyan: #6ba3d4;
-  --accent-cyan-muted: rgba(107, 163, 212, 0.12);
-  /* Muted purple / lavender */
-  --accent-magenta: #a890c0;
-  --accent-magenta-muted: rgba(168, 144, 192, 0.15);
-  /* Soft cream / wheat */
-  --accent-neon: #c9bc7a;
-  --accent-neon-muted: rgba(201, 188, 122, 0.12);
-  /* Warm accent — soft terracotta/orange */
-  --accent-orange: #d4a574;
-  --accent-red: #c98a8a;
-  --accent-amber: #d4b86a;
-  --accent-amber-muted: rgba(212, 184, 106, 0.15);
+  /* COMICO palette — Cyan (blue) */
+  --accent-cyan: #00b4d8;
+  --accent-cyan-dark: #0096b8;
+  --accent-cyan-muted: rgba(0, 180, 216, 0.15);
+  /* COMICO — Magenta (red) */
+  --accent-magenta: #e6399b;
+  --accent-magenta-dark: #c41e7a;
+  --accent-magenta-muted: rgba(230, 57, 155, 0.15);
+  /* COMICO — Yellow */
+  --accent-yellow: #ffd60a;
+  --accent-yellow-dark: #e6c009;
+  --accent-neon: #ffde75;
+  --accent-neon-muted: rgba(255, 222, 117, 0.12);
+  /* COMICO — Orange */
+  --accent-orange: #ff7a4f;
+  --accent-orange-dark: #e65f35;
+  --accent-amber: #ffb000;
+  --accent-amber-muted: rgba(255, 176, 0, 0.15);
+  /* Primary CTA — use COMICO yellow/orange for punch */
+  --accent-primary: #ff7a4f;
+  --accent-primary-border: #e65f35;
+  --accent-primary-hover: #ff8f6a;
+  --glow-primary: rgba(255, 122, 79, 0.25);
+  /* Teal (comic-style highlight) */
+  --accent-teal: #37e0ff;
+  --accent-red: #e63946;
   --accent-violet: #7d6d9e;
   --accent-violet-muted: rgba(125, 109, 158, 0.15);
+  /* Comic panel styling */
+  --border-thick: 4px solid var(--ink);
+  --shadow-offset: 8px 8px 0 var(--ink);
+  --shadow-offset-lg: 12px 12px 0 var(--ink);
   /* Legacy aliases */
   --phosphor-green: var(--accent-primary);
   --phosphor-amber: var(--accent-amber);
@@ -77,7 +92,6 @@ body {
   min-width: 0;
 }
 
-/* Pixelated / 8-bit style — headings and .font-pixel */
 h1, h2, h3, h4,
 .font-pixel {
   font-family: var(--font-pixel-app), "Courier New", monospace;
@@ -89,7 +103,6 @@ h1, h2, h3, h4,
   color: var(--text-primary);
 }
 
-/* Focus visible for keyboard / a11y */
 :focus {
   outline: none;
 }
@@ -98,19 +111,19 @@ h1, h2, h3, h4,
   outline-offset: 2px;
 }
 
-/* Skip to main content link */
 .skip-link {
   position: absolute;
   top: -100px;
   left: 0.5rem;
   z-index: 100;
   padding: 0.75rem 1rem;
-  background: var(--accent-primary);
-  color: var(--text-primary);
+  background: var(--accent-orange);
+  color: var(--ink);
   font-weight: 600;
   border-radius: 0.25rem;
-  border: 2px solid var(--accent-primary-border);
+  border: 3px solid var(--accent-yellow);
   transition: top 0.2s ease;
+  box-shadow: 4px 4px 0 var(--ink);
 }
 .skip-link:focus {
   top: 0.5rem;
@@ -119,7 +132,8 @@ h1, h2, h3, h4,
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -128,121 +142,134 @@ h1, h2, h3, h4,
 
 ::-webkit-scrollbar-thumb {
   background: var(--border-accent);
-  border-radius: 4px;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-cyan);
 }
 
-/* Very soft text/box — no neon, just gentle depth */
+/* Soft glows (no harsh neon) */
 .text-neon-cyan {
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 0 20px var(--accent-cyan-muted);
 }
 .text-neon-magenta {
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 0 20px var(--accent-magenta-muted);
 }
 .text-neon-yellow {
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 0 20px var(--accent-amber-muted);
 }
 .box-neon-cyan {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 24px var(--accent-cyan-muted);
 }
 .box-neon-magenta {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 24px var(--accent-magenta-muted);
 }
 
-/* Comic-style halftone dot overlay */
 .halftone-dots {
-  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
-/* CRT scanline overlay — very subtle */
-.crt-scanlines::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 1px,
-    rgba(0, 0, 0, 0.03) 1px,
-    rgba(0, 0, 0, 0.03) 2px
-  );
-  pointer-events: none;
-  z-index: 9998;
-  opacity: 0.5;
+/* COMICO theme: no CRT scanlines; clean print look */
+.comico-theme {
+  /* optional: very subtle paper texture on scroll could go here */
 }
 
-/* Terminal-style border — neutral by default */
 .terminal-border {
-  border: 1px solid var(--border-accent);
-  box-shadow: 0 0 0 1px var(--border-subtle);
+  border: 2px solid var(--accent-yellow);
+  box-shadow: var(--shadow-offset);
 }
 
 .terminal-glow {
-  box-shadow: 0 0 24px var(--glow-primary);
+  box-shadow: 0 0 32px var(--glow-primary);
 }
 
-/* Primary CTA — soft pastel green */
+/* COMICO-style panel (flat offset shadow, thick border) */
+.panel-comic {
+  border: var(--border-thick);
+  box-shadow: var(--shadow-offset);
+  background: var(--bg-card);
+}
+.panel-comic-yellow {
+  border-color: var(--accent-yellow);
+  box-shadow: var(--shadow-offset-lg), 0 0 24px rgba(255, 214, 10, 0.15);
+}
+.panel-comic-cyan {
+  border-color: var(--accent-cyan);
+  box-shadow: 8px 8px 0 var(--accent-magenta);
+}
+.panel-comic-magenta {
+  border-color: var(--accent-magenta);
+  box-shadow: 8px 8px 0 var(--accent-cyan);
+}
+
+/* Paper section (COMICO grid background) */
+.section-paper {
+  background: var(--paper);
+  color: var(--ink);
+}
+.section-paper .section-underline {
+  background: linear-gradient(90deg, var(--accent-magenta), var(--accent-cyan));
+}
+
+/* Buttons — COMICO palette */
 .btn-primary-pixel {
   background: var(--accent-primary);
-  border: 3px solid var(--accent-primary-border);
-  color: var(--text-primary);
+  border: 3px solid var(--accent-yellow);
+  color: var(--ink);
   font-family: var(--font-pixel-app), monospace;
   transition: all 0.2s ease;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 6px 6px 0 var(--accent-magenta);
 }
 .btn-primary-pixel:hover {
   background: var(--accent-primary-hover);
-  box-shadow: 0 4px 12px var(--glow-primary);
-  color: var(--text-primary);
+  box-shadow: 4px 4px 0 var(--accent-magenta);
+  color: var(--ink);
 }
 
 .btn-retro {
   background: var(--bg-elevated);
-  border: 2px solid var(--border-accent);
+  border: 2px solid var(--accent-cyan);
   color: var(--text-primary);
   font-family: var(--font-pixel-app), monospace;
   transition: all 0.2s ease;
 }
 .btn-retro:hover {
-  border-color: var(--accent-cyan);
-  color: var(--accent-cyan);
-  box-shadow: 0 0 15px var(--accent-cyan-muted);
+  border-color: var(--accent-yellow);
+  color: var(--accent-yellow);
+  box-shadow: 0 0 20px var(--accent-cyan-muted);
 }
 
-/* Card — soft border, gentle accent on hover */
+/* Cards — COMICO style, hover lift + accent border */
 .card-retro {
   background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  border: 2px solid var(--accent-yellow);
+  box-shadow: 6px 6px 0 var(--accent-magenta);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 .card-retro:hover {
-  border-color: var(--border-accent);
-  box-shadow: 0 0 0 1px var(--accent-cyan-muted), 0 8px 32px rgba(107, 163, 212, 0.1);
+  border-color: var(--accent-cyan);
+  box-shadow: 8px 8px 0 var(--accent-cyan), 0 0 24px var(--accent-cyan-muted);
   transform: translateY(-4px);
 }
 
-/* Custom Cursor Styles */
+/* Custom cursor only on pointer devices */
 @media (pointer: fine) {
-  html {
+  html.cursor-none {
     cursor: none;
   }
-  body {
-    cursor: none;
-  }
-  a, button, [role="button"] {
+  html.cursor-none body,
+  html.cursor-none a,
+  html.cursor-none button,
+  html.cursor-none [role="button"] {
     cursor: none;
   }
 }
 
-/* Enhanced Link Hover Effect */
 a:not(.btn):not([class*="no-underline"]) {
   position: relative;
 }
-
 a:not(.btn):not([class*="no-underline"])::after {
   content: '';
   position: absolute;
@@ -253,25 +280,20 @@ a:not(.btn):not([class*="no-underline"])::after {
   background: var(--accent-cyan);
   transition: width 0.3s ease;
 }
-
 a:not(.btn):not([class*="no-underline"]):hover::after {
   width: 100%;
 }
 
-/* Glowing Text Effect */
 .text-glow-cyan {
-  text-shadow: 0 0 10px var(--accent-cyan-muted), 0 0 20px var(--accent-cyan-muted);
+  text-shadow: 0 0 12px var(--accent-cyan-muted), 0 0 24px var(--accent-cyan-muted);
 }
-
 .text-glow-magenta {
-  text-shadow: 0 0 10px var(--accent-magenta-muted), 0 0 20px var(--accent-magenta-muted);
+  text-shadow: 0 0 12px var(--accent-magenta-muted), 0 0 24px var(--accent-magenta-muted);
 }
-
 .text-glow-primary {
-  text-shadow: 0 0 10px var(--glow-primary), 0 0 20px var(--glow-primary);
+  text-shadow: 0 0 12px var(--glow-primary), 0 0 24px var(--glow-primary);
 }
 
-/* Animated Border Gradient */
 @keyframes border-gradient {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -283,14 +305,13 @@ a:not(.btn):not([class*="no-underline"]):hover::after {
   background: var(--bg-card);
   background-clip: padding-box;
   border: 2px solid transparent;
-  border-radius: 4px;
+  border-radius: 6px;
 }
-
 .border-animated::before {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px;
+  border-radius: 6px;
   padding: 2px;
   background: linear-gradient(
     45deg,
@@ -307,55 +328,44 @@ a:not(.btn):not([class*="no-underline"]):hover::after {
   pointer-events: none;
 }
 
-/* Moving background — tech/retro */
+/* Background animations */
 @keyframes gradient-drift {
   0% { transform: scale(1) translate(0, 0); }
   100% { transform: scale(1.08) translate(2%, 1%); }
 }
-
 @keyframes grid-shift {
   0% { background-position: 0 0; }
   100% { background-position: 48px 48px; }
 }
-
 @keyframes grid-shift-slow {
   0% { background-position: 0 0; }
   100% { background-position: 24px 24px; }
 }
-
 .retro-tech-bg .grid-move {
   animation: grid-shift 25s linear infinite;
 }
-
 .retro-tech-bg .grid-move-slow {
   animation: grid-shift-slow 40s linear infinite reverse;
 }
-
-.retro-tech-bg .scan-sweep {
-  animation: scan-sweep 5s linear infinite;
-}
-
-@keyframes signal-line {
-  0% { background-position: 0 0; }
-  100% { background-position: 200% 0; }
-}
-
-.retro-tech-bg .signal-line {
-  animation: signal-line 12s linear infinite;
-}
-
 @keyframes scan-sweep {
   0% { background-position: 0 0; }
   100% { background-position: 0 300%; }
 }
-
+.retro-tech-bg .scan-sweep {
+  animation: scan-sweep 5s linear infinite;
+}
+@keyframes signal-line {
+  0% { background-position: 0 0; }
+  100% { background-position: 200% 0; }
+}
+.retro-tech-bg .signal-line {
+  animation: signal-line 12s linear infinite;
+}
 @keyframes float-dot {
   0%, 100% { transform: translate(0, 0) scale(1); }
   33% { transform: translate(8px, -15px) scale(1.2); }
   66% { transform: translate(-5px, 10px) scale(0.9); }
 }
-
-/* Ken Burns–style image drift for hero floating images */
 @keyframes float-image-layer {
   0% { transform: translate(0, 0) scale(1) rotate(0deg); }
   25% { transform: translate(6%, -3%) scale(1.04) rotate(0.5deg); }
@@ -363,64 +373,45 @@ a:not(.btn):not([class*="no-underline"]):hover::after {
   75% { transform: translate(3%, 2%) scale(1.03) rotate(0.2deg); }
   100% { transform: translate(0, 0) scale(1) rotate(0deg); }
 }
-
 .float-image-layer {
   animation: float-image-layer ease-in-out infinite;
 }
-
-/* Horizontal image marquee */
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-
 .animate-marquee {
   animation: marquee 25s linear infinite;
 }
-
 @keyframes data-flow-vertical {
   0% { background-position: 0 0; }
   100% { background-position: 0 200%; }
 }
-
 .retro-tech-bg .data-flow-vertical {
   animation: data-flow-vertical 8s linear infinite;
 }
-
 .retro-tech-bg .data-flow-reverse {
   animation: data-flow-vertical 8s linear infinite reverse;
 }
 
-/* Animations */
 @keyframes blink-cursor {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
 }
-
 @keyframes glow-pulse {
   0%, 100% { opacity: 0.5; }
   50% { opacity: 1; }
 }
-
 @keyframes neon-pulse {
   0%, 100% { filter: brightness(1); opacity: 1; }
   50% { filter: brightness(1.15); opacity: 0.95; }
 }
-
-@keyframes comic-scan {
-  0% { transform: translateY(-100%); opacity: 0.3; }
-  50% { opacity: 0.6; }
-  100% { transform: translateY(100vh); opacity: 0.3; }
-}
-
 .animate-blink {
   animation: blink-cursor 1s step-end infinite;
 }
-
 .animate-glow-pulse {
   animation: glow-pulse 2s ease-in-out infinite;
 }
-
 .animate-neon-pulse {
   animation: neon-pulse 2.5s ease-in-out infinite;
 }
@@ -431,6 +422,30 @@ a:not(.btn):not([class*="no-underline"]):hover::after {
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    var(--accent-cyan),
+    var(--accent-magenta),
+    var(--accent-primary),
+    var(--accent-cyan)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: border-gradient 3s ease infinite;
+}
+
+/* Section title underline — COMICO palette */
+.section-underline {
+  width: 64px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+  border-radius: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -448,19 +463,11 @@ a:not(.btn):not([class*="no-underline"]):hover::after {
   }
 }
 
-/* Additional Immersive Effects */
-
-/* Holographic Sheen */
+/* Holographic sheen */
 @keyframes holographic-shine {
   0% { transform: translateX(-100%) rotate(45deg); }
   100% { transform: translateX(500%) rotate(45deg); }
 }
-
-.holographic-shine {
-  position: relative;
-  overflow: hidden;
-}
-
 .holographic-shine::after {
   content: '';
   position: absolute;
@@ -471,7 +478,7 @@ a:not(.btn):not([class*="no-underline"]):hover::after {
   background: linear-gradient(
     45deg,
     transparent 30%,
-    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.08) 50%,
     transparent 70%
   );
   transform: rotate(45deg);
@@ -479,153 +486,14 @@ a:not(.btn):not([class*="no-underline"]):hover::after {
   pointer-events: none;
 }
 
-/* Pulse Ring Effect */
 @keyframes pulse-ring {
   0% { transform: scale(0.8); opacity: 0.5; }
   100% { transform: scale(2); opacity: 0; }
 }
-
-.pulse-ring {
-  position: relative;
-}
-
-.pulse-ring::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 2px solid var(--accent-cyan);
-  border-radius: inherit;
-  animation: pulse-ring 2s ease-out infinite;
-  pointer-events: none;
-}
-
-/* Data Stream Effect */
-@keyframes data-stream {
-  0% { transform: translateY(-100%); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: translateY(100%); opacity: 0; }
-}
-
-.data-stream {
-  position: relative;
-  overflow: hidden;
-}
-
-.data-stream::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 10%;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(
-    180deg,
-    transparent,
-    var(--accent-cyan),
-    transparent
-  );
-  animation: data-stream 2s linear infinite;
-  pointer-events: none;
-}
-
-/* Tech Corner Decorations */
-.tech-corner {
-  position: relative;
-}
-
-.tech-corner::before,
-.tech-corner::after {
-  content: '';
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--accent-cyan);
-  transition: all 0.3s ease;
-}
-
-.tech-corner::before {
-  top: 0;
-  left: 0;
-  border-right: none;
-  border-bottom: none;
-}
-
-.tech-corner::after {
-  bottom: 0;
-  right: 0;
-  border-left: none;
-  border-top: none;
-}
-
-.tech-corner:hover::before,
-.tech-corner:hover::after {
-  width: 30px;
-  height: 30px;
-  border-color: var(--accent-magenta);
-}
-
-/* Floating Animation */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
-
 .animate-float {
   animation: float 3s ease-in-out infinite;
-}
-
-/* Glitch Effect on Hover */
-@keyframes glitch-1 {
-  0%, 100% { clip-path: inset(0 0 0 0); }
-  20% { clip-path: inset(20% 0 60% 0); }
-  40% { clip-path: inset(40% 0 40% 0); }
-  60% { clip-path: inset(60% 0 20% 0); }
-  80% { clip-path: inset(80% 0 0 0); }
-}
-
-@keyframes glitch-2 {
-  0%, 100% { clip-path: inset(0 0 0 0); }
-  20% { clip-path: inset(60% 0 20% 0); }
-  40% { clip-path: inset(80% 0 0 0); }
-  60% { clip-path: inset(20% 0 60% 0); }
-  80% { clip-path: inset(40% 0 40% 0); }
-}
-
-.glitch-hover:hover {
-  animation: glitch-1 0.3s infinite;
-}
-
-.glitch-hover:hover::before {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  animation: glitch-2 0.3s infinite;
-  color: var(--accent-cyan);
-  z-index: -1;
-}
-
-/* Matrix Rain Effect Container */
-.matrix-rain {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.1;
-  overflow: hidden;
-}
-
-/* Gradient Text */
-.gradient-text {
-  background: linear-gradient(
-    90deg,
-    var(--accent-cyan),
-    var(--accent-magenta),
-    var(--accent-primary),
-    var(--accent-cyan)
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: border-gradient 3s ease infinite;
 }

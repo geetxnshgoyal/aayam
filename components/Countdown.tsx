@@ -46,34 +46,34 @@ export default function Countdown() {
   return (
     <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6" role="timer" aria-live="polite">
       <div className="flex flex-col items-center">
-        <span className="font-mono text-2xl md:text-4xl font-bold text-[var(--accent-cyan)] tabular-nums">
+        <span className="font-mono text-2xl md:text-4xl font-bold text-[var(--accent-yellow)] tabular-nums">
           {pad(diff.days)}
         </span>
         <span className="font-mono text-[10px] md:text-xs uppercase tracking-wider text-[var(--text-muted)]">
           Days
         </span>
       </div>
-      <span className="font-mono text-xl md:text-3xl text-[var(--accent-cyan)]/60">:</span>
+      <span className="font-mono text-xl md:text-3xl text-[var(--accent-yellow)]/60">:</span>
       <div className="flex flex-col items-center">
-        <span className="font-mono text-2xl md:text-4xl font-bold text-[var(--accent-cyan)] tabular-nums">
+        <span className="font-mono text-2xl md:text-4xl font-bold text-[var(--accent-yellow)] tabular-nums">
           {pad(diff.hours)}
         </span>
         <span className="font-mono text-[10px] md:text-xs uppercase tracking-wider text-[var(--text-muted)]">
           Hrs
         </span>
       </div>
-      <span className="font-mono text-xl md:text-3xl text-[var(--accent-cyan)]/60">:</span>
+      <span className="font-mono text-xl md:text-3xl text-[var(--accent-yellow)]/60">:</span>
       <div className="flex flex-col items-center">
-        <span className="font-mono text-2xl md:text-4xl font-bold text-[var(--accent-cyan)] tabular-nums">
+        <span className="font-mono text-2xl md:text-4xl font-bold text-[var(--accent-yellow)] tabular-nums">
           {pad(diff.min)}
         </span>
         <span className="font-mono text-[10px] md:text-xs uppercase tracking-wider text-[var(--text-muted)]">
           Min
         </span>
       </div>
-      <span className="font-mono text-xl md:text-3xl text-[var(--accent-cyan)]/60">:</span>
+      <span className="font-mono text-xl md:text-3xl text-[var(--accent-yellow)]/60">:</span>
       <div className="flex flex-col items-center">
-        <span className="font-mono text-2xl md:text-4xl font-bold text-[var(--accent-cyan)] tabular-nums">
+        <span className="font-mono text-2xl md:text-4xl font-bold text-[var(--accent-yellow)] tabular-nums">
           {pad(diff.sec)}
         </span>
         <span className="font-mono text-[10px] md:text-xs uppercase tracking-wider text-[var(--text-muted)]">
