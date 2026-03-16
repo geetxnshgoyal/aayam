@@ -9,6 +9,29 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 import Magnetic from '@/components/Magnetic';
 import TextEncrypt from '@/components/TextEncrypt';
 
+function getAdminToken(): string | null {
+  try {
+    return localStorage.getItem('admin_token') ?? sessionStorage.getItem('admin_token');
+  } catch {
+    try {
+      return sessionStorage.getItem('admin_token');
+    } catch {
+      return null;
+    }
+  }
+}
+
+function clearAdminSession(): void {
+  try {
+    localStorage.removeItem('admin_token');
+    localStorage.removeItem('admin_id');
+  } catch {}
+  try {
+    sessionStorage.removeItem('admin_token');
+    sessionStorage.removeItem('admin_id');
+  } catch {}
+}
+
 interface Ambassador {
   id: string;
   name: string;
@@ -64,21 +87,17 @@ export default function AdminDashboard() {
   const [loadingAction, setLoadingAction] = useState<string | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('admin_token');
-    if (!token) {
-      router.push('/admin/login');
-      return;
-    }
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
-      const token = localStorage.getItem('admin_token');
+      const token = getAdminToken();
+      const headers: Record<string, string> = {};
+      if (token) headers['Authorization'] = `Bearer ${token}`;
       const response = await fetch('/api/admin/dashboard', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
+        headers,
+        credentials: 'include',
       });
 
       if (response.ok) {
@@ -99,14 +118,14 @@ export default function AdminDashboard() {
   const handleApprove = async (ambassadorId: string) => {
     setLoadingAction(`approve-${ambassadorId}`);
     try {
-      const token = localStorage.getItem('admin_token');
+      const token = getAdminToken();
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
       const response = await fetch('/api/admin/approve-ambassador', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
+        headers,
         body: JSON.stringify({ ambassadorId, status: 'approved' }),
+        credentials: 'include',
       });
 
       if (response.ok) {
@@ -122,14 +141,14 @@ export default function AdminDashboard() {
   const handleReject = async (ambassadorId: string) => {
     setLoadingAction(`reject-${ambassadorId}`);
     try {
-      const token = localStorage.getItem('admin_token');
+      const token = getAdminToken();
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
       const response = await fetch('/api/admin/approve-ambassador', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
+        headers,
         body: JSON.stringify({ ambassadorId, status: 'rejected' }),
+        credentials: 'include',
       });
 
       if (response.ok) {
@@ -142,23 +161,25 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('admin_token');
-    localStorage.removeItem('admin_id');
+  const handleLogout = async () => {
+    clearAdminSession();
+    try {
+      await fetch('/api/admin/logout', { method: 'POST', credentials: 'include' });
+    } catch {}
     router.push('/admin/login');
   };
 
   const handleApproveSignup = async (signupId: string) => {
     setLoadingAction(`approve-signup-${signupId}`);
     try {
-      const token = localStorage.getItem('admin_token');
+      const token = getAdminToken();
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
       const response = await fetch('/api/admin/approve-signup', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
+        headers,
         body: JSON.stringify({ signupId, status: 'approved' }),
+        credentials: 'include',
       });
 
       if (response.ok) {
@@ -174,14 +195,14 @@ export default function AdminDashboard() {
   const handleRejectSignup = async (signupId: string) => {
     setLoadingAction(`reject-signup-${signupId}`);
     try {
-      const token = localStorage.getItem('admin_token');
+      const token = getAdminToken();
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
       const response = await fetch('/api/admin/approve-signup', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
+        headers,
         body: JSON.stringify({ signupId, status: 'rejected' }),
+        credentials: 'include',
       });
 
       if (response.ok) {
@@ -215,14 +236,14 @@ export default function AdminDashboard() {
         };
       });
 
-      const token = localStorage.getItem('admin_token');
+      const token = getAdminToken();
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
       const response = await fetch('/api/admin/bulk-upload-signups', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
+        headers,
         body: JSON.stringify({ signups: bulkSignups }),
+        credentials: 'include',
       });
 
       if (response.ok) {

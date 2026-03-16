@@ -95,9 +95,11 @@ export default function AboutPage() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16 pt-8"
         >
-          <h1 className="font-mono text-2xl sm:text-3xl md:text-5xl font-bold mb-4 text-[var(--text-primary)]">
-            &gt; ABOUT AAYAM
-          </h1>
+          <div className="inline-block mx-auto mb-6 border-4 border-[var(--accent-cyan)] bg-[var(--bg-card)] px-8 py-4 shadow-[10px_10px_0_var(--accent-magenta)]">
+            <h1 className="font-mono text-2xl sm:text-3xl md:text-5xl font-bold text-[var(--accent-cyan)]">
+              &gt; ABOUT AAYAM
+            </h1>
+          </div>
           <p className="text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto">
             Step Beyond the Known
           </p>
@@ -110,7 +112,7 @@ export default function AboutPage() {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <article className="card-retro rounded-sm p-6 sm:p-8 md:p-12">
+          <article className="card-retro rounded-sm p-6 sm:p-8 md:p-12 border-2 border-[var(--border-subtle)] border-l-4 border-l-[var(--accent-yellow)]">
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
               <div className="p-3 rounded border border-[var(--border-accent)] w-fit">
                 <FaUniversity className="w-6 h-6 text-[var(--accent-cyan)]" aria-hidden />

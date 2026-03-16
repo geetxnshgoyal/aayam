@@ -6,6 +6,9 @@ const IMAGES = [
   '/images/backgrounds/tech-circuit.jpg',
   '/images/backgrounds/tech-matrix.jpg',
   '/images/backgrounds/tech-glows.jpg',
+  'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&q=70',
+  'https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=400&q=70',
+  'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&q=70',
 ];
 
 /**
@@ -22,14 +25,14 @@ export default function ImageMarquee({ className = '' }: { className?: string })
         {[...IMAGES, ...IMAGES].map((src, i) => (
           <div
             key={src + i}
-            className="relative w-32 sm:w-40 h-20 sm:h-24 flex-shrink-0 rounded border border-white/10 opacity-60 hover:opacity-90 transition-opacity"
+            className="relative w-36 sm:w-44 h-24 sm:h-28 flex-shrink-0 rounded border-2 border-[var(--accent-yellow)]/40 opacity-70 hover:opacity-100 hover:border-[var(--accent-cyan)] transition-all duration-300"
           >
             <Image
               src={src}
               alt=""
               fill
               className="object-cover rounded"
-              sizes="160px"
+              sizes="176px"
             />
           </div>
         ))}

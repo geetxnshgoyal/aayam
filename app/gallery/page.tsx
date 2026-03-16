@@ -7,18 +7,18 @@ import { useState } from 'react';
 const categories = ['All', 'Hackathon', 'Robotics', 'Coding', 'Workshops', 'Campus'];
 
 const galleryImages = [
-  { id: 1, category: 'Hackathon', title: '24-Hour Hackathon', description: 'Teams building through the night' },
-  { id: 2, category: 'Robotics', title: 'Robo Fighting Arena', description: 'Combat bots in action' },
-  { id: 3, category: 'Coding', title: 'CP Contest Finals', description: 'Intense algorithmic battles' },
-  { id: 4, category: 'Workshops', title: 'AI/ML Workshop', description: 'Hands-on machine learning session' },
-  { id: 5, category: 'Campus', title: 'Opening Ceremony', description: 'Newton School of Technology campus' },
-  { id: 6, category: 'Hackathon', title: 'Team Collaboration', description: 'Brainstorming innovative solutions' },
-  { id: 7, category: 'Robotics', title: 'Drone Hurdle Racing', description: 'Precision flying competition' },
-  { id: 8, category: 'Coding', title: 'Open Source Sprint', description: 'Contributing to real projects' },
-  { id: 9, category: 'Workshops', title: 'IoT Lab Session', description: 'Smart device programming' },
-  { id: 10, category: 'Campus', title: 'Networking Zone', description: 'Connecting with industry leaders' },
-  { id: 11, category: 'Robotics', title: 'Maze Solver Challenge', description: 'Autonomous bot navigation' },
-  { id: 12, category: 'Campus', title: 'Prize Ceremony', description: 'Celebrating the winners' },
+  { id: 1, category: 'Hackathon', title: '24-Hour Hackathon', description: 'Teams building through the night', src: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80' },
+  { id: 2, category: 'Robotics', title: 'Robo Fighting Arena', description: 'Combat bots in action', src: 'https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=600&q=80' },
+  { id: 3, category: 'Coding', title: 'CP Contest Finals', description: 'Intense algorithmic battles', src: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&q=80' },
+  { id: 4, category: 'Workshops', title: 'AI/ML Workshop', description: 'Hands-on machine learning session', src: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80' },
+  { id: 5, category: 'Campus', title: 'Opening Ceremony', description: 'Newton School of Technology campus', src: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&q=80' },
+  { id: 6, category: 'Hackathon', title: 'Team Collaboration', description: 'Brainstorming innovative solutions', src: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80' },
+  { id: 7, category: 'Robotics', title: 'Drone Hurdle Racing', description: 'Precision flying competition', src: 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80' },
+  { id: 8, category: 'Coding', title: 'Open Source Sprint', description: 'Contributing to real projects', src: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&q=80' },
+  { id: 9, category: 'Workshops', title: 'IoT Lab Session', description: 'Smart device programming', src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
+  { id: 10, category: 'Campus', title: 'Networking Zone', description: 'Connecting with industry leaders', src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80' },
+  { id: 11, category: 'Robotics', title: 'Maze Solver Challenge', description: 'Autonomous bot navigation', src: 'https://images.unsplash.com/photo-1561557944-6e7860b7b847?w=600&q=80' },
+  { id: 12, category: 'Campus', title: 'Prize Ceremony', description: 'Celebrating the winners', src: 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&q=80' },
 ];
 
 export default function GalleryPage() {
@@ -78,16 +78,19 @@ export default function GalleryPage() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: index * 0.03 }}
               viewport={{ once: true }}
-              className="card-retro rounded-sm overflow-hidden cursor-pointer group"
+              className="card-retro rounded-sm overflow-hidden cursor-pointer group border-2 border-[var(--border-subtle)] hover:border-[var(--accent-magenta)] hover:shadow-[8px_8px_0_var(--accent-yellow)] transition-all duration-300"
               onClick={() => setSelectedImage(image.id)}
             >
-              <div className="relative w-full aspect-[4/3] bg-[var(--bg-elevated)]">
-                <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:opacity-30 transition-opacity">
-                  <div className="relative w-20 h-20">
-                    <Image src="/images/logo.png" alt="AAYAM gallery placeholder" fill className="object-contain" />
-                  </div>
-                </div>
-                <div className="absolute inset-0 border border-[var(--border-subtle)] group-hover:border-[var(--accent-cyan)]/50 transition-colors" />
+              <div className="relative w-full aspect-[4/3] bg-[var(--bg-elevated)] overflow-hidden">
+                <Image
+                  src={image.src}
+                  alt={image.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent opacity-90" />
+                <div className="absolute inset-0 border-2 border-[var(--border-subtle)] group-hover:border-[var(--accent-yellow)] transition-colors duration-300" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[var(--bg-card)] to-transparent">
                   <h3 className="font-mono text-sm font-semibold text-[var(--text-primary)]">
                     {image.title}
@@ -136,12 +139,14 @@ export default function GalleryPage() {
         </motion.section>
       </div>
 
-      {selectedImage !== null && (
+      {selectedImage !== null && (() => {
+        const img = galleryImages.find((i) => i.id === selectedImage);
+        return img ? (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
           role="dialog"
           aria-modal="true"
@@ -150,14 +155,10 @@ export default function GalleryPage() {
           <motion.div
             initial={{ scale: 0.95 }}
             animate={{ scale: 1 }}
-            className="relative max-w-4xl w-full aspect-video bg-[var(--bg-card)] rounded-sm border border-[var(--border-accent)] overflow-hidden"
+            className="relative max-w-4xl w-full aspect-video bg-[var(--bg-card)] rounded-sm border-4 border-[var(--accent-yellow)] overflow-hidden shadow-[12px_12px_0_var(--accent-magenta)]"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative w-32 h-32 opacity-20">
-                <Image src="/images/logo.png" alt="AAYAM" fill className="object-contain" />
-              </div>
-            </div>
+            <Image src={img.src} alt={img.title} fill className="object-contain" sizes="(max-width: 1024px) 100vw, 896px" />
             <button
               type="button"
               onClick={() => setSelectedImage(null)}
@@ -168,9 +169,14 @@ export default function GalleryPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
+            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 to-transparent">
+              <h3 className="font-mono font-bold text-white">{img.title}</h3>
+              <p className="text-sm text-white/80">{img.description}</p>
+            </div>
           </motion.div>
         </motion.div>
-      )}
+        ) : null;
+      })()}
     </div>
   );
 }

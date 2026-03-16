@@ -49,17 +49,14 @@ export default function ComicoBackground() {
         }}
       />
 
-      {/* Diagonal stripes — vintage comic print */}
+      {/* Cross-hatch / diagonal grid (arcade-style over dots) */}
       <div
-        className="absolute inset-0 opacity-[0.05] motion-reduce:opacity-[0.02] pointer-events-none"
+        className="absolute inset-0 opacity-[0.08] motion-reduce:opacity-[0.04] pointer-events-none"
         style={{
-          backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 24px, var(--accent-yellow) 24px, var(--accent-yellow) 25px)',
-        }}
-      />
-      <div
-        className="absolute inset-0 opacity-[0.04] motion-reduce:opacity-[0.01] pointer-events-none"
-        style={{
-          backgroundImage: 'repeating-linear-gradient(-45deg, transparent, transparent 28px, var(--accent-magenta) 28px, var(--accent-magenta) 29px)',
+          backgroundImage: `
+            repeating-linear-gradient(45deg, transparent, transparent 19px, rgba(255,214,10,0.15) 19px, rgba(255,214,10,0.15) 20px),
+            repeating-linear-gradient(-45deg, transparent, transparent 19px, rgba(255,214,10,0.12) 19px, rgba(255,214,10,0.12) 20px)
+          `,
         }}
       />
 
@@ -92,11 +89,17 @@ export default function ComicoBackground() {
         }}
       />
 
-      {/* Corner L-brackets — comic panel frame */}
-      <div className="absolute top-0 left-0 w-20 h-20 md:w-28 md:h-28 border-l-4 border-t-4 border-[var(--accent-yellow)] opacity-50" />
-      <div className="absolute top-0 right-0 w-20 h-20 md:w-28 md:h-28 border-r-4 border-t-4 border-[var(--accent-magenta)] opacity-50" />
-      <div className="absolute bottom-0 left-0 w-20 h-20 md:w-28 md:h-28 border-l-4 border-b-4 border-[var(--accent-cyan)] opacity-50" />
-      <div className="absolute bottom-0 right-0 w-20 h-20 md:w-28 md:h-28 border-r-4 border-b-4 border-[var(--accent-orange)] opacity-50" />
+      {/* Arcade-style frame: thick pink top bar with yellow border */}
+      <div className="absolute top-0 left-0 right-0 h-3 md:h-4 bg-[var(--accent-magenta)] border-b-2 border-[var(--accent-yellow)] opacity-90" />
+      <div className="absolute top-0 left-0 right-0 h-1 border-b-2 border-[var(--accent-yellow)] opacity-80" />
+      {/* Thick yellow bottom bar */}
+      <div className="absolute bottom-0 left-0 right-0 h-3 md:h-4 bg-[var(--accent-yellow)] opacity-90" />
+
+      {/* Corner L-brackets — comic/arcade panel frame */}
+      <div className="absolute top-3 md:top-4 left-0 w-20 h-20 md:w-28 md:h-28 border-l-4 border-t-4 border-[var(--accent-yellow)] opacity-60" />
+      <div className="absolute top-3 md:top-4 right-0 w-20 h-20 md:w-28 md:h-28 border-r-4 border-t-4 border-[var(--accent-yellow)] opacity-60" />
+      <div className="absolute bottom-3 md:bottom-4 left-0 w-20 h-20 md:w-28 md:h-28 border-l-4 border-b-4 border-[var(--accent-yellow)] opacity-60" />
+      <div className="absolute bottom-3 md:bottom-4 right-0 w-20 h-20 md:w-28 md:h-28 border-r-4 border-b-4 border-[var(--accent-yellow)] opacity-60" />
 
       {/* Paper / print noise */}
       <div

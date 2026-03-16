@@ -2,21 +2,14 @@ import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import jwt from 'jsonwebtoken';
 
-import { getJwtSecret } from '@/lib/auth';
+import { getJwtSecret, getAdminTokenFromRequest } from '@/lib/auth';
 
 export async function GET(request: Request) {
   try {
-    // Verify admin token
-    const authHeader = request.headers.get('authorization');
-    
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+    const token = getAdminTokenFromRequest(request);
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
-
-    const token = authHeader.substring(7);
     
     try {
       jwt.verify(token, getJwtSecret());

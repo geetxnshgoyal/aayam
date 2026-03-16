@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import jwt from 'jsonwebtoken';
 
-import { getJwtSecret } from '@/lib/auth';
+import { getJwtSecret, getAdminTokenFromRequest } from '@/lib/auth';
 
 interface CSVRow {
   referral_code: string;
@@ -14,18 +14,10 @@ interface CSVRow {
 
 export async function POST(request: Request) {
   try {
-    // Verify admin token
-    const authHeader = request.headers.get('authorization');
-    
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+    const token = getAdminTokenFromRequest(request);
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
-
-    const token = authHeader.substring(7);
-    
     try {
       jwt.verify(token, getJwtSecret());
     } catch (error) {

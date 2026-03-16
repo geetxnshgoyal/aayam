@@ -19,7 +19,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative border-t border-[var(--border-subtle)] bg-[var(--bg-card)] text-[var(--text-primary)] pt-16 pb-8"
+      className="relative border-t-4 border-[var(--accent-yellow)] bg-[var(--bg-card)] text-[var(--text-primary)] pt-16 pb-8 shadow-[0_-4px_0_var(--accent-magenta)]"
       role="contentinfo"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

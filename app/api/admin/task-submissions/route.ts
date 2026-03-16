@@ -1,22 +1,16 @@
 import { supabase } from '@/lib/supabase';
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
-import { getJwtSecret } from '@/lib/auth';
+import { getJwtSecret, getAdminTokenFromRequest } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
-    const authHeader = request.headers.get('authorization');
-    const token = authHeader?.split(' ')[1];
-
+    const token = getAdminTokenFromRequest(request);
     if (!token) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Verify admin token
-    const decoded = jwt.verify(token, getJwtSecret()) as any;
-    if (!decoded.isAdmin) {
-      return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
-    }
+    jwt.verify(token, getJwtSecret());
 
     // Get pending submissions with task and ambassador info
     const { data: submissions, error } = await supabase
@@ -44,17 +38,12 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const authHeader = request.headers.get('authorization');
-    const token = authHeader?.split(' ')[1];
-
+    const token = getAdminTokenFromRequest(request);
     if (!token) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const decoded = jwt.verify(token, getJwtSecret()) as any;
-    if (!decoded.isAdmin) {
-      return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
-    }
+    const decoded = jwt.verify(token, getJwtSecret()) as { adminId?: string; id?: string };
 
     const { submissionId, status, pointsAwarded, notes } = await request.json();
 
@@ -85,7 +74,7 @@ export async function POST(request: NextRequest) {
         points_awarded: status === 'approved' ? pointsAwarded : null,
         admin_notes: notes,
         reviewed_at: new Date().toISOString(),
-        reviewed_by: decoded.id,
+        reviewed_by: decoded.adminId ?? decoded.id,
       })
       .eq('id', submissionId);
 

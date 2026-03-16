@@ -3,22 +3,14 @@ import { supabase } from '@/lib/supabase';
 import jwt from 'jsonwebtoken';
 import { sendAmbassadorApprovalEmail } from '@/lib/email';
 
-import { getJwtSecret } from '@/lib/auth';
+import { getJwtSecret, getAdminTokenFromRequest } from '@/lib/auth';
 
 export async function POST(request: Request) {
   try {
-    // Verify admin token
-    const authHeader = request.headers.get('authorization');
-    
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+    const token = getAdminTokenFromRequest(request);
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
-
-    const token = authHeader.substring(7);
-    
     try {
       jwt.verify(token, getJwtSecret());
     } catch (error) {

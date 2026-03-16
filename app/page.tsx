@@ -38,11 +38,11 @@ const highlights = [
 ];
 
 const competitions = [
-  { name: 'Hackathon', prize: '₹50,000', icon: '💻' },
-  { name: 'Robotics', prize: '₹40,000', icon: '🤖' },
-  { name: 'CP Challenge', prize: '₹30,000', icon: '⚡' },
-  { name: 'AI Battle', prize: '₹35,000', icon: '🧠' },
-  { name: 'Web3 Hack', prize: '₹25,000', icon: '🔗' },
+  { name: 'Hackathon', prize: '₹50,000' },
+  { name: 'Robotics', prize: '₹40,000' },
+  { name: 'CP Challenge', prize: '₹30,000' },
+  { name: 'AI Battle', prize: '₹35,000' },
+  { name: 'Web3 Hack', prize: '₹25,000' },
 ];
 
 export default function Home() {
@@ -55,8 +55,21 @@ export default function Home() {
         aria-labelledby="hero-heading"
         className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-[env(safe-area-inset-bottom)]"
       >
+        {/* Hero background image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/downloaded/hero-tech.jpg"
+            alt=""
+            fill
+            className="object-cover opacity-30"
+            priority
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-deep)]/70 via-[var(--bg-deep)]/85 to-[var(--bg-deep)]" />
+        </div>
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--accent-yellow)]/30 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--accent-yellow)]/50 to-transparent" />
+          <div className="absolute top-1/2 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-[var(--accent-yellow)]/5 to-transparent" />
         </div>
 
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto w-full">
@@ -78,7 +91,7 @@ export default function Home() {
             </div>
           </motion.div>
 
-          <div className="panel-comic panel-comic-yellow bg-[var(--bg-card)]/95 backdrop-blur-sm p-5 sm:p-6 md:p-10 rounded-sm max-w-3xl mx-auto w-full min-w-0">
+          <div className="panel-comic panel-comic-yellow bg-[var(--bg-card)]/95 backdrop-blur-md p-6 sm:p-8 md:p-12 rounded-sm max-w-3xl mx-auto w-full min-w-0 border-4 border-[var(--accent-yellow)] shadow-[10px_10px_0_var(--accent-magenta)]">
             <motion.h1
               id="hero-heading"
               initial={{ y: 10, opacity: 0 }}
@@ -229,19 +242,29 @@ export default function Home() {
       </section>
 
       {/* Next Dimension — highlights */}
-      <section className="relative py-16 md:py-24 overflow-hidden" aria-labelledby="highlights-heading">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative py-20 md:py-28 overflow-hidden border-y-2 border-[var(--accent-magenta)]/20" aria-labelledby="highlights-heading">
+        <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
+          <Image
+            src="/images/downloaded/hackathon.jpg"
+            alt=""
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <RevealOnScroll direction="up">
-            <div className="text-center mb-10">
-              <h2 id="highlights-heading" className="font-pixel text-lg md:text-2xl font-bold mb-3 text-[var(--text-primary)] uppercase">
-                NEXT DIMENSION
-              </h2>
-              <div className="section-underline mx-auto mb-3" />
+            <div className="text-center mb-12">
+              <div className="inline-block mx-auto mb-4 border-4 border-[var(--accent-magenta)] bg-[var(--bg-card)] px-6 py-2 shadow-[8px_8px_0_var(--accent-yellow)]">
+                <h2 id="highlights-heading" className="font-pixel text-lg md:text-2xl font-bold text-[var(--accent-magenta)] uppercase">
+                  NEXT DIMENSION
+                </h2>
+              </div>
               <p className="text-[var(--text-secondary)] text-sm md:text-base">Build beyond limits. Compete for glory.</p>
             </div>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {highlights.map((item, index) => (
               <RevealOnScroll key={item.title} direction="up" className="h-full">
                 <GlitchBorder className="h-full">
@@ -250,7 +273,7 @@ export default function Home() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.35, delay: index * 0.06 }}
                     viewport={{ once: true }}
-                    className="card-retro group p-5 rounded-lg h-full flex flex-col"
+                    className="card-retro group p-6 rounded-lg h-full flex flex-col border-2 border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:shadow-[6px_6px_0_var(--accent-magenta)] transition-all duration-300 bg-[var(--bg-card)]/90"
                   >
                     <div className="w-9 h-9 rounded-sm border-2 border-[var(--accent-yellow)] flex items-center justify-center mb-3 group-hover:border-[var(--accent-cyan)] group-hover:shadow-[0_0_12px_var(--accent-cyan-muted)] transition-all">
                       <span className="text-[var(--accent-yellow)] font-mono text-base">▸</span>
@@ -276,14 +299,15 @@ export default function Home() {
       </section>
 
       {/* Competitions strip */}
-      <section className="relative py-16 md:py-24 overflow-hidden" aria-labelledby="competitions-heading">
+      <section className="relative py-20 md:py-28 overflow-hidden border-y-2 border-[var(--accent-cyan)]/20" aria-labelledby="competitions-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <RevealOnScroll direction="up">
-            <div className="text-center mb-10">
-              <h2 id="competitions-heading" className="font-pixel text-lg md:text-2xl font-bold mb-3 text-[var(--text-primary)] uppercase">
-                COMPETITIONS
-              </h2>
-              <div className="section-underline mx-auto mb-3" />
+            <div className="text-center mb-12">
+              <div className="inline-block mx-auto mb-4 border-4 border-[var(--accent-cyan)] bg-[var(--bg-card)] px-6 py-2 shadow-[8px_8px_0_var(--accent-orange)]">
+                <h2 id="competitions-heading" className="font-pixel text-lg md:text-2xl font-bold text-[var(--accent-cyan)] uppercase">
+                  COMPETITIONS
+                </h2>
+              </div>
               <p className="text-[var(--text-secondary)] text-sm md:text-base">Compete. Win. Glory awaits.</p>
             </div>
           </RevealOnScroll>
@@ -300,13 +324,12 @@ export default function Home() {
                 >
                   <Link
                     href="/competitions"
-                    className="card-retro group block p-5 rounded-sm h-full text-center transition-all duration-300"
+                    className="card-retro group block p-6 rounded-sm h-full text-center transition-all duration-300 border-2 border-[var(--border-subtle)] hover:border-[var(--accent-yellow)] hover:shadow-[6px_6px_0_var(--accent-cyan)] bg-[var(--bg-card)]/80"
                   >
-                    <span className="text-3xl md:text-4xl mb-3 block" aria-hidden>{comp.icon}</span>
-                    <h3 className="font-mono text-sm font-semibold text-[var(--text-primary)] mb-1">
+                    <h3 className="font-mono text-sm font-semibold text-[var(--text-primary)] mb-2">
                       {comp.name}
                     </h3>
-                    <p className="font-mono text-base font-bold text-[var(--accent-yellow)]">
+                    <p className="font-mono text-base font-bold text-[var(--accent-yellow)] mb-3">
                       {comp.prize}
                     </p>
                     <div className="mt-3 h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-magenta)] transition-all duration-300 mx-auto rounded" />

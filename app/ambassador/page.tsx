@@ -46,13 +46,15 @@ export default function AmbassadorPage() {
           transition={{ duration: 0.5 }}
           className="text-center mb-20 pt-8"
         >
-          <span className="inline-flex items-center gap-2 font-mono text-xs text-[var(--accent-cyan)] border border-[var(--border-accent)] px-4 py-2 rounded mb-6">
+          <span className="inline-flex items-center gap-2 font-mono text-xs text-[var(--accent-cyan)] border-2 border-[var(--accent-cyan)] px-4 py-2 rounded mb-6 bg-[var(--bg-card)] shadow-[4px_4px_0_var(--accent-magenta)]">
             <HiSpeakerphone className="w-4 h-4" aria-hidden />
             Recruiting Ambassadors
           </span>
-          <h1 className="font-mono text-3xl md:text-5xl font-bold mb-6 text-[var(--text-primary)]">
-            &gt; JOIN THE <span className="text-[var(--accent-primary)]">SYNDICATE</span>
-          </h1>
+          <div className="inline-block mx-auto mb-6 border-4 border-[var(--accent-primary)] bg-[var(--bg-card)] px-8 py-4 shadow-[10px_10px_0_var(--accent-yellow)]">
+            <h1 className="font-mono text-2xl md:text-4xl font-bold text-[var(--accent-primary)]">
+              &gt; JOIN THE <span className="text-[var(--accent-yellow)]">SYNDICATE</span>
+            </h1>
+          </div>
           <p className="text-[var(--text-secondary)] text-lg max-w-2xl mx-auto mb-10">
             Become the face of AAYAM. Promote AAYAM 2026 on your campus.
           </p>

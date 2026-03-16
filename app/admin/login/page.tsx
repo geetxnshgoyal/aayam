@@ -2,12 +2,9 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
 import { HiMail, HiLockClosed, HiShieldCheck } from 'react-icons/hi';
 import Link from 'next/link';
 import LoadingSpinner from '@/components/LoadingSpinner';
-import Magnetic from '@/components/Magnetic';
-import TextEncrypt from '@/components/TextEncrypt';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -18,30 +15,84 @@ export default function AdminLoginPage() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [testStatus, setTestStatus] = useState<string | null>(null);
+
+  const testConnection = async () => {
+    setTestStatus('Checking...');
+    try {
+      const r = await fetch('/api/admin/login');
+      const data = await r.json();
+      setTestStatus(r.ok ? 'API reachable from this page.' : `API returned ${r.status}`);
+    } catch (e) {
+      setTestStatus(`Failed: ${e instanceof Error ? e.message : 'Could not reach API'}`);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
-    try {
-      const response = await fetch('/api/admin/login', {
+    const doPost = () =>
+      fetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
+        credentials: 'include',
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        localStorage.setItem('admin_token', data.token);
-        localStorage.setItem('admin_id', data.admin.id);
-        router.push('/admin/dashboard');
-      } else {
-        setError(data.error || 'OVERRIDE_REJECTED');
+    let response: Response;
+    try {
+      response = await doPost();
+    } catch {
+      await new Promise((r) => setTimeout(r, 800));
+      try {
+        response = await doPost();
+      } catch {
+        setError('Connection error. Click "Test connection" below to verify the API from this page.');
+        setLoading(false);
+        return;
       }
-    } catch (error) {
-      setError('CONNECTION_ERROR: Core node unreachable.');
+    }
+
+    try {
+      const text = await response.text();
+      let data: { error?: string; token?: string; admin?: { id: string } };
+      try {
+        data = text ? JSON.parse(text) : {};
+      } catch {
+        setError(`Server returned non-JSON (status ${response.status}). Check server logs.`);
+        setLoading(false);
+        return;
+      }
+      if (response.ok) {
+        if (data.token && data.admin?.id) {
+          try {
+            localStorage.setItem('admin_token', data.token);
+            localStorage.setItem('admin_id', data.admin.id);
+          } catch {
+            try {
+              sessionStorage.setItem('admin_token', data.token);
+              sessionStorage.setItem('admin_id', data.admin.id);
+            } catch {
+              // Cookie is set by API — redirect anyway; dashboard will use credentials
+            }
+          }
+          window.location.href = '/admin/dashboard';
+        } else {
+          setError('Server returned an invalid response. Try again.');
+        }
+      } else {
+        setError(data.error || `Error ${response.status}. Try again.`);
+      }
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : 'Unknown error';
+      const isStorage = /localStorage|sessionStorage|access is denied/i.test(msg);
+      setError(
+        isStorage
+          ? 'Your browser blocked storage. Open this page in a new tab (not iframe), allow cookies, or disable strict privacy mode.'
+          : `Request failed: ${msg}`
+      );
     } finally {
       setLoading(false);
     }
@@ -49,51 +100,39 @@ export default function AdminLoginPage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (error) setError('');
   };
 
   return (
     <div className="min-h-screen pt-32 pb-32 relative bg-transparent flex items-center justify-center overflow-hidden px-6">
       <div className="max-w-xl w-full relative z-10">
-        <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-12"
-        >
-          <motion.div
-            initial={{ scale: 0.8, rotate: -10 }}
-            animate={{ scale: 1, rotate: 0 }}
-            className="inline-flex items-center justify-center w-20 h-20 bg-transparent/5 backdrop-blur-md rounded-3xl border border-white/10 mb-8 shadow-[0_0_30px_rgba(255,255,255,0.05)]"
-          >
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-transparent/5 backdrop-blur-md rounded-3xl border border-white/10 mb-8 shadow-[0_0_30px_rgba(255,255,255,0.05)]">
             <HiShieldCheck className="w-10 h-10 text-[var(--horror-magenta)]" />
-          </motion.div>
+          </div>
 
           <h1 className="text-4xl md:text-7xl font-display font-black mb-6 text-white tracking-tighter uppercase">
-            <TextEncrypt text="ARCHITECT_OVERRIDE" />
+            ARCHITECT_OVERRIDE
           </h1>
 
           <p className="text-gray-400 text-lg font-light leading-relaxed">
             Restricted Core Access. Root credentials required for protocol management.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="bg-[#050508]/60 backdrop-blur-3xl rounded-[3rem] p-10 md:p-16 border border-white/5 relative overflow-hidden shadow-2xl"
-        >
+        <div className="bg-[#050508]/60 backdrop-blur-3xl rounded-[3rem] p-10 md:p-16 border border-white/5 relative overflow-hidden shadow-2xl">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--horror-magenta)] to-transparent" />
           <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--horror-cyan)] to-transparent" />
 
           {error && (
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="mb-8 p-5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-500 text-center font-mono text-xs tracking-widest uppercase"
-            >
-              {error}
-            </motion.div>
+            <div className="mb-8 p-5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-500 text-center font-mono text-xs tracking-widest uppercase space-y-2">
+              <p>{error}</p>
+            </div>
+          )}
+          {testStatus && (
+            <div className="mb-6 p-3 rounded-xl bg-white/5 border border-white/10 text-gray-300 text-center font-mono text-xs">
+              {testStatus}
+            </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-8">
@@ -136,31 +175,37 @@ export default function AdminLoginPage() {
             </div>
 
             <div className="pt-4">
-              <Magnetic>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full py-6 bg-transparent text-black font-black text-xl tracking-[0.2em] rounded-2xl hover:bg-[var(--horror-magenta)] hover:text-white transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4 uppercase"
-                >
-                  {loading ? (
-                    <>
-                      <LoadingSpinner size="sm" color="black" />
-                      <span>Verifying...</span>
-                    </>
-                  ) : (
-                    'Initialize'
-                  )}
-                </button>
-              </Magnetic>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-6 bg-transparent text-black font-black text-xl tracking-[0.2em] rounded-2xl hover:bg-[var(--horror-magenta)] hover:text-white transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4 uppercase"
+              >
+                {loading ? (
+                  <>
+                    <LoadingSpinner size="sm" color="black" />
+                    <span>Verifying...</span>
+                  </>
+                ) : (
+                  'Initialize'
+                )}
+              </button>
             </div>
           </form>
 
-          <div className="mt-12 text-center">
+          <div className="mt-8 flex flex-col items-center gap-4">
+            <button
+              type="button"
+              onClick={testConnection}
+              disabled={loading}
+              className="text-gray-500 hover:text-white font-mono text-xs uppercase tracking-[0.2em] transition-colors underline disabled:opacity-50"
+            >
+              Test connection
+            </button>
             <Link href="/ambassador/login" className="text-gray-500 hover:text-white font-mono text-xs uppercase tracking-[0.2em] transition-colors border-b border-white/10">
               ← TERMINATE_ADMIN_SESSION
             </Link>
           </div>
-        </motion.div>
+        </div>
 
         <div className="mt-12 text-center text-gray-600 font-mono text-[9px] uppercase tracking-[0.6em] opacity-30 leading-loose">
           CORE_SYSTEM_V2.0_CLEARANCE_REQUIRED <br />

@@ -59,9 +59,11 @@ export default function SponsorsPage() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16 pt-8"
         >
-          <h1 className="font-mono text-2xl sm:text-3xl md:text-5xl font-bold mb-4 text-[var(--text-primary)]">
-            &gt; OUR SPONSORS
-          </h1>
+          <div className="inline-block mx-auto mb-6 border-4 border-[var(--accent-orange)] bg-[var(--bg-card)] px-8 py-4 shadow-[10px_10px_0_var(--accent-magenta)]">
+            <h1 className="font-mono text-2xl sm:text-3xl md:text-5xl font-bold text-[var(--accent-orange)]">
+              &gt; OUR SPONSORS
+            </h1>
+          </div>
           <p className="text-[var(--text-secondary)] max-w-2xl mx-auto">
             AAYAM is made possible by our incredible sponsors. Together, we&apos;re building new dimensions of technology.
           </p>
@@ -88,7 +90,7 @@ export default function SponsorsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.08 }}
                 viewport={{ once: true }}
-                className="card-retro rounded-sm p-6 text-center"
+                className="card-retro rounded-sm p-6 text-center border-2 border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:shadow-[6px_6px_0_var(--accent-yellow)] transition-all duration-300"
               >
                 <item.icon className="w-10 h-10 mx-auto mb-4 text-[var(--accent-cyan)]" aria-hidden />
                 <h3 className="font-mono font-semibold text-[var(--text-primary)] mb-2">{item.title}</h3>
