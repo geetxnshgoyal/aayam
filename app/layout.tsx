@@ -25,10 +25,10 @@ const pressStart2P = Press_Start_2P({
 
 export const metadata: Metadata = {
   title: {
-    default: "AAYAM 2026 — Step Beyond the Known | Newton School of Technology Techfest",
+    default: "AAYAM 2026 | Step Beyond the Known | Newton School of Technology Techfest",
     template: "%s | AAYAM 2026",
   },
-  description: "AAYAM 2026 (aayamfest, aayam techfest): Step beyond the known. NST Bengaluru techfest by Newton School of Technology — hackathons, robotics, CP, open source. April 24-25, 2026. ₹2L+ prize pool.",
+  description: "AAYAM 2026 (aayamfest, aayam techfest): Step beyond the known. NST Bengaluru techfest by Newton School of Technology. Hackathons, robotics, CP, open source. April 24-25, 2026. ₹2L+ prize pool.",
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
@@ -55,8 +55,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "AAYAM 2026 — Step Beyond the Known | AAYAM fest | NST Bengaluru Techfest",
-    description: "AAYAM (aayamfest, aayam tech fest). Step beyond the known. NST Bengaluru techfest — 6+ competitions, ₹2L+ prizes. April 24-25, 2026.",
+    title: "AAYAM 2026 | Step Beyond the Known | AAYAM fest | NST Bengaluru Techfest",
+    description: "AAYAM (aayamfest, aayam tech fest). Step beyond the known. NST Bengaluru techfest. 6+ competitions, ₹2L+ prizes. April 24-25, 2026.",
     type: "website",
     url: siteUrl,
     siteName: "AAYAM 2026",
@@ -66,13 +66,13 @@ export const metadata: Metadata = {
         url: SITE_LOGO_PATH,
         width: 1200,
         height: 630,
-        alt: "AAYAM 2026 — Step Beyond the Known | Newton School of Technology Techfest",
+        alt: "AAYAM 2026 | Step Beyond the Known | Newton School of Technology Techfest",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AAYAM 2026 — AAYAM fest | NST Bengaluru Techfest",
+    title: "AAYAM 2026 | AAYAM fest | NST Bengaluru Techfest",
     description: "AAYAM techfest (aayamfest). Step beyond the known. 6+ competitions, ₹2L+ prizes. April 24-25 at NST, Bengaluru.",
     images: [SITE_LOGO_PATH],
   },
@@ -119,7 +119,7 @@ export default function RootLayout({
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     description:
-      "AAYAM 2026 (aayamfest, AAYAM tech fest) — Step beyond the known. NST Bengaluru techfest by Newton School of Technology. Hackathons, robotics, CP, open source. April 24-25, 2026.",
+      "AAYAM 2026 (aayamfest, AAYAM tech fest). Step beyond the known. NST Bengaluru techfest by Newton School of Technology. Hackathons, robotics, CP, open source. April 24-25, 2026.",
     startDate: "2026-04-24T09:00:00+05:30",
     endDate: "2026-04-25T20:00:00+05:30",
     organizer: {
@@ -155,7 +155,7 @@ export default function RootLayout({
     "@type": "WebSite",
     name: "AAYAM 2026",
     url: siteUrl,
-    description: "AAYAM 2026 (aayamfest, aayam techfest) — Step beyond the known. NST Bengaluru techfest by Newton School of Technology.",
+    description: "AAYAM 2026 (aayamfest, aayam techfest). Step beyond the known. NST Bengaluru techfest by Newton School of Technology.",
     publisher: { "@id": `${siteUrl}#organization` },
     inLanguage: "en-IN",
     potentialAction: {

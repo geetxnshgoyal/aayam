@@ -1,18 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
-import { getJwtSecret } from '@/lib/auth';
+import { verifyAmbassadorToken } from '@/lib/auth';
 import { getSignupByEmail, createSignup } from '@/lib/firestore-helpers';
 
 export async function POST(request: NextRequest) {
   try {
-    const authHeader = request.headers.get('authorization');
-
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const token = authHeader.substring(7);
-    const decoded = jwt.verify(token, getJwtSecret(), { algorithms: ['HS256'] }) as { id: string };
+    const auth = verifyAmbassadorToken(request);
+    if (!auth) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const body = await request.json();
     const participant_name = typeof body.participant_name === 'string' ? body.participant_name.trim().slice(0, 200) : '';
@@ -34,7 +27,7 @@ export async function POST(request: NextRequest) {
     }
 
     const signup = await createSignup({
-      ambassador_id: decoded.id,
+      ambassador_id: auth.id,
       participant_name,
       participant_email,
       participant_phone: participant_phone || undefined,

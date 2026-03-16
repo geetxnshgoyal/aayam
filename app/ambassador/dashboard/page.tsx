@@ -153,8 +153,11 @@ export default function DashboardPage() {
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     clearAmbassadorSession();
+    try {
+      await fetch('/api/ambassador/logout', { method: 'POST', credentials: 'include' });
+    } catch {}
     router.push('/ambassador/login');
   };
 

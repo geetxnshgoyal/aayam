@@ -77,7 +77,9 @@ export async function createAmbassador(data: Omit<Ambassador, 'id' | 'created_at
 }
 
 export async function updateAmbassador(id: string, updates: Partial<Ambassador>): Promise<void> {
-  await getDb().collection(COLLECTIONS.ambassadors).doc(id).update(updates);
+  const clean = Object.fromEntries(Object.entries(updates).filter(([, v]) => v !== undefined)) as Record<string, unknown>;
+  if (Object.keys(clean).length === 0) return;
+  await getDb().collection(COLLECTIONS.ambassadors).doc(id).update(clean);
 }
 
 export async function getAllAmbassadors(): Promise<(Ambassador & { id: string })[]> {
@@ -166,7 +168,9 @@ export async function getSignupById(id: string): Promise<Signup | null> {
 }
 
 export async function updateSignup(id: string, updates: Partial<Signup>): Promise<void> {
-  await getDb().collection(COLLECTIONS.signups).doc(id).update(updates);
+  const clean = Object.fromEntries(Object.entries(updates).filter(([, v]) => v !== undefined)) as Record<string, unknown>;
+  if (Object.keys(clean).length === 0) return;
+  await getDb().collection(COLLECTIONS.signups).doc(id).update(clean);
 }
 
 /** Tasks */

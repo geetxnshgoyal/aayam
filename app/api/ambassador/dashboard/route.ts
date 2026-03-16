@@ -1,25 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
-import { getJwtSecret } from '@/lib/auth';
+import { verifyAmbassadorToken } from '@/lib/auth';
 import { getAmbassadorById, getSignupsByAmbassadorId } from '@/lib/firestore-helpers';
 
 export async function GET(request: NextRequest) {
   try {
-    const authHeader = request.headers.get('authorization');
+    const auth = verifyAmbassadorToken(request);
+    if (!auth) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const token = authHeader.substring(7);
-    const decoded = jwt.verify(token, getJwtSecret(), { algorithms: ['HS256'] }) as { id: string };
-
-    const ambassador = await getAmbassadorById(decoded.id);
+    const ambassador = await getAmbassadorById(auth.id);
     if (!ambassador) {
       return NextResponse.json({ error: 'Ambassador not found' }, { status: 404 });
     }
 
-    const signups = await getSignupsByAmbassadorId(decoded.id);
+    const signups = await getSignupsByAmbassadorId(auth.id);
 
     const { password: _, ...ambassadorData } = ambassador;
 

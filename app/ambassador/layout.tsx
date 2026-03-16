@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { PRIMARY_SITE_URL, SITE_LOGO_PATH, SITE_KEYWORDS } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Ambassador | AAYAM 2026 — AAYAM fest | NST Bengaluru Techfest",
+  title: "Ambassador | AAYAM 2026 | NST Bengaluru Techfest",
   description:
     "AAYAM 2026 (aayamfest) ambassador program. Become a campus ambassador for AAYAM tech fest at NST Bengaluru. Promote, earn rewards, register or login.",
   alternates: { canonical: `${PRIMARY_SITE_URL}/ambassador` },
   openGraph: {
-    title: "AAYAM 2026 Ambassador — AAYAM fest | NST Bengaluru",
+    title: "AAYAM 2026 Ambassador | NST Bengaluru",
     description: "Join AAYAM (aayamfest) ambassador program. Promote AAYAM techfest on your campus.",
     url: `${PRIMARY_SITE_URL}/ambassador`,
     type: "website",

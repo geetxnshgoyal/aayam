@@ -46,11 +46,21 @@ export async function POST(request: NextRequest) {
 
     const { password: _, ...ambassadorData } = ambassador;
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       message: 'Login successful',
       token,
       ambassador: ambassadorData,
     });
+
+    response.cookies.set('ambassador_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24 * 7,
+      path: '/',
+    });
+
+    return response;
   } catch (error) {
     const msg = error instanceof Error ? error.message : String(error);
     console.error('Ambassador login error:', msg);

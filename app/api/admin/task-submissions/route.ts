@@ -5,7 +5,6 @@ import {
   getSubmissionById,
   updateTaskSubmission,
   addAmbassadorPoints,
-  processAutomaticConversions,
 } from '@/lib/firestore-helpers';
 
 export async function GET(request: NextRequest) {
@@ -70,11 +69,6 @@ export async function POST(request: NextRequest) {
         'task',
         submission.task_id
       );
-      try {
-        await processAutomaticConversions(submission.ambassador_id);
-      } catch (convErr) {
-        console.error('Auto-conversion failed (approval still succeeded):', convErr);
-      }
     }
 
     return NextResponse.json({

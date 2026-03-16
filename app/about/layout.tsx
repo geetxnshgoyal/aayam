@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `${PRIMARY_SITE_URL}/about` },
   openGraph: {
     title: "About AAYAM 2026",
-    description: "AAYAM 2026 — Step beyond the known. Vision, mission, and team.",
+    description: "AAYAM 2026. Step beyond the known. Vision, mission, and team.",
     url: `${PRIMARY_SITE_URL}/about`,
     type: "website",
     images: [{ url: `${PRIMARY_SITE_URL}${SITE_LOGO_PATH}`, width: 1200, height: 630, alt: "AAYAM 2026" }],

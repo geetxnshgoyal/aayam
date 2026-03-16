@@ -695,7 +695,7 @@ export default function AdminDashboard() {
                 <div className="bg-[#0d0d14]/90 backdrop-blur-3xl rounded-[3rem] border border-white/15 overflow-hidden shadow-2xl">
                   <div className="p-8 border-b border-white/15">
                     <h2 className="text-2xl font-display font-black text-white uppercase tracking-widest">Pending_Task_Submissions</h2>
-                    <p className="text-slate-400 font-mono text-sm mt-2">Review ambassador task proofs and award points. Approved submissions auto-credit points.</p>
+                    <p className="text-slate-400 font-mono text-sm mt-2">Review ambassador task proofs and award points. Ambassadors convert points to signups manually.</p>
                   </div>
                   <div className="overflow-x-auto terminal-scrollbar">
                     {taskSubmissionsLoading ? (
