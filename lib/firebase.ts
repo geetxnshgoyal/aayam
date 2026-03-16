@@ -52,8 +52,8 @@ export const COLLECTIONS = {
 
 /** Firestore Timestamp to ISO string for API responses */
 export function toISO(ts: { toDate?: () => Date } | undefined): string {
-  if (!ts || typeof (ts as any).toDate !== 'function') return '';
-  return (ts as any).toDate().toISOString();
+  if (!ts || typeof ts.toDate !== 'function') return '';
+  return ts.toDate().toISOString();
 }
 
 /** Doc snapshot to object with id */

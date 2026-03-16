@@ -16,7 +16,7 @@ export default function DynamicBackground({ type = 'combined', opacity = 1 }: An
   const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
-    setShouldRender(true);
+    queueMicrotask(() => setShouldRender(true));
   }, []);
 
   if (!shouldRender) {

@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 
 // Tech images for the scroll experience
@@ -341,6 +341,16 @@ function ImageScrollSection({
     return unsubscribe;
   }, [scrollYProgress, onActivate]);
 
+  const particleConfigs = useMemo(() =>
+    [...Array(15)].map(() => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      xOffset: Math.random() * 100 - 50,
+      duration: 6 + Math.random() * 4,
+      delay: Math.random() * 2,
+    })),
+  []);
+
   return (
     <section
       ref={ref}
@@ -415,24 +425,24 @@ function ImageScrollSection({
       </motion.div>
 
       {/* Floating Particles */}
-      {[...Array(15)].map((_, i) => (
+      {particleConfigs.map((cfg, i) => (
         <motion.div
           key={i}
           className="absolute w-2 h-2 rounded-full opacity-40"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: `${cfg.left}%`,
+            top: `${cfg.top}%`,
             backgroundColor: section.color,
           }}
           animate={{
             y: [0, -150, 0],
-            x: [0, Math.random() * 100 - 50, 0],
+            x: [0, cfg.xOffset, 0],
             opacity: [0.2, 0.6, 0.2],
           }}
           transition={{
-            duration: 6 + Math.random() * 4,
+            duration: cfg.duration,
             repeat: Infinity,
-            delay: Math.random() * 2,
+            delay: cfg.delay,
           }}
         />
       ))}

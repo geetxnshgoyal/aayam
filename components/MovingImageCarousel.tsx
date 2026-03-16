@@ -21,7 +21,7 @@ export default function MovingImageCarousel() {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    queueMicrotask(() => setMounted(true));
   }, []);
 
   if (!mounted) return null;

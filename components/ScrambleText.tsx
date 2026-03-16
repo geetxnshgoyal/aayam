@@ -10,13 +10,13 @@ export default function ScrambleText({ text, className = '' }: { text: string; c
 
   useEffect(() => {
     if (!isHovered) {
-      setDisplayText(text);
+      queueMicrotask(() => setDisplayText(text));
       return;
     }
 
     let iterations = 0;
     const interval = setInterval(() => {
-      setDisplayText((prev) =>
+      setDisplayText(() =>
         text
           .split('')
           .map((char, index) => {

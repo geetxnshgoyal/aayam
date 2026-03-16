@@ -1,5 +1,5 @@
 import { getDb, COLLECTIONS, docToData } from './firebase';
-import type { Ambassador, Signup, Task, TaskSubmission, AmbassadorPoints } from './db-types';
+import type { Ambassador, Signup, Task, TaskSubmission } from './db-types';
 import { FieldValue } from 'firebase-admin/firestore';
 
 export type Tier = 'none' | 'bronze' | 'silver' | 'gold' | 'platinum';
@@ -29,10 +29,11 @@ export async function getAmbassadorByEmail(email: string): Promise<(Ambassador &
   if (snap.empty) return null;
   const data = docToData<Omit<Ambassador, 'id'>>(snap.docs[0]);
   if (!data) return null;
-  const created = (snap.docs[0].data() as any).created_at;
+  const raw = snap.docs[0].data() as { created_at?: { toDate?: () => Date } | string };
+  const created = raw?.created_at;
   return {
     ...data,
-    created_at: typeof created?.toDate === 'function' ? created.toDate().toISOString() : (created || ''),
+    created_at: typeof created === 'object' && typeof (created as { toDate?: () => Date }).toDate === 'function' ? (created as { toDate: () => Date }).toDate().toISOString() : (typeof created === 'string' ? created : ''),
     id: data.id,
   };
 }
@@ -47,10 +48,11 @@ export async function getAmbassadorByReferralCode(code: string): Promise<(Ambass
   if (snap.empty) return null;
   const data = docToData<Omit<Ambassador, 'id'>>(snap.docs[0]);
   if (!data) return null;
-  const created = (snap.docs[0].data() as any).created_at;
+  const raw = snap.docs[0].data() as { created_at?: { toDate?: () => Date } | string };
+  const created = raw?.created_at;
   return {
     ...data,
-    created_at: typeof created?.toDate === 'function' ? created.toDate().toISOString() : (created || ''),
+    created_at: typeof created === 'object' && typeof (created as { toDate?: () => Date }).toDate === 'function' ? (created as { toDate: () => Date }).toDate().toISOString() : (typeof created === 'string' ? created : ''),
     id: data.id,
   };
 }

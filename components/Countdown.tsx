@@ -13,7 +13,7 @@ export default function Countdown() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    queueMicrotask(() => setMounted(true));
     const tick = () => {
       const now = new Date();
       const d = EVENT_DATE.getTime() - now.getTime();

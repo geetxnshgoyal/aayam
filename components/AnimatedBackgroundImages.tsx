@@ -1,8 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 // Tech-themed floating images for background
 const floatingImages = [
@@ -17,8 +16,18 @@ export default function AnimatedBackgroundImages() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    queueMicrotask(() => setMounted(true));
   }, []);
+
+  const particleConfigs = useMemo(() =>
+    [...Array(30)].map(() => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      xOffset: Math.random() * 50 - 25,
+      duration: 8 + Math.random() * 5,
+      delay: Math.random() * 2,
+    })),
+  []);
 
   if (!mounted) return null;
 
@@ -121,25 +130,25 @@ export default function AnimatedBackgroundImages() {
       </div>
 
       {/* Floating Particles */}
-      {[...Array(30)].map((_, i) => (
+      {particleConfigs.map((cfg, i) => (
         <motion.div
           key={`particle-${i}`}
           className="absolute w-1 h-1 rounded-full bg-[var(--accent-cyan)] opacity-30"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: `${cfg.left}%`,
+            top: `${cfg.top}%`,
           }}
           animate={{
             y: [0, -100, 0],
-            x: [0, Math.random() * 50 - 25, 0],
+            x: [0, cfg.xOffset, 0],
             opacity: [0.2, 0.5, 0.2],
             scale: [1, 1.5, 1],
           }}
           transition={{
-            duration: 8 + Math.random() * 5,
+            duration: cfg.duration,
             repeat: Infinity,
             ease: 'easeInOut',
-            delay: Math.random() * 2,
+            delay: cfg.delay,
           }}
         />
       ))}

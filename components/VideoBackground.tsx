@@ -13,7 +13,7 @@ export default function VideoBackground() {
 
     // Reset video state when route changes
     useEffect(() => {
-        setCurrentVideo(isHome ? 'intro' : 'megacity');
+        queueMicrotask(() => setCurrentVideo(isHome ? 'intro' : 'megacity'));
     }, [isHome]);
 
     useEffect(() => {

@@ -95,10 +95,21 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'all' | 'signups' | 'signupPending' | 'bulkUpload' | 'tasks'>('pending');
   const [uploadFile, setUploadFile] = useState<File | null>(null);
-  const [uploadResult, setUploadResult] = useState<any>(null);
+  const [uploadResult, setUploadResult] = useState<{ results: { success: number; failed: number; errors: { row: number; error: string }[] } } | null>(null);
   const [loadingAction, setLoadingAction] = useState<string | null>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [taskForm, setTaskForm] = useState({
+  const [taskForm, setTaskForm] = useState<{
+    name: string;
+    description: string;
+    instructions: string;
+    submission_proof: string;
+    points_criteria: string;
+    example_caption: string;
+    points_min: number;
+    points_max: number;
+    required_proof: Task['required_proof'];
+    active: boolean;
+  }>({
     name: '',
     description: '',
     instructions: '',
@@ -107,12 +118,13 @@ export default function AdminDashboard() {
     example_caption: '',
     points_min: 10,
     points_max: 50,
-    required_proof: 'link' as const,
+    required_proof: 'link',
     active: true,
   });
 
   useEffect(() => {
-    fetchData();
+    void fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -286,28 +298,6 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleRejectSignup = async (signupId: string) => {
-    setLoadingAction(`reject-signup-${signupId}`);
-    try {
-      const token = getAdminToken();
-      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-      if (token) headers['Authorization'] = `Bearer ${token}`;
-      const response = await fetch('/api/admin/approve-signup', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({ signupId, status: 'rejected' }),
-        credentials: 'include',
-      });
-
-      if (response.ok) {
-        fetchData();
-      }
-    } catch (error) {
-      console.error('Error rejecting signup:', error);
-    } finally {
-      setLoadingAction(null);
-    }
-  };
 
   const handleBulkUpload = async () => {
     if (!uploadFile) {
@@ -692,7 +682,7 @@ export default function AdminDashboard() {
                             <div className="space-y-4">
                               <div className="text-red-400 font-mono text-xs font-bold tracking-widest mb-4">LOGGED_ERRORS:</div>
                               <div className="max-h-60 overflow-y-auto terminal-scrollbar space-y-3 pr-4">
-                                {uploadResult.results.errors.map((err: any, idx: number) => (
+                                {uploadResult.results.errors.map((err: { row: number; error: string }, idx: number) => (
                                   <div key={idx} className="bg-white/5 border-l-2 border-red-500 p-4 font-mono text-xs leading-relaxed">
                                     <div className="text-white font-bold">Row {err.row}: {err.error}</div>
                                   </div>
