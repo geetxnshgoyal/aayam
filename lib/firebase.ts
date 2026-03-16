@@ -5,13 +5,40 @@ import path from 'path';
 import fs from 'fs';
 
 /**
- * Initialize Firebase Admin using service account file.
- * Set GOOGLE_APPLICATION_CREDENTIALS in .env.local to the path to your JSON key file,
- * or place aayam-db178-firebase-adminsdk-*.json in project root (and add to .gitignore).
+ * Initialize Firebase Admin using env vars (preferred) or service account JSON file.
+ *
+ * Env vars (recommended for security — no JSON file in repo):
+ *   FIREBASE_PROJECT_ID
+ *   FIREBASE_CLIENT_EMAIL
+ *   FIREBASE_PRIVATE_KEY  (paste full key; \n for newlines)
+ *
+ * Fallback: GOOGLE_APPLICATION_CREDENTIALS = path to JSON file
  */
 function getFirebaseApp(): App {
   const existing = getApps()[0];
   if (existing) return existing as App;
+
+  const projectId = process.env.FIREBASE_PROJECT_ID;
+  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
+  const privateKey = process.env.FIREBASE_PRIVATE_KEY;
+
+  if (projectId && clientEmail && privateKey) {
+    try {
+      const key = privateKey.replace(/\\n/g, '\n');
+      return initializeApp({
+        credential: cert({
+          projectId,
+          clientEmail,
+          privateKey: key,
+        }),
+        projectId,
+      });
+    } catch (e) {
+      throw new Error(
+        `Firebase init failed (env). Check FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY. Error: ${e instanceof Error ? e.message : String(e)}`
+      );
+    }
+  }
 
   const keyPath =
     process.env.GOOGLE_APPLICATION_CREDENTIALS ||
@@ -26,7 +53,7 @@ function getFirebaseApp(): App {
     });
   } catch (e) {
     throw new Error(
-      `Firebase init failed. Set GOOGLE_APPLICATION_CREDENTIALS in .env.local to your service account JSON path, or add the JSON file to project root. Error: ${e instanceof Error ? e.message : String(e)}`
+      `Firebase init failed. Set FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY in .env.local, or GOOGLE_APPLICATION_CREDENTIALS to your JSON path. Error: ${e instanceof Error ? e.message : String(e)}`
     );
   }
 }
