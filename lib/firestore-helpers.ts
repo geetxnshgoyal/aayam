@@ -227,12 +227,72 @@ export async function updateTask(id: string, updates: Partial<Task>): Promise<vo
 }
 
 /** Ambassador points */
+export const POINTS_PER_SIGNUP = 12;
+
 export async function getAmbassadorPoints(ambassadorId: string): Promise<number> {
   const snap = await getDb()
     .collection(COLLECTIONS.ambassador_points)
     .where('ambassador_id', '==', ambassadorId)
     .get();
   return snap.docs.reduce((sum, d) => sum + (d.data().points || 0), 0);
+}
+
+/**
+ * Convert points to signup atomically. Returns number of signups converted (0 or 1).
+ * Uses Firestore transaction to prevent race conditions and double-spending.
+ */
+export async function convertPointsToSignupOnce(
+  ambassadorId: string,
+  pointsPerSignup: number = POINTS_PER_SIGNUP
+): Promise<number> {
+  if (pointsPerSignup < 1) return 0;
+
+  const db = getDb();
+  let converted = 0;
+
+  await db.runTransaction(async (transaction) => {
+    const pointsQuery = db.collection(COLLECTIONS.ambassador_points).where('ambassador_id', '==', ambassadorId);
+    const pointsSnap = await transaction.get(pointsQuery);
+    const ambRef = db.collection(COLLECTIONS.ambassadors).doc(ambassadorId);
+    const ambSnap = await transaction.get(ambRef);
+
+    const total = pointsSnap.docs.reduce((sum, d) => sum + (d.data().points || 0), 0);
+    if (total < pointsPerSignup) return;
+
+    const ambassador = ambSnap.data() as { signup_count?: number } | undefined;
+    const newCount = (ambassador?.signup_count || 0) + 1;
+
+    const pointsRef = db.collection(COLLECTIONS.ambassador_points).doc();
+    transaction.set(pointsRef, {
+      ambassador_id: ambassadorId,
+      points: -pointsPerSignup,
+      source: 'conversion',
+      reference_id: null,
+      created_at: FieldValue.serverTimestamp(),
+    });
+    transaction.set(ambRef, { signup_count: newCount, tier: tierFromSignupCount(newCount) }, { merge: true });
+
+    converted = 1;
+  });
+
+  return converted;
+}
+
+/**
+ * Automatically convert all eligible points to signups (12 pts = 1 signup).
+ * Runs in a loop with transactions until balance < pointsPerSignup.
+ */
+export async function processAutomaticConversions(
+  ambassadorId: string,
+  pointsPerSignup: number = POINTS_PER_SIGNUP
+): Promise<number> {
+  let totalConverted = 0;
+  let converted: number;
+  do {
+    converted = await convertPointsToSignupOnce(ambassadorId, pointsPerSignup);
+    totalConverted += converted;
+  } while (converted > 0);
+  return totalConverted;
 }
 
 export async function addAmbassadorPoints(
@@ -270,24 +330,26 @@ export async function getPendingSubmissions(): Promise<(TaskSubmission & { task?
   const snap = await getDb()
     .collection(COLLECTIONS.task_submissions)
     .where('status', '==', 'pending')
-    .orderBy('submitted_at', 'asc')
     .get();
-  const results: (TaskSubmission & { task?: Task; ambassador?: { name: string; email: string } })[] = [];
+  const results: (TaskSubmission & { task?: Task; ambassador?: { name: string; email: string }; submitted_at: string })[] = [];
   for (const d of snap.docs) {
     const data = d.data();
     const sub = data.submitted_at;
+    const submittedAt = typeof sub?.toDate === 'function' ? sub.toDate().toISOString() : (sub || '');
     const submission: TaskSubmission & { id: string } = {
       ...docToData<Omit<TaskSubmission, 'id'>>(d)!,
-      submitted_at: typeof sub?.toDate === 'function' ? sub.toDate().toISOString() : (sub || ''),
+      submitted_at: submittedAt,
     };
     const task = await getTaskById(data.task_id);
     const ambassador = await getAmbassadorById(data.ambassador_id);
     results.push({
       ...submission,
+      submitted_at: submittedAt,
       task: task || undefined,
       ambassador: ambassador ? { name: ambassador.name, email: ambassador.email } : undefined,
     });
   }
+  results.sort((a, b) => (a.submitted_at || '').localeCompare(b.submitted_at || ''));
   return results;
 }
 
@@ -306,15 +368,16 @@ export async function getSubmissionById(id: string): Promise<(TaskSubmission & {
 export async function createTaskSubmission(data: Omit<TaskSubmission, 'id' | 'submitted_at'>): Promise<TaskSubmission & { id: string }> {
   const ref = getDb().collection(COLLECTIONS.task_submissions).doc();
   const now = new Date().toISOString();
-  await ref.set({
-    ...data,
-    submitted_at: now,
-  });
+  const payload = { ...data, submitted_at: now };
+  const clean = Object.fromEntries(Object.entries(payload).filter(([, v]) => v !== undefined)) as Record<string, unknown>;
+  await ref.set(clean);
   return { ...data, id: ref.id, submitted_at: now } as TaskSubmission & { id: string };
 }
 
 export async function updateTaskSubmission(id: string, updates: Partial<TaskSubmission>): Promise<void> {
-  await getDb().collection(COLLECTIONS.task_submissions).doc(id).update(updates);
+  const clean = Object.fromEntries(Object.entries(updates).filter(([, v]) => v !== undefined)) as Record<string, unknown>;
+  if (Object.keys(clean).length === 0) return;
+  await getDb().collection(COLLECTIONS.task_submissions).doc(id).update(clean);
 }
 
 export async function hasSubmissionToday(ambassadorId: string, taskId: string): Promise<boolean> {

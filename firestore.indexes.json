@@ -17,6 +17,14 @@
       ]
     },
     {
+      "collectionGroup": "task_submissions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "ambassador_id", "order": "ASCENDING" },
+        { "fieldPath": "task_id", "order": "ASCENDING" }
+      ]
+    },
+    {
       "collectionGroup": "signups",
       "queryScope": "COLLECTION",
       "fields": [

@@ -18,7 +18,14 @@ export async function POST(request: NextRequest) {
 
     const decoded = jwt.verify(token, getJwtSecret(), { algorithms: ['HS256'] }) as { id: string };
     const ambassadorId = decoded.id;
-    const { taskId, proofLink, proofScreenshot } = await request.json();
+
+    let body: { taskId?: string; proofLink?: string; proofScreenshot?: string };
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
+    }
+    const { taskId, proofLink, proofScreenshot } = body;
 
     if (!taskId) {
       return NextResponse.json({ error: 'Task ID is required' }, { status: 400 });
@@ -42,6 +49,7 @@ export async function POST(request: NextRequest) {
       const s = v.trim().slice(0, 2048);
       if (!s || /^javascript:/i.test(s)) return undefined;
       if (/^https?:\/\//i.test(s)) return s;
+      if (/^[a-z0-9][a-z0-9.-]*\.[a-z]{2,}(\/.*)?$/i.test(s)) return `https://${s}`;
       return undefined;
     };
     const safeImageUrl = (v: unknown): string | undefined => {
@@ -82,7 +90,9 @@ export async function POST(request: NextRequest) {
       submission,
     });
   } catch (error) {
-    console.error('Error submitting task:', error);
+    const msg = error instanceof Error ? error.message : String(error);
+    const stack = error instanceof Error ? error.stack : undefined;
+    console.error('Submit task error:', msg, stack);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

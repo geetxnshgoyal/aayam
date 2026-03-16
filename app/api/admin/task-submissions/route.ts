@@ -5,6 +5,7 @@ import {
   getSubmissionById,
   updateTaskSubmission,
   addAmbassadorPoints,
+  processAutomaticConversions,
 } from '@/lib/firestore-helpers';
 
 export async function GET(request: NextRequest) {
@@ -40,6 +41,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
     }
 
+    if (status === 'approved' && (pointsAwarded == null || Number.isNaN(Number(pointsAwarded)))) {
+      return NextResponse.json({ error: 'Points are required when approving a submission' }, { status: 400 });
+    }
+
     const points = status === 'approved' && pointsAwarded != null
       ? Math.max(0, Math.min(1000, Math.floor(Number(pointsAwarded))))
       : undefined;
@@ -65,6 +70,11 @@ export async function POST(request: NextRequest) {
         'task',
         submission.task_id
       );
+      try {
+        await processAutomaticConversions(submission.ambassador_id);
+      } catch (convErr) {
+        console.error('Auto-conversion failed (approval still succeeded):', convErr);
+      }
     }
 
     return NextResponse.json({
@@ -72,7 +82,8 @@ export async function POST(request: NextRequest) {
       submission: { ...submission, status, points_awarded: points },
     });
   } catch (error) {
-    console.error('Error reviewing submission:', error);
+    const msg = error instanceof Error ? error.message : String(error);
+    console.error('Error reviewing submission:', msg, error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

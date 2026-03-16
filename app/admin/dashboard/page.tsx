@@ -87,17 +87,33 @@ interface Task {
   created_at: string;
 }
 
+interface TaskSubmission {
+  id: string;
+  ambassador_id: string;
+  task_id: string;
+  proof_link?: string;
+  proof_screenshot?: string;
+  status: 'pending' | 'approved' | 'rejected';
+  points_awarded?: number;
+  submitted_at: string;
+  task?: Task;
+  ambassador?: { name: string; email: string };
+}
+
 export default function AdminDashboard() {
   const router = useRouter();
   const [ambassadors, setAmbassadors] = useState<Ambassador[]>([]);
   const [signups, setSignups] = useState<Signup[]>([]);
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'all' | 'signups' | 'signupPending' | 'bulkUpload' | 'tasks'>('pending');
+  const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'all' | 'signups' | 'signupPending' | 'bulkUpload' | 'tasks' | 'taskSubmissions'>('pending');
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [uploadResult, setUploadResult] = useState<{ results: { success: number; failed: number; errors: { row: number; error: string }[] } } | null>(null);
   const [loadingAction, setLoadingAction] = useState<string | null>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [taskSubmissions, setTaskSubmissions] = useState<(TaskSubmission & { task?: Task; ambassador?: { name: string; email: string } })[]>([]);
+  const [taskSubmissionsLoading, setTaskSubmissionsLoading] = useState(false);
+  const [taskSubmissionsError, setTaskSubmissionsError] = useState<string | null>(null);
   const [taskForm, setTaskForm] = useState<{
     name: string;
     description: string;
@@ -129,7 +145,30 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     if (activeTab === 'tasks') fetchTasks();
+    if (activeTab === 'taskSubmissions') fetchTaskSubmissions();
   }, [activeTab]);
+
+  const fetchTaskSubmissions = async () => {
+    setTaskSubmissionsLoading(true);
+    setTaskSubmissionsError(null);
+    try {
+      const token = getAdminToken();
+      const headers: Record<string, string> = {};
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+      const res = await fetch('/api/admin/task-submissions', { headers, credentials: 'include' });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setTaskSubmissions(data.submissions || []);
+      } else {
+        setTaskSubmissionsError(data.error || 'Failed to load submissions');
+      }
+    } catch (e) {
+      console.error('Error fetching task submissions:', e);
+      setTaskSubmissionsError('Failed to load submissions');
+    } finally {
+      setTaskSubmissionsLoading(false);
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -340,6 +379,40 @@ export default function AdminDashboard() {
     }
   };
 
+  const [submissionPoints, setSubmissionPoints] = useState<Record<string, string>>({});
+
+  const handleReviewSubmission = async (submissionId: string, status: 'approved' | 'rejected') => {
+    const pointsStr = submissionPoints[submissionId];
+    if (status === 'approved' && (!pointsStr || pointsStr.trim() === '')) {
+      alert('Enter points to award when approving.');
+      return;
+    }
+    const pointsAwarded = status === 'approved' ? Math.max(0, Math.min(1000, parseInt(pointsStr, 10) || 0)) : undefined;
+    setLoadingAction(`review-${submissionId}`);
+    try {
+      const token = getAdminToken();
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+      const res = await fetch('/api/admin/task-submissions', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ submissionId, status, pointsAwarded }),
+        credentials: 'include',
+      });
+      if (res.ok) {
+        setSubmissionPoints((p) => ({ ...p, [submissionId]: '' }));
+        fetchTaskSubmissions();
+      } else {
+        const err = await res.json();
+        alert(err.error || 'Failed to review submission');
+      }
+    } catch (e) {
+      console.error('Error reviewing submission:', e);
+    } finally {
+      setLoadingAction(null);
+    }
+  };
+
   const filteredAmbassadors = ambassadors.filter(a => {
     if (activeTab === 'pending') return a.status === 'pending';
     if (activeTab === 'approved') return a.status === 'approved';
@@ -478,6 +551,7 @@ export default function AdminDashboard() {
             { key: 'signups', label: 'PROPAGATION_LOGS' },
             { key: 'signupPending', label: 'PENDING_SIGNUPS' },
             { key: 'bulkUpload', label: 'METADATA_DISPATCH' },
+            { key: 'taskSubmissions', label: 'TASK_SUBMISSIONS' },
             { key: 'tasks', label: '+ ADD TASKS' },
           ].map((tab) => (
             <button
@@ -487,7 +561,9 @@ export default function AdminDashboard() {
                 ? 'bg-[var(--horror-magenta)] text-white border-[var(--horror-magenta)] shadow-[0_0_20px_var(--horror-magenta)]/30 scale-105'
                 : tab.key === 'tasks'
                   ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30 hover:border-cyan-400/50 hover:text-cyan-200 hover:bg-cyan-500/25'
-                  : 'bg-white/5 text-slate-300 border-white/15 hover:border-white/30 hover:text-white hover:bg-white/10'
+                  : tab.key === 'taskSubmissions'
+                    ? 'bg-amber-500/15 text-amber-300 border-amber-500/30 hover:border-amber-400/50 hover:text-amber-200 hover:bg-amber-500/25'
+                    : 'bg-white/5 text-slate-300 border-white/15 hover:border-white/30 hover:text-white hover:bg-white/10'
                 }`}
             >
               {tab.label}
@@ -505,7 +581,7 @@ export default function AdminDashboard() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              {!['signups', 'signupPending', 'bulkUpload', 'tasks'].includes(activeTab) && (
+              {!['signups', 'signupPending', 'bulkUpload', 'tasks', 'taskSubmissions'].includes(activeTab) && (
                 <div className="bg-[#0d0d14]/90 backdrop-blur-3xl rounded-[3rem] border border-white/15 overflow-hidden shadow-2xl">
                   <div className="overflow-x-auto terminal-scrollbar">
                     <table className="w-full text-left font-mono text-sm">
@@ -611,6 +687,96 @@ export default function AdminDashboard() {
                         ))}
                       </tbody>
                     </table>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'taskSubmissions' && (
+                <div className="bg-[#0d0d14]/90 backdrop-blur-3xl rounded-[3rem] border border-white/15 overflow-hidden shadow-2xl">
+                  <div className="p-8 border-b border-white/15">
+                    <h2 className="text-2xl font-display font-black text-white uppercase tracking-widest">Pending_Task_Submissions</h2>
+                    <p className="text-slate-400 font-mono text-sm mt-2">Review ambassador task proofs and award points. Approved submissions auto-credit points.</p>
+                  </div>
+                  <div className="overflow-x-auto terminal-scrollbar">
+                    {taskSubmissionsLoading ? (
+                      <div className="p-16 text-center text-slate-400 font-mono flex items-center justify-center gap-3">
+                        <LoadingSpinner size="sm" color="#f59e0b" />
+                        Loading submissions...
+                      </div>
+                    ) : taskSubmissionsError ? (
+                      <div className="p-16 text-center text-red-400 font-mono">{taskSubmissionsError}</div>
+                    ) : taskSubmissions.length === 0 ? (
+                      <div className="p-16 text-center text-slate-400 font-mono">No pending submissions.</div>
+                    ) : (
+                      <div className="divide-y divide-white/10">
+                        {taskSubmissions.map((sub) => (
+                          <div key={sub.id} className="p-8 hover:bg-white/[0.02] transition-colors">
+                            <div className="flex flex-col lg:flex-row lg:items-start gap-6">
+                              <div className="flex-1 min-w-0">
+                                <div className="flex flex-wrap items-center gap-3 mb-2">
+                                  <span className="text-white font-bold">{sub.ambassador?.name || 'Unknown'}</span>
+                                  <span className="text-slate-500">•</span>
+                                  <span className="text-slate-400 text-sm">{sub.ambassador?.email}</span>
+                                  <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 text-xs font-mono">{sub.task?.name || 'Task'}</span>
+                                </div>
+                                {sub.proof_link && (
+                                  <a href={sub.proof_link} target="_blank" rel="noopener noreferrer" className="text-[var(--horror-cyan)] hover:underline break-all text-sm">
+                                    {sub.proof_link}
+                                  </a>
+                                )}
+                                {sub.proof_screenshot && (
+                                  <div className="mt-2">
+                                    {sub.proof_screenshot.startsWith('data:') ? (
+                                      <img src={sub.proof_screenshot} alt="Proof" className="max-w-xs max-h-32 rounded-lg border border-white/10" />
+                                    ) : (
+                                      <a href={sub.proof_screenshot} target="_blank" rel="noopener noreferrer" className="text-[var(--horror-cyan)] hover:underline text-sm">View screenshot</a>
+                                    )}
+                                  </div>
+                                )}
+                                <div className="text-slate-500 text-xs mt-2 font-mono">{new Date(sub.submitted_at).toLocaleString()}</div>
+                                {sub.task && (
+                                  <div className="mt-2 text-slate-400 text-xs">
+                                    Points range: {sub.task.points_min}–{sub.task.points_max}
+                                  </div>
+                                )}
+                              </div>
+                              <div className="flex flex-col sm:flex-row gap-4 shrink-0">
+                                <div className="flex items-center gap-2">
+                                  <label className="text-slate-400 text-xs font-mono whitespace-nowrap">Points:</label>
+                                  <input
+                                    type="number"
+                                    min={0}
+                                    max={1000}
+                                    placeholder={sub.task ? `${sub.task.points_min}` : '0'}
+                                    value={submissionPoints[sub.id] ?? ''}
+                                    onChange={(e) => setSubmissionPoints((p) => ({ ...p, [sub.id]: e.target.value }))}
+                                    className="w-24 px-3 py-2 bg-black/40 border border-white/15 rounded-lg text-white text-sm font-mono focus:border-amber-500/50 outline-none"
+                                  />
+                                </div>
+                                <div className="flex gap-2">
+                                  <button
+                                    onClick={() => handleReviewSubmission(sub.id, 'approved')}
+                                    disabled={loadingAction === `review-${sub.id}`}
+                                    className="px-5 py-2.5 bg-green-500/20 border border-green-500/30 rounded-xl text-green-400 font-mono text-sm font-bold hover:bg-green-500/30 transition-all disabled:opacity-50 flex items-center gap-2"
+                                  >
+                                    {loadingAction === `review-${sub.id}` ? <LoadingSpinner size="sm" color="#4ade80" /> : <HiCheckCircle className="w-4 h-4" />}
+                                    Approve
+                                  </button>
+                                  <button
+                                    onClick={() => handleReviewSubmission(sub.id, 'rejected')}
+                                    disabled={loadingAction === `review-${sub.id}`}
+                                    className="px-5 py-2.5 bg-red-500/20 border border-red-500/30 rounded-xl text-red-400 font-mono text-sm font-bold hover:bg-red-500/30 transition-all disabled:opacity-50 flex items-center gap-2"
+                                  >
+                                    <HiXCircle className="w-4 h-4" />
+                                    Reject
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               )}

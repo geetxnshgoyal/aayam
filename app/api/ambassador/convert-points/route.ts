@@ -3,10 +3,8 @@ import jwt from 'jsonwebtoken';
 import { getJwtSecret } from '@/lib/auth';
 import {
   getAmbassadorPoints,
-  getAmbassadorById,
-  addAmbassadorPoints,
-  updateAmbassador,
-  tierFromSignupCount,
+  convertPointsToSignupOnce,
+  POINTS_PER_SIGNUP,
 } from '@/lib/firestore-helpers';
 
 export async function POST(request: NextRequest) {
@@ -20,44 +18,31 @@ export async function POST(request: NextRequest) {
 
     const decoded = jwt.verify(token, getJwtSecret(), { algorithms: ['HS256'] }) as { id: string };
     const ambassadorId = decoded.id;
-    const body = await request.json();
-    const rawPoints = body.pointsNeeded ?? 12;
-    const pointsNeeded = Math.max(1, Math.min(1000, Math.floor(Number(rawPoints))));
 
-    const totalPoints = await getAmbassadorPoints(ambassadorId);
+    const converted = await convertPointsToSignupOnce(ambassadorId, POINTS_PER_SIGNUP);
 
-    if (totalPoints < pointsNeeded) {
+    if (converted === 0) {
+      const totalPoints = await getAmbassadorPoints(ambassadorId);
       return NextResponse.json(
         {
-          error: `Insufficient points. You have ${totalPoints} points, need ${pointsNeeded}`,
+          error: `Insufficient points. You have ${totalPoints} points, need ${POINTS_PER_SIGNUP} to convert`,
           currentPoints: totalPoints,
-          needed: pointsNeeded,
+          needed: POINTS_PER_SIGNUP,
         },
         { status: 400 }
       );
     }
 
-    await addAmbassadorPoints(ambassadorId, -pointsNeeded, 'conversion');
-
-    const ambassador = await getAmbassadorById(ambassadorId);
-    if (!ambassador) {
-      return NextResponse.json({ error: 'Failed to fetch ambassador' }, { status: 500 });
-    }
-
-    const newCount = (ambassador.signup_count || 0) + 1;
-    const newTier = tierFromSignupCount(newCount);
-    await updateAmbassador(ambassadorId, {
-      signup_count: newCount,
-      tier: newTier,
-    });
+    const newPoints = await getAmbassadorPoints(ambassadorId);
 
     return NextResponse.json({
       message: 'Successfully converted points to signup!',
-      newPoints: totalPoints - pointsNeeded,
+      newPoints,
       signupAdded: 1,
     });
   } catch (error) {
-    console.error('Error converting points:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    const msg = error instanceof Error ? error.message : String(error);
+    console.error('Convert points error:', msg, error);
+    return NextResponse.json({ error: 'Failed to convert points. Try again.' }, { status: 500 });
   }
 }
