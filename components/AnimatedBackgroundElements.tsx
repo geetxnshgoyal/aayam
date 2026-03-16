@@ -6,14 +6,15 @@
  */
 export default function AnimatedBackgroundElements() {
   const elements = [
-    { size: 120, left: '10%', top: '20%', color: 'var(--accent-cyan)', duration: 20, delay: 0 },
-    { size: 80, left: '85%', top: '15%', color: 'var(--accent-magenta)', duration: 25, delay: 2 },
-    { size: 100, left: '70%', top: '60%', color: 'var(--accent-yellow)', duration: 22, delay: 1 },
-    { size: 60, left: '25%', top: '70%', color: 'var(--accent-cyan)', duration: 18, delay: 3 },
-    { size: 90, left: '50%', top: '35%', color: 'var(--accent-magenta)', duration: 24, delay: 0.5 },
-    { size: 70, left: '5%', top: '50%', color: 'var(--accent-yellow)', duration: 21, delay: 2.5 },
-    { size: 50, left: '90%', top: '80%', color: 'var(--accent-cyan)', duration: 19, delay: 1.5 },
-    { size: 85, left: '35%', top: '10%', color: 'var(--accent-magenta)', duration: 23, delay: 4 },
+    { size: 180, left: '5%', top: '15%', color: 'var(--accent-cyan)', duration: 18, delay: 0 },
+    { size: 140, left: '88%', top: '10%', color: 'var(--accent-magenta)', duration: 22, delay: 2 },
+    { size: 160, left: '65%', top: '55%', color: 'var(--accent-yellow)', duration: 20, delay: 1 },
+    { size: 100, left: '20%', top: '65%', color: 'var(--accent-cyan)', duration: 16, delay: 3 },
+    { size: 130, left: '45%', top: '30%', color: 'var(--accent-magenta)', duration: 21, delay: 0.5 },
+    { size: 110, left: '2%', top: '45%', color: 'var(--accent-yellow)', duration: 19, delay: 2.5 },
+    { size: 90, left: '92%', top: '75%', color: 'var(--accent-cyan)', duration: 17, delay: 1.5 },
+    { size: 120, left: '30%', top: '5%', color: 'var(--accent-magenta)', duration: 23, delay: 4 },
+    { size: 70, left: '75%', top: '85%', color: 'var(--accent-yellow)', duration: 15, delay: 0.8 },
   ];
 
   return (
@@ -24,7 +25,7 @@ export default function AnimatedBackgroundElements() {
       {elements.map((el, i) => (
         <div
           key={i}
-          className="bg-float-element absolute rounded-full blur-2xl opacity-[0.06]"
+          className="bg-float-element absolute rounded-full blur-xl opacity-[0.15]"
           style={{
             width: el.size,
             height: el.size,
