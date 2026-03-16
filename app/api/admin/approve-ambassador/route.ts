@@ -2,8 +2,15 @@ import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import jwt from 'jsonwebtoken';
 import { sendAmbassadorApprovalEmail } from '@/lib/email';
+import { PRIMARY_SITE_URL } from '@/lib/site';
 
 import { getJwtSecret, getAdminTokenFromRequest } from '@/lib/auth';
+
+function getAmbassadorLoginUrl(): string {
+  // Always use production domain for approval emails (users open from anywhere)
+  const base = process.env.NEXT_PUBLIC_SITE_URL || PRIMARY_SITE_URL;
+  return `${String(base).replace(/\/$/, '')}/ambassador/login`;
+}
 
 export async function POST(request: Request) {
   try {
@@ -50,22 +57,19 @@ export async function POST(request: Request) {
 
     // Send approval email
     if (status === 'approved') {
+      const loginUrl = getAmbassadorLoginUrl();
+      const referralCode = ambassador.referral_code || 'N/A';
       try {
-        const loginUrl = process.env.NODE_ENV === 'production'
-          ? 'https://aayamfest.com/ambassador/login'
-          : 'http://localhost:3003/ambassador/login';
-
         await sendAmbassadorApprovalEmail({
-          name: ambassador.name,
+          name: ambassador.name || 'Ambassador',
           email: ambassador.email,
-          referralCode: ambassador.referral_code,
+          referralCode,
           loginUrl,
         });
-        
         console.log(`Approval email sent to ${ambassador.email}`);
       } catch (emailError) {
         console.error('Failed to send approval email:', emailError);
-        // Don't fail the approval if email fails
+        // Don't fail the approval; log for debugging
       }
     }
 

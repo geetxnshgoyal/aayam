@@ -25,116 +25,142 @@ export async function sendAmbassadorApprovalEmail(data: AmbassadorApprovalEmailD
     <!DOCTYPE html>
     <html>
     <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <style>
         body {
-          font-family: 'Arial', sans-serif;
-          background-color: #0A0B16;
-          color: #ffffff;
+          font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+          background-color: #050813;
+          color: #f0f4f8;
           margin: 0;
-          padding: 0;
+          padding: 24px;
+          line-height: 1.6;
         }
         .container {
-          max-width: 600px;
+          max-width: 560px;
           margin: 0 auto;
-          background: linear-gradient(135deg, #180C16 0%, #0A0B16 100%);
+          background: #0c1220;
+          border: 4px solid #0a0a0f;
+          box-shadow: 8px 8px 0 #0a0a0f;
           padding: 40px;
-          border-radius: 16px;
         }
         .header {
           text-align: center;
-          margin-bottom: 30px;
+          margin-bottom: 32px;
+          padding-bottom: 24px;
+          border-bottom: 3px solid;
+          border-image: linear-gradient(90deg, #00b4d8, #e6399b) 1;
         }
         .logo {
-          font-size: 36px;
-          font-weight: bold;
-          color: #FF1744;
+          font-size: 32px;
+          font-weight: 800;
+          font-family: 'Courier New', monospace;
+          letter-spacing: 0.1em;
+          background: linear-gradient(90deg, #00b4d8, #e6399b, #ff7a4f);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
         .title {
-          font-size: 28px;
+          font-size: 24px;
           font-weight: bold;
-          color: #ffffff;
-          margin: 20px 0;
+          color: #ffd60a;
+          margin: 16px 0 0;
+          font-family: 'Courier New', monospace;
         }
         .content {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(86, 15, 40, 0.3);
-          border-radius: 12px;
-          padding: 30px;
-          margin: 20px 0;
+          background: #131b2e;
+          border: 2px solid #2a3f5c;
+          padding: 28px;
+          margin: 24px 0;
+        }
+        .content h2 {
+          color: #f0f4f8;
+          font-size: 20px;
+          margin-top: 0;
+        }
+        .content p {
+          color: #b8cde0;
+          font-size: 15px;
+          line-height: 1.7;
         }
         .highlight {
-          background: linear-gradient(90deg, #200934 0%, #560F28 100%);
+          background: rgba(0, 180, 216, 0.12);
+          border: 2px solid #00b4d8;
           padding: 20px;
-          border-radius: 8px;
           text-align: center;
-          margin: 20px 0;
+          margin: 24px 0;
+          box-shadow: 6px 6px 0 rgba(230, 57, 155, 0.2);
         }
         .highlight p {
-          color: #ffffff;
+          margin: 0 0 8px 0;
+          font-size: 12px;
+          color: #7a9bb5;
+          text-transform: uppercase;
+          letter-spacing: 0.15em;
         }
         .referral-code {
-          font-size: 32px;
+          font-size: 28px;
           font-weight: bold;
           font-family: 'Courier New', monospace;
-          color: #FF1744;
-          letter-spacing: 2px;
+          color: #ffd60a;
+          letter-spacing: 4px;
         }
         .button {
           display: inline-block;
-          background: linear-gradient(90deg, #200934 0%, #560F28 100%);
-          color: #ffffff;
+          background: #ff7a4f;
+          border: 3px solid #ffd60a;
+          color: #0a0a0f;
           text-decoration: none;
-          padding: 15px 40px;
-          border-radius: 8px;
-          font-weight: bold;
-          margin: 20px 0;
+          padding: 14px 36px;
+          font-weight: 700;
+          font-family: 'Courier New', monospace;
+          letter-spacing: 0.05em;
+          margin: 24px 0;
+          box-shadow: 6px 6px 0 #e6399b;
+        }
+        .button:hover {
+          background: #ff8f6a;
         }
         .info-box {
-          background: rgba(255, 23, 68, 0.1);
-          border-left: 4px solid #FF1744;
-          padding: 15px;
-          margin: 15px 0;
-          border-radius: 4px;
+          background: rgba(230, 57, 155, 0.12);
+          border-left: 4px solid #e6399b;
+          padding: 16px 20px;
+          margin: 20px 0;
         }
         .info-box h3 {
-          color: #FF1744;
-          margin-top: 0;
+          color: #e6399b;
+          margin: 0 0 12px 0;
+          font-size: 14px;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
         }
-        .info-box p,
-        .info-box ol,
-        .info-box ul {
-          color: #ffffff;
+        .info-box ol, .info-box ul {
+          margin: 0;
+          padding-left: 20px;
+          color: #b8cde0;
         }
         .info-box li {
-          color: #ffffff;
-        }
-        .content h2 {
-          color: #ffffff;
-        }
-        .content p {
-          color: #ffffff;
-          line-height: 1.8;
-        }
-        .content ol,
-        .content ul {
-          color: #ffffff;
-        }
-        .content li {
-          color: #ffffff;
+          margin-bottom: 8px;
         }
         strong {
-          color: #FF1744;
+          color: #00b4d8;
+        }
+        .approved-badge {
+          color: #37e0ff;
+          font-weight: bold;
         }
         .footer {
           text-align: center;
-          color: #999;
-          font-size: 14px;
-          margin-top: 30px;
-          padding-top: 20px;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          color: #7a9bb5;
+          font-size: 13px;
+          margin-top: 32px;
+          padding-top: 24px;
+          border-top: 1px solid #1e2d42;
         }
         .footer p {
-          color: #999;
+          margin: 4px 0;
+          color: #7a9bb5;
         }
       </style>
     </head>
@@ -142,23 +168,23 @@ export async function sendAmbassadorApprovalEmail(data: AmbassadorApprovalEmailD
       <div class="container">
         <div class="header">
           <div class="logo">AAYAM 2026</div>
-          <div class="title">🎉 Congratulations!</div>
+          <div class="title">Congratulations!</div>
         </div>
 
         <div class="content">
           <h2>Hi ${name},</h2>
-          <p style="font-size: 16px; line-height: 1.6;">
-            We're thrilled to inform you that your application for the <strong>AAYAM 2026 Ambassador Program</strong> has been <span style="color: #00FF00; font-weight: bold;">APPROVED</span>! 🚀
+          <p>
+            We're thrilled to inform you that your application for the <strong>AAYAM 2026 Ambassador Program</strong> has been <span class="approved-badge">APPROVED</span>!
           </p>
 
           <div class="highlight">
-            <p style="margin: 0 0 10px 0; font-size: 14px; color: #ccc;">Your Unique Referral Code</p>
+            <p>Your Unique Referral Code</p>
             <div class="referral-code">${referralCode}</div>
           </div>
 
           <div class="info-box">
-            <h3 style="margin-top: 0; color: #FF1744;">📋 Next Steps:</h3>
-            <ol style="line-height: 1.8;">
+            <h3>Next Steps</h3>
+            <ol>
               <li><strong>Login to your dashboard</strong> using the credentials you registered with</li>
               <li><strong>Share your referral code</strong> with students across colleges</li>
               <li><strong>Track your signups</strong> and watch your tier grow</li>
@@ -171,8 +197,8 @@ export async function sendAmbassadorApprovalEmail(data: AmbassadorApprovalEmailD
           </div>
 
           <div class="info-box">
-            <h3 style="margin-top: 0; color: #FF1744;">🏆 Tier Rewards:</h3>
-            <ul style="line-height: 1.8;">
+            <h3>Tier Rewards</h3>
+            <ul>
               <li><strong>Bronze (10+ signups):</strong> Certificate + Stickers</li>
               <li><strong>Silver (25+ signups):</strong> T-shirt + Tech Swag + LinkedIn Badge</li>
               <li><strong>Gold (50+ signups):</strong> Premium Goodie + LOR + Mentor Session</li>
@@ -180,11 +206,11 @@ export async function sendAmbassadorApprovalEmail(data: AmbassadorApprovalEmailD
             </ul>
           </div>
 
-          <p style="font-size: 16px; line-height: 1.6;">
-            Start sharing your code today and let's make AAYAM 2026 the biggest tech fest ever! 💪
+          <p>
+            Start sharing your code today and let's make AAYAM 2026 the biggest tech fest ever!
           </p>
 
-          <p style="margin-top: 30px;">
+          <p style="margin-top: 28px;">
             Best regards,<br>
             <strong>Team AAYAM 2026</strong><br>
             Newton School of Technology
@@ -193,7 +219,7 @@ export async function sendAmbassadorApprovalEmail(data: AmbassadorApprovalEmailD
 
         <div class="footer">
           <p>AAYAM 2026 | April 24-25, 2026</p>
-          <p style="font-size: 12px; color: #666;">
+          <p style="font-size: 11px; color: #5a7a95;">
             This is an automated email. Please do not reply to this address.
           </p>
         </div>

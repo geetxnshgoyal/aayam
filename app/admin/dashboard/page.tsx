@@ -6,8 +6,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HiCheckCircle, HiXCircle, HiClock, HiTrendingUp, HiUsers, HiUserGroup, HiLogout } from 'react-icons/hi';
 import { FaTrophy } from 'react-icons/fa';
 import LoadingSpinner from '@/components/LoadingSpinner';
-import Magnetic from '@/components/Magnetic';
-import TextEncrypt from '@/components/TextEncrypt';
 
 function getAdminToken(): string | null {
   try {
@@ -302,7 +300,7 @@ export default function AdminDashboard() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
             <h1 className="text-4xl md:text-7xl font-display font-black text-white tracking-tighter uppercase leading-none">
-              <TextEncrypt text="COMMAND_CENTER" />
+              COMMAND_CENTER
             </h1>
             <p className="text-gray-500 font-mono text-xs mt-4 tracking-[0.4em] uppercase">Status: Connected_To_Mainframe</p>
           </motion.div>
@@ -310,17 +308,15 @@ export default function AdminDashboard() {
           <motion.div
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Magnetic>
-              <button
-                onClick={handleLogout}
-                className="flex items-center gap-4 px-8 py-4 bg-transparent/5 hover:bg-red-500/20 border border-white/10 hover:border-red-500/30 rounded-2xl transition-all duration-500 group"
-              >
-                <HiLogout className="w-5 h-5 text-gray-400 group-hover:text-red-500 group-hover:rotate-12 transition-transform" />
-                <span className="font-mono text-xs font-bold tracking-widest uppercase text-gray-400 group-hover:text-red-500 transition-colors">Terminate_Override</span>
-              </button>
-            </Magnetic>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-4 px-8 py-4 bg-transparent/5 hover:bg-red-500/20 border border-white/10 hover:border-red-500/30 rounded-2xl transition-all duration-300 group"
+            >
+              <HiLogout className="w-5 h-5 text-gray-400 group-hover:text-red-500 group-hover:rotate-12 transition-transform" />
+              <span className="font-mono text-xs font-bold tracking-widest uppercase text-gray-400 group-hover:text-red-500 transition-colors">Terminate_Override</span>
+            </button>
           </motion.div>
         </div>
 
@@ -397,17 +393,16 @@ export default function AdminDashboard() {
             { key: 'signupPending', label: 'PENDING_SIGNUPS' },
             { key: 'bulkUpload', label: 'METADATA_DISPATCH' },
           ].map((tab) => (
-            <Magnetic key={tab.key}>
-              <button
-                onClick={() => setActiveTab(tab.key as any)}
-                className={`px-8 py-4 rounded-2xl font-mono text-[10px] font-black tracking-[0.2em] transition-all duration-500 border ${activeTab === tab.key
-                  ? 'bg-[var(--horror-magenta)] text-white border-[var(--horror-magenta)] shadow-[0_0_20px_var(--horror-magenta)]/30 scale-105'
-                  : 'bg-transparent/5 text-gray-500 border-white/5 hover:border-white/20 hover:text-white'
-                  }`}
-              >
-                {tab.label}
-              </button>
-            </Magnetic>
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key as any)}
+              className={`px-8 py-4 rounded-2xl font-mono text-[10px] font-black tracking-[0.2em] transition-all duration-300 border ${activeTab === tab.key
+                ? 'bg-[var(--horror-magenta)] text-white border-[var(--horror-magenta)] shadow-[0_0_20px_var(--horror-magenta)]/30 scale-105'
+                : 'bg-transparent/5 text-gray-500 border-white/5 hover:border-white/20 hover:text-white'
+                }`}
+            >
+              {tab.label}
+            </button>
           ))}
         </div>
 
@@ -416,10 +411,10 @@ export default function AdminDashboard() {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -20, opacity: 0 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
             >
               {!['signups', 'signupPending', 'bulkUpload'].includes(activeTab) && (
                 <div className="bg-[#050508]/60 backdrop-blur-3xl rounded-[3rem] border border-white/5 overflow-hidden shadow-2xl">
@@ -565,15 +560,13 @@ export default function AdminDashboard() {
                           </div>
                         </div>
 
-                        <Magnetic>
-                          <button
-                            onClick={handleBulkUpload}
-                            disabled={!uploadFile}
-                            className="w-full py-6 bg-transparent text-black font-black text-xl tracking-[0.2em] rounded-[1.5rem] hover:bg-[var(--horror-cyan)] transition-all duration-500 disabled:opacity-30 disabled:cursor-not-allowed uppercase"
-                          >
-                            Execute_Buffer
-                          </button>
-                        </Magnetic>
+                        <button
+                          onClick={handleBulkUpload}
+                          disabled={!uploadFile}
+                          className="w-full py-6 bg-transparent text-black font-black text-xl tracking-[0.2em] rounded-[1.5rem] hover:bg-[var(--horror-cyan)] transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed uppercase"
+                        >
+                          Execute_Buffer
+                        </button>
                       </div>
                     </div>
 
