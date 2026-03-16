@@ -328,7 +328,23 @@ a:not(.btn):not([class*="no-underline"]):hover::after {
   pointer-events: none;
 }
 
-/* Background animations */
+/* Background animations - floating elements */
+@keyframes float-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(15px, -20px) scale(1.05); }
+  50% { transform: translate(-10px, 15px) scale(0.95); }
+  75% { transform: translate(20px, 10px) scale(1.02); }
+}
+.bg-float-element {
+  animation: float-drift 20s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bg-float-element {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 @keyframes gradient-drift {
   0% { transform: scale(1) translate(0, 0); }
   100% { transform: scale(1.08) translate(2%, 1%); }

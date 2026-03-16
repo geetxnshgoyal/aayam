@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HiCode, HiChip, HiLightningBolt, HiCog, HiPuzzle, HiCube } from 'react-icons/hi';
 import { FiExternalLink } from 'react-icons/fi';
 import { FaRobot, FaRocket, FaDragon, FaGamepad, FaHelicopter, FaGithub } from 'react-icons/fa';
+import { SectionBackground } from '@/components/SectionBackground';
+import Magnetic from '@/components/Magnetic';
 
 type CompItem = (typeof competitions)[number];
 
@@ -194,8 +196,9 @@ export default function CompetitionsPage() {
   const [selectedComp, setSelectedComp] = useState<CompItem | null>(null);
 
   return (
-    <div className="min-h-screen pt-24 pb-20 min-w-0">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0">
+    <div className="min-h-screen pt-24 pb-20 min-w-0 relative overflow-hidden">
+      <SectionBackground src="/images/backgrounds/tech-matrix.jpg" opacity={0.18} className="top-0 h-[400px] md:h-[450px]" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0 relative z-10">
         <motion.header
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -250,7 +253,7 @@ export default function CompetitionsPage() {
                     tabIndex={0}
                     onClick={() => setSelectedComp(comp)}
                     onKeyDown={(e) => e.key === 'Enter' && setSelectedComp(comp)}
-                    className={`relative overflow-hidden rounded-sm border-4 ${style.border} bg-[var(--bg-card)] flex flex-col h-full transition-all duration-200 ${style.shadow} hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0_var(--ink)] cursor-pointer`}
+                    className={`group relative overflow-hidden rounded-sm border-4 ${style.border} bg-[var(--bg-card)] flex flex-col h-full transition-all duration-300 ${style.shadow} hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0_var(--ink)] hover:scale-[1.02] hover:shadow-[0_0_24px_var(--accent-cyan-muted)] hover:border-[var(--accent-cyan)]/50 cursor-pointer`}
                   >
                     <div className="relative z-10 p-6 flex flex-col h-full">
                       <div className="flex items-start justify-between mb-4">
@@ -292,16 +295,18 @@ export default function CompetitionsPage() {
                         </div>
                       </dl>
 
-                      <a
-                        href={comp.registrationLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center justify-center gap-2 w-full py-3 font-pixel text-xs font-bold bg-[var(--accent-primary)] text-[var(--ink)] border-[3px] border-[var(--accent-yellow)] shadow-[4px_4px_0_var(--ink)] hover:bg-[var(--accent-primary-hover)] hover:shadow-[2px_2px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
-                      >
-                        Register on Unstop
-                        <FiExternalLink className="w-4 h-4" aria-hidden />
-                      </a>
+                      <Magnetic strength={0.3}>
+                        <a
+                          href={comp.registrationLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center justify-center gap-2 w-full py-3 font-pixel text-xs font-bold bg-[var(--accent-primary)] text-[var(--ink)] border-[3px] border-[var(--accent-yellow)] shadow-[4px_4px_0_var(--ink)] hover:bg-[var(--accent-primary-hover)] hover:shadow-[2px_2px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
+                        >
+                          Register on Unstop
+                          <FiExternalLink className="w-4 h-4" aria-hidden />
+                        </a>
+                      </Magnetic>
                     </div>
                   </motion.article>
                 ))}
@@ -324,15 +329,17 @@ export default function CompetitionsPage() {
             <p className="text-[var(--text-secondary)] mb-8 max-w-xl mx-auto">
               All registrations happen on Unstop. Click any event above to register your team.
             </p>
-            <a
-              href="https://unstop.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 font-pixel text-xs font-bold bg-[var(--accent-primary)] text-[var(--ink)] border-[3px] border-[var(--accent-yellow)] shadow-[6px_6px_0_var(--ink)] hover:bg-[var(--accent-primary-hover)] hover:shadow-[3px_3px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
-            >
-              Browse All on Unstop
-              <FiExternalLink className="w-4 h-4" aria-hidden />
-            </a>
+            <Magnetic strength={0.25}>
+              <a
+                href="https://unstop.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-4 font-pixel text-xs font-bold bg-[var(--accent-primary)] text-[var(--ink)] border-[3px] border-[var(--accent-yellow)] shadow-[6px_6px_0_var(--ink)] hover:bg-[var(--accent-primary-hover)] hover:shadow-[3px_3px_0_var(--ink)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
+              >
+                Browse All on Unstop
+                <FiExternalLink className="w-4 h-4" aria-hidden />
+              </a>
+            </Magnetic>
           </div>
         </motion.section>
 

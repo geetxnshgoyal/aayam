@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
+import { SectionBackground } from '@/components/SectionBackground';
 
 const categories = ['All', 'Hackathon', 'Robotics', 'Coding', 'Workshops', 'Campus'];
 
@@ -31,8 +32,9 @@ export default function GalleryPage() {
       : galleryImages.filter((img) => img.category === selectedCategory);
 
   return (
-    <div className="min-h-screen pt-24 pb-20 min-w-0">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0">
+    <div className="min-h-screen pt-24 pb-20 min-w-0 relative overflow-hidden">
+      <SectionBackground src="/images/backgrounds/tech-glows.jpg" opacity={0.1} className="top-0 h-[350px] md:h-[400px]" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0 relative z-10">
         <motion.header
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -61,7 +63,7 @@ export default function GalleryPage() {
               onClick={() => setSelectedCategory(category)}
               className={`font-mono text-sm px-4 py-2.5 min-h-[44px] rounded border transition-all touch-manipulation ${
                 selectedCategory === category
-                  ? 'bg-[var(--accent-primary)] text-white border-[var(--accent-primary)]'
+                  ? 'bg-[var(--accent-primary)] text-white border-[var(--accent-primary)] shadow-[0_0_12px_var(--glow-primary)]'
                   : 'border-[var(--border-accent)] text-[var(--text-secondary)] hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan)]'
               }`}
             >
@@ -78,7 +80,7 @@ export default function GalleryPage() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: index * 0.03 }}
               viewport={{ once: true }}
-              className="card-retro rounded-sm overflow-hidden cursor-pointer group border-2 border-[var(--border-subtle)] hover:border-[var(--accent-magenta)] hover:shadow-[8px_8px_0_var(--accent-yellow)] transition-all duration-300"
+              className="card-retro rounded-sm overflow-hidden cursor-pointer group border-2 border-[var(--border-subtle)] hover:border-[var(--accent-magenta)] hover:shadow-[8px_8px_0_var(--accent-yellow)] hover:scale-[1.02] hover:shadow-[0_0_24px_var(--accent-cyan-muted)] transition-all duration-300"
               onClick={() => setSelectedImage(image.id)}
             >
               <div className="relative w-full aspect-[4/3] bg-[var(--bg-elevated)] overflow-hidden">

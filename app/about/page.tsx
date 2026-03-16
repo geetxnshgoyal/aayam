@@ -6,6 +6,7 @@ import { HiUsers, HiLightningBolt, HiAcademicCap, HiStar, HiGlobe } from 'react-
 import { FaTrophy, FaUniversity, FaLinkedin } from 'react-icons/fa';
 import type { IconType } from 'react-icons';
 import Link from 'next/link';
+import { SectionBackground } from '@/components/SectionBackground';
 
 function TeamCard({ member, index }: { member: { name: string; role: string; icon: IconType; image: string; linkedin: string }; index: number }) {
   const [imgError, setImgError] = useState(false);
@@ -17,7 +18,7 @@ function TeamCard({ member, index }: { member: { name: string; role: string; ico
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4, delay: index * 0.06 }}
       viewport={{ once: true }}
-      className="card-retro rounded-sm p-6 text-center flex flex-col items-center"
+      className="card-retro rounded-sm p-6 text-center flex flex-col items-center hover:scale-105 hover:shadow-lg transition-transform duration-300"
     >
       <div className="w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden border-2 border-[var(--border-accent)] bg-[var(--bg-card)] flex items-center justify-center">
         {!imgError ? (
@@ -87,8 +88,9 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen pt-24 pb-20 min-w-0">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0">
+    <div className="min-h-screen pt-24 pb-20 min-w-0 relative overflow-hidden">
+      <SectionBackground src="/images/downloaded/campus.jpg" opacity={0.2} className="top-0 h-[350px] md:h-[400px]" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0 relative z-10">
         <motion.header
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -148,7 +150,7 @@ export default function AboutPage() {
           className="mb-20"
         >
           <div className="grid md:grid-cols-2 gap-6">
-            <article className="card-retro rounded-sm p-8">
+            <article className="card-retro rounded-sm p-8 border-2 border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/50 hover:shadow-[0_0_20px_var(--accent-cyan-muted)] transition-all duration-300">
               <h2 className="font-mono text-lg font-semibold text-[var(--text-primary)] mb-4">
                 &gt; OUR VISION
               </h2>
@@ -156,7 +158,7 @@ export default function AboutPage() {
                 To be the most impactful student-run techfest in India - a launchpad where the next generation of builders, creators, and innovators come together to push beyond what&apos;s possible.
               </p>
             </article>
-            <article className="card-retro rounded-sm p-8">
+            <article className="card-retro rounded-sm p-8 border-2 border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/50 hover:shadow-[0_0_20px_var(--accent-cyan-muted)] transition-all duration-300">
               <h2 className="font-mono text-lg font-semibold text-[var(--text-primary)] mb-4">
                 &gt; OUR MISSION
               </h2>
@@ -218,7 +220,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.08 }}
                 viewport={{ once: true }}
-                className="card-retro rounded-sm p-6"
+                className="card-retro rounded-sm p-6 border-2 border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/50 hover:shadow-[0_0_20px_var(--accent-cyan-muted)] transition-all duration-300"
               >
                 <div className="w-10 h-10 rounded border border-[var(--border-accent)] flex items-center justify-center mb-4">
                   <span className="text-[var(--accent-cyan)] font-mono">▸</span>

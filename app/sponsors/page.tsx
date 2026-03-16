@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { HiUsers, HiGlobe, HiLightningBolt, HiStar } from 'react-icons/hi';
+import { SectionBackground } from '@/components/SectionBackground';
 
 const whySponsor = [
   { icon: HiUsers, title: '3000+ Attendees', description: 'Direct access to developers, engineers, and tech-savvy students' },
@@ -47,12 +48,21 @@ const sponsorTiers = [
       { name: 'Smart IoT Systems', logo: '/images/logo.png', description: 'IoT solutions' },
     ],
   },
+  {
+    tier: 'In-Kind Sponsors',
+    sponsors: [
+      { name: 'Campus Cafe', logo: '/images/logo.png', description: 'Food and beverages' },
+      { name: 'PrintPro', logo: '/images/logo.png', description: 'Printing and merchandise' },
+      { name: 'TechGear Co', logo: '/images/logo.png', description: 'Equipment and swag' },
+    ],
+  },
 ];
 
 export default function SponsorsPage() {
   return (
-    <div className="min-h-screen pt-24 pb-20 min-w-0">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0">
+    <div className="min-h-screen pt-24 pb-20 min-w-0 relative overflow-hidden">
+      <SectionBackground src="/images/backgrounds/tech-circuit.jpg" opacity={0.15} className="top-0 h-[350px] md:h-[400px]" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0 relative z-10">
         <motion.header
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -90,7 +100,7 @@ export default function SponsorsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.08 }}
                 viewport={{ once: true }}
-                className="card-retro rounded-sm p-6 text-center border-2 border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:shadow-[6px_6px_0_var(--accent-yellow)] transition-all duration-300"
+                className="card-retro rounded-sm p-6 text-center border-2 border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:shadow-[6px_6px_0_var(--accent-yellow)] hover:scale-105 transition-all duration-300"
               >
                 <item.icon className="w-10 h-10 mx-auto mb-4 text-[var(--accent-cyan)]" aria-hidden />
                 <h3 className="font-mono font-semibold text-[var(--text-primary)] mb-2">{item.title}</h3>
@@ -124,7 +134,9 @@ export default function SponsorsPage() {
                     ? 'grid-cols-1 md:grid-cols-3'
                     : tier.tier === 'Gold Sponsors'
                       ? 'grid-cols-2 md:grid-cols-4'
-                      : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-6'
+                      : tier.tier === 'Silver Sponsors'
+                        ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-6'
+                        : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-6'
               }`}
             >
               {tier.sponsors.map((sponsor, index) => (
@@ -134,7 +146,7 @@ export default function SponsorsPage() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.35, delay: index * 0.04 }}
                   viewport={{ once: true }}
-                  className={`card-retro rounded-sm overflow-hidden text-center ${
+                  className={`card-retro rounded-sm overflow-hidden text-center transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_var(--accent-cyan-muted)] hover:border-[var(--accent-cyan)]/50 border-2 border-[var(--border-subtle)] ${
                     tier.tier === 'Title Sponsors' ? 'p-10' : 'p-6'
                   }`}
                 >

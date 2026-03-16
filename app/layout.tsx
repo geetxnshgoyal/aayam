@@ -5,8 +5,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import ComicoBackground from "@/components/ComicoBackground";
-import Preloader from "@/components/Preloader";
-import { CustomCursor, ScrollProgressBar } from "@/components/ImmersionEffects";
+import AnimatedBackgroundElements from "@/components/AnimatedBackgroundElements";
+import { ScrollProgressBar } from "@/components/ImmersionEffects";
 import { ALL_SITE_URLS, PRIMARY_SITE_URL, SITE_LOGO_PATH, SITE_KEYWORDS } from "@/lib/site";
 
 const siteUrl = PRIMARY_SITE_URL;
@@ -183,10 +183,9 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        <Preloader />
-        <CustomCursor />
         <ScrollProgressBar />
         <ComicoBackground />
+        <AnimatedBackgroundElements />
         <Navbar />
         <main className="relative z-10" id="main-content">
           {children}
