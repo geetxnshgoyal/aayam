@@ -73,6 +73,22 @@ npm run build
 npm start
 ```
 
+### Deployment (Vercel)
+
+Set these environment variables in **Vercel → Project → Settings → Environment Variables**:
+
+| Variable | Required | Notes |
+|----------|----------|-------|
+| `JWT_SECRET` | **Yes** | Min 32 chars. Generate: `openssl rand -base64 32` |
+| `FIREBASE_PROJECT_ID` | Yes | From Firebase Console |
+| `FIREBASE_CLIENT_EMAIL` | Yes | Service account email |
+| `FIREBASE_PRIVATE_KEY` | Yes | Full key with `\n` for newlines |
+| `SMTP_*` | Yes | For ambassador emails |
+| `ADMIN_SEED_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` | Yes | For admin seed |
+| `NEXT_PUBLIC_SITE_URL` | Optional | e.g. `https://www.aayamfest.com` |
+
+**Important:** `JWT_SECRET` must be set in production or ambassador/admin login will fail with 500.
+
 ## Project Structure
 
 ```

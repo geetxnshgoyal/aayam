@@ -23,7 +23,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Your application is still pending admin approval' }, { status: 403 });
     }
 
-    const isValid = await bcrypt.compare(password, ambassador.password || '');
+    const storedHash = ambassador.password;
+    if (!storedHash || typeof storedHash !== 'string') {
+      return NextResponse.json({ error: 'Account setup incomplete. Please contact admin.' }, { status: 401 });
+    }
+
+    let isValid = false;
+    try {
+      isValid = await bcrypt.compare(password, storedHash);
+    } catch {
+      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+    }
     if (!isValid) {
       return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
     }
@@ -42,7 +52,8 @@ export async function POST(request: NextRequest) {
       ambassador: ambassadorData,
     });
   } catch (error) {
-    console.error('Login error:', error);
+    const msg = error instanceof Error ? error.message : String(error);
+    console.error('Ambassador login error:', msg);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
