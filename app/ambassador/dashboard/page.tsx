@@ -8,6 +8,29 @@ import { FaTrophy, FaMedal } from 'react-icons/fa';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import Tasks from '@/components/Tasks';
 
+function getAmbassadorToken(): string | null {
+  try {
+    return localStorage.getItem('ambassador_token') ?? sessionStorage.getItem('ambassador_token');
+  } catch {
+    try {
+      return sessionStorage.getItem('ambassador_token');
+    } catch {
+      return null;
+    }
+  }
+}
+
+function clearAmbassadorSession(): void {
+  try {
+    localStorage.removeItem('ambassador_token');
+    localStorage.removeItem('ambassador_id');
+  } catch {}
+  try {
+    sessionStorage.removeItem('ambassador_token');
+    sessionStorage.removeItem('ambassador_id');
+  } catch {}
+}
+
 interface Ambassador {
   id: string;
   name: string;
@@ -46,7 +69,7 @@ export default function DashboardPage() {
   });
 
   useEffect(() => {
-    const tokenFromStorage = localStorage.getItem('ambassador_token');
+    const tokenFromStorage = getAmbassadorToken();
     if (!tokenFromStorage) {
       router.push('/ambassador/login');
       return;
@@ -57,22 +80,28 @@ export default function DashboardPage() {
 
   const fetchDashboardData = async () => {
     try {
-      const token = localStorage.getItem('ambassador_token');
+      const token = getAmbassadorToken();
+      if (!token) {
+        router.push('/ambassador/login');
+        return;
+      }
       const response = await fetch('/api/ambassador/dashboard', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
+        credentials: 'include',
       });
 
       if (response.ok) {
         const data = await response.json();
         setAmbassador(data.ambassador);
-        setSignups(data.signups);
+        setSignups(data.signups || []);
       } else {
+        clearAmbassadorSession();
         router.push('/ambassador/login');
       }
     } catch (error) {
       console.error('Error fetching dashboard:', error);
+      clearAmbassadorSession();
+      router.push('/ambassador/login');
     } finally {
       setLoading(false);
     }
@@ -82,7 +111,7 @@ export default function DashboardPage() {
     e.preventDefault();
     setSubmitting(true);
     setSubmitError('');
-    const token = localStorage.getItem('ambassador_token');
+    const token = getAmbassadorToken();
 
     try {
       const response = await fetch('/api/ambassador/add-signup', {
@@ -125,8 +154,7 @@ export default function DashboardPage() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('ambassador_token');
-    localStorage.removeItem('ambassador_id');
+    clearAmbassadorSession();
     router.push('/ambassador/login');
   };
 
@@ -143,95 +171,106 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0A0B16] flex items-center justify-center">
-        <div className="text-white text-xl">Loading...</div>
+      <div className="min-h-screen bg-[var(--bg-deep)] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-6">
+          <LoadingSpinner size="lg" color="white" />
+          <p className="text-[var(--accent-cyan)] font-mono text-sm tracking-[0.3em] uppercase">Syncing_Data_Stream...</p>
+        </div>
       </div>
     );
   }
 
   if (!ambassador) {
-    return null;
+    return (
+      <div className="min-h-screen bg-[var(--bg-deep)] flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-[var(--text-muted)] font-mono mb-4">Session expired or invalid.</p>
+          <button
+            onClick={() => router.push('/ambassador/login')}
+            className="px-6 py-3 bg-[var(--accent-primary)] border-2 border-[var(--accent-yellow)] text-[var(--ink)] font-black rounded-xl"
+          >
+            Go to Login
+          </button>
+        </div>
+      </div>
+    );
   }
 
   const tierInfo = getTierInfo(ambassador.tier);
   const progress = ambassador.tier === 'platinum' ? 100 : (ambassador.signup_count % 100);
 
   return (
-    <div className="min-h-screen bg-[#0A0B16] text-white pt-28 pb-20">
-      {/* Animated background */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div 
-          className="absolute inset-0 opacity-30"
-          style={{
-            background: 'linear-gradient(135deg, #200934 0%, #0A0B16 30%, #560F28 60%, #0A0B16 100%)',
-            backgroundSize: '400% 400%',
-            animation: 'gradient-shift 20s ease infinite',
-          }}
-        />
-      </div>
+    <div className="min-h-screen bg-[var(--bg-deep)] text-white pt-28 pb-20 relative overflow-hidden">
+      {/* COMICO halftone bg */}
+      <div className="fixed inset-0 pointer-events-none opacity-[0.03] halftone-dots" />
+      <div className="fixed inset-0 pointer-events-none bg-gradient-to-b from-[var(--accent-cyan)]/5 via-transparent to-[var(--accent-magenta)]/5" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-4xl font-black mb-2">
-              Welcome, <span className="bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] bg-clip-text text-transparent">{ambassador.name}</span>!
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
+          <motion.div
+            initial={{ x: -30, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            className="relative"
+          >
+            <div className="w-16 h-1 bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-magenta)] mb-4" />
+            <h1 className="text-3xl md:text-5xl font-display font-black uppercase tracking-tight">
+              <span className="whitespace-nowrap">Welcome, <span className="bg-gradient-to-r from-[var(--accent-cyan)] via-[var(--accent-magenta)] to-[var(--accent-orange)] bg-clip-text text-transparent">{ambassador.name}</span></span>
             </h1>
-            <p className="text-gray-400">{ambassador.college}</p>
-          </div>
-          <button
+            <p className="text-[var(--text-muted)] font-mono text-sm mt-2 tracking-widest">{ambassador.college}</p>
+          </motion.div>
+          <motion.button
+            initial={{ x: 30, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
             onClick={handleLogout}
-            className="flex items-center gap-2 px-6 py-3 bg-red-500/10 border border-red-500/30 rounded-xl hover:bg-red-500/20 transition-colors"
+            className="flex items-center gap-2 px-6 py-3 bg-[var(--bg-elevated)] border-2 border-[var(--accent-red)] rounded-xl hover:bg-[var(--accent-red)]/20 transition-all font-mono text-xs tracking-widest uppercase shadow-[4px_4px_0_var(--ink)]"
           >
             <HiLogout className="w-5 h-5" />
-            Logout
-          </button>
+            Terminate
+          </motion.button>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
-          {/* Referral Code */}
+        {/* Stats Cards - COMICO panels */}
+        <div className="grid md:grid-cols-3 gap-6 mb-10">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="bg-gradient-to-br from-[#200934] to-[#180C16] rounded-2xl p-6 border border-[#560F28]/30"
+            className="bg-[var(--bg-card)] rounded-2xl p-6 border-2 border-[var(--accent-yellow)] shadow-[8px_8px_0_var(--accent-magenta)] hover:shadow-[6px_6px_0_var(--accent-cyan)] transition-shadow"
           >
-            <HiClipboardCopy className="w-8 h-8 mb-4 text-[#560F28]" />
-            <h3 className="text-sm text-gray-400 mb-2">Your Referral Code</h3>
-            <div className="flex items-center justify-between">
-              <p className="text-2xl font-black">{ambassador.referral_code}</p>
+            <HiClipboardCopy className="w-10 h-10 mb-4 text-[var(--accent-cyan)]" />
+            <h3 className="text-xs font-mono text-[var(--text-muted)] mb-2 uppercase tracking-[0.3em]">Your Referral Code</h3>
+            <div className="flex items-center justify-between gap-4">
+              <p className="text-2xl font-black font-mono tracking-wider text-[var(--accent-yellow)]">{ambassador.referral_code}</p>
               <button
                 onClick={copyReferralCode}
-                className="px-4 py-2 bg-[#560F28]/20 hover:bg-[#560F28]/40 rounded-lg transition-colors text-sm"
+                className="px-4 py-2 bg-[var(--accent-primary)] border-2 border-[var(--accent-yellow)] text-[var(--ink)] font-black text-xs uppercase rounded-lg hover:bg-[var(--accent-primary-hover)] shadow-[4px_4px_0_var(--accent-magenta)] transition-all shrink-0"
               >
                 {copied ? 'Copied!' : 'Copy'}
               </button>
             </div>
           </motion.div>
 
-          {/* Total Signups */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.1 }}
-            className="bg-gradient-to-br from-[#180C16] to-[#350609] rounded-2xl p-6 border border-[#560F28]/30"
+            className="bg-[var(--bg-card)] rounded-2xl p-6 border-2 border-[var(--accent-magenta)] shadow-[8px_8px_0_var(--accent-cyan)]"
           >
-            <HiUsers className="w-8 h-8 mb-4 text-[#560F28]" />
-            <h3 className="text-sm text-gray-400 mb-2">Total Signups</h3>
-            <p className="text-4xl font-black">{ambassador.signup_count}</p>
+            <HiUsers className="w-10 h-10 mb-4 text-[var(--accent-magenta)]" />
+            <h3 className="text-xs font-mono text-[var(--text-muted)] mb-2 uppercase tracking-[0.3em]">Total Signups</h3>
+            <p className="text-5xl font-black text-[var(--accent-teal)]">{ambassador.signup_count}</p>
           </motion.div>
 
-          {/* Current Tier */}
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="bg-gradient-to-br from-[#560F28] to-[#350609] rounded-2xl p-6 border border-[#560F28]/30"
+            className="bg-[var(--bg-card)] rounded-2xl p-6 border-2 border-[var(--accent-orange)] shadow-[8px_8px_0_var(--accent-yellow)]"
           >
-            <tierInfo.icon className="w-8 h-8 mb-4 text-white" />
-            <h3 className="text-sm text-gray-200 mb-2">Current Tier</h3>
-            <p className="text-3xl font-black">{tierInfo.name}</p>
-            <p className="text-xs text-gray-300 mt-2">Next: {tierInfo.next}</p>
+            <tierInfo.icon className="w-10 h-10 mb-4 text-[var(--accent-orange)]" />
+            <h3 className="text-xs font-mono text-[var(--text-muted)] mb-2 uppercase tracking-[0.3em]">Current Tier</h3>
+            <p className="text-3xl font-black text-white">{tierInfo.name}</p>
+            <p className="text-xs text-[var(--text-muted)] mt-2 font-mono">Next: {tierInfo.next}</p>
           </motion.div>
         </div>
 
@@ -240,15 +279,15 @@ export default function DashboardPage() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="bg-gradient-to-br from-[#180C16] to-[#0A0B16] rounded-2xl p-6 border border-[#560F28]/20 mb-8"
+          className="bg-[var(--bg-card)] rounded-2xl p-6 border-2 border-[var(--border-accent)] mb-10"
         >
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-bold">Progress to Next Tier</h3>
-            <span className="text-sm text-gray-400">{ambassador.signup_count} signups</span>
+            <h3 className="text-sm font-mono font-bold uppercase tracking-widest">Progress to Next Tier</h3>
+            <span className="text-sm text-[var(--text-muted)] font-mono">{ambassador.signup_count} signups</span>
           </div>
-          <div className="w-full bg-transparent/10 rounded-full h-4 overflow-hidden">
+          <div className="w-full bg-[var(--bg-deep)] rounded-full h-3 overflow-hidden border border-[var(--border-subtle)]">
             <div
-              className="h-full bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] transition-all duration-500"
+              className="h-full bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-magenta)] transition-all duration-500"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -258,10 +297,10 @@ export default function DashboardPage() {
         <div className="flex gap-3 mb-8">
           <button
             onClick={() => setActiveTab('signups')}
-            className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+            className={`px-6 py-3 rounded-xl font-mono text-xs font-black uppercase tracking-widest transition-all border-2 ${
               activeTab === 'signups'
-                ? 'bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] text-white'
-                : 'bg-transparent/5 text-gray-400 hover:bg-transparent/10'
+                ? 'bg-[var(--accent-magenta)] border-[var(--accent-magenta)] text-white shadow-[6px_6px_0_var(--accent-cyan)]'
+                : 'bg-transparent border-[var(--border-subtle)] text-[var(--text-muted)] hover:border-[var(--accent-cyan)] hover:text-white'
             }`}
           >
             <HiUsers className="inline mr-2 w-5 h-5" />
@@ -269,10 +308,10 @@ export default function DashboardPage() {
           </button>
           <button
             onClick={() => setActiveTab('tasks')}
-            className={`px-6 py-3 rounded-xl font-semibold transition-all ${
+            className={`px-6 py-3 rounded-xl font-mono text-xs font-black uppercase tracking-widest transition-all border-2 ${
               activeTab === 'tasks'
-                ? 'bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] text-white'
-                : 'bg-transparent/5 text-gray-400 hover:bg-transparent/10'
+                ? 'bg-[var(--accent-magenta)] border-[var(--accent-magenta)] text-white shadow-[6px_6px_0_var(--accent-cyan)]'
+                : 'bg-transparent border-[var(--border-subtle)] text-[var(--text-muted)] hover:border-[var(--accent-cyan)] hover:text-white'
             }`}
           >
             <HiStar className="inline mr-2 w-5 h-5" />
@@ -292,7 +331,7 @@ export default function DashboardPage() {
             <div className="mb-8">
               <button
                 onClick={() => setShowAddSignup(!showAddSignup)}
-                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] rounded-xl font-semibold hover:shadow-lg transition-all"
+                className="flex items-center gap-2 px-8 py-4 bg-[var(--accent-primary)] border-2 border-[var(--accent-yellow)] text-[var(--ink)] font-black font-mono text-sm uppercase tracking-widest rounded-xl hover:bg-[var(--accent-primary-hover)] shadow-[6px_6px_0_var(--accent-magenta)] hover:shadow-[4px_4px_0_var(--accent-magenta)] transition-all"
               >
                 <HiPlus className="w-5 h-5" />
                 {showAddSignup ? 'Cancel' : 'Add New Signup'}
@@ -304,11 +343,14 @@ export default function DashboardPage() {
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
-            className="bg-gradient-to-br from-[#180C16] to-[#0A0B16] rounded-2xl p-6 border border-[#560F28]/20 mb-8"
+            className="bg-[var(--bg-card)] rounded-2xl p-8 border-2 border-[var(--accent-cyan)] shadow-[8px_8px_0_var(--accent-magenta)] mb-8"
           >
-            <h3 className="text-xl font-bold mb-4">Add Participant Signup</h3>
+            <h3 className="text-lg font-mono font-black uppercase tracking-widest mb-6 flex items-center gap-2">
+              <span className="w-8 h-0.5 bg-[var(--accent-cyan)]" />
+              Add Participant Signup
+            </h3>
             {submitError && (
-              <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+              <div className="mb-6 p-4 rounded-xl bg-[var(--accent-red)]/10 border-2 border-[var(--accent-red)]/50 text-[var(--accent-red)] font-mono text-sm">
                 {submitError}
               </div>
             )}
@@ -320,7 +362,7 @@ export default function DashboardPage() {
                 onChange={(e) => setNewSignup({ ...newSignup, participant_name: e.target.value })}
                 required
                 disabled={submitting}
-                className="px-4 py-3 bg-transparent/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+                className="px-4 py-3 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-xl focus:border-[var(--accent-cyan)] focus:outline-none text-white font-mono disabled:opacity-50 transition-colors"
               />
               <input
                 type="email"
@@ -329,7 +371,7 @@ export default function DashboardPage() {
                 onChange={(e) => setNewSignup({ ...newSignup, participant_email: e.target.value })}
                 required
                 disabled={submitting}
-                className="px-4 py-3 bg-transparent/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+                className="px-4 py-3 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-xl focus:border-[var(--accent-cyan)] focus:outline-none text-white font-mono disabled:opacity-50 transition-colors"
               />
               <input
                 type="tel"
@@ -337,7 +379,7 @@ export default function DashboardPage() {
                 value={newSignup.participant_phone}
                 onChange={(e) => setNewSignup({ ...newSignup, participant_phone: e.target.value })}
                 disabled={submitting}
-                className="px-4 py-3 bg-transparent/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+                className="px-4 py-3 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-xl focus:border-[var(--accent-cyan)] focus:outline-none text-white font-mono disabled:opacity-50 transition-colors"
               />
               <input
                 type="text"
@@ -345,12 +387,12 @@ export default function DashboardPage() {
                 value={newSignup.participant_college}
                 onChange={(e) => setNewSignup({ ...newSignup, participant_college: e.target.value })}
                 disabled={submitting}
-                className="px-4 py-3 bg-transparent/5 border border-white/10 rounded-xl focus:border-[#560F28] focus:outline-none text-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+                className="px-4 py-3 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-xl focus:border-[var(--accent-cyan)] focus:outline-none text-white font-mono disabled:opacity-50 transition-colors"
               />
               <button
                 type="submit"
                 disabled={submitting}
-                className="md:col-span-2 py-3 bg-gradient-to-r from-[var(--energy)] to-[var(--dc1426)] rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="md:col-span-2 py-4 bg-[var(--accent-primary)] border-2 border-[var(--accent-yellow)] text-[var(--ink)] font-black font-mono uppercase tracking-widest rounded-xl hover:bg-[var(--accent-primary-hover)] shadow-[6px_6px_0_var(--accent-magenta)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all"
               >
                 {submitting ? (
                   <>
@@ -366,28 +408,32 @@ export default function DashboardPage() {
         )}
 
         {/* Signups List */}
-        <div className="bg-gradient-to-br from-[#180C16] to-[#0A0B16] rounded-2xl p-6 border border-[#560F28]/20">
-          <h3 className="text-xl font-bold mb-4">Your Referrals ({signups.length})</h3>
+        <div className="bg-[var(--bg-card)] rounded-2xl p-8 border-2 border-[var(--accent-yellow)] shadow-[8px_8px_0_var(--accent-magenta)]">
+          <h3 className="text-lg font-mono font-black uppercase tracking-widest mb-6 flex items-center gap-2">
+            <span className="w-8 h-0.5 bg-[var(--accent-yellow)]" />
+            Your Referrals ({signups.length})
+          </h3>
           {signups.length === 0 ? (
-            <p className="text-gray-400 text-center py-8">No signups yet. Start promoting AAYAM!</p>
+            <div className="text-center py-16 border-2 border-dashed border-[var(--border-subtle)] rounded-xl">
+              <HiUsers className="w-16 h-16 mx-auto text-[var(--text-muted)]/50 mb-4" />
+              <p className="text-[var(--text-muted)] font-mono text-sm">No signups yet. Start promoting AAYAM!</p>
+            </div>
           ) : (
             <div className="space-y-3">
               {signups.map((signup) => (
                 <div
                   key={signup.id}
-                  className="flex justify-between items-center p-4 bg-transparent/5 rounded-xl hover:bg-transparent/10 transition-colors"
+                  className="flex justify-between items-center p-4 bg-[var(--bg-elevated)] rounded-xl border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/50 transition-colors"
                 >
                   <div>
-                    <p className="font-semibold">{signup.participant_name}</p>
-                    <p className="text-sm text-gray-400">{signup.participant_email}</p>
+                    <p className="font-bold text-white">{signup.participant_name}</p>
+                    <p className="text-sm text-[var(--text-muted)]">{signup.participant_email}</p>
                     {signup.participant_college && (
-                      <p className="text-xs text-gray-500">{signup.participant_college}</p>
+                      <p className="text-xs text-[var(--text-muted)]/80 font-mono">{signup.participant_college}</p>
                     )}
                   </div>
-                  <div className="text-right">
-                    <p className="text-xs text-gray-400">
-                      {new Date(signup.registered_at).toLocaleDateString()}
-                    </p>
+                  <div className="text-right font-mono text-xs text-[var(--text-muted)]">
+                    {new Date(signup.registered_at).toLocaleDateString()}
                   </div>
                 </div>
               ))}

@@ -35,6 +35,14 @@ export interface Task {
   id: string;
   name: string;
   description?: string;
+  /** Detailed task instructions for ambassadors */
+  instructions?: string;
+  /** What proof ambassadors must submit (e.g. "Submit the link to your Instagram post/story") */
+  submission_proof?: string;
+  /** How points are awarded (e.g. "Story shared → 10–20 points, Post/Reel → 30–50 points") */
+  points_criteria?: string;
+  /** Optional example caption or template for social tasks */
+  example_caption?: string;
   points_min: number;
   points_max: number;
   required_proof: 'link' | 'screenshot' | 'video' | 'text';

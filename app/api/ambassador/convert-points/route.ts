@@ -1,7 +1,13 @@
-import { supabase } from '@/lib/supabase';
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import { getJwtSecret } from '@/lib/auth';
+import {
+  getAmbassadorPoints,
+  getAmbassadorById,
+  addAmbassadorPoints,
+  updateAmbassador,
+  tierFromSignupCount,
+} from '@/lib/firestore-helpers';
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,21 +18,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const decoded = jwt.verify(token, getJwtSecret()) as any;
+    const decoded = jwt.verify(token, getJwtSecret(), { algorithms: ['HS256'] }) as { id: string };
     const ambassadorId = decoded.id;
-    const { pointsNeeded = 12 } = await request.json(); // Default 12 points for 1 signup
+    const body = await request.json();
+    const rawPoints = body.pointsNeeded ?? 12;
+    const pointsNeeded = Math.max(1, Math.min(1000, Math.floor(Number(rawPoints))));
 
-    // Get total points for this ambassador
-    const { data: pointsData, error: pointsError } = await supabase
-      .from('ambassador_points')
-      .select('points')
-      .eq('ambassador_id', ambassadorId);
-
-    if (pointsError) {
-      return NextResponse.json({ error: 'Failed to fetch points' }, { status: 500 });
-    }
-
-    const totalPoints = (pointsData || []).reduce((sum, p) => sum + p.points, 0);
+    const totalPoints = await getAmbassadorPoints(ambassadorId);
 
     if (totalPoints < pointsNeeded) {
       return NextResponse.json(
@@ -39,38 +37,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Deduct points
-    const { error: deductError } = await supabase
-      .from('ambassador_points')
-      .insert({
-        ambassador_id: ambassadorId,
-        points: -pointsNeeded,
-        source: 'conversion',
-      });
+    await addAmbassadorPoints(ambassadorId, -pointsNeeded, 'conversion');
 
-    if (deductError) {
-      return NextResponse.json({ error: 'Failed to deduct points' }, { status: 500 });
-    }
-
-    // Add signup count
-    const { data: ambassador, error: fetchError } = await supabase
-      .from('ambassadors')
-      .select('signup_count')
-      .eq('id', ambassadorId)
-      .single();
-
-    if (fetchError || !ambassador) {
+    const ambassador = await getAmbassadorById(ambassadorId);
+    if (!ambassador) {
       return NextResponse.json({ error: 'Failed to fetch ambassador' }, { status: 500 });
     }
 
-    const { error: updateError } = await supabase
-      .from('ambassadors')
-      .update({ signup_count: (ambassador.signup_count || 0) + 1 })
-      .eq('id', ambassadorId);
-
-    if (updateError) {
-      return NextResponse.json({ error: 'Failed to add signup' }, { status: 500 });
-    }
+    const newCount = (ambassador.signup_count || 0) + 1;
+    const newTier = tierFromSignupCount(newCount);
+    await updateAmbassador(ambassadorId, {
+      signup_count: newCount,
+      tier: newTier,
+    });
 
     return NextResponse.json({
       message: 'Successfully converted points to signup!',

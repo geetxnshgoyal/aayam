@@ -6,8 +6,6 @@ import { motion } from 'framer-motion';
 import { HiMail, HiLockClosed } from 'react-icons/hi';
 import Link from 'next/link';
 import LoadingSpinner from '@/components/LoadingSpinner';
-import Magnetic from '@/components/Magnetic';
-import TextEncrypt from '@/components/TextEncrypt';
 
 export default function AmbassadorLoginPage() {
   const router = useRouter();
@@ -24,27 +22,69 @@ export default function AmbassadorLoginPage() {
     setLoading(true);
     setError('');
 
-    try {
-      const response = await fetch('/api/ambassador/login', {
+    const doPost = () =>
+      fetch('/api/ambassador/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
+        credentials: 'include',
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        // Store session
-        localStorage.setItem('ambassador_token', data.token);
-        localStorage.setItem('ambassador_id', data.ambassador.id);
-
-        // Redirect to dashboard
-        router.push('/ambassador/dashboard');
-      } else {
-        setError(data.error || 'AUTHORIZATION_DENIED');
+    let response: Response;
+    try {
+      response = await doPost();
+    } catch {
+      await new Promise((r) => setTimeout(r, 800));
+      try {
+        response = await doPost();
+      } catch {
+        setError('CONNECTION_ERROR: Node unreachable. Check your network or try again.');
+        setLoading(false);
+        return;
       }
-    } catch (error) {
-      setError('CONNECTION_ERROR: Node unreachable.');
+    }
+
+    try {
+      const text = await response.text();
+      let data: { error?: string; token?: string; ambassador?: { id: string } };
+      try {
+        data = text ? JSON.parse(text) : {};
+      } catch {
+        setError(`Server returned invalid response (status ${response.status}). Try again.`);
+        setLoading(false);
+        return;
+      }
+      if (response.ok) {
+        if (data.token && data.ambassador?.id) {
+          try {
+            localStorage.setItem('ambassador_token', data.token);
+            localStorage.setItem('ambassador_id', data.ambassador.id);
+          } catch {
+            try {
+              sessionStorage.setItem('ambassador_token', data.token);
+              sessionStorage.setItem('ambassador_id', data.ambassador.id);
+            } catch {
+              // Storage blocked; show message
+              setError('Browser blocked storage. Open in a new tab (not iframe), allow cookies, or disable strict privacy mode.');
+              setLoading(false);
+              return;
+            }
+          }
+          router.push('/ambassador/dashboard');
+        } else {
+          setError(data.error || 'AUTHORIZATION_DENIED');
+        }
+      } else {
+        setError(data.error || `Error ${response.status}. Try again.`);
+      }
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : 'Unknown error';
+      const isStorage = /localStorage|sessionStorage|access is denied/i.test(msg);
+      setError(
+        isStorage
+          ? 'Browser blocked storage. Open in a new tab and allow cookies.'
+          : `Request failed: ${msg}`
+      );
     } finally {
       setLoading(false);
     }
@@ -66,13 +106,13 @@ export default function AmbassadorLoginPage() {
           <motion.div
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
-            className="inline-block px-6 py-2 bg-transparent/5 backdrop-blur-md rounded-full border border-white/10 text-[var(--horror-magenta)] font-mono text-xs tracking-[0.4em] uppercase mb-8"
+            className="inline-block px-6 py-2 bg-[var(--bg-card)] rounded-full border-2 border-[var(--accent-magenta)] text-[var(--accent-magenta)] font-mono text-xs tracking-[0.4em] uppercase mb-8 shadow-[4px_4px_0_var(--accent-cyan)]"
           >
             Encryption Layer
           </motion.div>
 
-          <h1 className="text-4xl md:text-7xl font-display font-black mb-6 text-white tracking-tighter uppercase">
-            <TextEncrypt text="DECRYPT_LOG" />
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-display font-black mb-6 text-white tracking-tight uppercase">
+            DECRYPT_LOG
           </h1>
 
           <p className="text-gray-400 text-lg font-light leading-relaxed">
@@ -83,10 +123,10 @@ export default function AmbassadorLoginPage() {
         <motion.div
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="bg-[#050508]/60 backdrop-blur-3xl rounded-[3rem] p-10 md:p-16 border border-white/5 relative overflow-hidden"
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-[var(--bg-card)] backdrop-blur-3xl rounded-[2rem] p-10 md:p-16 border-2 border-[var(--accent-yellow)] shadow-[8px_8px_0_var(--accent-magenta)] relative overflow-hidden"
         >
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--horror-cyan)] to-transparent opacity-50" />
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--accent-cyan)] via-[var(--accent-magenta)] to-[var(--accent-orange)]" />
 
           {error && (
             <motion.div
@@ -113,8 +153,9 @@ export default function AmbassadorLoginPage() {
                   onChange={handleChange}
                   required
                   disabled={loading}
-                  className="w-full pl-16 pr-6 py-5 bg-transparent/5 border border-white/10 rounded-2xl focus:border-[var(--horror-cyan)] focus:bg-transparent/10 focus:outline-none transition-all text-white font-light text-lg"
+                  className="w-full pl-16 pr-6 py-5 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-2xl focus:border-[var(--accent-cyan)] focus:outline-none transition-all text-white font-mono"
                   placeholder="name@node.com"
+                  suppressHydrationWarning
                 />
               </div>
             </div>
@@ -133,36 +174,35 @@ export default function AmbassadorLoginPage() {
                   onChange={handleChange}
                   required
                   disabled={loading}
-                  className="w-full pl-16 pr-6 py-5 bg-transparent/5 border border-white/10 rounded-2xl focus:border-[var(--horror-magenta)] focus:bg-transparent/10 focus:outline-none transition-all text-white font-light text-lg"
+                  className="w-full pl-16 pr-6 py-5 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-2xl focus:border-[var(--accent-magenta)] focus:outline-none transition-all text-white font-mono"
                   placeholder="Password"
+                  suppressHydrationWarning
                 />
               </div>
             </div>
 
             {/* Submit Button */}
             <div className="pt-4">
-              <Magnetic>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full py-6 bg-transparent text-black font-black text-xl tracking-[0.2em] rounded-2xl hover:bg-[var(--horror-cyan)] transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4 uppercase"
-                >
-                  {loading ? (
-                    <>
-                      <LoadingSpinner size="sm" color="black" />
-                      <span>Verifying...</span>
-                    </>
-                  ) : (
-                    'Authorize'
-                  )}
-                </button>
-              </Magnetic>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-6 bg-[var(--accent-primary)] border-2 border-[var(--accent-yellow)] text-[var(--ink)] font-black font-mono text-xl tracking-[0.2em] rounded-2xl hover:bg-[var(--accent-primary-hover)] shadow-[6px_6px_0_var(--accent-magenta)] hover:shadow-[4px_4px_0_var(--accent-magenta)] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4 uppercase"
+              >
+                {loading ? (
+                  <>
+                    <LoadingSpinner size="sm" color="black" />
+                    <span>Verifying...</span>
+                  </>
+                ) : (
+                  'Authorize'
+                )}
+              </button>
             </div>
           </form>
 
           <div className="mt-12 space-y-4 text-center">
-            <div className="text-gray-500 font-mono text-xs uppercase tracking-widest">
-              No clearance? <Link href="/ambassador/register" className="text-[var(--horror-magenta)] hover:text-white transition-colors border-b border-[var(--horror-magenta)]/30">Request Entry</Link>
+            <div className="text-[var(--text-muted)] font-mono text-xs uppercase tracking-widest">
+              No clearance? <Link href="/ambassador/register" className="text-[var(--accent-magenta)] hover:text-white transition-colors border-b border-[var(--accent-magenta)]/50">Request Entry</Link>
             </div>
 
             <div className="pt-4 opacity-30 hover:opacity-100 transition-opacity">

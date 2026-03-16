@@ -1,33 +1,20 @@
-import { supabase } from '@/lib/supabase';
 import { NextRequest, NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
-import { getJwtSecret, getAdminTokenFromRequest } from '@/lib/auth';
+import { verifyAdminToken } from '@/lib/auth';
+import {
+  getPendingSubmissions,
+  getSubmissionById,
+  updateTaskSubmission,
+  addAmbassadorPoints,
+} from '@/lib/firestore-helpers';
 
 export async function GET(request: NextRequest) {
   try {
-    const token = getAdminTokenFromRequest(request);
-    if (!token) {
+    const admin = verifyAdminToken(request);
+    if (!admin) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    jwt.verify(token, getJwtSecret());
-
-    // Get pending submissions with task and ambassador info
-    const { data: submissions, error } = await supabase
-      .from('task_submissions')
-      .select(
-        `
-        *,
-        task:task_id(name, points_min, points_max),
-        ambassador:ambassador_id(name, email)
-      `
-      )
-      .eq('status', 'pending')
-      .order('submitted_at', { ascending: true });
-
-    if (error) {
-      return NextResponse.json({ error: 'Failed to fetch submissions' }, { status: 500 });
-    }
+    const submissions = await getPendingSubmissions();
 
     return NextResponse.json({ submissions });
   } catch (error) {
@@ -38,12 +25,10 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const token = getAdminTokenFromRequest(request);
-    if (!token) {
+    const admin = verifyAdminToken(request);
+    if (!admin) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
-
-    const decoded = jwt.verify(token, getJwtSecret()) as { adminId?: string; id?: string };
 
     const { submissionId, status, pointsAwarded, notes } = await request.json();
 
@@ -55,52 +40,36 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
     }
 
-    // Get submission
-    const { data: submission, error: fetchError } = await supabase
-      .from('task_submissions')
-      .select('*')
-      .eq('id', submissionId)
-      .single();
+    const points = status === 'approved' && pointsAwarded != null
+      ? Math.max(0, Math.min(1000, Math.floor(Number(pointsAwarded))))
+      : undefined;
+    const adminNotes = typeof notes === 'string' ? notes.slice(0, 500) : undefined;
 
-    if (fetchError || !submission) {
+    const submission = await getSubmissionById(submissionId);
+    if (!submission) {
       return NextResponse.json({ error: 'Submission not found' }, { status: 404 });
     }
 
-    // Update submission
-    const { error: updateError } = await supabase
-      .from('task_submissions')
-      .update({
-        status,
-        points_awarded: status === 'approved' ? pointsAwarded : null,
-        admin_notes: notes,
-        reviewed_at: new Date().toISOString(),
-        reviewed_by: decoded.adminId ?? decoded.id,
-      })
-      .eq('id', submissionId);
+    await updateTaskSubmission(submissionId, {
+      status,
+      points_awarded: points,
+      admin_notes: adminNotes,
+      reviewed_at: new Date().toISOString(),
+      reviewed_by: admin.adminId,
+    });
 
-    if (updateError) {
-      return NextResponse.json({ error: 'Failed to update submission' }, { status: 500 });
-    }
-
-    // If approved, add points to ambassador
-    if (status === 'approved' && pointsAwarded) {
-      const { error: pointsError } = await supabase
-        .from('ambassador_points')
-        .insert({
-          ambassador_id: submission.ambassador_id,
-          points: pointsAwarded,
-          source: 'task',
-          reference_id: submission.task_id,
-        });
-
-      if (pointsError) {
-        console.error('Error adding points:', pointsError);
-      }
+    if (status === 'approved' && points) {
+      await addAmbassadorPoints(
+        submission.ambassador_id,
+        points,
+        'task',
+        submission.task_id
+      );
     }
 
     return NextResponse.json({
       message: `Task ${status === 'approved' ? 'approved' : 'rejected'} successfully`,
-      submission,
+      submission: { ...submission, status, points_awarded: points },
     });
   } catch (error) {
     console.error('Error reviewing submission:', error);

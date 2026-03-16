@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { HiStar, HiCheckCircle, HiClock, HiXCircle, HiLink, HiCamera, HiSpeakerphone, HiTrendingUp } from 'react-icons/hi';
-import { Task, TaskSubmission } from '@/lib/supabase';
+import type { Task, TaskSubmission } from '@/lib/db-types';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
 interface TasksProps {
@@ -209,6 +209,38 @@ export default function Tasks({ ambassadorId, token }: TasksProps) {
                     </p>
                   </div>
                 </div>
+
+                {/* Task Instructions */}
+                {task.instructions && (
+                  <div className="mb-3 p-3 bg-black/20 rounded-lg border border-white/5">
+                    <p className="text-gray-300 text-xs font-semibold mb-1">Task Instructions</p>
+                    <p className="text-gray-400 text-xs whitespace-pre-wrap">{task.instructions}</p>
+                  </div>
+                )}
+
+                {/* Submission Proof */}
+                {task.submission_proof && (
+                  <div className="mb-3 text-xs">
+                    <p className="text-gray-500 font-semibold mb-1">Submit:</p>
+                    <p className="text-gray-400 whitespace-pre-wrap">{task.submission_proof}</p>
+                  </div>
+                )}
+
+                {/* Points Criteria */}
+                {task.points_criteria && (
+                  <div className="mb-3 text-xs">
+                    <p className="text-gray-500 font-semibold mb-1">Points:</p>
+                    <p className="text-gray-400 whitespace-pre-wrap">{task.points_criteria}</p>
+                  </div>
+                )}
+
+                {/* Example Caption */}
+                {task.example_caption && (
+                  <div className="mb-3 p-3 bg-[var(--energy)]/5 rounded-lg border border-[var(--energy)]/20">
+                    <p className="text-gray-500 text-xs font-semibold mb-1">Example Caption</p>
+                    <p className="text-gray-400 text-xs italic whitespace-pre-wrap">{task.example_caption}</p>
+                  </div>
+                )}
 
                 {/* Proof Type */}
                 <div className="flex items-center gap-2 mb-3 text-xs text-gray-400">

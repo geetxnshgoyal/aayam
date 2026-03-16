@@ -1,7 +1,14 @@
 import { NextResponse } from 'next/server';
 import { sendAmbassadorApprovalEmail, verifyEmailConnection } from '@/lib/email';
+import { verifyAdminToken } from '@/lib/auth';
 
-export async function GET() {
+export async function GET(request: Request) {
+  if (process.env.NODE_ENV === 'production') {
+    const admin = verifyAdminToken(request);
+    if (!admin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+  }
   try {
     // First verify email connection
     console.log('Verifying email connection...');
@@ -30,13 +37,10 @@ export async function GET() {
       messageId: result.messageId,
       recipient: 'aayam.fest@newtonschool.co',
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Test email failed:', error);
     return NextResponse.json(
-      { 
-        error: 'Failed to send test email',
-        details: error.message,
-      },
+      { error: 'Failed to send test email' },
       { status: 500 }
     );
   }

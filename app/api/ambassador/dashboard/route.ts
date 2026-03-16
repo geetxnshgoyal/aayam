@@ -1,62 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
 import jwt from 'jsonwebtoken';
-
 import { getJwtSecret } from '@/lib/auth';
+import { getAmbassadorById, getSignupsByAmbassadorId } from '@/lib/firestore-helpers';
 
 export async function GET(request: NextRequest) {
   try {
     const authHeader = request.headers.get('authorization');
-    
+
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const token = authHeader.substring(7);
-    
-    // Verify token
-    const decoded = jwt.verify(token, getJwtSecret()) as { id: string };
+    const decoded = jwt.verify(token, getJwtSecret(), { algorithms: ['HS256'] }) as { id: string };
 
-    // Get ambassador data
-    const { data: ambassador, error: ambassadorError } = await supabase
-      .from('ambassadors')
-      .select('*')
-      .eq('id', decoded.id)
-      .single();
-
-    if (ambassadorError || !ambassador) {
-      return NextResponse.json(
-        { error: 'Ambassador not found' },
-        { status: 404 }
-      );
+    const ambassador = await getAmbassadorById(decoded.id);
+    if (!ambassador) {
+      return NextResponse.json({ error: 'Ambassador not found' }, { status: 404 });
     }
 
-    // Get signups for this ambassador
-    const { data: signups, error: signupsError } = await supabase
-      .from('signups')
-      .select('*')
-      .eq('ambassador_id', decoded.id)
-      .order('registered_at', { ascending: false });
+    const signups = await getSignupsByAmbassadorId(decoded.id);
 
-    if (signupsError) {
-      console.error('Error fetching signups:', signupsError);
-    }
-
-    // Remove password from ambassador data
     const { password: _, ...ambassadorData } = ambassador;
 
     return NextResponse.json({
       ambassador: ambassadorData,
-      signups: signups || [],
+      signups,
     });
   } catch (error) {
     console.error('Dashboard error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

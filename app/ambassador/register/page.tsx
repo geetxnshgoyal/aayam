@@ -5,8 +5,6 @@ import { motion } from 'framer-motion';
 import { HiUserAdd, HiMail, HiPhone, HiAcademicCap, HiLockClosed } from 'react-icons/hi';
 import Link from 'next/link';
 import LoadingSpinner from '@/components/LoadingSpinner';
-import Magnetic from '@/components/Magnetic';
-import TextEncrypt from '@/components/TextEncrypt';
 
 export default function AmbassadorRegisterPage() {
   const [formData, setFormData] = useState({
@@ -92,14 +90,14 @@ export default function AmbassadorRegisterPage() {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="inline-flex items-center gap-3 mb-8 px-6 py-3 bg-transparent/5 backdrop-blur-md rounded-full border border-white/10 text-[var(--horror-magenta)] font-mono text-xs tracking-[0.4em] uppercase"
+            className="inline-flex items-center gap-3 mb-8 px-6 py-3 bg-[var(--bg-card)] rounded-full border-2 border-[var(--accent-magenta)] text-[var(--accent-magenta)] font-mono text-xs tracking-[0.4em] uppercase shadow-[4px_4px_0_var(--accent-cyan)]"
           >
             <HiUserAdd className="w-4 h-4" />
             <span>Operative Recruitment</span>
           </motion.div>
 
-          <h1 className="text-4xl md:text-7xl font-display font-black mb-6 text-white tracking-tighter uppercase">
-            <TextEncrypt text="PROTOCOL_ENTRY" />
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-display font-black mb-6 text-white tracking-tight uppercase">
+            PROTOCOL_ENTRY
           </h1>
 
           <p className="text-gray-400 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto">
@@ -111,9 +109,9 @@ export default function AmbassadorRegisterPage() {
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="bg-[#050508]/60 backdrop-blur-3xl rounded-[3rem] p-8 md:p-16 border border-white/5 relative overflow-hidden group"
+          className="bg-[var(--bg-card)] backdrop-blur-3xl rounded-[2rem] p-8 md:p-16 border-2 border-[var(--accent-yellow)] shadow-[8px_8px_0_var(--accent-magenta)] relative overflow-hidden group"
         >
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--horror-magenta)] to-transparent opacity-50" />
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--accent-cyan)] via-[var(--accent-magenta)] to-[var(--accent-orange)]" />
 
           {message && (
             <motion.div
@@ -142,7 +140,7 @@ export default function AmbassadorRegisterPage() {
                   onChange={handleChange}
                   required
                   disabled={loading}
-                  className="w-full pl-16 pr-6 py-5 bg-transparent/5 border border-white/10 rounded-2xl focus:border-[var(--horror-magenta)] focus:bg-transparent/10 focus:outline-none transition-all text-white font-light text-lg disabled:opacity-50"
+                  className="w-full pl-16 pr-6 py-5 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-2xl focus:border-[var(--accent-magenta)] focus:outline-none transition-all text-white font-mono disabled:opacity-50"
                   placeholder="Full Name"
                 />
               </div>
@@ -162,7 +160,7 @@ export default function AmbassadorRegisterPage() {
                   onChange={handleChange}
                   required
                   disabled={loading}
-                  className="w-full pl-16 pr-6 py-5 bg-transparent/5 border border-white/10 rounded-2xl focus:border-[var(--horror-cyan)] focus:bg-transparent/10 focus:outline-none transition-all text-white font-light text-lg disabled:opacity-50"
+                  className="w-full pl-16 pr-6 py-5 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-2xl focus:border-[var(--accent-cyan)] focus:outline-none transition-all text-white font-mono disabled:opacity-50"
                   placeholder="name@node.com"
                 />
               </div>
@@ -184,7 +182,7 @@ export default function AmbassadorRegisterPage() {
                     required
                     minLength={8}
                     disabled={loading}
-                    className="w-full pl-16 pr-6 py-5 bg-transparent/5 border border-white/10 rounded-2xl focus:border-white/40 focus:bg-transparent/10 focus:outline-none transition-all text-white font-light text-lg disabled:opacity-50"
+                    className="w-full pl-16 pr-6 py-5 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-2xl focus:border-[var(--accent-cyan)] focus:outline-none transition-all text-white font-mono disabled:opacity-50"
                     placeholder="Min. 8 chars"
                   />
                 </div>
@@ -203,7 +201,7 @@ export default function AmbassadorRegisterPage() {
                     onChange={handleChange}
                     required
                     disabled={loading}
-                    className="w-full pl-16 pr-6 py-5 bg-transparent/5 border border-white/10 rounded-2xl focus:border-white/40 focus:bg-transparent/10 focus:outline-none transition-all text-white font-light text-lg disabled:opacity-50"
+                    className="w-full pl-16 pr-6 py-5 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-2xl focus:border-[var(--accent-cyan)] focus:outline-none transition-all text-white font-mono disabled:opacity-50"
                     placeholder="Re-enter key"
                   />
                 </div>
@@ -224,7 +222,7 @@ export default function AmbassadorRegisterPage() {
                   onChange={handleChange}
                   required
                   disabled={loading}
-                  className="w-full pl-16 pr-6 py-5 bg-transparent/5 border border-white/10 rounded-2xl focus:border-[var(--horror-magenta)] focus:bg-transparent/10 focus:outline-none transition-all text-white font-light text-lg disabled:opacity-50"
+                  className="w-full pl-16 pr-6 py-5 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-2xl focus:border-[var(--accent-magenta)] focus:outline-none transition-all text-white font-mono disabled:opacity-50"
                   placeholder="+91 XXXXX XXXXX"
                 />
               </div>
@@ -245,7 +243,7 @@ export default function AmbassadorRegisterPage() {
                     onChange={handleChange}
                     required
                     disabled={loading}
-                    className="w-full pl-16 pr-6 py-5 bg-transparent/5 border border-white/10 rounded-2xl focus:border-[var(--horror-cyan)] focus:bg-transparent/10 focus:outline-none transition-all text-white font-light text-lg disabled:opacity-50"
+                    className="w-full pl-16 pr-6 py-5 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-2xl focus:border-[var(--accent-cyan)] focus:outline-none transition-all text-white font-mono disabled:opacity-50"
                     placeholder="Sector (College)"
                   />
                 </div>
@@ -285,18 +283,17 @@ export default function AmbassadorRegisterPage() {
                 required
                 disabled={loading}
                 rows={4}
-                className="w-full px-6 py-5 bg-transparent/5 border border-white/10 rounded-2xl focus:border-[var(--horror-magenta)] focus:bg-transparent/10 focus:outline-none transition-all text-white font-light text-lg resize-none disabled:opacity-50"
+                className="w-full px-6 py-5 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-2xl focus:border-[var(--accent-magenta)] focus:outline-none transition-all text-white font-mono resize-none disabled:opacity-50"
                 placeholder="Declare your objectives for the infiltration..."
               />
             </div>
 
             {/* Submit Button */}
-            <Magnetic>
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-6 bg-transparent text-black font-black text-xl tracking-[0.2em] rounded-2xl hover:bg-[var(--horror-magenta)] hover:text-white transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4 uppercase shadow-[0_20px_40px_rgba(0,0,0,0.3)] group-hover:shadow-[0_20px_40px_var(--horror-magenta)]/20"
-              >
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-6 bg-[var(--accent-primary)] border-2 border-[var(--accent-yellow)] text-[var(--ink)] font-black font-mono text-xl tracking-[0.2em] rounded-2xl hover:bg-[var(--accent-primary-hover)] shadow-[6px_6px_0_var(--accent-magenta)] hover:shadow-[4px_4px_0_var(--accent-magenta)] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4 uppercase"
+            >
                 {loading ? (
                   <>
                     <LoadingSpinner size="sm" color="black" />
@@ -306,11 +303,10 @@ export default function AmbassadorRegisterPage() {
                   'Synchronize'
                 )}
               </button>
-            </Magnetic>
           </form>
 
           <div className="mt-12 text-center text-gray-500 font-mono text-xs uppercase tracking-widest leading-loose">
-            Synchronized before? <Link href="/ambassador/login" className="text-[var(--horror-cyan)] hover:text-white transition-colors border-b border-[var(--horror-cyan)]/30">Decrypt Login</Link>
+            Synchronized before? <Link href="/ambassador/login" className="text-[var(--accent-cyan)] hover:text-white transition-colors border-b border-[var(--accent-cyan)]/50">Decrypt Login</Link>
           </div>
         </motion.div>
 

@@ -1,7 +1,10 @@
+import jwt from 'jsonwebtoken';
+
 /**
  * Shared auth config. Use JWT_SECRET in production; fallback only for dev.
  */
 const DEV_FALLBACK = 'dev-secret-change-in-production';
+const JWT_OPTIONS = { algorithms: ['HS256'] };
 
 export function getJwtSecret(): string {
   const secret = process.env.JWT_SECRET;
@@ -20,4 +23,17 @@ export function getAdminTokenFromRequest(request: Request): string | null {
   if (!cookies) return null;
   const match = cookies.match(/admin_token=([^;]+)/);
   return match ? match[1].trim() : null;
+}
+
+/** Verify JWT and ensure it is an admin token (has adminId). Rejects ambassador tokens. */
+export function verifyAdminToken(request: Request): { adminId: string } | null {
+  const token = getAdminTokenFromRequest(request);
+  if (!token) return null;
+  try {
+    const decoded = jwt.verify(token, getJwtSecret(), JWT_OPTIONS as jwt.VerifyOptions) as { adminId?: string; id?: string; role?: string };
+    if (!decoded.adminId || decoded.role === 'ambassador') return null;
+    return { adminId: decoded.adminId };
+  } catch {
+    return null;
+  }
 }

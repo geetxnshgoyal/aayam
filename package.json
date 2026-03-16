@@ -2,6 +2,9 @@
   "name": "aayam1",
   "version": "0.1.0",
   "private": true,
+  "overrides": {
+    "@tootallnate/once": ">=3.0.1"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,7 +13,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "firebase-admin": "^13.0.0",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@supabase/supabase-js": "^2.96.0",
@@ -18,6 +20,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/nodemailer": "^7.0.10",
     "bcryptjs": "^3.0.3",
+    "firebase-admin": "^13.7.0",
     "framer-motion": "^12.34.0",
     "gsap": "^3.14.2",
     "jsonwebtoken": "^9.0.3",

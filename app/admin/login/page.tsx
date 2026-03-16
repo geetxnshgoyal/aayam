@@ -104,25 +104,25 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-32 relative bg-transparent flex items-center justify-center overflow-hidden px-6">
+    <div className="min-h-screen pt-32 pb-32 relative bg-transparent flex items-center justify-center overflow-x-hidden px-6">
       <div className="max-w-xl w-full relative z-10">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-transparent/5 backdrop-blur-md rounded-3xl border border-white/10 mb-8 shadow-[0_0_30px_rgba(255,255,255,0.05)]">
-            <HiShieldCheck className="w-10 h-10 text-[var(--horror-magenta)]" />
+        <div className="text-center mb-12 overflow-visible">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-[var(--bg-card)] rounded-3xl border-2 border-[var(--accent-magenta)] mb-8 shadow-[6px_6px_0_var(--accent-cyan)]">
+            <HiShieldCheck className="w-10 h-10 text-[var(--accent-magenta)]" />
           </div>
 
-          <h1 className="text-4xl md:text-7xl font-display font-black mb-6 text-white tracking-tighter uppercase">
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-display font-black mb-6 text-white tracking-tight uppercase break-words">
             ARCHITECT_OVERRIDE
           </h1>
 
-          <p className="text-gray-400 text-lg font-light leading-relaxed">
+          <p className="text-gray-400 text-base md:text-lg font-light leading-relaxed max-w-md mx-auto">
             Restricted Core Access. Root credentials required for protocol management.
           </p>
         </div>
 
-        <div className="bg-[#050508]/60 backdrop-blur-3xl rounded-[3rem] p-10 md:p-16 border border-white/5 relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--horror-magenta)] to-transparent" />
-          <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--horror-cyan)] to-transparent" />
+        <div className="bg-[var(--bg-card)] backdrop-blur-3xl rounded-[2rem] p-10 md:p-16 border-2 border-[var(--accent-yellow)] shadow-[8px_8px_0_var(--accent-magenta)] relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--accent-cyan)] via-[var(--accent-magenta)] to-[var(--accent-orange)]" />
+          <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--accent-orange)] via-[var(--accent-magenta)] to-[var(--accent-cyan)]" />
 
           {error && (
             <div className="mb-8 p-5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-500 text-center font-mono text-xs tracking-widest uppercase space-y-2">
@@ -149,8 +149,9 @@ export default function AdminLoginPage() {
                   onChange={handleChange}
                   required
                   disabled={loading}
-                  className="w-full pl-16 pr-6 py-5 bg-transparent/5 border border-white/10 rounded-2xl focus:border-white/40 focus:bg-transparent/10 focus:outline-none transition-all text-white font-light text-lg"
+                  className="w-full pl-16 pr-6 py-5 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-2xl focus:border-[var(--accent-cyan)] focus:outline-none transition-all text-white font-mono"
                   placeholder="admin@aayam.com"
+                  suppressHydrationWarning
                 />
               </div>
             </div>
@@ -168,8 +169,9 @@ export default function AdminLoginPage() {
                   onChange={handleChange}
                   required
                   disabled={loading}
-                  className="w-full pl-16 pr-6 py-5 bg-transparent/5 border border-white/10 rounded-2xl focus:border-white/40 focus:bg-transparent/10 focus:outline-none transition-all text-white font-light text-lg"
+                  className="w-full pl-16 pr-6 py-5 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-2xl focus:border-[var(--accent-cyan)] focus:outline-none transition-all text-white font-mono"
                   placeholder="Enter passkey"
+                  suppressHydrationWarning
                 />
               </div>
             </div>
@@ -178,7 +180,7 @@ export default function AdminLoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-6 bg-transparent text-black font-black text-xl tracking-[0.2em] rounded-2xl hover:bg-[var(--horror-magenta)] hover:text-white transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4 uppercase"
+                className="w-full py-6 bg-[var(--accent-primary)] border-2 border-[var(--accent-yellow)] text-[var(--ink)] font-black text-xl tracking-[0.2em] rounded-2xl hover:bg-[var(--accent-primary-hover)] shadow-[6px_6px_0_var(--accent-magenta)] hover:shadow-[4px_4px_0_var(--accent-magenta)] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4 uppercase"
               >
                 {loading ? (
                   <>
@@ -202,7 +204,7 @@ export default function AdminLoginPage() {
               Test connection
             </button>
             <Link href="/ambassador/login" className="text-gray-500 hover:text-white font-mono text-xs uppercase tracking-[0.2em] transition-colors border-b border-white/10">
-              ← TERMINATE_ADMIN_SESSION
+              ← Ambassador Login
             </Link>
           </div>
         </div>

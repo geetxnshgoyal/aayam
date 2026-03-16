@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HiCheckCircle, HiXCircle, HiClock, HiTrendingUp, HiUsers, HiUserGroup, HiLogout } from 'react-icons/hi';
-import { FaTrophy } from 'react-icons/fa';
+import { HiCheckCircle, HiXCircle, HiClock, HiTrendingUp, HiUsers, HiLogout, HiPlus } from 'react-icons/hi';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
 function getAdminToken(): string | null {
@@ -73,20 +72,52 @@ interface Stats {
   };
 }
 
+interface Task {
+  id: string;
+  name: string;
+  description?: string;
+  instructions?: string;
+  submission_proof?: string;
+  points_criteria?: string;
+  example_caption?: string;
+  points_min: number;
+  points_max: number;
+  required_proof: 'link' | 'screenshot' | 'video' | 'text';
+  active: boolean;
+  created_at: string;
+}
+
 export default function AdminDashboard() {
   const router = useRouter();
   const [ambassadors, setAmbassadors] = useState<Ambassador[]>([]);
   const [signups, setSignups] = useState<Signup[]>([]);
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'all' | 'signups' | 'signupPending' | 'bulkUpload'>('pending');
+  const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'all' | 'signups' | 'signupPending' | 'bulkUpload' | 'tasks'>('pending');
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [uploadResult, setUploadResult] = useState<any>(null);
   const [loadingAction, setLoadingAction] = useState<string | null>(null);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [taskForm, setTaskForm] = useState({
+    name: '',
+    description: '',
+    instructions: '',
+    submission_proof: '',
+    points_criteria: '',
+    example_caption: '',
+    points_min: 10,
+    points_max: 50,
+    required_proof: 'link' as const,
+    active: true,
+  });
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (activeTab === 'tasks') fetchTasks();
+  }, [activeTab]);
 
   const fetchData = async () => {
     try {
@@ -110,6 +141,71 @@ export default function AdminDashboard() {
       console.error('Error fetching data:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchTasks = async () => {
+    try {
+      const token = getAdminToken();
+      const headers: Record<string, string> = {};
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+      const res = await fetch('/api/admin/tasks', { headers, credentials: 'include' });
+      if (res.ok) {
+        const { tasks: t } = await res.json();
+        setTasks(t || []);
+      }
+    } catch (e) {
+      console.error('Error fetching tasks:', e);
+    }
+  };
+
+  const handleCreateTask = async () => {
+    if (!taskForm.name.trim()) {
+      alert('Task name is required');
+      return;
+    }
+    setLoadingAction('create-task');
+    try {
+      const token = getAdminToken();
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+      const res = await fetch('/api/admin/tasks', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(taskForm),
+        credentials: 'include',
+      });
+      if (res.ok) {
+        setTaskForm({ name: '', description: '', instructions: '', submission_proof: '', points_criteria: '', example_caption: '', points_min: 10, points_max: 50, required_proof: 'link', active: true });
+        fetchTasks();
+      } else {
+        const err = await res.json();
+        alert(err.error || 'Failed to create task');
+      }
+    } catch (e) {
+      console.error('Error creating task:', e);
+    } finally {
+      setLoadingAction(null);
+    }
+  };
+
+  const handleToggleTaskActive = async (id: string, active: boolean) => {
+    setLoadingAction(`toggle-${id}`);
+    try {
+      const token = getAdminToken();
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+      const res = await fetch('/api/admin/tasks', {
+        method: 'PATCH',
+        headers,
+        body: JSON.stringify({ id, active }),
+        credentials: 'include',
+      });
+      if (res.ok) fetchTasks();
+    } catch (e) {
+      console.error('Error updating task:', e);
+    } finally {
+      setLoadingAction(null);
     }
   };
 
@@ -272,7 +368,7 @@ export default function AdminDashboard() {
       silver: 'bg-gray-400/20 text-gray-300 border-gray-400/30 shadow-[0_0_10px_rgba(156,163,175,0.1)]',
       gold: 'bg-yellow-500/20 text-yellow-500 border-yellow-500/30 shadow-[0_0_10px_rgba(234,179,8,0.1)]',
       platinum: 'bg-purple-500/20 text-purple-400 border-purple-500/30 shadow-[0_0_10px_rgba(168,85,247,0.1)]',
-      none: 'bg-transparent/5 text-gray-500 border-white/10',
+      none: 'bg-white/5 text-slate-400 border-white/15',
     };
     return colors[tier as keyof typeof colors] || colors.none;
   };
@@ -302,7 +398,7 @@ export default function AdminDashboard() {
             <h1 className="text-4xl md:text-7xl font-display font-black text-white tracking-tighter uppercase leading-none">
               COMMAND_CENTER
             </h1>
-            <p className="text-gray-500 font-mono text-xs mt-4 tracking-[0.4em] uppercase">Status: Connected_To_Mainframe</p>
+            <p className="text-slate-400 font-mono text-sm mt-4 tracking-[0.4em] uppercase">Status: Connected_To_Mainframe</p>
           </motion.div>
 
           <motion.div
@@ -312,10 +408,10 @@ export default function AdminDashboard() {
           >
             <button
               onClick={handleLogout}
-              className="flex items-center gap-4 px-8 py-4 bg-transparent/5 hover:bg-red-500/20 border border-white/10 hover:border-red-500/30 rounded-2xl transition-all duration-300 group"
+              className="flex items-center gap-4 px-8 py-4 bg-white/5 hover:bg-red-500/20 border border-white/15 hover:border-red-500/30 rounded-2xl transition-all duration-300 group"
             >
               <HiLogout className="w-5 h-5 text-gray-400 group-hover:text-red-500 group-hover:rotate-12 transition-transform" />
-              <span className="font-mono text-xs font-bold tracking-widest uppercase text-gray-400 group-hover:text-red-500 transition-colors">Terminate_Override</span>
+              <span className="font-mono text-sm font-bold tracking-widest uppercase text-slate-300 group-hover:text-red-500 transition-colors">Terminate_Override</span>
             </button>
           </motion.div>
         </div>
@@ -334,14 +430,14 @@ export default function AdminDashboard() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: idx * 0.1 }}
-                className="relative bg-[#050508]/40 backdrop-blur-xl p-8 rounded-[2rem] border border-white/5 group overflow-hidden"
+                className="relative bg-[#0d0d14]/80 backdrop-blur-xl p-8 rounded-[2rem] border border-white/15 group overflow-hidden"
               >
                 <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-20 group-hover:scale-110 transition-all">
                   <metric.icon className="w-20 h-20" style={{ color: metric.color }} />
                 </div>
                 <div className="flex items-center gap-3 mb-4">
                   <metric.icon className="w-5 h-5" style={{ color: metric.color }} />
-                  <h3 className="text-gray-500 font-mono text-[10px] uppercase tracking-widest">{metric.label}</h3>
+                  <h3 className="text-slate-300 font-mono text-xs uppercase tracking-widest">{metric.label}</h3>
                 </div>
                 <p className="text-4xl font-black text-white tracking-tighter">{metric.value}</p>
                 <div className="absolute bottom-0 left-0 w-full h-1 opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: `linear-gradient(to r, transparent, ${metric.color}, transparent)` }} />
@@ -355,7 +451,7 @@ export default function AdminDashboard() {
           <motion.div
             initial={{ scale: 0.95, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
-            className="bg-[#050508]/40 backdrop-blur-3xl p-10 rounded-[3rem] border border-white/5 mb-20 relative overflow-hidden"
+            className="bg-[#0d0d14]/80 backdrop-blur-3xl p-10 rounded-[3rem] border border-white/15 mb-20 relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 p-12 font-mono text-white/5 text-[10rem] font-black pointer-events-none select-none">
               TIERS
@@ -377,7 +473,7 @@ export default function AdminDashboard() {
                   <div className={`text-5xl font-black mb-2 tracking-tighter ${tier.color} group-hover:scale-110 transition-transform duration-500`}>
                     {tier.value}
                   </div>
-                  <div className="text-gray-500 font-mono text-[10px] tracking-[0.3em] font-bold">{tier.label}</div>
+                  <div className="text-slate-300 font-mono text-xs tracking-[0.3em] font-bold">{tier.label}</div>
                 </div>
               ))}
             </div>
@@ -392,13 +488,16 @@ export default function AdminDashboard() {
             { key: 'signups', label: 'PROPAGATION_LOGS' },
             { key: 'signupPending', label: 'PENDING_SIGNUPS' },
             { key: 'bulkUpload', label: 'METADATA_DISPATCH' },
+            { key: 'tasks', label: '+ ADD TASKS' },
           ].map((tab) => (
             <button
               key={tab.key}
-              onClick={() => setActiveTab(tab.key as any)}
-              className={`px-8 py-4 rounded-2xl font-mono text-[10px] font-black tracking-[0.2em] transition-all duration-300 border ${activeTab === tab.key
+              onClick={() => setActiveTab(tab.key as typeof activeTab)}
+              className={`px-8 py-4 rounded-2xl font-mono text-xs font-black tracking-[0.2em] transition-all duration-300 border ${activeTab === tab.key
                 ? 'bg-[var(--horror-magenta)] text-white border-[var(--horror-magenta)] shadow-[0_0_20px_var(--horror-magenta)]/30 scale-105'
-                : 'bg-transparent/5 text-gray-500 border-white/5 hover:border-white/20 hover:text-white'
+                : tab.key === 'tasks'
+                  ? 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30 hover:border-cyan-400/50 hover:text-cyan-200 hover:bg-cyan-500/25'
+                  : 'bg-white/5 text-slate-300 border-white/15 hover:border-white/30 hover:text-white hover:bg-white/10'
                 }`}
             >
               {tab.label}
@@ -416,12 +515,12 @@ export default function AdminDashboard() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              {!['signups', 'signupPending', 'bulkUpload'].includes(activeTab) && (
-                <div className="bg-[#050508]/60 backdrop-blur-3xl rounded-[3rem] border border-white/5 overflow-hidden shadow-2xl">
+              {!['signups', 'signupPending', 'bulkUpload', 'tasks'].includes(activeTab) && (
+                <div className="bg-[#0d0d14]/90 backdrop-blur-3xl rounded-[3rem] border border-white/15 overflow-hidden shadow-2xl">
                   <div className="overflow-x-auto terminal-scrollbar">
-                    <table className="w-full text-left font-mono text-xs">
+                    <table className="w-full text-left font-mono text-sm">
                       <thead>
-                        <tr className="bg-transparent/5 border-b border-white/10 uppercase tracking-widest text-gray-500">
+                        <tr className="bg-white/5 border-b border-white/15 uppercase tracking-widest text-slate-200 text-sm">
                           <th className="px-8 py-6">OPERATIVE_ID</th>
                           <th className="px-8 py-6">CREDENTIALS</th>
                           <th className="px-8 py-6">SECTOR</th>
@@ -431,19 +530,19 @@ export default function AdminDashboard() {
                           {activeTab === 'pending' && <th className="px-8 py-6 text-right">PROTOCOL_ACTION</th>}
                         </tr>
                       </thead>
-                      <tbody className="text-gray-400">
+                      <tbody className="text-slate-300">
                         {filteredAmbassadors.map((ambassador) => (
                           <tr key={ambassador.id} className="border-b border-white/5 hover:bg-transparent/5 transition-colors group">
                             <td className="px-8 py-6 text-white font-bold">{ambassador.name}</td>
-                            <td className="px-8 py-6 opacity-60">
+                            <td className="px-8 py-6 text-slate-400">
                               <div>{ambassador.email}</div>
-                              <div className="text-[10px] mt-1">{ambassador.phone}</div>
+                              <div className="text-xs mt-1">{ambassador.phone}</div>
                             </td>
-                            <td className="px-8 py-6 opacity-60">[{ambassador.college.toUpperCase()}]</td>
+                            <td className="px-8 py-6 text-slate-400">[{ambassador.college.toUpperCase()}]</td>
                             <td className="px-8 py-6 font-black text-[var(--horror-cyan)] tracking-widest">{ambassador.referral_code}</td>
                             <td className="px-8 py-6 text-white font-black">{ambassador.signup_count}</td>
                             <td className="px-8 py-6">
-                              <span className={`px-4 py-1.5 rounded-full text-[9px] font-black border tracking-[0.2em] ${getTierBadge(ambassador.tier)}`}>
+                              <span className={`px-4 py-1.5 rounded-full text-xs font-black border tracking-[0.2em] ${getTierBadge(ambassador.tier)}`}>
                                 {ambassador.tier.toUpperCase()}
                               </span>
                             </td>
@@ -476,11 +575,11 @@ export default function AdminDashboard() {
               )}
 
               {(activeTab === 'signups' || activeTab === 'signupPending') && (
-                <div className="bg-[#050508]/60 backdrop-blur-3xl rounded-[3rem] border border-white/5 overflow-hidden shadow-2xl">
+                <div className="bg-[#0d0d14]/90 backdrop-blur-3xl rounded-[3rem] border border-white/15 overflow-hidden shadow-2xl">
                   <div className="overflow-x-auto terminal-scrollbar">
-                    <table className="w-full text-left font-mono text-xs">
+                    <table className="w-full text-left font-mono text-sm">
                       <thead>
-                        <tr className="bg-transparent/5 border-b border-white/10 uppercase tracking-widest text-gray-500">
+                        <tr className="bg-white/5 border-b border-white/15 uppercase tracking-widest text-slate-200 text-sm">
                           <th className="px-8 py-6">PARTICIPANT</th>
                           <th className="px-8 py-6">SOURCE_NODE</th>
                           <th className="px-8 py-6">OPERATIVE_LINK</th>
@@ -490,22 +589,22 @@ export default function AdminDashboard() {
                           {activeTab === 'signupPending' && <th className="px-8 py-6 text-right">ACTION</th>}
                         </tr>
                       </thead>
-                      <tbody className="text-gray-400">
+                      <tbody className="text-slate-300">
                         {filteredSignups.map((signup) => (
                           <tr key={signup.id} className="border-b border-white/5 hover:bg-transparent/5 transition-colors">
                             <td className="px-8 py-6 text-white font-bold">{signup.participant_name}</td>
-                            <td className="px-8 py-6 opacity-60">{signup.participant_email}</td>
+                            <td className="px-8 py-6 text-slate-400">{signup.participant_email}</td>
                             <td className="px-8 py-6 font-bold">{signup.ambassadors?.name || '--'}</td>
                             <td className="px-8 py-6 text-[var(--horror-magenta)] font-black tracking-widest">{signup.ambassadors?.referral_code || '--'}</td>
                             <td className="px-8 py-6">
-                              <span className={`px-4 py-1.5 rounded-full text-[9px] font-black border tracking-[0.2em] ${signup.status === 'approved' ? 'bg-green-500/20 text-green-500 border-green-500/20' :
+                              <span className={`px-4 py-1.5 rounded-full text-xs font-black border tracking-[0.2em] ${signup.status === 'approved' ? 'bg-green-500/20 text-green-500 border-green-500/20' :
                                 signup.status === 'pending' ? 'bg-yellow-500/20 text-yellow-500 border-yellow-500/20' :
                                   'bg-red-500/20 text-red-500 border-red-500/20'
                                 }`}>
                                 {signup.status?.toUpperCase() || 'APPROVED'}
                               </span>
                             </td>
-                            <td className="px-8 py-6 opacity-40 font-mono">[{new Date(signup.registered_at).getTime()}]</td>
+                            <td className="px-8 py-6 text-slate-500 font-mono text-xs">[{new Date(signup.registered_at).toLocaleDateString()}]</td>
                             {activeTab === 'signupPending' && (
                               <td className="px-8 py-6 text-right">
                                 <div className="flex gap-4 justify-end">
@@ -527,18 +626,18 @@ export default function AdminDashboard() {
               )}
 
               {activeTab === 'bulkUpload' && (
-                <div className="bg-[#050508]/60 backdrop-blur-3xl rounded-[3rem] border border-white/5 p-12 md:p-20 shadow-2xl relative overflow-hidden">
+                <div className="bg-[#0d0d14]/90 backdrop-blur-3xl rounded-[3rem] border border-white/15 p-12 md:p-20 shadow-2xl relative overflow-hidden">
                   <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--horror-cyan)] to-transparent" />
                   <h2 className="text-4xl font-display font-black text-white mb-8 uppercase tracking-widest">Metadata_Dispatch</h2>
 
                   <div className="grid lg:grid-cols-2 gap-16">
                     <div className="space-y-10">
-                      <div className="bg-transparent/5 border border-white/10 rounded-[2rem] p-10 font-mono text-xs leading-loose text-gray-400">
+                      <div className="bg-white/5 border border-white/15 rounded-[2rem] p-10 font-mono text-sm leading-loose text-slate-300">
                         <h3 className="text-white font-bold mb-4 tracking-widest">CSV_SCHEMA:</h3>
                         <div className="bg-black/40 p-6 rounded-2xl mb-6 text-[var(--horror-magenta)] border border-white/5">
                           referral_code, participant_name, participant_email, phone, college
                         </div>
-                        <ul className="space-y-3 opacity-60 list-disc pl-4">
+                        <ul className="space-y-3 text-slate-400 list-disc pl-4">
                           <li>Header row is mandatory for synchronization.</li>
                           <li>Referral codes must exist in the Authorized Node list.</li>
                           <li>Duplicate emails will trigger a validation override error.</li>
@@ -546,7 +645,7 @@ export default function AdminDashboard() {
                       </div>
 
                       <div className="space-y-6">
-                        <label className="block text-gray-500 font-mono text-[10px] uppercase tracking-widest">SELECT_SOURCE_FILE</label>
+                        <label className="block text-slate-300 font-mono text-xs uppercase tracking-widest">SELECT_SOURCE_FILE</label>
                         <div className="relative group">
                           <input
                             type="file"
@@ -554,8 +653,8 @@ export default function AdminDashboard() {
                             onChange={(e) => setUploadFile(e.target.files?.[0] || null)}
                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                           />
-                          <div className="w-full px-8 py-6 bg-transparent/5 border border-white/10 group-hover:border-[var(--horror-cyan)] rounded-[1.5rem] transition-all flex items-center justify-between font-mono text-xs">
-                            <span className="text-gray-400 truncate max-w-[200px]">{uploadFile ? uploadFile.name : 'UPLOAD_TERMINAL_CSV_'}</span>
+                          <div className="w-full px-8 py-6 bg-white/5 border border-white/15 group-hover:border-[var(--horror-cyan)] rounded-[1.5rem] transition-all flex items-center justify-between font-mono text-sm">
+                            <span className="text-slate-300 truncate max-w-[200px]">{uploadFile ? uploadFile.name : 'UPLOAD_TERMINAL_CSV_'}</span>
                             <span className="text-[var(--horror-cyan)] font-black px-4 py-1 bg-[var(--horror-cyan)]/10 rounded-full">SELECT</span>
                           </div>
                         </div>
@@ -575,28 +674,27 @@ export default function AdminDashboard() {
                         <motion.div
                           initial={{ x: 30, opacity: 0 }}
                           animate={{ x: 0, opacity: 1 }}
-                          className="bg-transparent/5 border border-white/10 rounded-[2.5rem] p-10"
+                          className="bg-white/5 border border-white/15 rounded-[2.5rem] p-10"
                         >
-                          <h3 className="text-white font-mono text-sm font-bold mb-8 tracking-widest uppercase border-b border-white/10 pb-4">Transmission_Results:</h3>
+                          <h3 className="text-white font-mono text-sm font-bold mb-8 tracking-widest uppercase border-b border-white/15 pb-4">Transmission_Results:</h3>
                           <div className="grid grid-cols-2 gap-6 mb-10">
                             <div className="p-6 bg-green-500/10 border border-green-500/20 rounded-2xl">
-                              <div className="text-gray-500 text-[9px] font-mono tracking-widest mb-1 font-bold">SUCCESSFUL</div>
+                              <div className="text-slate-300 text-xs font-mono tracking-widest mb-1 font-bold">SUCCESSFUL</div>
                               <div className="text-4xl font-black text-green-500">{uploadResult.results.success}</div>
                             </div>
                             <div className="p-6 bg-red-500/10 border border-red-500/20 rounded-2xl">
-                              <div className="text-gray-500 text-[9px] font-mono tracking-widest mb-1 font-bold">FAILED</div>
+                              <div className="text-slate-300 text-xs font-mono tracking-widest mb-1 font-bold">FAILED</div>
                               <div className="text-4xl font-black text-red-500">{uploadResult.results.failed}</div>
                             </div>
                           </div>
 
                           {uploadResult.results.errors.length > 0 && (
                             <div className="space-y-4">
-                              <div className="text-red-500 font-mono text-[10px] font-bold tracking-widest mb-4">LOGGED_ERRORS:</div>
+                              <div className="text-red-400 font-mono text-xs font-bold tracking-widest mb-4">LOGGED_ERRORS:</div>
                               <div className="max-h-60 overflow-y-auto terminal-scrollbar space-y-3 pr-4">
                                 {uploadResult.results.errors.map((err: any, idx: number) => (
-                                  <div key={idx} className="bg-transparent/5 border-l-2 border-red-500 p-4 font-mono text-[9px] leading-relaxed">
-                                    <div className="text-white font-bold mb-1">Row {err.row}: {err.error}</div>
-                                    <div className="opacity-40">{JSON.stringify(err.data)}</div>
+                                  <div key={idx} className="bg-white/5 border-l-2 border-red-500 p-4 font-mono text-xs leading-relaxed">
+                                    <div className="text-white font-bold">Row {err.row}: {err.error}</div>
                                   </div>
                                 ))}
                               </div>
@@ -605,6 +703,222 @@ export default function AdminDashboard() {
                         </motion.div>
                       )}
                     </AnimatePresence>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'tasks' && (
+                <div className="bg-[#0d0d14]/90 backdrop-blur-3xl rounded-[3rem] border border-white/15 p-12 md:p-20 shadow-2xl relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--horror-cyan)] to-transparent" />
+                  <h2 className="text-4xl font-display font-black text-white mb-8 uppercase tracking-widest">Task_Protocol</h2>
+
+                  <div className="grid lg:grid-cols-2 gap-16">
+                    <div className="space-y-10">
+                      <div className="bg-white/5 border border-white/15 rounded-[2rem] p-10 font-mono text-sm">
+                        <h3 className="text-white font-bold mb-6 tracking-widest">CREATE_NEW_TASK</h3>
+                        <div className="space-y-4">
+                          <div>
+                            <label className="block text-slate-300 text-xs uppercase tracking-widest mb-2">NAME</label>
+                            <input
+                              value={taskForm.name}
+                              onChange={(e) => setTaskForm((f) => ({ ...f, name: e.target.value }))}
+                              placeholder="e.g. Share on Instagram"
+                              className="w-full px-6 py-4 bg-black/40 border border-white/15 rounded-xl text-white placeholder-slate-500 focus:border-[var(--horror-cyan)] outline-none"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-slate-300 text-xs uppercase tracking-widest mb-2">DESCRIPTION (Brief summary)</label>
+                            <input
+                              value={taskForm.description}
+                              onChange={(e) => setTaskForm((f) => ({ ...f, description: e.target.value }))}
+                              placeholder="e.g. Promote AAYAM 2026 on your Instagram..."
+                              className="w-full px-6 py-4 bg-black/40 border border-white/15 rounded-xl text-white placeholder-slate-500 focus:border-[var(--horror-cyan)] outline-none"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-slate-300 text-xs uppercase tracking-widest mb-2">TASK INSTRUCTIONS (Detailed steps)</label>
+                            <div className="flex gap-2 mb-2">
+                              <button
+                                type="button"
+                                onClick={() => setTaskForm((f) => ({ ...f, instructions: (f.instructions ? f.instructions + '\n' : '') + '• ' }))}
+                                className="px-3 py-1.5 text-xs font-mono bg-white/10 border border-white/20 rounded-lg text-slate-300 hover:bg-white/20"
+                              >
+                                • Add bullet
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setTaskForm((f) => ({ ...f, instructions: (f.instructions ? f.instructions + '\n' : '') + '- ' }))}
+                                className="px-3 py-1.5 text-xs font-mono bg-white/10 border border-white/20 rounded-lg text-slate-300 hover:bg-white/20"
+                              >
+                                - Add dash
+                              </button>
+                            </div>
+                            <textarea
+                              value={taskForm.instructions}
+                              onChange={(e) => setTaskForm((f) => ({ ...f, instructions: e.target.value }))}
+                              placeholder="Share the official poster or reel on Instagram (Story or Post/Reel). Tag @AAYAM and use #AAYAM2026..."
+                              rows={5}
+                              className="w-full px-6 py-4 bg-black/40 border border-white/15 rounded-xl text-white placeholder-slate-500 focus:border-[var(--horror-cyan)] outline-none resize-y min-h-[120px]"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-slate-300 text-xs uppercase tracking-widest mb-2">SUBMISSION PROOF (What to submit)</label>
+                            <div className="flex gap-2 mb-2">
+                              <button
+                                type="button"
+                                onClick={() => setTaskForm((f) => ({ ...f, submission_proof: (f.submission_proof ? f.submission_proof + '\n' : '') + '• ' }))}
+                                className="px-3 py-1.5 text-xs font-mono bg-white/10 border border-white/20 rounded-lg text-slate-300 hover:bg-white/20"
+                              >
+                                • Add bullet
+                              </button>
+                            </div>
+                            <textarea
+                              value={taskForm.submission_proof}
+                              onChange={(e) => setTaskForm((f) => ({ ...f, submission_proof: e.target.value }))}
+                              placeholder="e.g. Submit the link to your Instagram post/story"
+                              rows={2}
+                              className="w-full px-6 py-4 bg-black/40 border border-white/15 rounded-xl text-white placeholder-slate-500 focus:border-[var(--horror-cyan)] outline-none resize-y"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-slate-300 text-xs uppercase tracking-widest mb-2">POINTS CRITERIA</label>
+                            <div className="flex gap-2 mb-2">
+                              <button
+                                type="button"
+                                onClick={() => setTaskForm((f) => ({ ...f, points_criteria: (f.points_criteria ? f.points_criteria + '\n' : '') + '• ' }))}
+                                className="px-3 py-1.5 text-xs font-mono bg-white/10 border border-white/20 rounded-lg text-slate-300 hover:bg-white/20"
+                              >
+                                • Add bullet
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setTaskForm((f) => ({ ...f, points_criteria: (f.points_criteria ? f.points_criteria + '\n' : '') + '- ' }))}
+                                className="px-3 py-1.5 text-xs font-mono bg-white/10 border border-white/20 rounded-lg text-slate-300 hover:bg-white/20"
+                              >
+                                - Add dash
+                              </button>
+                            </div>
+                            <textarea
+                              value={taskForm.points_criteria}
+                              onChange={(e) => setTaskForm((f) => ({ ...f, points_criteria: e.target.value }))}
+                              placeholder="e.g. Story → 10–20 pts, Post/Reel → 30–50 pts"
+                              rows={3}
+                              className="w-full px-6 py-4 bg-black/40 border border-white/15 rounded-xl text-white placeholder-slate-500 focus:border-[var(--horror-cyan)] outline-none resize-y"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-slate-300 text-xs uppercase tracking-widest mb-2">EXAMPLE CAPTION (Optional)</label>
+                            <div className="flex gap-2 mb-2">
+                              <button
+                                type="button"
+                                onClick={() => setTaskForm((f) => ({ ...f, example_caption: (f.example_caption ? f.example_caption + '\n' : '') + '• ' }))}
+                                className="px-3 py-1.5 text-xs font-mono bg-white/10 border border-white/20 rounded-lg text-slate-300 hover:bg-white/20"
+                              >
+                                • Add bullet
+                              </button>
+                            </div>
+                            <textarea
+                              value={taskForm.example_caption}
+                              onChange={(e) => setTaskForm((f) => ({ ...f, example_caption: e.target.value }))}
+                              placeholder="e.g. Excited for AAYAM 2026 🚀 Don't miss out. #AAYAM2026"
+                              rows={3}
+                              className="w-full px-6 py-4 bg-black/40 border border-white/15 rounded-xl text-white placeholder-slate-500 focus:border-[var(--horror-cyan)] outline-none resize-y"
+                            />
+                          </div>
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <label className="block text-slate-300 text-xs uppercase tracking-widest mb-2">POINTS_MIN</label>
+                              <input
+                                type="number"
+                                min={0}
+                                max={1000}
+                                value={taskForm.points_min}
+                                onChange={(e) => setTaskForm((f) => ({ ...f, points_min: Math.max(0, parseInt(e.target.value) || 0) }))}
+                                className="w-full px-6 py-4 bg-black/40 border border-white/15 rounded-xl text-white focus:border-[var(--horror-cyan)] outline-none"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-slate-300 text-xs uppercase tracking-widest mb-2">POINTS_MAX</label>
+                              <input
+                                type="number"
+                                min={0}
+                                max={1000}
+                                value={taskForm.points_max}
+                                onChange={(e) => setTaskForm((f) => ({ ...f, points_max: Math.max(0, parseInt(e.target.value) || 0) }))}
+                                className="w-full px-6 py-4 bg-black/40 border border-white/15 rounded-xl text-white focus:border-[var(--horror-cyan)] outline-none"
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <label className="block text-slate-300 text-xs uppercase tracking-widest mb-2">REQUIRED_PROOF</label>
+                            <select
+                              value={taskForm.required_proof}
+                              onChange={(e) => setTaskForm((f) => ({ ...f, required_proof: e.target.value as Task['required_proof'] }))}
+                              className="w-full px-6 py-4 bg-black/40 border border-white/15 rounded-xl text-white focus:border-[var(--horror-cyan)] outline-none"
+                            >
+                              <option value="link">Link</option>
+                              <option value="screenshot">Screenshot</option>
+                              <option value="video">Video</option>
+                              <option value="text">Text</option>
+                            </select>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <input
+                              type="checkbox"
+                              id="task-active"
+                              checked={taskForm.active}
+                              onChange={(e) => setTaskForm((f) => ({ ...f, active: e.target.checked }))}
+                              className="w-5 h-5 rounded border-white/20 accent-[var(--horror-cyan)]"
+                            />
+                            <label htmlFor="task-active" className="text-slate-300 font-mono text-sm">Active (visible to ambassadors)</label>
+                          </div>
+                          <button
+                            onClick={handleCreateTask}
+                            disabled={loadingAction === 'create-task'}
+                            className="w-full py-5 bg-[var(--horror-magenta)] hover:bg-[var(--horror-magenta)]/80 text-white font-black text-sm tracking-[0.2em] rounded-[1.5rem] transition-all flex items-center justify-center gap-3 disabled:opacity-50 uppercase"
+                          >
+                            {loadingAction === 'create-task' ? <LoadingSpinner size="sm" color="white" /> : <HiPlus className="w-5 h-5" />}
+                            Create_Task
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-white/5 border border-white/15 rounded-[2rem] p-10 overflow-hidden">
+                      <h3 className="text-white font-bold mb-6 tracking-widest text-sm">EXISTING_TASKS</h3>
+                      <div className="space-y-4 max-h-[500px] overflow-y-auto terminal-scrollbar pr-2">
+                        {tasks.length === 0 ? (
+                          <p className="text-slate-400 font-mono text-sm">No tasks yet. Create one above.</p>
+                        ) : (
+                          tasks.map((t) => (
+                            <div key={t.id} className="bg-black/30 border border-white/5 rounded-xl p-5">
+                              <div className="flex items-start justify-between gap-4">
+                                <div>
+                                  <div className="text-white font-bold">{t.name}</div>
+                                  {(t.description || t.instructions) && (
+                                    <div className="text-slate-400 text-xs mt-1 line-clamp-2">{t.description || t.instructions}</div>
+                                  )}
+                                  <div className="flex gap-4 mt-2 text-xs text-slate-400">
+                                    <span>{t.points_min}-{t.points_max} pts</span>
+                                    <span className="uppercase">{t.required_proof}</span>
+                                  </div>
+                                </div>
+                                <button
+                                  onClick={() => handleToggleTaskActive(t.id, !t.active)}
+                                  disabled={loadingAction === `toggle-${t.id}`}
+                                  className={`shrink-0 px-4 py-2 rounded-lg font-mono text-xs font-bold border transition-all ${t.active
+                                    ? 'bg-green-500/20 text-green-500 border-green-500/30 hover:bg-green-500/30'
+                                    : 'bg-gray-500/20 text-gray-500 border-gray-500/30 hover:bg-gray-500/30'
+                                    }`}
+                                >
+                                  {loadingAction === `toggle-${t.id}` ? <LoadingSpinner size="sm" color="currentColor" /> : t.active ? 'ACTIVE' : 'INACTIVE'}
+                                </button>
+                              </div>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
