@@ -36,7 +36,7 @@ export default function Countdown() {
   if (!mounted) {
     return (
       <div className="flex items-center justify-center gap-2 md:gap-4 font-mono text-[var(--text-muted)]">
-        <span className="opacity-50">—</span>
+        <span className="opacity-50">-</span>
         <span className="text-lg md:text-2xl font-bold">LOADING</span>
         <span className="animate-blink">_</span>
       </div>

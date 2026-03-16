@@ -28,7 +28,7 @@ const competitions = [
     title: '12-Hour Hackathon',
     category: 'Hackathon',
     icon: FaRocket,
-    description: 'A fast-paced half-day hackathon. Ideate, prototype, and pitch — all in 12 hours. Perfect for first-time hackers and seasoned builders alike.',
+    description: 'A fast-paced half-day hackathon. Ideate, prototype, and pitch - all in 12 hours. Perfect for first-time hackers and seasoned builders alike.',
     details: 'Team: 2-3 members | Theme reveal at start',
     duration: '12 Hours',
     type: 'Team',
@@ -39,7 +39,7 @@ const competitions = [
   },
   {
     id: 'cp-individual',
-    title: 'CP Contest — Individual',
+    title: 'CP Contest - Individual',
     category: 'Coding',
     icon: HiCode,
     description: 'Solo competitive programming showdown. Solve algorithmic problems under time pressure. Codeforces-style rounds with increasing difficulty.',
@@ -53,7 +53,7 @@ const competitions = [
   },
   {
     id: 'cp-team',
-    title: 'CP Contest — Team',
+    title: 'CP Contest - Team',
     category: 'Coding',
     icon: HiPuzzle,
     description: 'ICPC-style team contest. Three minds, one keyboard. Collaborate, strategize, and solve the hardest problems together.',

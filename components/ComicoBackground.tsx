@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Retro comic background — Ben-Day dots (SVG + CSS), speed lines, panel grid.
+ * Retro comic background - Ben-Day dots (SVG + CSS), speed lines, panel grid.
  * Uses generated comic textures from /images/backgrounds/.
  */
 export default function ComicoBackground() {
@@ -23,7 +23,7 @@ export default function ComicoBackground() {
         }}
       />
 
-      {/* CSS fallback halftone — second layer for depth */}
+      {/* CSS fallback halftone - second layer for depth */}
       <div
         className="absolute inset-0 opacity-[0.12] motion-reduce:opacity-[0.06]"
         style={{
@@ -60,7 +60,7 @@ export default function ComicoBackground() {
         }}
       />
 
-      {/* Comic panel grid — page gutters */}
+      {/* Comic panel grid - page gutters */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.12] motion-reduce:opacity-[0.06]"
         style={{
@@ -95,7 +95,7 @@ export default function ComicoBackground() {
       {/* Thick yellow bottom bar */}
       <div className="absolute bottom-0 left-0 right-0 h-3 md:h-4 bg-[var(--accent-yellow)] opacity-90" />
 
-      {/* Corner L-brackets — comic/arcade panel frame */}
+      {/* Corner L-brackets - comic/arcade panel frame */}
       <div className="absolute top-3 md:top-4 left-0 w-20 h-20 md:w-28 md:h-28 border-l-4 border-t-4 border-[var(--accent-yellow)] opacity-60" />
       <div className="absolute top-3 md:top-4 right-0 w-20 h-20 md:w-28 md:h-28 border-r-4 border-t-4 border-[var(--accent-yellow)] opacity-60" />
       <div className="absolute bottom-3 md:bottom-4 left-0 w-20 h-20 md:w-28 md:h-28 border-l-4 border-b-4 border-[var(--accent-yellow)] opacity-60" />

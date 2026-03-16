@@ -13,16 +13,16 @@ Thank you for your interest in contributing to the AAYAM 2026 website.
 
 ### Branch Naming
 
-- `feature/` — New features (e.g. `feature/ambassador-leaderboard`)
-- `fix/` — Bug fixes (e.g. `fix/login-redirect`)
-- `docs/` — Documentation only
-- `refactor/` — Code refactoring
+- `feature/` - New features (e.g. `feature/ambassador-leaderboard`)
+- `fix/` - Bug fixes (e.g. `fix/login-redirect`)
+- `docs/` - Documentation only
+- `refactor/` - Code refactoring
 
 ### Code Style
 
-- **TypeScript** — Use types; avoid `any`
-- **ESLint** — Run `npm run lint` before committing
-- **Formatting** — Follow existing patterns in the codebase
+- **TypeScript** - Use types; avoid `any`
+- **ESLint** - Run `npm run lint` before committing
+- **Formatting** - Follow existing patterns in the codebase
 
 ### Commit Messages
 
@@ -38,26 +38,26 @@ docs: update README setup instructions
 
 1. **Create a branch** from `main`
 2. **Make your changes** and test locally
-3. **Run lint** — `npm run lint`
+3. **Run lint** - `npm run lint`
 4. **Push** to your fork and open a PR
 5. **Describe** your changes and link any related issues
-6. **Wait for review** — Address feedback if requested
+6. **Wait for review** - Address feedback if requested
 
 ## Areas to Contribute
 
-- **UI/UX** — Improve accessibility, responsiveness, or design
-- **Features** — Ambassador tasks, admin tools, public pages
-- **Bug fixes** — Check open issues
-- **Documentation** — README, API docs, inline comments
+- **UI/UX** - Improve accessibility, responsiveness, or design
+- **Features** - Ambassador tasks, admin tools, public pages
+- **Bug fixes** - Check open issues
+- **Documentation** - README, API docs, inline comments
 
 ## Reporting Issues
 
 When opening an issue, please include:
 
-- **Description** — What happened vs. what you expected
-- **Steps to reproduce** — How to trigger the bug
-- **Environment** — OS, Node version, browser
-- **Screenshots** — If relevant
+- **Description** - What happened vs. what you expected
+- **Steps to reproduce** - How to trigger the bug
+- **Environment** - OS, Node version, browser
+- **Screenshots** - If relevant
 
 ## Security
 

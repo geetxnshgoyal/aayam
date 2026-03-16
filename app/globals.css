@@ -9,12 +9,12 @@
   --color-cyan: #00b4d8;
 }
 
-/* AAYAM 2026 — COMICO Color Grid theme (vintage comic print palette) */
+/* AAYAM 2026 - COMICO Color Grid theme (vintage comic print palette) */
 :root {
   /* Paper & ink (from COMICO grid) */
   --paper: #f5f0e6;
   --ink: #0a0a0f;
-  /* Surfaces — dark base */
+  /* Surfaces - dark base */
   --bg-deep: #050813;
   --bg-card: #0c1220;
   --bg-elevated: #131b2e;
@@ -24,25 +24,25 @@
   --text-primary: #f0f4f8;
   --text-secondary: #b8cde0;
   --text-muted: #7a9bb5;
-  /* COMICO palette — Cyan (blue) */
+  /* COMICO palette - Cyan (blue) */
   --accent-cyan: #00b4d8;
   --accent-cyan-dark: #0096b8;
   --accent-cyan-muted: rgba(0, 180, 216, 0.15);
-  /* COMICO — Magenta (red) */
+  /* COMICO - Magenta (red) */
   --accent-magenta: #e6399b;
   --accent-magenta-dark: #c41e7a;
   --accent-magenta-muted: rgba(230, 57, 155, 0.15);
-  /* COMICO — Yellow */
+  /* COMICO - Yellow */
   --accent-yellow: #ffd60a;
   --accent-yellow-dark: #e6c009;
   --accent-neon: #ffde75;
   --accent-neon-muted: rgba(255, 222, 117, 0.12);
-  /* COMICO — Orange */
+  /* COMICO - Orange */
   --accent-orange: #ff7a4f;
   --accent-orange-dark: #e65f35;
   --accent-amber: #ffb000;
   --accent-amber-muted: rgba(255, 176, 0, 0.15);
-  /* Primary CTA — use COMICO yellow/orange for punch */
+  /* Primary CTA - use COMICO yellow/orange for punch */
   --accent-primary: #ff7a4f;
   --accent-primary-border: #e65f35;
   --accent-primary-hover: #ff8f6a;
@@ -213,7 +213,7 @@ h1, h2, h3, h4,
   background: linear-gradient(90deg, var(--accent-magenta), var(--accent-cyan));
 }
 
-/* Buttons — COMICO palette */
+/* Buttons - COMICO palette */
 .btn-primary-pixel {
   background: var(--accent-primary);
   border: 3px solid var(--accent-yellow);
@@ -241,7 +241,7 @@ h1, h2, h3, h4,
   box-shadow: 0 0 20px var(--accent-cyan-muted);
 }
 
-/* Cards — COMICO style, hover lift + accent border */
+/* Cards - COMICO style, hover lift + accent border */
 .card-retro {
   background: var(--bg-card);
   border: 2px solid var(--accent-yellow);
@@ -440,7 +440,7 @@ a:not(.btn):not([class*="no-underline"]):hover::after {
   animation: border-gradient 3s ease infinite;
 }
 
-/* Section title underline — COMICO palette */
+/* Section title underline - COMICO palette */
 .section-underline {
   width: 64px;
   height: 3px;

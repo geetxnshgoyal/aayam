@@ -75,7 +75,7 @@ export default function AdminLoginPage() {
               sessionStorage.setItem('admin_token', data.token);
               sessionStorage.setItem('admin_id', data.admin.id);
             } catch {
-              // Cookie is set by API — redirect anyway; dashboard will use credentials
+              // Cookie is set by API - redirect anyway; dashboard will use credentials
             }
           }
           window.location.href = '/admin/dashboard';

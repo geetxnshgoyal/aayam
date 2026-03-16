@@ -1,15 +1,15 @@
 # AAYAM 2026
 
-**Step Beyond the Known** — Official website for AAYAM 2026, the techfest by [Newton School of Technology](https://www.newtonschool.co), Bengaluru.
+**Step Beyond the Known** - Official website for AAYAM 2026, the techfest by [Newton School of Technology](https://www.newtonschool.co), Bengaluru.
 
 April 24–25, 2026 • NST S-VYASA University, Bengaluru • ₹2L+ Prize Pool
 
 ## Features
 
-- **Public site** — Home, Competitions, About, Gallery, Sponsors
-- **Ambassador program** — Register, earn points, complete tasks, convert points to signups
-- **Admin dashboard** — Approve ambassadors, manage signups, create tasks, bulk upload
-- **COMICO theme** — Retro comic-style design with Ben-Day dots and speed lines
+- **Public site** - Home, Competitions, About, Gallery, Sponsors
+- **Ambassador program** - Register, earn points, complete tasks, convert points to signups
+- **Admin dashboard** - Approve ambassadors, manage signups, create tasks, bulk upload
+- **COMICO theme** - Retro comic-style design with Ben-Day dots and speed lines
 
 ## Tech Stack
 
@@ -114,15 +114,15 @@ Set these environment variables in **Vercel → Project → Settings → Environ
 
 ## Firestore Collections
 
-- `ambassadors` — Ambassador registrations
-- `admin_users` — Admin accounts
-- `signups` — Participant signups (linked to ambassadors)
-- `tasks` — Ambassador tasks
-- `task_submissions` — Task submissions
-- `ambassador_points` — Points ledger
+- `ambassadors` - Ambassador registrations
+- `admin_users` - Admin accounts
+- `signups` - Participant signups (linked to ambassadors)
+- `tasks` - Ambassador tasks
+- `task_submissions` - Task submissions
+- `ambassador_points` - Points ledger
 
 Deploy indexes: `firebase deploy --only firestore:indexes`
 
 ## License
 
-Private — Newton School of Technology
+Private - Newton School of Technology

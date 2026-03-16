@@ -7,7 +7,7 @@ import fs from 'fs';
 /**
  * Initialize Firebase Admin using env vars (preferred) or service account JSON file.
  *
- * Env vars (recommended for security — no JSON file in repo):
+ * Env vars (recommended for security - no JSON file in repo):
  *   FIREBASE_PROJECT_ID
  *   FIREBASE_CLIENT_EMAIL
  *   FIREBASE_PRIVATE_KEY  (paste full key; \n for newlines)

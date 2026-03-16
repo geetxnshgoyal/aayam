@@ -78,7 +78,7 @@ export default function AboutPage() {
     },
     {
       title: 'Builder Culture',
-      description: 'We celebrate those who build — from autonomous bots to full-stack apps to competitive algorithms',
+      description: 'We celebrate those who build - from autonomous bots to full-stack apps to competitive algorithms',
     },
     {
       title: 'Inclusive Access',
@@ -126,7 +126,7 @@ export default function AboutPage() {
             </div>
             <div className="space-y-4 text-[var(--text-secondary)] leading-relaxed">
               <p>
-                <strong className="text-[var(--accent-cyan)]">AAYAM</strong> — meaning &quot;New Dimensions&quot; — is the flagship techfest of{' '}
+                <strong className="text-[var(--accent-cyan)]">AAYAM</strong> - meaning &quot;New Dimensions&quot; - is the flagship techfest of{' '}
                 <strong className="text-[var(--accent-cyan)]">Newton School of Technology</strong>. It represents our vision to explore every dimension of technology, innovation, and human potential.
               </p>
               <p>
@@ -134,7 +134,7 @@ export default function AboutPage() {
                 <strong className="text-[var(--accent-cyan)]">3000+ developers, engineers, robotics enthusiasts, hackers, and students</strong> for two days of intense competition and collaboration.
               </p>
               <p>
-                Whether you&apos;re building autonomous bots, shipping code at 3 AM in a hackathon, optimizing algorithms, or contributing to open-source — AAYAM is where you prove what you can build.
+                Whether you&apos;re building autonomous bots, shipping code at 3 AM in a hackathon, optimizing algorithms, or contributing to open-source - AAYAM is where you prove what you can build.
               </p>
             </div>
           </article>
@@ -153,7 +153,7 @@ export default function AboutPage() {
                 &gt; OUR VISION
               </h2>
               <p className="text-[var(--text-secondary)] leading-relaxed">
-                To be the most impactful student-run techfest in India — a launchpad where the next generation of builders, creators, and innovators come together to push beyond what&apos;s possible.
+                To be the most impactful student-run techfest in India - a launchpad where the next generation of builders, creators, and innovators come together to push beyond what&apos;s possible.
               </p>
             </article>
             <article className="card-retro rounded-sm p-8">
@@ -161,7 +161,7 @@ export default function AboutPage() {
                 &gt; OUR MISSION
               </h2>
               <p className="text-[var(--text-secondary)] leading-relaxed">
-                Create a platform where technical excellence meets real-world impact. We believe in learning by building, competing, and collaborating — not just attending talks.
+                Create a platform where technical excellence meets real-world impact. We believe in learning by building, competing, and collaborating - not just attending talks.
               </p>
             </article>
           </div>

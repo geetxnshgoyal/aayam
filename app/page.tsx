@@ -25,11 +25,11 @@ const highlights = [
   },
   {
     title: 'Competitive Programming',
-    description: 'Solo and team CP contests plus code optimizer challenges — push your algorithmic thinking to the limit',
+    description: 'Solo and team CP contests plus code optimizer challenges - push your algorithmic thinking to the limit',
   },
   {
     title: 'Robotics Arena',
-    description: 'Robo Racing, Soccer, Fighting, Maze Solver, and Drone Hurdle Racing — build machines that dominate',
+    description: 'Robo Racing, Soccer, Fighting, Maze Solver, and Drone Hurdle Racing - build machines that dominate',
   },
   {
     title: 'Open Source',
@@ -82,7 +82,7 @@ export default function Home() {
             <div className="relative w-[200px] md:w-[280px] h-[80px] md:h-[120px] mx-auto mb-6">
               <Image
                 src="/images/logo.png"
-                alt="AAYAM 2026 — Step Beyond the Known"
+                alt="AAYAM 2026 - Step Beyond the Known"
                 fill
                 className="object-contain"
                 priority
@@ -199,7 +199,7 @@ export default function Home() {
         className="border-y-2 border-[var(--accent-yellow)] bg-[var(--bg-card)]/90 shadow-[0_4px_0_var(--accent-magenta)]"
       />
 
-      {/* By the Numbers — same comic bg as rest of page (no white strip) */}
+      {/* By the Numbers - same comic bg as rest of page (no white strip) */}
       <section className="relative py-16 md:py-24 overflow-hidden border-y-2 border-[var(--accent-yellow)]/30" aria-labelledby="stats-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <RevealOnScroll direction="up">
@@ -241,7 +241,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Next Dimension — highlights */}
+      {/* Next Dimension - highlights */}
       <section className="relative py-20 md:py-28 overflow-hidden border-y-2 border-[var(--accent-magenta)]/20" aria-labelledby="highlights-heading">
         <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
           <Image

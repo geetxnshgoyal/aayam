@@ -12,7 +12,7 @@ const IMAGES = [
 ];
 
 /**
- * Horizontal scrolling image strip — movable multi-image design.
+ * Horizontal scrolling image strip - movable multi-image design.
  * Respects prefers-reduced-motion.
  */
 export default function ImageMarquee({ className = '' }: { className?: string }) {
