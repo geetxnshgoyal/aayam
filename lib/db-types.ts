@@ -1,5 +1,5 @@
 /**
- * Shared database entity types (used by both Supabase and Firebase).
+ * Shared database entity types (Firestore).
  */
 
 export interface Ambassador {
