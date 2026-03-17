@@ -13,17 +13,17 @@ type CompItem = (typeof competitions)[number];
 const competitions = [
   {
     id: '24h-hackathon',
-    title: '24-Hour Hackathon',
+    title: 'BugBash',
     category: 'Hackathon',
     icon: HiLightningBolt,
     description: 'An intense 24-hour innovation marathon featuring Blind Code Challenge, AI vs Human coding battles, and Tech Meme Challenge. Build innovative solutions under extreme time constraints.',
-    details: 'Team: 2-4 members | Mentorship | Meals included',
+    details: 'Team: 1-4 members | Mentorship | Meals included',
     duration: '24 Hours',
     type: 'Team',
     difficulty: 'Advanced',
     prize: '₹50,000',
     participants: '2-4',
-    registrationLink: 'https://unstop.com/competitions',
+    registrationLink: 'https://unstop.com/p/bugbash-aayam-newton-school-of-technology-bengaluru-karnataka-1658793',
   },
   {
     id: '12h-hackathon',
