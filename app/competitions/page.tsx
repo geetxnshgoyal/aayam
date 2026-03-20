@@ -7,6 +7,7 @@ import { FiExternalLink } from 'react-icons/fi';
 import { FaRobot, FaRocket, FaDragon, FaGamepad, FaHelicopter, FaGithub } from 'react-icons/fa';
 import { SectionBackground } from '@/components/SectionBackground';
 import Magnetic from '@/components/Magnetic';
+import UniverseBackground from '@/components/UniverseBackground';
 
 type CompItem = (typeof competitions)[number];
 
@@ -197,8 +198,12 @@ export default function CompetitionsPage() {
 
   return (
     <div className="min-h-screen pt-24 pb-20 min-w-0 relative overflow-hidden">
-      <SectionBackground src="/images/backgrounds/tech-matrix.jpg" opacity={0.18} className="top-0 h-[400px] md:h-[450px]" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0 relative z-10">
+      {/* Universe background — canvas-rendered starfield, Earth, nebulae */}
+      <UniverseBackground />
+      {/* Subtle dark overlay so text stays legible */}
+      <div className="absolute inset-0 bg-[var(--bg-deep)]/40 pointer-events-none" style={{zIndex:1}} />
+      <SectionBackground src="/images/backgrounds/tech-matrix.jpg" opacity={0.06} className="top-0 h-[400px] md:h-[450px]" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0 relative" style={{zIndex:2}}>
         <motion.header
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
