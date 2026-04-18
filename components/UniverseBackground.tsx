@@ -22,16 +22,16 @@ export default function UniverseBackground() {
     window.addEventListener('resize', resize);
 
     // Stars
-    const STAR_COUNT = 280;
+    const STAR_COUNT = 300;
     const stars = Array.from({ length: STAR_COUNT }, () => ({
       x: Math.random(),
       y: Math.random(),
-      r: Math.random() * 1.6 + 0.2,
-      alpha: Math.random() * 0.7 + 0.3,
-      twinkleSpeed: Math.random() * 0.015 + 0.005,
+      r: Math.random() * 1.2 + 0.1,
+      alpha: Math.random() * 0.6 + 0.2,
+      twinkleSpeed: Math.random() * 0.01 + 0.005,
       twinkleOffset: Math.random() * Math.PI * 2,
-      color: (['#ffffff', '#b8cde0', '#00b4d8', '#ffd60a', '#ff7a4f'] as const)[
-        Math.floor(Math.random() * 5)
+      color: (['#ffffff', '#a0a0a0', '#FF7A00', '#39FF14'] as const)[
+        Math.floor(Math.random() * 4)
       ],
     }));
 
@@ -46,24 +46,22 @@ export default function UniverseBackground() {
         y: Math.random() * 0.4,
         vx: (Math.random() * 0.004 + 0.003),
         vy: (Math.random() * 0.002 + 0.001),
-        len: Math.random() * 100 + 60,
+        len: Math.random() * 120 + 80,
         alpha: 1,
         life: 1,
       });
     };
 
-    // Nebula blobs (static, drawn once into offscreen)
+    // Nebula blobs
     const nebulaCanvas = document.createElement('canvas');
     const drawNebula = () => {
       nebulaCanvas.width = w;
       nebulaCanvas.height = h;
       const nc = nebulaCanvas.getContext('2d')!;
       const blobs = [
-        { x: 0.15, y: 0.2, r: 0.28, color: 'rgba(0,180,216,0.045)' },
-        { x: 0.75, y: 0.35, r: 0.22, color: 'rgba(230,57,155,0.04)' },
-        { x: 0.5, y: 0.7, r: 0.35, color: 'rgba(255,122,79,0.035)' },
-        { x: 0.88, y: 0.8, r: 0.18, color: 'rgba(255,214,10,0.03)' },
-        { x: 0.05, y: 0.8, r: 0.2, color: 'rgba(55,224,255,0.04)' },
+        { x: 0.15, y: 0.2, r: 0.3, color: 'rgba(255,122,0,0.03)' },
+        { x: 0.75, y: 0.35, r: 0.25, color: 'rgba(57,255,20,0.02)' },
+        { x: 0.5, y: 0.7, r: 0.4, color: 'rgba(255,255,255,0.01)' },
       ];
       for (const b of blobs) {
         const grd = nc.createRadialGradient(b.x * w, b.y * h, 0, b.x * w, b.y * h, b.r * Math.max(w, h));
@@ -81,15 +79,15 @@ export default function UniverseBackground() {
     const EARTH_ORBIT_X = 0.82;
     const EARTH_ORBIT_Y = 0.28;
 
-    // Floating particles (asteroids/dust)
-    const particles = Array.from({ length: 26 }, () => ({
+    // Floating particles
+    const particles = Array.from({ length: 30 }, () => ({
       x: Math.random(),
       y: Math.random(),
-      size: Math.random() * 3 + 1,
-      vx: (Math.random() - 0.5) * 0.0003,
-      vy: (Math.random() - 0.5) * 0.0002,
-      alpha: Math.random() * 0.4 + 0.1,
-      color: (['#00b4d8', '#e6399b', '#ffd60a', '#ff7a4f', '#37e0ff'] as const)[Math.floor(Math.random() * 5)],
+      size: Math.random() * 2 + 0.5,
+      vx: (Math.random() - 0.5) * 0.0002,
+      vy: (Math.random() - 0.5) * 0.0001,
+      alpha: Math.random() * 0.3 + 0.1,
+      color: (['#ffffff', '#FF7A00', '#39FF14'] as const)[Math.floor(Math.random() * 3)],
     }));
 
     let t = 0;
@@ -103,10 +101,9 @@ export default function UniverseBackground() {
       ctx.clearRect(0, 0, w, h);
 
       // Radial deep space gradient background
-      const bg = ctx.createRadialGradient(w * 0.5, h * 0.5, 0, w * 0.5, h * 0.5, Math.max(w, h) * 0.75);
-      bg.addColorStop(0, '#0d1528');
-      bg.addColorStop(0.5, '#07101e');
-      bg.addColorStop(1, '#020810');
+      const bg = ctx.createRadialGradient(w * 0.5, h * 0.5, 0, w * 0.5, h * 0.5, Math.max(w, h) * 0.8);
+      bg.addColorStop(0, '#020202');
+      bg.addColorStop(1, '#000000');
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, w, h);
 

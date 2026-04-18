@@ -38,38 +38,39 @@ const faqs = [
 
 export default function AmbassadorPage() {
   return (
-    <div className="min-h-screen pt-24 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-24 pb-20 bg-gradient-to-b from-[#0e0e0e] to-[#1a1a1a]">
+      <div className="absolute inset-0 opacity-[0.03] aayam-grid pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.header
           initial={{ y: 24, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
           className="text-center mb-20 pt-8"
         >
-          <span className="inline-flex items-center gap-2 font-mono text-xs text-[var(--accent-cyan)] border-2 border-[var(--accent-cyan)] px-4 py-2 rounded mb-6 bg-[var(--bg-card)] shadow-[4px_4px_0_var(--accent-magenta)]">
+          <span className="inline-flex items-center gap-2 font-mono text-xs text-[#c1fffe] border-2 border-[#c1fffe] px-4 py-2 mb-6 bg-[#131313] shadow-[4px_4px_0px_#ff51fa]">
             <HiSpeakerphone className="w-4 h-4" aria-hidden />
-            Recruiting Ambassadors
+            RECRUITING OPERATIVES
           </span>
-          <div className="inline-block mx-auto mb-6 border-4 border-[var(--accent-primary)] bg-[var(--bg-card)] px-8 py-4 shadow-[10px_10px_0_var(--accent-yellow)]">
-            <h1 className="font-mono text-2xl md:text-4xl font-bold text-[var(--accent-primary)]">
-              &gt; JOIN THE <span className="text-[var(--accent-yellow)]">SYNDICATE</span>
+          <div className="inline-block mx-auto mb-6 border-4 border-[#c1fffe] bg-[#0e0e0e] px-8 py-4 shadow-[12px_12px_0px_#ff51fa]">
+            <h1 className="font-mono text-2xl md:text-4xl font-black text-[#c1fffe] tracking-wider uppercase">
+              &gt; JOIN THE <span className="text-[#fffeac]">SYNDICATE</span>
             </h1>
           </div>
-          <p className="text-[var(--text-secondary)] text-lg max-w-2xl mx-auto mb-10">
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-10 font-light">
             Become the face of AAYAM. Promote AAYAM 2026 on your campus.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/ambassador/register"
-              className="inline-flex justify-center px-8 py-4 font-mono text-sm font-semibold bg-[var(--accent-primary)] text-white border border-[var(--accent-primary)] hover:shadow-[0_0_20px_var(--glow-primary)] transition-all"
+              className="inline-flex justify-center px-8 py-4 font-mono text-sm font-black bg-[#fffeac] text-[#0e0e0e] border-2 border-[#fffeac] hover:shadow-[0px_0px_20px_#c1fffe] transition-all uppercase tracking-wider"
             >
-              Apply Now
+              APPLY NOW
             </Link>
             <a
               href="#rewards"
-              className="inline-flex justify-center px-8 py-4 font-mono text-sm font-semibold border border-[var(--border-accent)] text-[var(--text-primary)] hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan)] transition-all"
+              className="inline-flex justify-center px-8 py-4 font-mono text-sm font-black border-2 border-[#ff51fa] text-[#ff51fa] hover:bg-[#ff51fa]/10 transition-all uppercase tracking-wider"
             >
-              View Bounties
+              VIEW BOUNTIES
             </a>
           </div>
         </motion.header>
@@ -81,13 +82,13 @@ export default function AmbassadorPage() {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <article className="card-retro rounded-sm p-8 md:p-12">
-            <h2 className="font-mono text-xl md:text-2xl font-semibold text-[var(--text-primary)] mb-6">
+          <article className="bg-[#131313] border-2 border-[#262626] p-8 md:p-12 shadow-[12px_12px_0px_#ff51fa]">
+            <h2 className="font-mono text-xl md:text-2xl font-black text-[#c1fffe] mb-6 uppercase tracking-wider">
               &gt; THE DIRECTIVE
             </h2>
-            <div className="grid md:grid-cols-2 gap-8 text-[var(--text-secondary)] leading-relaxed">
+            <div className="grid md:grid-cols-2 gap-8 text-gray-400 leading-relaxed">
               <p>
-                The <strong className="text-[var(--text-primary)]">AAYAM Ambassador Program</strong> expands the fest across all campuses. As an ambassador, you are the primary link between the organizers and your college.
+                The <strong className="text-[#fffeac]">AAYAM Ambassador Program</strong> expands the fest across all campuses. As an ambassador, you are the primary link between the organizers and your college.
               </p>
               <p>
                 This is expansion. Deploy the brand, drive recruitment, and climb the tier hierarchy for AAYAM 2026.
@@ -103,10 +104,10 @@ export default function AmbassadorPage() {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <h2 className="font-mono text-2xl md:text-3xl font-bold text-center mb-2 text-[var(--text-primary)]">
+          <h2 className="font-mono text-2xl md:text-3xl font-black text-center mb-2 text-[#c1fffe] uppercase tracking-wider">
             &gt; OPERATIVE REWARDS
           </h2>
-          <p className="text-[var(--text-muted)] text-center text-sm mb-10">Perks for active ambassadors</p>
+          <p className="text-gray-500 text-center text-sm mb-10 font-mono">PERKS FOR ACTIVE AMBASSADORS</p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((item, index) => (
               <motion.article
@@ -115,11 +116,11 @@ export default function AmbassadorPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.06 }}
                 viewport={{ once: true }}
-                className="card-retro rounded-sm p-6"
+                className="bg-[#131313] border-2 border-[#262626] p-6 shadow-[8px_8px_0px_rgba(255,81,250,0.3)] hover:shadow-[8px_8px_0px_#ff51fa] transition-all"
               >
-                <item.icon className="w-10 h-10 mb-4 text-[var(--accent-cyan)]" aria-hidden />
-                <h3 className="font-mono font-semibold text-[var(--text-primary)] mb-2">{item.title}</h3>
-                <p className="text-[var(--text-secondary)] text-sm leading-relaxed">{item.description}</p>
+                <item.icon className="w-10 h-10 mb-4 text-[#c1fffe]" aria-hidden />
+                <h3 className="font-mono font-black text-[#fffeac] mb-2 uppercase tracking-wide">{item.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
               </motion.article>
             ))}
           </div>
@@ -132,10 +133,10 @@ export default function AmbassadorPage() {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <h2 className="font-mono text-2xl md:text-3xl font-bold text-center mb-2 text-[var(--text-primary)]">
+          <h2 className="font-mono text-2xl md:text-3xl font-black text-center mb-2 text-[#c1fffe] uppercase tracking-wider">
             &gt; YOUR ROLE
           </h2>
-          <p className="text-[var(--text-muted)] text-center text-sm mb-10">What ambassadors do</p>
+          <p className="text-gray-500 text-center text-sm mb-10 font-mono">WHAT AMBASSADORS DO</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {responsibilities.map((item, index) => (
               <motion.article
@@ -144,11 +145,11 @@ export default function AmbassadorPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.06 }}
                 viewport={{ once: true }}
-                className="card-retro rounded-sm p-6"
+                className="bg-[#131313] border-2 border-[#262626] p-6 shadow-[8px_8px_0px_rgba(255,81,250,0.3)] hover:shadow-[8px_8px_0px_#ff51fa] transition-all"
               >
-                <item.icon className="w-8 h-8 mb-3 text-[var(--accent-amber)]" aria-hidden />
-                <h3 className="font-mono font-semibold text-[var(--text-primary)] mb-2">{item.title}</h3>
-                <p className="text-[var(--text-secondary)] text-sm">{item.description}</p>
+                <item.icon className="w-8 h-8 mb-3 text-[#fffeac]" aria-hidden />
+                <h3 className="font-mono font-black text-[#c1fffe] mb-2 uppercase tracking-wide">{item.title}</h3>
+                <p className="text-gray-400 text-sm">{item.description}</p>
               </motion.article>
             ))}
           </div>
@@ -162,10 +163,10 @@ export default function AmbassadorPage() {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <h2 className="font-mono text-2xl md:text-3xl font-bold text-center mb-2 text-[var(--text-primary)]">
+          <h2 className="font-mono text-2xl md:text-3xl font-black text-center mb-2 text-[#c1fffe] uppercase tracking-wider">
             &gt; CLEARANCE LEVELS
           </h2>
-          <div className="h-px w-20 mx-auto bg-[var(--phosphor-green)]/50 my-8" />
+          <div className="h-px w-20 mx-auto bg-[#ff51fa]/50 my-8" />
           <div className="grid md:grid-cols-2 gap-6">
             {tiers.map((tier, index) => (
               <motion.article
@@ -174,18 +175,18 @@ export default function AmbassadorPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.08 }}
                 viewport={{ once: true }}
-                className="card-retro rounded-sm p-8"
+                className="bg-[#131313] border-2 border-[#262626] p-8 shadow-[12px_12px_0px_rgba(255,81,250,0.3)] hover:shadow-[12px_12px_0px_#ff51fa] transition-all"
               >
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="font-mono text-xl font-semibold text-[var(--text-primary)]">{tier.name}</h3>
-                  <span className="font-mono text-xs text-[var(--accent-cyan)] border border-[var(--border-accent)] px-3 py-1.5 rounded">
+                  <h3 className="font-mono text-xl font-black text-[#fffeac] uppercase tracking-wide">{tier.name}</h3>
+                  <span className="font-mono text-xs text-[#c1fffe] border-2 border-[#c1fffe] px-3 py-1.5">
                     {tier.target}
                   </span>
                 </div>
                 <ul className="space-y-2">
                   {tier.rewards.map((reward, idx) => (
-                    <li key={idx} className="flex items-center gap-3 text-[var(--text-secondary)] text-sm">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--phosphor-cyan)]" aria-hidden />
+                    <li key={idx} className="flex items-center gap-3 text-gray-400 text-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#c1fffe]" aria-hidden />
                       {reward}
                     </li>
                   ))}
@@ -202,15 +203,15 @@ export default function AmbassadorPage() {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <h2 className="font-mono text-2xl font-bold text-center mb-10 text-[var(--text-primary)]">
+          <h2 className="font-mono text-2xl font-black text-center mb-10 text-[#c1fffe] uppercase tracking-wider">
             &gt; FAQ
           </h2>
           <div className="max-w-2xl mx-auto space-y-4">
             {faqs.map((faq, index) => (
-              <article key={index} className="card-retro rounded-sm p-6">
-                <p className="font-mono text-xs text-[var(--accent-cyan)] mb-2">Q:</p>
-                <h3 className="font-mono font-semibold text-[var(--text-primary)] mb-2">{faq.q}</h3>
-                <p className="text-[var(--text-secondary)] text-sm leading-relaxed">{faq.a}</p>
+              <article key={index} className="bg-[#131313] border-2 border-[#262626] p-6 shadow-[8px_8px_0px_rgba(255,81,250,0.3)]">
+                <p className="font-mono text-xs text-[#c1fffe] mb-2 uppercase">Q:</p>
+                <h3 className="font-mono font-black text-[#fffeac] mb-2 uppercase tracking-wide">{faq.q}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{faq.a}</p>
               </article>
             ))}
           </div>
@@ -222,25 +223,25 @@ export default function AmbassadorPage() {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <div className="card-retro rounded-sm p-12 md:p-16 text-center">
-            <h2 className="font-mono text-2xl md:text-4xl font-bold mb-4 text-[var(--text-primary)]">
+          <div className="bg-[#131313] border-2 border-[#c1fffe] p-12 md:p-16 text-center shadow-[12px_12px_0px_#ff51fa]">
+            <h2 className="font-mono text-2xl md:text-4xl font-black mb-4 text-[#c1fffe] uppercase tracking-wider">
               &gt; INITIATE
             </h2>
-            <p className="text-[var(--text-secondary)] mb-8 max-w-xl mx-auto">
+            <p className="text-gray-400 mb-8 max-w-xl mx-auto">
               The expansion starts with one campus. Will it be yours?
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/ambassador/register"
-                className="inline-flex justify-center px-8 py-4 font-mono text-sm font-semibold bg-[var(--accent-primary)] text-white border border-[var(--accent-primary)] hover:shadow-[0_0_20px_var(--glow-primary)] transition-all"
+                className="inline-flex justify-center px-8 py-4 font-mono text-sm font-black bg-[#fffeac] text-[#0e0e0e] border-2 border-[#fffeac] hover:shadow-[0px_0px_20px_#c1fffe] transition-all uppercase tracking-wider"
               >
-                Register as Ambassador
+                REGISTER
               </Link>
               <Link
                 href="/ambassador/login"
-                className="inline-flex justify-center px-8 py-4 font-mono text-sm font-semibold border border-[var(--border-accent)] text-[var(--text-primary)] hover:border-[var(--accent-cyan)] hover:text-[var(--accent-cyan)] transition-all"
+                className="inline-flex justify-center px-8 py-4 font-mono text-sm font-black border-2 border-[#ff51fa] text-[#ff51fa] hover:bg-[#ff51fa]/10 transition-all uppercase tracking-wider"
               >
-                Ambassador Login
+                LOGIN
               </Link>
             </div>
           </div>

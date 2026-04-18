@@ -1,380 +1,249 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import Image from 'next/image';
-import { HiLightningBolt, HiUsers, HiCode } from 'react-icons/hi';
-import { FaTrophy } from 'react-icons/fa';
-import { useRef } from 'react';
-import ScrollingStats from '@/components/ScrollingStats';
-import Countdown from '@/components/Countdown';
-import ImageMarquee from '@/components/ImageMarquee';
-import { RevealOnScroll, GlitchBorder, NeonButton } from '@/components/ImmersionEffects';
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 
-const stats = [
-  { icon: HiUsers, value: '3000+', label: 'Participants' },
-  { icon: FaTrophy, value: '6+', label: 'Competitions' },
-  { icon: HiLightningBolt, value: '₹2L+', label: 'Prize Pool' },
-  { icon: HiCode, value: '2+', label: 'Sponsors' },
-];
-
-const highlights = [
+const highlightCards = [
   {
-    title: 'Hackathons',
-    description: '24-hour and 12-hour innovation marathons with blind code challenges, AI vs Human battles, and tech meme challenges',
+    id: "PANEL 01",
+    title: "HYPER-STRUCTURES",
+    description:
+      "Explore architecture of the impossible with live demos of gravity-defying digital constructs and metaverse urban systems.",
+    tone: "cyan",
   },
   {
-    title: 'Competitive Programming',
-    description: 'Solo and team CP contests plus code optimizer challenges - push your algorithmic thinking to the limit',
+    id: "PANEL 02",
+    title: "NEURAL SYNTHESIS",
+    description:
+      "Direct interface workshops that blend human intuition with machine-speed creation across AI, systems, and interaction design.",
+    tone: "pink",
   },
   {
-    title: 'Robotics Arena',
-    description: 'Robo Racing, Soccer, Fighting, Maze Solver, and Drone Hurdle Racing - build machines that dominate',
-  },
-  {
-    title: 'Open Source',
-    description: 'Contribute to real open-source projects, collaborate with the community, and ship code that matters',
+    id: "PANEL 03",
+    title: "QUANTUM VOID",
+    description:
+      "Step into zero-point simulations and multi-sensory data realms with real-time visual computing and sound-reactive environments.",
+    tone: "yellow",
   },
 ];
 
-const competitions = [
-  { name: 'Hackathon', prize: '₹50,000' },
-  { name: 'Robotics', prize: '₹40,000' },
-  { name: 'CP Challenge', prize: '₹30,000' },
-  { name: 'AI Battle', prize: '₹35,000' },
-  { name: 'Web3 Hack', prize: '₹25,000' },
+const tickerItems = [
+  "SIGNAL STRENGTH: MAXIMUM",
+  "ARENA STATUS: READY",
+  "COORDINATES: NST BENGALURU",
+  "ACCESS LEVEL: OPEN",
 ];
 
-export default function Home() {
-  const containerRef = useRef<HTMLDivElement>(null);
+function Countdown() {
+  const target = useMemo(() => new Date("2026-04-25T09:00:00+05:30").getTime(), []);
+  const [now, setNow] = useState(() => new Date().valueOf());
+
+  useEffect(() => {
+    const timer = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const total = Math.max(0, target - now);
+  const days = Math.floor(total / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((total / (1000 * 60)) % 60);
+  const seconds = Math.floor((total / 1000) % 60);
 
   return (
-    <div ref={containerRef} className="relative min-h-screen overflow-x-hidden">
-      {/* Hero */}
-      <section
-        aria-labelledby="hero-heading"
-        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-[env(safe-area-inset-bottom)]"
-      >
-        {/* Hero background image */}
-        <div className="absolute inset-0">
-          <Image
-            src="/images/downloaded/hero-tech.jpg"
-            alt=""
-            fill
-            className="object-cover opacity-30"
-            priority
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-deep)]/70 via-[var(--bg-deep)]/85 to-[var(--bg-deep)]" />
-        </div>
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--accent-yellow)]/50 to-transparent" />
-          <div className="absolute top-1/2 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-[var(--accent-yellow)]/5 to-transparent" />
-        </div>
+    <span>
+      INITIATING IN: {String(days).padStart(2, "0")}D : {String(hours).padStart(2, "0")}H : {String(minutes).padStart(2, "0")}M : {String(seconds).padStart(2, "0")}S
+    </span>
+  );
+}
 
-        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto w-full">
-          <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="mb-6"
-          >
-            <div className="relative w-[200px] md:w-[280px] h-[80px] md:h-[120px] mx-auto mb-6">
-              <Image
-                src="/images/logo.png"
-                alt="AAYAM 2026 - Step Beyond the Known"
-                fill
-                className="object-contain"
-                priority
-                sizes="(max-width: 768px) 200px, 280px"
-              />
+export default function HomePage() {
+  return (
+    <div className="bg-[#0e0e0e] text-white pt-36 md:pt-40 overflow-hidden">
+      <section className="relative px-6 md:px-12 lg:px-20 pb-20">
+        <div className="aayam-halftone absolute inset-0 opacity-30 pointer-events-none" />
+        <div className="aayam-grid absolute inset-x-0 top-0 h-[480px] opacity-50 pointer-events-none" />
+
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center max-w-7xl mx-auto">
+          <div className="lg:col-span-7">
+            <div className="inline-block bg-[#ff51fa] text-black px-4 py-1 text-xs font-black tracking-[0.22em] uppercase">
+              EST. 2026 // NEO-TOKYO SECTOR
             </div>
-          </motion.div>
 
-          <div className="panel-comic panel-comic-yellow bg-[var(--bg-card)]/95 backdrop-blur-md p-6 sm:p-8 md:p-12 rounded-sm max-w-3xl mx-auto w-full min-w-0 border-4 border-[var(--accent-yellow)] shadow-[10px_10px_0_var(--accent-magenta)]">
-            <motion.h1
-              id="hero-heading"
-              initial={{ y: 10, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.15 }}
-              className="font-pixel text-base sm:text-lg md:text-2xl font-bold mb-3 text-[var(--text-primary)] tracking-wide uppercase break-words"
-            >
-              STEP BEYOND THE KNOWN
-            </motion.h1>
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.5, delay: 0.25 }}
-              className="h-[2px] mb-5 max-w-full origin-center bg-gradient-to-r from-transparent via-[var(--accent-yellow)] to-transparent"
-            />
-            <motion.p
-              initial={{ y: 10, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.3 }}
-              className="text-[var(--text-secondary)] text-sm md:text-base mb-5 font-medium"
-            >
-              Hosted by <span className="text-[var(--accent-cyan)]">Newton School of Technology</span>
-            </motion.p>
+            <h1 className="mt-6 leading-none uppercase italic font-black tracking-tighter">
+              <span className="block text-6xl md:text-8xl lg:text-9xl text-[#c1fffe] drop-shadow-[4px_4px_0px_#ff51fa]">
+                AAYAM
+              </span>
+              <span className="block text-5xl md:text-7xl lg:text-8xl text-transparent [-webkit-text-stroke:1px_#c1fffe] -mt-1 md:-mt-3">
+                2026
+              </span>
+            </h1>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="mb-6"
-            >
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] mb-2">
-                Countdown to launch
-              </p>
-              <Countdown />
-            </motion.div>
+            <p className="mt-8 max-w-2xl border-l-4 border-[#fffeac] pl-5 text-base md:text-xl font-semibold uppercase tracking-wide text-zinc-100">
+              The protocol reset is live. Join the convergence of neural systems, quantum computation, and high-impact builder culture.
+            </p>
 
-            <motion.div
-              initial={{ y: 10, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.5 }}
-              className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap"
-            >
+            <div className="mt-10 flex flex-wrap gap-4">
               <Link
                 href="/competitions"
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 font-pixel text-[10px] bg-[var(--accent-primary)] text-[var(--ink)] border-[3px] border-[var(--accent-yellow)] rounded-sm hover:bg-[var(--accent-primary-hover)] transition-all duration-200 shadow-[6px_6px_0_var(--accent-magenta)] hover:shadow-[4px_4px_0_var(--accent-magenta)]"
+                className="bg-gradient-to-r from-[#c1fffe] to-[#00ffff] text-black font-black uppercase px-8 py-4 text-sm md:text-base tracking-[0.08em] hover:brightness-110 transition"
               >
-                ENTER THE ARENA
-                <span className="animate-blink">_</span>
+                Join The Arena
               </Link>
               <Link
                 href="/about"
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 font-pixel text-[10px] border-2 border-[var(--accent-yellow)]/60 text-[var(--text-primary)] rounded-sm hover:border-[var(--accent-cyan)] hover:bg-[var(--accent-cyan-muted)] transition-all duration-200"
+                className="border-2 border-[#484847] text-[#ff51fa] font-black uppercase px-8 py-4 text-sm md:text-base tracking-[0.08em] hover:bg-[#ff51fa]/10 hover:border-[#ff51fa] transition"
               >
-                ABOUT
+                View Manifesto
               </Link>
-              <a
-                href="/brochure/aayam-sponsorship-booklet-2026.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 font-pixel text-[10px] border-2 border-[var(--accent-orange)] text-[var(--accent-orange)] rounded-sm hover:bg-[var(--accent-amber-muted)] transition-all duration-200"
-              >
-                BROCHURE
-              </a>
-            </motion.div>
+            </div>
           </div>
 
-          <motion.div
-            initial={{ scale: 0.98, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.65, duration: 0.35 }}
-            className="flex flex-col sm:flex-row justify-center gap-4 md:gap-8 flex-wrap max-w-2xl mx-auto mt-10 text-left sm:text-center"
-          >
-            {[
-              { text: 'April 24-25, 2026', label: 'DATE' },
-              { text: '8AM - 8PM', label: 'TIME' },
-              { text: 'NST S-VYASA University, Bengaluru', label: 'VENUE' },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 px-4 py-2.5 rounded-sm border-2 border-[var(--accent-yellow)]/40 bg-[var(--bg-card)]/90 hover:border-[var(--accent-cyan)]/60 transition-colors"
-              >
-                <span className="font-pixel text-[10px] uppercase tracking-wider text-[var(--accent-cyan)]">
-                  {item.label}:
-                </span>
-                <span className="text-sm text-[var(--text-secondary)] font-medium">{item.text}</span>
+          <div className="lg:col-span-5">
+            <div className="relative border border-[#2a2a2a] bg-[#131313] p-3">
+              <div className="absolute -top-2 -left-2 h-8 w-8 border-t-4 border-l-4 border-[#00ffff] z-10" />
+              <div className="absolute -bottom-2 -right-2 h-8 w-8 border-b-4 border-r-4 border-[#00ffff] z-10" />
+
+              <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-[#1e1e1e] via-[#0f0f0f] to-[#1a1a1a]">
+                <Image
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ3rqzNeAxMDMVhOVCh9S3xk3W1iPCgp9SV59KxLS-Icg0eGjb5JiWMkB6EbEenjygRds9Ti_aTB_6H1XTWoGd7zkbf574ifyO9GKdPpVbmUYtVl8LmFqi-yqigK4i_DCds69c8nkgDE-CthVkF5nIuYeR3QSX2hL0hIiVa2tQW603mgcSrhPE2G7KfAHQigcXBp2PuCl5kAn2k89fZP-v1znL1qReNOqv9P-U09OeN-fi7XmczNQmwt03NsEEzSaxX-CxLILCo4F0"
+                  alt="Neural Synthesis Terminal"
+                  fill
+                  priority
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 40vw, 30vw"
+                />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,81,250,0.22),transparent_40%),radial-gradient(circle_at_80%_30%,rgba(193,255,254,0.2),transparent_38%),radial-gradient(circle_at_50%_95%,rgba(255,255,0,0.14),transparent_30%)]" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#ff51fa]/20 via-transparent to-[#00ffff]/20 mix-blend-screen" />
+
+                <div className="absolute bottom-5 left-5 right-5 border-l-4 border-[#ff51fa] bg-black/70 backdrop-blur px-4 py-3">
+                  <span className="block text-[#ff51fa] font-bold text-[10px] tracking-[0.22em] uppercase">ID: PROTOCOL_01</span>
+                  <span className="font-black text-base tracking-tight">Neural Synthesis Terminal</span>
+                </div>
               </div>
-            ))}
-          </motion.div>
+            </div>
+          </div>
         </div>
-      </section>
 
-      <ImageMarquee className="border-y border-[var(--border-subtle)] bg-[var(--bg-card)]/40" />
-
-      <ScrollingStats
-        stats={[
-          { icon: '▸', label: 'Event', value: 'April 24-25, 2026' },
-          { icon: '▸', label: 'Prize Pool', value: '₹2L+' },
-          { icon: '▸', label: 'Competitions', value: '6+' },
-          { icon: '▸', label: 'Participants', value: '3000+' },
-          { icon: '▸', label: 'Sponsors', value: '2+' },
-          { icon: '▸', label: 'Location', value: 'NST S-VYASA University, Bengaluru' },
-        ]}
-        direction="left"
-        speed={40}
-        className="border-y-2 border-[var(--accent-yellow)] bg-[var(--bg-card)]/90 shadow-[0_4px_0_var(--accent-magenta)]"
-      />
-
-      {/* By the Numbers - same comic bg as rest of page (no white strip) */}
-      <section className="relative py-16 md:py-24 overflow-hidden border-y-2 border-[var(--accent-yellow)]/30" aria-labelledby="stats-heading">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <RevealOnScroll direction="up">
-            <div className="inline-block mx-auto mb-10 border-4 border-[var(--accent-yellow)] bg-[var(--bg-card)] px-6 py-3 shadow-[8px_8px_0_var(--accent-magenta)]">
-              <h2
-                id="stats-heading"
-                className="font-pixel text-lg md:text-2xl font-bold text-center text-[var(--accent-yellow)] uppercase"
-              >
-                BY THE NUMBERS
-              </h2>
+        <div className="mt-14 border-y-4 border-[#131313] bg-[#131313] py-6">
+          <div className="aayam-ticker-track whitespace-nowrap text-2xl md:text-4xl font-black italic uppercase tracking-tight">
+            <div className="inline-flex items-center gap-8 px-4">
+              <span className="text-[#fffeac]"><Countdown /></span>
+              <span className="text-[#484847]">•</span>
+              {tickerItems.map((item) => (
+                <span key={item} className="text-[#c1fffe]">{item}</span>
+              ))}
+              <span className="text-[#484847]">•</span>
+              <span className="text-[#ff51fa]">ARENA STATUS: READY</span>
             </div>
-            <div className="flex justify-center gap-2 mb-10" aria-hidden>
-              <span className="w-12 h-1 rounded-full bg-[var(--accent-magenta)]" />
-              <span className="w-8 h-1 rounded-full bg-[var(--accent-cyan)]" />
+            <div className="inline-flex items-center gap-8 px-4" aria-hidden>
+              <span className="text-[#fffeac]"><Countdown /></span>
+              <span className="text-[#484847]">•</span>
+              {tickerItems.map((item) => (
+                <span key={`dup-${item}`} className="text-[#c1fffe]">{item}</span>
+              ))}
+              <span className="text-[#484847]">•</span>
+              <span className="text-[#ff51fa]">ARENA STATUS: READY</span>
             </div>
-          </RevealOnScroll>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {stats.map((stat, index) => (
-              <RevealOnScroll key={stat.label} direction="up" className="h-full">
-                <motion.article
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35, delay: index * 0.06 }}
-                  viewport={{ once: true }}
-                  className="panel-comic panel-comic-cyan p-5 md:p-6 rounded-sm text-center h-full bg-[var(--ink)] text-[var(--paper)]"
-                >
-                  <stat.icon className="w-8 h-8 md:w-9 md:h-9 mx-auto mb-2 text-[var(--accent-yellow)]" aria-hidden />
-                  <p className="font-mono text-xl md:text-2xl font-bold text-[var(--accent-yellow)] mb-0.5">
-                    {stat.value}
-                  </p>
-                  <p className="font-mono text-xs uppercase tracking-wider text-[var(--paper)]/80">
-                    {stat.label}
-                  </p>
-                </motion.article>
-              </RevealOnScroll>
-            ))}
           </div>
         </div>
       </section>
 
-      {/* Next Dimension - highlights */}
-      <section className="relative py-20 md:py-28 overflow-hidden border-y-2 border-[var(--accent-magenta)]/20" aria-labelledby="highlights-heading">
-        <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
-          <Image
-            src="/images/downloaded/hackathon.jpg"
-            alt=""
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <RevealOnScroll direction="up">
-            <div className="text-center mb-12">
-              <div className="inline-block mx-auto mb-4 border-4 border-[var(--accent-magenta)] bg-[var(--bg-card)] px-6 py-2 shadow-[8px_8px_0_var(--accent-yellow)]">
-                <h2 id="highlights-heading" className="font-pixel text-lg md:text-2xl font-bold text-[var(--accent-magenta)] uppercase">
-                  NEXT DIMENSION
-                </h2>
-              </div>
-              <p className="text-[var(--text-secondary)] text-sm md:text-base">Build beyond limits. Compete for glory.</p>
-            </div>
-          </RevealOnScroll>
+      <section className="px-6 md:px-12 lg:px-20 py-24">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-end gap-4 mb-14">
+            <div className="h-1 bg-[#00ffff] flex-grow mb-4" />
+            <h2 className="text-4xl md:text-6xl font-black italic uppercase tracking-tighter">
+              Festival <span className="text-[#ff51fa]">Highlights</span>
+            </h2>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {highlights.map((item, index) => (
-              <RevealOnScroll key={item.title} direction="up" className="h-full">
-                <GlitchBorder className="h-full">
-                  <motion.article
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35, delay: index * 0.06 }}
-                    viewport={{ once: true }}
-                    className="card-retro group p-6 rounded-lg h-full flex flex-col border-2 border-[var(--border-subtle)] hover:border-[var(--accent-cyan)] hover:shadow-[6px_6px_0_var(--accent-magenta)] transition-all duration-300 bg-[var(--bg-card)]/90"
-                  >
-                    <div className="w-9 h-9 rounded-sm border-2 border-[var(--accent-yellow)] flex items-center justify-center mb-3 group-hover:border-[var(--accent-cyan)] group-hover:shadow-[0_0_12px_var(--accent-cyan-muted)] transition-all">
-                      <span className="text-[var(--accent-yellow)] font-mono text-base">▸</span>
-                    </div>
-                    <h3 className="font-mono text-base font-semibold text-[var(--text-primary)] mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-[var(--text-secondary)] leading-relaxed flex-grow">
-                      {item.description}
-                    </p>
-                    <Link
-                      href="/competitions"
-                      className="mt-3 font-mono text-xs text-[var(--accent-cyan)] hover:underline inline-flex items-center gap-1"
-                    >
-                      REGISTER <span aria-hidden>→</span>
-                    </Link>
-                  </motion.article>
-                </GlitchBorder>
-              </RevealOnScroll>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+            <article className="md:col-span-8 bg-[#131313] border-r-8 border-black p-8 relative overflow-hidden">
+              <div className="absolute top-4 right-4 bg-[#00ffff] text-black font-black px-5 py-1 text-sm -skew-x-12 z-10">
+                {highlightCards[0].id}
+              </div>
+              <div className="h-64 md:h-80 bg-gradient-to-br from-[#0d1b1f] via-[#0d0d0d] to-[#1a1020] border border-[#262626] relative overflow-hidden">
+                <Image
+                  src="/images/downloaded/coding.jpg"
+                  alt="Hyper-Structures"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 75vw, 50vw"
+                />
+              </div>
+              <h3 className="mt-8 text-4xl font-black italic text-[#c1fffe]">{highlightCards[0].title}</h3>
+              <p className="mt-4 text-zinc-300 max-w-2xl uppercase tracking-wide text-sm">{highlightCards[0].description}</p>
+              <Link href="/competitions" className="inline-block mt-6 bg-[#262626] px-5 py-2 font-bold uppercase text-sm hover:bg-[#00ffff] hover:text-black transition">
+                Access Data
+              </Link>
+            </article>
+
+            <article className="md:col-span-4 bg-[#1f1f1f] border-l-8 border-black p-8 flex flex-col justify-between">
+              <div>
+                <div className="h-16 w-16 bg-[#ff51fa] text-black flex items-center justify-center font-black text-3xl">N</div>
+                <h3 className="mt-6 text-4xl font-black italic text-[#ff51fa] leading-none">NEURAL<br />SYNTHESIS</h3>
+                <p className="mt-5 text-zinc-300 uppercase text-sm tracking-wide">{highlightCards[1].description}</p>
+              </div>
+              <div className="mt-8 h-36 border-4 border-[#ff51fa]/30 bg-gradient-to-br from-[#210b20] to-[#0d0d0d] relative overflow-hidden">
+                <Image
+                  src="/images/downloaded/robotics.jpg"
+                  alt="Neural Synthesis"
+                  fill
+                  className="object-cover opacity-60"
+                  sizes="(max-width: 768px) 100vw, 25vw"
+                />
+              </div>
+            </article>
+
+            <article className="md:col-span-12 bg-[#fffeac] text-[#1f1f00] border-t-8 border-black p-10 grid md:grid-cols-2 gap-8 items-center relative overflow-hidden">
+              <div className="relative z-10">
+                <h3 className="text-4xl md:text-5xl font-black italic uppercase tracking-tighter">Quantum Void</h3>
+                <p className="mt-3 text-lg md:text-2xl font-black uppercase leading-tight">Step into the unknown data field and challenge perception, speed, and strategy.</p>
+              </div>
+              <div className="h-32 bg-black text-[#c1fffe] relative overflow-hidden">
+                <Image
+                  src="/images/downloaded/hackathon.jpg"
+                  alt="Quantum Void"
+                  fill
+                  className="object-cover opacity-40"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 flex items-center justify-center font-black tracking-[0.4em] uppercase bg-black/40">
+                  Connecting...
+                </div>
+              </div>
+            </article>
           </div>
         </div>
       </section>
 
-      {/* Competitions strip */}
-      <section className="relative py-20 md:py-28 overflow-hidden border-y-2 border-[var(--accent-cyan)]/20" aria-labelledby="competitions-heading">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <RevealOnScroll direction="up">
-            <div className="text-center mb-12">
-              <div className="inline-block mx-auto mb-4 border-4 border-[var(--accent-cyan)] bg-[var(--bg-card)] px-6 py-2 shadow-[8px_8px_0_var(--accent-orange)]">
-                <h2 id="competitions-heading" className="font-pixel text-lg md:text-2xl font-bold text-[var(--accent-cyan)] uppercase">
-                  COMPETITIONS
-                </h2>
-              </div>
-              <p className="text-[var(--text-secondary)] text-sm md:text-base">Compete. Win. Glory awaits.</p>
-            </div>
-          </RevealOnScroll>
+      <section className="relative py-24 px-6 md:px-12 lg:px-20 bg-[#131313] overflow-hidden">
+        <div className="absolute bottom-0 right-0 text-[12rem] md:text-[18rem] font-black italic text-white/5 leading-none select-none pointer-events-none">
+          AAYAM
+        </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {competitions.map((comp, i) => (
-              <RevealOnScroll key={comp.name} direction="up" className="h-full">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35, delay: i * 0.06 }}
-                  viewport={{ once: true }}
-                  className="h-full"
-                >
-                  <Link
-                    href="/competitions"
-                    className="card-retro group block p-6 rounded-sm h-full text-center transition-all duration-300 border-2 border-[var(--border-subtle)] hover:border-[var(--accent-yellow)] hover:shadow-[6px_6px_0_var(--accent-cyan)] bg-[var(--bg-card)]/80"
-                  >
-                    <h3 className="font-mono text-sm font-semibold text-[var(--text-primary)] mb-2">
-                      {comp.name}
-                    </h3>
-                    <p className="font-mono text-base font-bold text-[var(--accent-yellow)] mb-3">
-                      {comp.prize}
-                    </p>
-                    <div className="mt-3 h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-magenta)] transition-all duration-300 mx-auto rounded" />
-                  </Link>
-                </motion.div>
-              </RevealOnScroll>
-            ))}
-          </div>
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
+          <h2 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter">
+            Ready To <span className="text-[#00ffff]">Breach?</span>
+          </h2>
+          <p className="mt-8 text-zinc-200 font-semibold uppercase tracking-wide">
+            Registration is open. Limited slots for high-latency operators only.
+          </p>
 
-          <RevealOnScroll direction="up" className="text-center mt-10">
+          <div className="mt-10 flex flex-col md:flex-row gap-4 justify-center">
+            <input
+              type="email"
+              placeholder="ENTER OPERATOR ID (EMAIL)"
+              className="bg-[#262626] px-6 py-4 text-center md:text-left font-black uppercase tracking-wide min-w-[280px] border border-[#3a3a3a] focus:border-[#00ffff] outline-none"
+            />
             <Link
               href="/competitions"
-              className="inline-flex items-center gap-2 px-6 py-3 font-pixel text-[10px] font-semibold bg-[var(--accent-primary)] text-[var(--ink)] border-[3px] border-[var(--accent-yellow)] rounded-sm shadow-[6px_6px_0_var(--accent-magenta)] hover:bg-[var(--accent-primary-hover)] transition-all duration-200"
+              className="bg-[#ff51fa] text-black font-black px-10 py-4 uppercase tracking-wide hover:brightness-110 transition"
             >
-              REGISTER NOW
-              <span className="animate-blink">_</span>
+              Initialize Registration
             </Link>
-          </RevealOnScroll>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="relative py-20 md:py-28 overflow-hidden" aria-labelledby="cta-heading">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <RevealOnScroll direction="up">
-            <div className="panel-comic panel-comic-magenta bg-[var(--bg-card)] p-6 sm:p-10 md:p-14 rounded-sm w-full min-w-0 relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-cyan)]/0 via-[var(--accent-yellow)]/10 to-[var(--accent-magenta)]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-sm" />
-
-              <h2 id="cta-heading" className="font-pixel text-lg md:text-2xl font-bold mb-4 text-[var(--text-primary)] uppercase relative z-10">
-                WHERE INNOVATION MEETS POSSIBILITY
-              </h2>
-              <p className="text-[var(--text-secondary)] text-base md:text-lg mb-8 max-w-xl mx-auto relative z-10">
-                6+ competitions. ₹2L+ in prizes. 3000+ innovators.{' '}
-                <Link href="/competitions" className="text-[var(--accent-cyan)] hover:underline">
-                  Register now
-                </Link>{' '}
-                and step beyond the known.
-              </p>
-              <div className="relative z-10">
-                <NeonButton href="/competitions" color="green">
-                  Register Now <span className="animate-blink">_</span>
-                </NeonButton>
-              </div>
-            </div>
-          </RevealOnScroll>
+          </div>
         </div>
       </section>
     </div>

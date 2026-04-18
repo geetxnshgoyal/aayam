@@ -11,62 +11,43 @@
 
 /* AAYAM 2026 - COMICO Color Grid theme (vintage comic print palette) */
 :root {
-  /* Paper & ink (from COMICO grid) */
-  --paper: #f5f0e6;
-  --ink: #0a0a0f;
-  /* Surfaces - dark base */
-  --bg-deep: #050813;
-  --bg-card: #0c1220;
-  --bg-elevated: #131b2e;
-  --border-subtle: #1e2d42;
-  --border-accent: #2a3f5c;
-  /* Text */
-  --text-primary: #f0f4f8;
-  --text-secondary: #b8cde0;
-  --text-muted: #7a9bb5;
-  /* COMICO palette - Cyan (blue) */
-  --accent-cyan: #00b4d8;
-  --accent-cyan-dark: #0096b8;
-  --accent-cyan-muted: rgba(0, 180, 216, 0.15);
-  /* COMICO - Magenta (red) */
-  --accent-magenta: #e6399b;
-  --accent-magenta-dark: #c41e7a;
-  --accent-magenta-muted: rgba(230, 57, 155, 0.15);
-  /* COMICO - Yellow */
-  --accent-yellow: #ffd60a;
-  --accent-yellow-dark: #e6c009;
-  --accent-neon: #ffde75;
-  --accent-neon-muted: rgba(255, 222, 117, 0.12);
-  /* COMICO - Orange */
-  --accent-orange: #ff7a4f;
-  --accent-orange-dark: #e65f35;
-  --accent-amber: #ffb000;
-  --accent-amber-muted: rgba(255, 176, 0, 0.15);
-  /* Primary CTA - use COMICO yellow/orange for punch */
-  --accent-primary: #ff7a4f;
-  --accent-primary-border: #e65f35;
-  --accent-primary-hover: #ff8f6a;
-  --glow-primary: rgba(255, 122, 79, 0.25);
-  /* Teal (comic-style highlight) */
-  --accent-teal: #37e0ff;
-  --accent-red: #e63946;
-  --accent-violet: #7d6d9e;
-  --accent-violet-muted: rgba(125, 109, 158, 0.15);
-  /* Comic panel styling */
-  --border-thick: 4px solid var(--ink);
-  --shadow-offset: 8px 8px 0 var(--ink);
-  --shadow-offset-lg: 12px 12px 0 var(--ink);
-  /* Legacy aliases */
-  --phosphor-green: var(--accent-primary);
-  --phosphor-amber: var(--accent-amber);
-  --phosphor-cyan: var(--accent-cyan);
-  --horror-magenta: var(--accent-magenta);
-  --horror-cyan: var(--accent-cyan);
-  --energy: var(--bg-deep);
-  --dc1426: var(--accent-red);
-  --black-red: var(--bg-card);
-  --midich: var(--bg-card);
-  --mydiry: var(--bg-elevated);
+  /* Core Colors */
+  --bg-deep: #000000;
+  --bg-card: #0a0a0a;
+  --bg-elevated: #1a1a1a;
+  --border-subtle: #222222;
+  --border-accent: #333333;
+  
+  /* Text Context */
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --text-muted: #666666;
+  
+  /* Accent Colors */
+  --accent-orange: #FF7A00;
+  --accent-orange-dark: #cc6200;
+  --accent-orange-muted: rgba(255, 122, 0, 0.15);
+  
+  --accent-green: #39FF14;
+  --accent-green-dark: #2ecc11;
+  --accent-green-muted: rgba(57, 255, 20, 0.15);
+  
+  --accent-cyan: #00f2ff;
+  --accent-magenta: #ff00ea;
+  --accent-primary: var(--accent-orange);
+  
+  /* Glassmorphism */
+  --glass-bg: rgba(10, 10, 10, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: blur(12px);
+  
+  /* Shadows & Glows */
+  --glow-orange: 0 0 20px rgba(255, 122, 0, 0.3);
+  --glow-green: 0 0 20px rgba(57, 255, 20, 0.3);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 * {
@@ -512,4 +493,46 @@ a:not(.btn):not([class*="no-underline"]):hover::after {
 }
 .animate-float {
   animation: float 3s ease-in-out infinite;
+}
+
+/* AAYAM retro-futuristic utilities */
+.aayam-halftone {
+  background-image: radial-gradient(circle, rgba(193, 255, 254, 0.14) 1px, transparent 1px);
+  background-size: 6px 6px;
+}
+
+.aayam-grid {
+  background-image:
+    linear-gradient(to right, rgba(193, 255, 254, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(193, 255, 254, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.aayam-panel-shadow-pink {
+  box-shadow: 12px 12px 0 rgba(255, 81, 250, 0.28);
+}
+
+.aayam-panel-shadow-cyan {
+  box-shadow: 12px 12px 0 rgba(193, 255, 254, 0.3);
+}
+
+@keyframes aayam-ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.aayam-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: aayam-ticker 36s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aayam-ticker-track {
+    animation: none;
+  }
 }

@@ -6,7 +6,6 @@ import { HiUsers, HiLightningBolt, HiAcademicCap, HiStar, HiGlobe } from 'react-
 import { FaTrophy, FaUniversity, FaLinkedin } from 'react-icons/fa';
 import type { IconType } from 'react-icons';
 import Link from 'next/link';
-import { SectionBackground } from '@/components/SectionBackground';
 
 function TeamCard({ member, index }: { member: { name: string; role: string; icon: IconType; image: string; linkedin: string }; index: number }) {
   const [imgError, setImgError] = useState(false);
@@ -18,7 +17,7 @@ function TeamCard({ member, index }: { member: { name: string; role: string; ico
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4, delay: index * 0.06 }}
       viewport={{ once: true }}
-      className="card-retro rounded-sm p-6 text-center flex flex-col items-center hover:scale-105 hover:shadow-lg transition-transform duration-300"
+      className="card-retro rounded-sm p-6 text-center flex flex-col items-center"
     >
       <div className="w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden border-2 border-[var(--border-accent)] bg-[var(--bg-card)] flex items-center justify-center">
         {!imgError ? (
@@ -53,20 +52,21 @@ function TeamCard({ member, index }: { member: { name: string; role: string; ico
 
 export default function AboutPage() {
   const stats = [
-    { icon: HiUsers, value: '3000+', label: 'Participants Expected' },
-    { icon: FaTrophy, value: '12+', label: 'Competitions' },
-    { icon: HiLightningBolt, value: '₹5L+', label: 'Prize Pool' },
-    { icon: HiAcademicCap, value: '20+', label: 'Partner Institutions' },
+    { icon: HiUsers, value: '3000+', label: 'Expected Footfall' },
+    { icon: FaTrophy, value: '12', label: 'Competitions' },
+    { icon: HiLightningBolt, value: '₹4L+', label: 'Prize Pool' },
+    { icon: HiAcademicCap, value: '200+', label: 'Colleges' },
   ];
 
   const team = [
-    { name: 'Still Figuring Out', role: 'Lead Organizer', icon: HiUsers, image: 'https://lh3.googleusercontent.com/a/ACg8ocIMWimgAALGSetbF5JuUcCNHtKJ9B9Y1pjScEI7uTdINBAxbAc=s576-c-no', linkedin: '' },
-    { name: 'Shaaz', role: 'Technical Lead', icon: HiLightningBolt, image: 'https://media.licdn.com/dms/image/v2/D4D03AQH8QsTdg7EtTw/profile-displayphoto-scale_400_400/B4DZrl53W4G4Ag-/0/1764793745034?e=1774483200&v=beta&t=IWXoD70q-U0NYGh4r52UrAhawY7baucte215igMGIXg', linkedin: 'https://www.linkedin.com/in/shaaz-hemani-229150276/' },
-    { name: 'Rachana', role: 'Partnerships Lead', icon: HiGlobe, image: 'https://media.licdn.com/dms/image/v2/D4E03AQHt9CfF_YSAeA/profile-displayphoto-scale_400_400/B4EZllLsuEKcAg-/0/1758339192068?e=1774483200&v=beta&t=E8z3yYixOYlrd2j5GfqMUJh2iieSPrh3fHiz-C8r0hQ', linkedin: 'https://www.linkedin.com/in/rachana-adhikary-133a3b36b/' },
-    { name: 'Archita Singh', role: 'Design Lead', icon: HiStar, image: 'https://media.licdn.com/dms/image/v2/D4E03AQHtsUSKzu7O0g/profile-displayphoto-scale_400_400/B4EZy07zIfKsAo-/0/1772562102892?e=1774483200&v=beta&t=0_McntIwbEui5K4vq3cwIwUCqWw5mbJGBEpW3KBmbfQ', linkedin: 'https://www.linkedin.com/in/archita-singh-668193380/' },
-    { name: 'Pranav Singh', role: 'E-Sports Lead', icon: HiAcademicCap, image: 'https://media.licdn.com/dms/image/v2/D4D03AQHPnjf4WevyzQ/profile-displayphoto-scale_400_400/B4DZq17Cn5GwAg-/0/1763988748939?e=1774483200&v=beta&t=CylEqvd6QWhLux_ywNqIKq9JtkcPeNNDYYegyaDLIwI', linkedin: 'https://www.linkedin.com/in/pranav-choudhary5112/' },
-    { name: 'Sainy Verma', role: 'Events Lead', icon: FaTrophy, image: '/images/team/sainy.jpeg', linkedin: 'https://www.linkedin.com/in/sainy-verma-/' },
+    { name: 'Sainy Verma', role: 'Fest Lead', icon: HiUsers, image: 'https://media.licdn.com/dms/image/v2/D4D03AQH8QsTdg7EtTw/profile-displayphoto-scale_400_400/B4DZrl53W4G4Ag-/0/1764793745034?e=1774483200&v=beta&t=IWXoD70q-U0NYGh4r52UrAhawY7baucte215igMGIXg', linkedin: 'https://www.linkedin.com/in/sainy-verma-/' },
+    { name: 'Geetansh Goyal', role: 'Fest Lead', icon: HiLightningBolt, image: 'https://media.licdn.com/dms/image/v2/D4D03AQGE-u-G8-XJ0A/profile-displayphoto-scale_400_400/0/1709191060000?e=1774483200&v=beta&t=0_McntIwbEui5K4vq3cwIwUCqWw5mbJGBEpW3KBmbfQ', linkedin: 'https://www.linkedin.com/in/geetanshgoyal/' },
+    { name: 'Sahitya Singh', role: 'Sponsorship Head', icon: HiGlobe, image: 'https://media.licdn.com/dms/image/v2/D4E03AQHt9CfF_YSAeA/profile-displayphoto-scale_400_400/B4EZllLsuEKcAg-/0/1758339192068?e=1774483200&v=beta&t=E8z3yYixOYlrd2j5GfqMUJh2iieSPrh3fHiz-C8r0hQ', linkedin: 'https://www.linkedin.com/in/sahitya-singh-7012b137b/' },
+    { name: 'Arunika Chanda', role: 'Design Lead', icon: HiStar, image: 'https://media.licdn.com/dms/image/v2/D4E03AQHtsUSKzu7O0g/profile-displayphoto-scale_400_400/B4EZy07zIfKsAo-/0/1772562102892?e=1774483200&v=beta&t=0_McntIwbEui5K4vq3cwIwUCqWw5mbJGBEpW3KBmbfQ', linkedin: 'https://www.linkedin.com/in/arunika-chanda-4859272b9/' },
+    { name: 'Raaj Patre', role: 'Marketing Lead', icon: HiAcademicCap, image: 'https://media.licdn.com/dms/image/v2/D4D03AQHPnjf4WevyzQ/profile-displayphoto-scale_400_400/B4DZq17Cn5GwAg-/0/1763988748939?e=1774483200&v=beta&t=CylEqvd6QWhLux_ywNqIKq9JtkcPeNNDYYegyaDLIwI', linkedin: 'https://www.linkedin.com/in/raaj-patre-ba5494271/' },
+    { name: 'Shaaz Hemani', role: 'Tech Team', icon: FaTrophy, image: 'https://media.licdn.com/dms/image/v2/D4D03AQH8QsTdg7EtTw/profile-displayphoto-scale_400_400/B4DZrl53W4G4Ag-/0/1764793745034?e=1774483200&v=beta&t=IWXoD70q-U0NYGh4r52UrAhawY7baucte215igMGIXg', linkedin: 'https://www.linkedin.com/in/shaaz-hemani-229150276/' },
   ];
+
 
   const values = [
     {
@@ -79,7 +79,7 @@ export default function AboutPage() {
     },
     {
       title: 'Builder Culture',
-      description: 'We celebrate those who build - from autonomous bots to full-stack apps to competitive algorithms',
+      description: 'We celebrate those who build — from autonomous bots to full-stack apps to competitive algorithms',
     },
     {
       title: 'Inclusive Access',
@@ -88,20 +88,17 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen pt-24 pb-20 min-w-0 relative overflow-hidden">
-      <SectionBackground src="/images/downloaded/campus.jpg" opacity={0.2} className="top-0 h-[350px] md:h-[400px]" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0 relative z-10">
+    <div className="min-h-screen pt-24 pb-20 min-w-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-w-0">
         <motion.header
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
           className="text-center mb-16 pt-8"
         >
-          <div className="inline-block mx-auto mb-6 border-4 border-[var(--accent-cyan)] bg-[var(--bg-card)] px-8 py-4 shadow-[10px_10px_0_var(--accent-magenta)]">
-            <h1 className="font-mono text-2xl sm:text-3xl md:text-5xl font-bold text-[var(--accent-cyan)]">
-              &gt; ABOUT AAYAM
-            </h1>
-          </div>
+          <h1 className="font-mono text-2xl sm:text-3xl md:text-5xl font-bold mb-4 text-[var(--text-primary)]">
+            &gt; ABOUT AAYAM
+          </h1>
           <p className="text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto">
             Step Beyond the Known
           </p>
@@ -114,7 +111,7 @@ export default function AboutPage() {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <article className="card-retro rounded-sm p-6 sm:p-8 md:p-12 border-2 border-[var(--border-subtle)] border-l-4 border-l-[var(--accent-yellow)]">
+          <article className="card-retro rounded-sm p-6 sm:p-8 md:p-12">
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
               <div className="p-3 rounded border border-[var(--border-accent)] w-fit">
                 <FaUniversity className="w-6 h-6 text-[var(--accent-cyan)]" aria-hidden />
@@ -128,7 +125,7 @@ export default function AboutPage() {
             </div>
             <div className="space-y-4 text-[var(--text-secondary)] leading-relaxed">
               <p>
-                <strong className="text-[var(--accent-cyan)]">AAYAM</strong> - meaning &quot;New Dimensions&quot; - is the flagship techfest of{' '}
+                <strong className="text-[var(--accent-cyan)]">AAYAM</strong> — meaning &quot;New Dimensions&quot; — is the flagship techfest of{' '}
                 <strong className="text-[var(--accent-cyan)]">Newton School of Technology</strong>. It represents our vision to explore every dimension of technology, innovation, and human potential.
               </p>
               <p>
@@ -136,7 +133,7 @@ export default function AboutPage() {
                 <strong className="text-[var(--accent-cyan)]">3000+ developers, engineers, robotics enthusiasts, hackers, and students</strong> for two days of intense competition and collaboration.
               </p>
               <p>
-                Whether you&apos;re building autonomous bots, shipping code at 3 AM in a hackathon, optimizing algorithms, or contributing to open-source - AAYAM is where you prove what you can build.
+                Whether you&apos;re building autonomous bots, shipping code at 3 AM in a hackathon, optimizing algorithms, or contributing to open-source — AAYAM is where you prove what you can build.
               </p>
             </div>
           </article>
@@ -150,20 +147,20 @@ export default function AboutPage() {
           className="mb-20"
         >
           <div className="grid md:grid-cols-2 gap-6">
-            <article className="card-retro rounded-sm p-8 border-2 border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/50 hover:shadow-[0_0_20px_var(--accent-cyan-muted)] transition-all duration-300">
+            <article className="card-retro rounded-sm p-8">
               <h2 className="font-mono text-lg font-semibold text-[var(--text-primary)] mb-4">
                 &gt; OUR VISION
               </h2>
               <p className="text-[var(--text-secondary)] leading-relaxed">
-                To be the most impactful student-run techfest in India - a launchpad where the next generation of builders, creators, and innovators come together to push beyond what&apos;s possible.
+                To be the most impactful student-run techfest in India — a launchpad where the next generation of builders, creators, and innovators come together to push beyond what&apos;s possible.
               </p>
             </article>
-            <article className="card-retro rounded-sm p-8 border-2 border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/50 hover:shadow-[0_0_20px_var(--accent-cyan-muted)] transition-all duration-300">
+            <article className="card-retro rounded-sm p-8">
               <h2 className="font-mono text-lg font-semibold text-[var(--text-primary)] mb-4">
                 &gt; OUR MISSION
               </h2>
               <p className="text-[var(--text-secondary)] leading-relaxed">
-                Create a platform where technical excellence meets real-world impact. We believe in learning by building, competing, and collaborating - not just attending talks.
+                Create a platform where technical excellence meets real-world impact. We believe in learning by building, competing, and collaborating — not just attending talks.
               </p>
             </article>
           </div>
@@ -220,7 +217,7 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.08 }}
                 viewport={{ once: true }}
-                className="card-retro rounded-sm p-6 border-2 border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/50 hover:shadow-[0_0_20px_var(--accent-cyan-muted)] transition-all duration-300"
+                className="card-retro rounded-sm p-6"
               >
                 <div className="w-10 h-10 rounded border border-[var(--border-accent)] flex items-center justify-center mb-4">
                   <span className="text-[var(--accent-cyan)] font-mono">▸</span>

@@ -1,24 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Press_Start_2P, Space_Grotesk } from "next/font/google";
+import { Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import BreadcrumbSchema from "@/components/BreadcrumbSchema";
-import ComicoBackground from "@/components/ComicoBackground";
-import AnimatedBackgroundElements from "@/components/AnimatedBackgroundElements";
+import UniverseBackground from "@/components/UniverseBackground";
 import { ScrollProgressBar } from "@/components/ImmersionEffects";
 import { ALL_SITE_URLS, PRIMARY_SITE_URL, SITE_LOGO_PATH, SITE_KEYWORDS } from "@/lib/site";
 
 const siteUrl = PRIMARY_SITE_URL;
 const logoUrl = `${siteUrl}${SITE_LOGO_PATH}`;
 
-const spaceGrotesk = Space_Grotesk({
+const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-sans-app",
 });
 
-const pressStart2P = Press_Start_2P({
-  weight: "400",
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-pixel-app",
 });
@@ -79,7 +76,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050813",
+  themeColor: "#000000",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -105,6 +102,7 @@ export default function RootLayout({
       email: "aayam.fest@newtonschool.co",
       contactType: "customer service",
       areaServed: "IN",
+      availableLanguage: "en",
     },
     parentOrganization: {
       "@type": "CollegeOrUniversity",
@@ -166,8 +164,8 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="comico-theme">
-      <body className={`${spaceGrotesk.className} ${spaceGrotesk.variable} ${pressStart2P.variable} antialiased`}>
+    <html lang="en">
+      <body className={`${outfit.className} ${outfit.variable} ${jetbrainsMono.variable} antialiased`}>
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
@@ -184,8 +182,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
         <ScrollProgressBar />
-        <ComicoBackground />
-        <AnimatedBackgroundElements />
+        <UniverseBackground />
         <Navbar />
         <main className="relative z-10" id="main-content">
           {children}

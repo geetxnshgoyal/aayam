@@ -203,10 +203,10 @@ export default function DashboardPage() {
   const progress = ambassador.tier === 'platinum' ? 100 : (ambassador.signup_count % 100);
 
   return (
-    <div className="min-h-screen bg-[var(--bg-deep)] text-white pt-28 pb-20 relative overflow-hidden">
-      {/* COMICO halftone bg */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.03] halftone-dots" />
-      <div className="fixed inset-0 pointer-events-none bg-gradient-to-b from-[var(--accent-cyan)]/5 via-transparent to-[var(--accent-magenta)]/5" />
+    <div className="min-h-screen bg-gradient-to-b from-[#0e0e0e] to-[#1a1a1a] text-white pt-28 pb-20 relative overflow-hidden">
+      {/* Background effects */}
+      <div className="fixed inset-0 pointer-events-none opacity-[0.03] aayam-grid" />
+      <div className="fixed inset-0 pointer-events-none bg-gradient-to-b from-[#c1fffe]/5 via-transparent to-[#ff51fa]/5" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
@@ -216,39 +216,39 @@ export default function DashboardPage() {
             animate={{ x: 0, opacity: 1 }}
             className="relative"
           >
-            <div className="w-16 h-1 bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-magenta)] mb-4" />
-            <h1 className="text-3xl md:text-5xl font-display font-black uppercase tracking-tight">
-              <span className="whitespace-nowrap">Welcome, <span className="bg-gradient-to-r from-[var(--accent-cyan)] via-[var(--accent-magenta)] to-[var(--accent-orange)] bg-clip-text text-transparent">{ambassador.name}</span></span>
+            <div className="w-16 h-1 bg-gradient-to-r from-[#c1fffe] to-[#ff51fa] mb-4" />
+            <h1 className="text-3xl md:text-5xl font-black uppercase tracking-wider">
+              <span className="whitespace-nowrap">WELCOME, <span className="bg-gradient-to-r from-[#c1fffe] via-[#ff51fa] to-[#fffeac] bg-clip-text text-transparent">{ambassador.name}</span></span>
             </h1>
-            <p className="text-[var(--text-muted)] font-mono text-sm mt-2 tracking-widest">{ambassador.college}</p>
+            <p className="text-gray-500 font-mono text-sm mt-2 tracking-widest">{ambassador.college}</p>
           </motion.div>
           <motion.button
             initial={{ x: 30, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             onClick={handleLogout}
-            className="flex items-center gap-2 px-6 py-3 bg-[var(--bg-elevated)] border-2 border-[var(--accent-red)] rounded-xl hover:bg-[var(--accent-red)]/20 transition-all font-mono text-xs tracking-widest uppercase shadow-[4px_4px_0_var(--ink)]"
+            className="flex items-center gap-2 px-6 py-3 bg-transparent border-2 border-red-500/50 text-red-500 rounded-lg hover:bg-red-500/10 transition-all font-mono text-xs tracking-widest uppercase shadow-[4px_4px_0px_rgba(255,81,250,0.3)]"
           >
             <HiLogout className="w-5 h-5" />
-            Terminate
+            TERMINATE
           </motion.button>
         </div>
 
-        {/* Stats Cards - COMICO panels */}
+        {/* Stats Cards */}
         <div className="grid md:grid-cols-3 gap-6 mb-10">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="bg-[var(--bg-card)] rounded-2xl p-6 border-2 border-[var(--accent-yellow)] shadow-[8px_8px_0_var(--accent-magenta)] hover:shadow-[6px_6px_0_var(--accent-cyan)] transition-shadow"
+            className="bg-[#131313] border-2 border-[#fffeac] p-6 shadow-[8px_8px_0px_#ff51fa] hover:shadow-[6px_6px_0px_#c1fffe] transition-shadow"
           >
-            <HiClipboardCopy className="w-10 h-10 mb-4 text-[var(--accent-cyan)]" />
-            <h3 className="text-xs font-mono text-[var(--text-muted)] mb-2 uppercase tracking-[0.3em]">Your Referral Code</h3>
+            <HiClipboardCopy className="w-10 h-10 mb-4 text-[#c1fffe]" />
+            <h3 className="text-xs font-mono text-gray-500 mb-2 uppercase tracking-[0.3em]">YOUR REFERRAL CODE</h3>
             <div className="flex items-center justify-between gap-4">
-              <p className="text-2xl font-black font-mono tracking-wider text-[var(--accent-yellow)]">{ambassador.referral_code}</p>
+              <p className="text-2xl font-black font-mono tracking-wider text-[#fffeac]">{ambassador.referral_code}</p>
               <button
                 onClick={copyReferralCode}
-                className="px-4 py-2 bg-[var(--accent-primary)] border-2 border-[var(--accent-yellow)] text-[var(--ink)] font-black text-xs uppercase rounded-lg hover:bg-[var(--accent-primary-hover)] shadow-[4px_4px_0_var(--accent-magenta)] transition-all shrink-0"
+                className="px-4 py-2 bg-[#fffeac] border-2 border-[#fffeac] text-[#0e0e0e] font-black text-xs uppercase rounded-lg hover:shadow-[0px_0px_15px_#c1fffe] shadow-[4px_4px_0px_#ff51fa] transition-all shrink-0"
               >
-                {copied ? 'Copied!' : 'Copy'}
+                {copied ? 'COPIED!' : 'COPY'}
               </button>
             </div>
           </motion.div>
@@ -257,23 +257,23 @@ export default function DashboardPage() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.1 }}
-            className="bg-[var(--bg-card)] rounded-2xl p-6 border-2 border-[var(--accent-magenta)] shadow-[8px_8px_0_var(--accent-cyan)]"
+            className="bg-[#131313] border-2 border-[#ff51fa] p-6 shadow-[8px_8px_0px_#c1fffe]"
           >
-            <HiUsers className="w-10 h-10 mb-4 text-[var(--accent-magenta)]" />
-            <h3 className="text-xs font-mono text-[var(--text-muted)] mb-2 uppercase tracking-[0.3em]">Total Signups</h3>
-            <p className="text-5xl font-black text-[var(--accent-teal)]">{ambassador.signup_count}</p>
+            <HiUsers className="w-10 h-10 mb-4 text-[#ff51fa]" />
+            <h3 className="text-xs font-mono text-gray-500 mb-2 uppercase tracking-[0.3em]">TOTAL SIGNUPS</h3>
+            <p className="text-5xl font-black text-[#c1fffe]">{ambassador.signup_count}</p>
           </motion.div>
 
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="bg-[var(--bg-card)] rounded-2xl p-6 border-2 border-[var(--accent-orange)] shadow-[8px_8px_0_var(--accent-yellow)]"
+            className="bg-[#131313] border-2 border-[#fffeac] p-6 shadow-[8px_8px_0px_#ff51fa]"
           >
-            <tierInfo.icon className="w-10 h-10 mb-4 text-[var(--accent-orange)]" />
-            <h3 className="text-xs font-mono text-[var(--text-muted)] mb-2 uppercase tracking-[0.3em]">Current Tier</h3>
+            <tierInfo.icon className="w-10 h-10 mb-4 text-[#fffeac]" />
+            <h3 className="text-xs font-mono text-gray-500 mb-2 uppercase tracking-[0.3em]">CURRENT TIER</h3>
             <p className="text-3xl font-black text-white">{tierInfo.name}</p>
-            <p className="text-xs text-[var(--text-muted)] mt-2 font-mono">Next: {tierInfo.next}</p>
+            <p className="text-xs text-gray-500 mt-2 font-mono">NEXT: {tierInfo.next}</p>
           </motion.div>
         </div>
 
@@ -282,15 +282,15 @@ export default function DashboardPage() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="bg-[var(--bg-card)] rounded-2xl p-6 border-2 border-[var(--border-accent)] mb-10"
+          className="bg-[#131313] border-2 border-[#262626] p-6 mb-10 shadow-[8px_8px_0px_rgba(255,81,250,0.3)]"
         >
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-sm font-mono font-bold uppercase tracking-widest">Progress to Next Tier</h3>
-            <span className="text-sm text-[var(--text-muted)] font-mono">{ambassador.signup_count} signups</span>
+            <h3 className="text-sm font-mono font-black uppercase tracking-widest text-[#c1fffe]">PROGRESS TO NEXT TIER</h3>
+            <span className="text-sm text-gray-500 font-mono">{ambassador.signup_count} signups</span>
           </div>
-          <div className="w-full bg-[var(--bg-deep)] rounded-full h-3 overflow-hidden border border-[var(--border-subtle)]">
+          <div className="w-full bg-[#0e0e0e] rounded-full h-3 overflow-hidden border-2 border-[#262626]">
             <div
-              className="h-full bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-magenta)] transition-all duration-500"
+              className="h-full bg-gradient-to-r from-[#c1fffe] to-[#ff51fa] transition-all duration-500"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -300,25 +300,25 @@ export default function DashboardPage() {
         <div className="flex gap-3 mb-8">
           <button
             onClick={() => setActiveTab('signups')}
-            className={`px-6 py-3 rounded-xl font-mono text-xs font-black uppercase tracking-widest transition-all border-2 ${
+            className={`px-6 py-3 font-mono text-xs font-black uppercase tracking-widest transition-all border-2 ${
               activeTab === 'signups'
-                ? 'bg-[var(--accent-magenta)] border-[var(--accent-magenta)] text-white shadow-[6px_6px_0_var(--accent-cyan)]'
-                : 'bg-transparent border-[var(--border-subtle)] text-[var(--text-muted)] hover:border-[var(--accent-cyan)] hover:text-white'
+                ? 'bg-[#ff51fa] border-[#ff51fa] text-[#0e0e0e] shadow-[6px_6px_0px_#c1fffe]'
+                : 'bg-transparent border-[#262626] text-gray-500 hover:border-[#c1fffe] hover:text-[#c1fffe]'
             }`}
           >
             <HiUsers className="inline mr-2 w-5 h-5" />
-            Signups
+            SIGNUPS
           </button>
           <button
             onClick={() => setActiveTab('tasks')}
-            className={`px-6 py-3 rounded-xl font-mono text-xs font-black uppercase tracking-widest transition-all border-2 ${
+            className={`px-6 py-3 font-mono text-xs font-black uppercase tracking-widest transition-all border-2 ${
               activeTab === 'tasks'
-                ? 'bg-[var(--accent-magenta)] border-[var(--accent-magenta)] text-white shadow-[6px_6px_0_var(--accent-cyan)]'
-                : 'bg-transparent border-[var(--border-subtle)] text-[var(--text-muted)] hover:border-[var(--accent-cyan)] hover:text-white'
+                ? 'bg-[#ff51fa] border-[#ff51fa] text-[#0e0e0e] shadow-[6px_6px_0px_#c1fffe]'
+                : 'bg-transparent border-[#262626] text-gray-500 hover:border-[#c1fffe] hover:text-[#c1fffe]'
             }`}
           >
             <HiStar className="inline mr-2 w-5 h-5" />
-            Tasks & Points
+            TASKS & POINTS
           </button>
         </div>
 
@@ -334,115 +334,115 @@ export default function DashboardPage() {
             <div className="mb-8">
               <button
                 onClick={() => setShowAddSignup(!showAddSignup)}
-                className="flex items-center gap-2 px-8 py-4 bg-[var(--accent-primary)] border-2 border-[var(--accent-yellow)] text-[var(--ink)] font-black font-mono text-sm uppercase tracking-widest rounded-xl hover:bg-[var(--accent-primary-hover)] shadow-[6px_6px_0_var(--accent-magenta)] hover:shadow-[4px_4px_0_var(--accent-magenta)] transition-all"
+                className="flex items-center gap-2 px-8 py-4 bg-[#fffeac] border-2 border-[#fffeac] text-[#0e0e0e] font-black font-mono text-sm uppercase tracking-widest hover:shadow-[0px_0px_20px_#c1fffe] shadow-[6px_6px_0px_#ff51fa] transition-all"
               >
                 <HiPlus className="w-5 h-5" />
-                {showAddSignup ? 'Cancel' : 'Add New Signup'}
+                {showAddSignup ? 'CANCEL' : 'ADD NEW SIGNUP'}
               </button>
             </div>
 
-        {/* Add Signup Form */}
-        {showAddSignup && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            className="bg-[var(--bg-card)] rounded-2xl p-8 border-2 border-[var(--accent-cyan)] shadow-[8px_8px_0_var(--accent-magenta)] mb-8"
-          >
-            <h3 className="text-lg font-mono font-black uppercase tracking-widest mb-6 flex items-center gap-2">
-              <span className="w-8 h-0.5 bg-[var(--accent-cyan)]" />
-              Add Participant Signup
-            </h3>
-            {submitError && (
-              <div className="mb-6 p-4 rounded-xl bg-[var(--accent-red)]/10 border-2 border-[var(--accent-red)]/50 text-[var(--accent-red)] font-mono text-sm">
-                {submitError}
-              </div>
-            )}
-            <form onSubmit={handleAddSignup} className="grid md:grid-cols-2 gap-4">
-              <input
-                type="text"
-                placeholder="Participant Name"
-                value={newSignup.participant_name}
-                onChange={(e) => setNewSignup({ ...newSignup, participant_name: e.target.value })}
-                required
-                disabled={submitting}
-                className="px-4 py-3 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-xl focus:border-[var(--accent-cyan)] focus:outline-none text-white font-mono disabled:opacity-50 transition-colors"
-              />
-              <input
-                type="email"
-                placeholder="Participant Email"
-                value={newSignup.participant_email}
-                onChange={(e) => setNewSignup({ ...newSignup, participant_email: e.target.value })}
-                required
-                disabled={submitting}
-                className="px-4 py-3 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-xl focus:border-[var(--accent-cyan)] focus:outline-none text-white font-mono disabled:opacity-50 transition-colors"
-              />
-              <input
-                type="tel"
-                placeholder="Participant Phone"
-                value={newSignup.participant_phone}
-                onChange={(e) => setNewSignup({ ...newSignup, participant_phone: e.target.value })}
-                disabled={submitting}
-                className="px-4 py-3 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-xl focus:border-[var(--accent-cyan)] focus:outline-none text-white font-mono disabled:opacity-50 transition-colors"
-              />
-              <input
-                type="text"
-                placeholder="Participant College"
-                value={newSignup.participant_college}
-                onChange={(e) => setNewSignup({ ...newSignup, participant_college: e.target.value })}
-                disabled={submitting}
-                className="px-4 py-3 bg-[var(--bg-deep)] border-2 border-[var(--border-subtle)] rounded-xl focus:border-[var(--accent-cyan)] focus:outline-none text-white font-mono disabled:opacity-50 transition-colors"
-              />
-              <button
-                type="submit"
-                disabled={submitting}
-                className="md:col-span-2 py-4 bg-[var(--accent-primary)] border-2 border-[var(--accent-yellow)] text-[var(--ink)] font-black font-mono uppercase tracking-widest rounded-xl hover:bg-[var(--accent-primary-hover)] shadow-[6px_6px_0_var(--accent-magenta)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all"
+            {/* Add Signup Form */}
+            {showAddSignup && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                className="bg-[#131313] p-8 border-2 border-[#c1fffe] shadow-[8px_8px_0px_#ff51fa] mb-8"
               >
-                {submitting ? (
-                  <>
-                    <LoadingSpinner size="sm" color="white" />
-                    <span>Processing...</span>
-                  </>
-                ) : (
-                  'Add Signup'
+                <h3 className="text-lg font-mono font-black uppercase tracking-widest mb-6 flex items-center gap-2 text-[#c1fffe]">
+                  <span className="w-8 h-0.5 bg-[#c1fffe]" />
+                  ADD PARTICIPANT SIGNUP
+                </h3>
+                {submitError && (
+                  <div className="mb-6 p-4 bg-red-500/10 border-2 border-red-500/50 text-red-500 font-mono text-sm">
+                    {submitError}
+                  </div>
                 )}
-              </button>
-            </form>
-          </motion.div>
-        )}
-
-        {/* Signups List */}
-        <div className="bg-[var(--bg-card)] rounded-2xl p-8 border-2 border-[var(--accent-yellow)] shadow-[8px_8px_0_var(--accent-magenta)]">
-          <h3 className="text-lg font-mono font-black uppercase tracking-widest mb-6 flex items-center gap-2">
-            <span className="w-8 h-0.5 bg-[var(--accent-yellow)]" />
-            Your Referrals ({signups.length})
-          </h3>
-          {signups.length === 0 ? (
-            <div className="text-center py-16 border-2 border-dashed border-[var(--border-subtle)] rounded-xl">
-              <HiUsers className="w-16 h-16 mx-auto text-[var(--text-muted)]/50 mb-4" />
-              <p className="text-[var(--text-muted)] font-mono text-sm">No signups yet. Start promoting AAYAM!</p>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {signups.map((signup) => (
-                <div
-                  key={signup.id}
-                  className="flex justify-between items-center p-4 bg-[var(--bg-elevated)] rounded-xl border border-[var(--border-subtle)] hover:border-[var(--accent-cyan)]/50 transition-colors"
-                >
-                  <div>
-                    <p className="font-bold text-white">{signup.participant_name}</p>
-                    <p className="text-sm text-[var(--text-muted)]">{signup.participant_email}</p>
-                    {signup.participant_college && (
-                      <p className="text-xs text-[var(--text-muted)]/80 font-mono">{signup.participant_college}</p>
+                <form onSubmit={handleAddSignup} className="grid md:grid-cols-2 gap-4">
+                  <input
+                    type="text"
+                    placeholder="Participant Name"
+                    value={newSignup.participant_name}
+                    onChange={(e) => setNewSignup({ ...newSignup, participant_name: e.target.value })}
+                    required
+                    disabled={submitting}
+                    className="px-4 py-3 bg-[#0e0e0e] border-2 border-[#262626] focus:border-[#c1fffe] focus:outline-none text-white font-mono disabled:opacity-50 transition-colors"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Participant Email"
+                    value={newSignup.participant_email}
+                    onChange={(e) => setNewSignup({ ...newSignup, participant_email: e.target.value })}
+                    required
+                    disabled={submitting}
+                    className="px-4 py-3 bg-[#0e0e0e] border-2 border-[#262626] focus:border-[#c1fffe] focus:outline-none text-white font-mono disabled:opacity-50 transition-colors"
+                  />
+                  <input
+                    type="tel"
+                    placeholder="Participant Phone"
+                    value={newSignup.participant_phone}
+                    onChange={(e) => setNewSignup({ ...newSignup, participant_phone: e.target.value })}
+                    disabled={submitting}
+                    className="px-4 py-3 bg-[#0e0e0e] border-2 border-[#262626] focus:border-[#c1fffe] focus:outline-none text-white font-mono disabled:opacity-50 transition-colors"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Participant College"
+                    value={newSignup.participant_college}
+                    onChange={(e) => setNewSignup({ ...newSignup, participant_college: e.target.value })}
+                    disabled={submitting}
+                    className="px-4 py-3 bg-[#0e0e0e] border-2 border-[#262626] focus:border-[#c1fffe] focus:outline-none text-white font-mono disabled:opacity-50 transition-colors"
+                  />
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="md:col-span-2 py-4 bg-[#fffeac] border-2 border-[#fffeac] text-[#0e0e0e] font-black font-mono uppercase tracking-widest hover:shadow-[0px_0px_15px_#c1fffe] shadow-[6px_6px_0px_#ff51fa] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all"
+                  >
+                    {submitting ? (
+                      <>
+                        <LoadingSpinner size="sm" color="#0e0e0e" />
+                        <span>PROCESSING...</span>
+                      </>
+                    ) : (
+                      'ADD SIGNUP'
                     )}
-                  </div>
-                  <div className="text-right font-mono text-xs text-[var(--text-muted)]">
-                    {new Date(signup.registered_at).toLocaleDateString()}
-                  </div>
+                  </button>
+                </form>
+              </motion.div>
+            )}
+
+            {/* Signups List */}
+            <div className="bg-[#131313] border-2 border-[#fffeac] p-8 shadow-[8px_8px_0px_#ff51fa]">
+              <h3 className="text-lg font-mono font-black uppercase tracking-widest mb-6 flex items-center gap-2 text-[#fffeac]">
+                <span className="w-8 h-0.5 bg-[#fffeac]" />
+                YOUR REFERRALS ({signups.length})
+              </h3>
+              {signups.length === 0 ? (
+                <div className="text-center py-16 border-2 border-dashed border-[#262626]">
+                  <HiUsers className="w-16 h-16 mx-auto text-gray-600 mb-4" />
+                  <p className="text-gray-500 font-mono text-sm">NO SIGNUPS YET. START PROMOTING AAYAM!</p>
                 </div>
-              ))}
+              ) : (
+                <div className="space-y-3">
+                  {signups.map((signup) => (
+                    <div
+                      key={signup.id}
+                      className="flex justify-between items-center p-4 bg-[#0e0e0e] border-2 border-[#262626] hover:border-[#c1fffe]/50 transition-colors"
+                    >
+                      <div>
+                        <p className="font-black text-white">{signup.participant_name}</p>
+                        <p className="text-sm text-gray-500">{signup.participant_email}</p>
+                        {signup.participant_college && (
+                          <p className="text-xs text-gray-600 font-mono">{signup.participant_college}</p>
+                        )}
+                      </div>
+                      <div className="text-right font-mono text-xs text-gray-500">
+                        {new Date(signup.registered_at).toLocaleDateString()}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-          )}
-        </div>
           </>
         )}
       </div>
